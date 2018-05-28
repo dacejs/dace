@@ -1,0 +1,20 @@
+{
+  "scripts": {
+    "server": "babel-node src/server.js",
+    "build": "webpack --config webpack/build.config.babel.js"
+  },
+  "dependencies": {
+    "asset-require-hook": "^1.2.0",
+    "babel-cli": "^6.26.0",
+    "babel-loader": "^7.1.4",
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
+    "babel-preset-react": "^6.24.1",
+    "file-loader": "^1.1.11",
+    "koa": "^2.5.1",
+    "koa-webpack": "^4.0.0",
+    "react": "^16.4.0",
+    "react-dom": "^16.4.0",
+    "webpack": "^4.9.1",
+    "webpack-cli": "^2.1.4"
+  }
+}
