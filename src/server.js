@@ -59,25 +59,35 @@ app.use(async (ctx) => {
     }, [])
   };
 
-  const helmet = Helmet.rewind();
+  // 下面的代码被拆分成两个 renderToString 的原因：
+  // 因为 Helmet 服务器端渲染时，需要在 `renderStatic` 之前执行包含 <Helmet/>
+  // 组件的 renderToString，
+  // 以便于 renderStatic 收集组件中设置的 title 等信息
+  const content = ReactDOM.renderToString(
+    <StaticRouter
+      location={ctx.url}
+      context={ctx}
+    >
+      <App/>
+    </StaticRouter>
+  );
 
+  // 收集上一次 renderToString 中组件包含的 helmet 信息
+  const helmet = Helmet.renderStatic();
+  const htmlAttrs = helmet.htmlAttributes.toComponent();
+  const bodyAttrs = helmet.bodyAttributes.toComponent();
+
+  // 此时完整输出整个页面
   const html = ReactDOM.renderToString(
-    <html>
+    <html {...htmlAttrs}>
       <head>
         { helmet.title.toComponent() }
         { helmet.meta.toComponent() }
         { helmet.link.toComponent() }
         { renderChunks('css', assetsByChunkName) }
       </head>
-      <body>
-        <div id="app">
-          <StaticRouter
-            location={ctx.url}
-            context={ctx}
-          >
-            <App/>
-          </StaticRouter>
-        </div>
+      <body {...bodyAttrs}>
+        <div id="app" dangerouslySetInnerHTML={{ __html: content }} />
         <div>{JSON.stringify(assetsByChunkName)}</div>
         { renderChunks('js', assetsByChunkName) }
       </body>
