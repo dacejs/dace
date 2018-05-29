@@ -1,0 +1,15 @@
+.header {
+  text-align: center;
+  color: #f0f;
+}
+
+.box {
+  text-align: center;
+}
+
+.card {
+  border: 2px solid #ccc;
+  padding: 5px;
+  background-color: #eee;
+  border-radius: 5px;
+}

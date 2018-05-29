@@ -358,7 +358,131 @@ export default {
 };
 ```
 
-## 单独打包样式文件
+## webpack 支持 css
+网页离开不开 CSS 样式，我们新建一个 CSS 文件，让 `Hello` 组件的文字变成红色。
+```css
+/* components/Hello/style.css */
+h1 {
+  text-align: center;
+  color: #f00;
+}
+```
+
+在 `src/components/Hello/index.js` 中引入样式文件，修改后的代码如下：
+```js
+import React, { Component } from 'react';
+import logo from './logo.png';
+import 'style.css';
+
+export default class Header extends Component {
+  render() {
+    return (
+      <div>
+        <h1>Hello world</h1>
+        <img src={logo} />
+      </div>
+    );
+  }
+};
+```
+安装 `css-loader`
+```
+npm i css-loader
+```
+在 webpack 的配置中 module 和 plugins 增加相应配置
+```js
+// webpack/dev.config.babel.js
+import MiniCssExtractPlugin from 'mini-css-extract-plugin';
+
+export default {
+  module: {
+    rules: [
+      {
+        test: /\.css$/i,
+        use: [
+          { loader: MiniCssExtractPlugin.loader },
+          { loader: 'css-loader' }
+        ]
+      }
+    ]
+  },
+  plugins: [
+    new MiniCssExtractPlugin()
+  ]
+};
+```
+到这一步，样式文件会打包到 `main.js` 包中，在运行时，会用 `<link>` 标签动态插入到 `<head>` 中。
+
+如何把 css 文件打成独立样式文件？需要用到 `mini-css-extract-plugin`
+```
+npm i mini-css-extract-plugin
+```
+
+修改 `require-hook.js`
+```js
+// src/require-hook.js
+require('asset-require-hook')({
+  extensions: ['png']
+});
+
+require('css-modules-require-hook')({
+  generateScopedName: '[name]__[local]___[hash:base64:5]',
+});
+```
+
 ## 使用 cdn 网络
+- 直接设置 `publicPath` 即可
+
 ## 拆分成多个包
+
 ## 热模块替换
+- css 不能HRM
+
+## 路由
+```
+# 浏览器端使用
+npm i react-router-dom
+
+# 服务器端使用
+npm i react-router
+```
+
+## 数据管理
+## 数据获取
+## 避免前后端重复渲染
+
+## 页面标题切换
+```
+npm i react-helmet
+```
+
+浏览器端使用：在组件中增加
+```js
+// src/components/App/index.js
+const Home = () => (
+  <div>
+    <Helmet>
+      <title>Bullock</title>
+    </Helmet>
+    <h2 className={styles.header}>Home</h2>
+    <div className={styles.box}>
+      <img className={styles.card} src={logo} alt="logo" />
+    </div>
+  </div>
+);
+```
+
+服务器端使用：
+```js
+// src/server.js
+import Helmet from 'react-helmet';
+
+ReactDOM.renderToString(
+  <html>
+    <head>
+      { Helmet.rewind().title.toComponent() }
+    </head>
+    <body></body>
+  </html>
+);
+```

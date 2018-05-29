@@ -1,7 +1,8 @@
 {
   "scripts": {
-    "server": "babel-node src/server.js",
-    "build": "webpack --config webpack/build.config.babel.js"
+    "server": "NODE_ENV=local babel-node src/server.js",
+    "server:dist": "NODE_ENV=production babel-node src/server.js",
+    "build": "webpack --config webpack/dev.config.babel.js --json > webpack-stats.json"
   },
   "dependencies": {
     "asset-require-hook": "^1.2.0",
@@ -9,11 +10,20 @@
     "babel-loader": "^7.1.4",
     "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
     "babel-preset-react": "^6.24.1",
+    "clean-webpack-plugin": "^0.1.19",
+    "css-loader": "^0.28.11",
+    "css-modules-require-hook": "^4.2.3",
     "file-loader": "^1.1.11",
     "koa": "^2.5.1",
+    "koa-static": "^4.0.3",
     "koa-webpack": "^4.0.0",
+    "mini-css-extract-plugin": "^0.4.0",
+    "move-webpack-plugin": "0.0.2",
     "react": "^16.4.0",
     "react-dom": "^16.4.0",
+    "react-helmet": "^5.2.0",
+    "react-router": "^4.2.0",
+    "react-router-dom": "^4.2.2",
     "webpack": "^4.9.1",
     "webpack-cli": "^2.1.4"
   }
