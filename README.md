@@ -433,11 +433,6 @@ require('css-modules-require-hook')({
 ## 使用 cdn 网络
 - 直接设置 `publicPath` 即可
 
-## 拆分成多个包
-
-## 热模块替换
-- css 不能HRM
-
 ## 路由
 ```
 # 浏览器端使用
@@ -446,10 +441,6 @@ npm i react-router-dom
 # 服务器端使用
 npm i react-router
 ```
-
-## 数据管理
-## 数据获取
-## 避免前后端重复渲染
 
 ## 页面标题切换
 ```
@@ -473,16 +464,33 @@ const Home = () => (
 ```
 
 服务器端使用：
+坑：要先执行 `ReactDOM.renderToString()` ，再执行 `Helmet.renderStatic()`
 ```js
 // src/server.js
 import Helmet from 'react-helmet';
 
+// <Page />中包含 <Helmet />
+const page = ReactDOM.renderToString(<Page />);
+
+const helmet = Helmet.renderStatic();
+
 ReactDOM.renderToString(
   <html>
     <head>
-      { Helmet.rewind().title.toComponent() }
+      { helmet.title.toComponent() }
     </head>
     <body></body>
   </html>
 );
 ```
+
+## 热模块替换
+- css 不能HRM
+
+## 拆分成多个包
+
+## 数据管理
+
+## 数据获取
+
+## 避免前后端重复渲染
