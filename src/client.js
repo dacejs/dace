@@ -10,7 +10,7 @@ if (!container || !container.firstChild ||
   console.error('未使用 React 服务器端渲染，请确保初始化 render 方法中不包含任何浏览器端代码');
 }
 
-ReactDOM.render(
+ReactDOM.hydrate(
   <BrowserRouter>
     <App />
   </BrowserRouter>,
