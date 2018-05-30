@@ -490,6 +490,9 @@ ReactDOM.renderToString(
 ## 拆分成多个包
 
 ## 数据管理
+```
+npm i redux react-redux serialize-javascript
+```
 
 ## 数据获取
 ```
@@ -504,3 +507,6 @@ npm i axios
 * 不支持 webpack 4
 * 默认使用 `css in js`, 和传统的CSS开发方式差异大
 * 使用自家路由
+
+## 前后端同构工程发布指南
+http://wiki.corp.qunar.com/confluence/pages/viewpage.action?pageId=189430663

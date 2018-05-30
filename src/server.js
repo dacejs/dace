@@ -9,8 +9,12 @@ import React from 'react';
 import ReactDOM from 'react-dom/server';
 import { StaticRouter } from 'react-router';
 import Helmet from 'react-helmet';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+import serialize from 'serialize-javascript';
 import webpackConfig from '../webpack/dev.config.babel';
-import App from 'components/App';
+import App from './components/App';
+import test from './reducers';
 
 const IS_DEV = process.env.NODE_ENV === 'local';
 const host = 'localhost';
@@ -25,6 +29,10 @@ if (IS_DEV) {
 } else {
   app.use(serve(resolve('dist')));
 }
+
+const store = createStore(test, { name: 'Joe'});
+// 从 store 中获得初始 state
+const preloadedState = store.getState();
 
 app.use(async (ctx) => {
   const getWebpackStats = () => {
@@ -64,12 +72,11 @@ app.use(async (ctx) => {
   // 组件的 renderToString，
   // 以便于 renderStatic 收集组件中设置的 title 等信息
   const content = ReactDOM.renderToString(
-    <StaticRouter
-      location={ctx.url}
-      context={ctx}
-    >
-      <App/>
-    </StaticRouter>
+    <Provider store={store} key="provider">
+      <StaticRouter location={ctx.url} context={ctx}>
+        <App/>
+      </StaticRouter>
+    </Provider>
   );
 
   // 收集上一次 renderToString 中组件包含的 helmet 信息
@@ -85,6 +92,7 @@ app.use(async (ctx) => {
         { helmet.meta.toComponent() }
         { helmet.link.toComponent() }
         { renderChunks('css', assetsByChunkName) }
+        <script dangerouslySetInnerHTML={{ __html: `window.__INITIAL_STATE__=${serialize(preloadedState)};` }} charSet="UTF-8" />
       </head>
       <body {...bodyAttrs}>
         <div id="app" dangerouslySetInnerHTML={{ __html: content }} />
