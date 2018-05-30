@@ -1,29 +1,8 @@
 import React, { Component } from 'react';
 import { Route, Link } from "react-router-dom";
 import Helmet from 'react-helmet';
-import logo from './logo.png';
-import styles from './style.css';
-
-const Home = () => (
-  <div>
-    <Helmet>
-      <title>Home</title>
-    </Helmet>
-    <h2 className={styles.header}>Home</h2>
-    <div className={styles.box}>
-      <img className={styles.card} src={logo} alt="logo" />
-    </div>
-  </div>
-);
-
-const About = () => (
-  <div>
-    <Helmet>
-      <title>About</title>
-    </Helmet>
-    <h2>About</h2>
-  </div>
-);
+import Home from 'components/Home';
+import About from 'components/About';
 
 const Topics = ({ match }) => (
   <div>

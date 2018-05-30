@@ -10,7 +10,7 @@ import ReactDOM from 'react-dom/server';
 import { StaticRouter } from 'react-router';
 import Helmet from 'react-helmet';
 import webpackConfig from '../webpack/dev.config.babel';
-import App from './components/App';
+import App from 'components/App';
 
 const IS_DEV = process.env.NODE_ENV === 'local';
 const host = 'localhost';

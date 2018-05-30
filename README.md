@@ -492,5 +492,15 @@ ReactDOM.renderToString(
 ## 数据管理
 
 ## 数据获取
+```
+npm i axios
+```
 
 ## 避免前后端重复渲染
+
+
+## 为什么不直接使用 next.js
+* 静态文件不支持增量部署
+* 不支持 webpack 4
+* 默认使用 `css in js`, 和传统的CSS开发方式差异大
+* 使用自家路由

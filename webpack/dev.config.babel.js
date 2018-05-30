@@ -2,6 +2,11 @@ import CleanWebpackPlugin from 'clean-webpack-plugin';
 import MoveWebpackPlugin from 'move-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 
+// 支持 NODE_PATH 环境变量
+const nodePathList = (process.env.NODE_PATH || '')
+  .split(process.platform === 'win32' ? ';' : ':')
+  .filter((p) => !!p)
+
 export default {
   mode: 'development',
   entry: ['./src/client.js'],
@@ -11,6 +16,14 @@ export default {
     publicPath: '/',
     // path: 'dist' // default: 'dist'
   },
+  resolve: {
+    modules: [
+      'node_modules',
+      ...nodePathList // 支持 NODE_PATH 环境变量
+    ]
+  },
+  // performance: { hints: false },
+  target: 'node',
   module: {
     rules: [
       {

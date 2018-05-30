@@ -1,11 +1,12 @@
 {
   "scripts": {
-    "server": "NODE_ENV=local babel-node src/server.js",
+    "server": "NODE_ENV=local NODE_PATH=src babel-node src/server.js",
     "server:dist": "NODE_ENV=production babel-node src/server.js",
     "build": "webpack --config webpack/dev.config.babel.js --json > webpack-stats.json"
   },
   "dependencies": {
     "asset-require-hook": "^1.2.0",
+    "axios": "^0.18.0",
     "babel-cli": "^6.26.0",
     "babel-loader": "^7.1.4",
     "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
