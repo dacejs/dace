@@ -1,11 +1,10 @@
+import { delimiter } from 'path';
 import CleanWebpackPlugin from 'clean-webpack-plugin';
 import MoveWebpackPlugin from 'move-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 
 // 支持 NODE_PATH 环境变量
-const nodePathList = (process.env.NODE_PATH || '')
-  .split(process.platform === 'win32' ? ';' : ':')
-  .filter((p) => !!p)
+const nodePathList = (process.env.NODE_PATH || '').split(delimiter).filter((p) => !!p)
 
 export default {
   mode: 'development',
