@@ -494,6 +494,23 @@ ReactDOM.renderToString(
 npm i redux react-redux serialize-javascript
 ```
 
+## 支持装饰器语法
+```
+npm i babel-plugin-transform-decorators-legacy
+```
+在 `.babelrc` 增加该插件的引用
+```json
+{
+  "presets": [
+    "react"
+  ],
+  "plugins": [
+    "transform-es2015-modules-commonjs",
+    "transform-decorators-legacy"
+  ]
+}
+```
+
 ## 数据获取
 ```
 npm i axios

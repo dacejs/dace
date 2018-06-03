@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Route, Link } from "react-router-dom";
 import Helmet from 'react-helmet';
-import Home from 'components/Home';
-import About from 'components/About';
+import Home from '../Home';
+import About from '../About';
 
 const Topics = ({ match }) => (
   <div>

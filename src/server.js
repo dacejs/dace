@@ -15,6 +15,7 @@ import serialize from 'serialize-javascript';
 import webpackConfig from '../webpack/dev.config.babel';
 import App from './components/App';
 import test from './reducers';
+import { addUser } from './actions';
 
 const IS_DEV = process.env.NODE_ENV === 'local';
 const host = 'localhost';
@@ -30,7 +31,11 @@ if (IS_DEV) {
   app.use(serve(resolve('dist')));
 }
 
-const store = createStore(test, { name: 'Joe'});
+const store = createStore(test, {
+  users: [{ name: 'Joe'}]
+});
+store.dispatch(addUser('xxx'));
+// store.dispatch(addTodo('Learn about actions'))
 // 从 store 中获得初始 state
 const preloadedState = store.getState();
 
