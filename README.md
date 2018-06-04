@@ -493,6 +493,7 @@ ReactDOM.renderToString(
 ```
 npm i redux react-redux serialize-javascript
 ```
+服务器端获取到初始化数据后，更新 redux ，同时在输出 HTML 时，将 redux 中的数据序列化后拍到网页中的全局变量 window.__INITIAL_STATE__ ，浏览器用 `window.__INITIAL_STATE__` 来初始化 redux，这样就完成了前后端 redux 数据共享和同构。
 
 ## 支持装饰器语法
 ```
@@ -517,7 +518,9 @@ npm i axios
 ```
 
 ## 避免前后端重复渲染
+保证前后端渲染输出的DOM结构一致即可，react 的 DOM diff 时会对比出 DOM 结构没有发生变化，从而忽略浏览器端渲染。
 
+## 避免前后端重复获取数据
 
 ## 为什么不直接使用 next.js
 * 静态文件不支持增量部署

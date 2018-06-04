@@ -30,14 +30,20 @@ if (process.env.NODE_ENV !== 'production') {
   window.React = React; // enable debugger
 }
 
-ReactDOM.hydrate(
+let isInitialRender = true;
+const Client = (
   <Provider store={store}>
     <BrowserRouter>
       <App />
     </BrowserRouter>
-  </Provider>,
-  container
+  </Provider>
 );
+if (isInitialRender && typeof ReactDOM.hydrate === 'function') {
+  ReactDOM.hydrate(Client, container);
+  isInitialRender = false
+} else {
+  ReactDOM.render(Client, container);
+}
 
 if (module.hot) {
   module.hot.accept();
