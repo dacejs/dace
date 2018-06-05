@@ -1,9 +1,11 @@
 {
+  "compact": false,
   "presets": [
     "react"
   ],
   "plugins": [
     "transform-es2015-modules-commonjs",
-    "transform-decorators-legacy"
+    "transform-decorators-legacy",
+    "syntax-object-rest-spread"
   ]
 }

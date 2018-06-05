@@ -7,5 +7,5 @@ require('asset-require-hook')({
 
 require('css-modules-require-hook')({
   // 这里的配置要和 css-loader 配置一致
-  generateScopedName: '[local]_[hash:base64:2]',
+  generateScopedName: '[local]_[hash:base64:2]'
 });

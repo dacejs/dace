@@ -4,15 +4,15 @@ import MoveWebpackPlugin from 'move-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 
 // 支持 NODE_PATH 环境变量
-const nodePathList = (process.env.NODE_PATH || '').split(delimiter).filter((p) => !!p)
+const nodePathList = (process.env.NODE_PATH || '').split(delimiter).filter(p => !!p);
 
 export default {
   mode: 'development',
   entry: ['./src/client.js'],
   output: {
-    chunkFilename: `js/[name].[chunkhash:8].js`,
-    filename: `js/[name].[hash:8].js`,
-    publicPath: '/',
+    chunkFilename: 'js/[name].[chunkhash:8].js',
+    filename: 'js/[name].[hash:8].js',
+    publicPath: '/'
     // path: 'dist' // default: 'dist'
   },
   resolve: {
@@ -49,9 +49,9 @@ export default {
         test: /\.png$/i,
         use: {
           loader: 'file-loader',
-            options: {
-              name: 'assets/[name].[hash:8].[ext]'
-            }
+          options: {
+            name: 'assets/[name].[hash:8].[ext]'
+          }
         }
       }
     ]
@@ -63,8 +63,8 @@ export default {
       dest: 'dist'
     }),
     new MiniCssExtractPlugin({
-      filename: `css/[name].[contenthash:8].css`,
-      chunkFilename: `css/[id].[contenthash:8].css`
+      filename: 'css/[name].[contenthash:8].css',
+      chunkFilename: 'css/[id].[contenthash:8].css'
     })
   ]
 };
