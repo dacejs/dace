@@ -24,11 +24,22 @@ const store = createStore(
   composeEnhancers(applyMiddleware(thunk.withExtraArgument(axiosInstance)))
 );
 
+const container = document.getElementById('root');
+if (!container || !container.firstChild ||
+  !container.firstChild.attributes ||
+  !container.firstChild.attributes['data-reactroot']) {
+  console.error('未使用 React 服务器端渲染，请确保初始化 render 方法中不包含任何浏览器端代码');
+}
+
+if (process.env.NODE_ENV !== 'production') {
+  window.React = React; // enable debugger
+}
+
 ReactDOM.hydrate(
   <Provider store={store}>
     <BrowserRouter>
       <div>{renderRoutes(Routes)}</div>
     </BrowserRouter>
   </Provider>,
-  document.querySelector('#root')
+  container
 );
