@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { fetchUsers } from '../actions';
@@ -13,20 +14,35 @@ function loadData(store) {
 
 @connect(mapStateToProps, { fetchUsers })
 class UsersList extends Component {
+  static propTypes = {
+    fetchUsers: PropTypes.function,
+    users: PropTypes.shape({
+      id: PropTypes.number,
+      name: PropTypes.string
+    })
+  };
+
+  static defaultProps = {
+    fetchUsers: () => {},
+    users: []
+  };
+
   componentDidMount() {
     this.props.fetchUsers();
   }
 
   head() {
+    const { users } = this.props;
     return (
       <Helmet>
-        <title>{`${this.props.users.length} Users Loaded`}</title>
+        <title>{`${users.length} Users Loaded`}</title>
       </Helmet>
     );
   }
 
   renderUsers() {
-    return this.props.users.map(user => <li key={user.id}>{user.name}</li>);
+    const { users } = this.props;
+    return users.map(user => <li key={user.id}>{user.name}</li>);
   }
 
   render() {

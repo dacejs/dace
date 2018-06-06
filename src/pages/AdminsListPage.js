@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { fetchAdmins } from '../actions';
 
@@ -8,12 +9,26 @@ function mapStateToProps({ admins }) {
 
 @connect(mapStateToProps, { fetchAdmins })
 class AdminsListPage extends Component {
+  static propTypes = {
+    fetchAdmins: PropTypes.function,
+    admins: PropTypes.shape({
+      id: PropTypes.number,
+      name: PropTypes.string
+    })
+  };
+
+  static defaultProps = {
+    fetchAdmins: () => {},
+    admins: []
+  };
+
   componentDidMount() {
     this.props.fetchAdmins();
   }
 
   renderAdmins() {
-    return this.props.admins.map(admin => <li key={admin.id}>{admin.name}</li>);
+    const { admins } = this.props;
+    return admins.map(admin => <li key={admin.id}>{admin.name}</li>);
   }
 
   render() {
