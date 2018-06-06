@@ -2,6 +2,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchAdmins } from '../actions';
 
+function mapStateToProps({ admins }) {
+  return { admins };
+}
+
+@connect(mapStateToProps, { fetchAdmins })
 class AdminsListPage extends Component {
   componentDidMount() {
     this.props.fetchAdmins();
@@ -21,11 +26,7 @@ class AdminsListPage extends Component {
   }
 }
 
-function mapStateToProps({ admins }) {
-  return { admins };
-}
-
 export default {
-  component: connect(mapStateToProps, { fetchAdmins })(AdminsListPage),
+  component: AdminsListPage,
   loadData: ({ dispatch }) => dispatch(fetchAdmins())
 };

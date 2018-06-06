@@ -3,6 +3,15 @@ import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { fetchUsers } from '../actions';
 
+function mapStateToProps(state) {
+  return { users: state.users };
+}
+
+function loadData(store) {
+  return store.dispatch(fetchUsers());
+}
+
+@connect(mapStateToProps, { fetchUsers })
 class UsersList extends Component {
   componentDidMount() {
     this.props.fetchUsers();
@@ -31,15 +40,7 @@ class UsersList extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  return { users: state.users };
-}
-
-function loadData(store) {
-  return store.dispatch(fetchUsers());
-}
-
 export default {
   loadData,
-  component: connect(mapStateToProps, { fetchUsers })(UsersList)
+  component: UsersList
 };
