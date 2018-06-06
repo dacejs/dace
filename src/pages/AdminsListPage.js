@@ -11,10 +11,10 @@ function mapStateToProps({ admins }) {
 class AdminsListPage extends Component {
   static propTypes = {
     fetchAdmins: PropTypes.function,
-    admins: PropTypes.shape({
+    admins: PropTypes.arrayOf(PropTypes.shape({
       id: PropTypes.number,
       name: PropTypes.string
-    })
+    }))
   };
 
   static defaultProps = {

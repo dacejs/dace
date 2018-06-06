@@ -15,11 +15,11 @@ function loadData(store) {
 @connect(mapStateToProps, { fetchUsers })
 class UsersList extends Component {
   static propTypes = {
-    fetchUsers: PropTypes.function,
-    users: PropTypes.shape({
+    fetchUsers: PropTypes.func,
+    users: PropTypes.arrayOf(PropTypes.shape({
       id: PropTypes.number,
       name: PropTypes.string
-    })
+    }))
   };
 
   static defaultProps = {
