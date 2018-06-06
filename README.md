@@ -497,7 +497,7 @@ npm i react-router-config redux-thunk
 # babel 支持对象解构赋值
 npm i babel-plugin-syntax-object-rest-spread
 ```
-服务器端获取到初始化数据后，更新 redux ，同时在输出 HTML 时，将 redux 中的数据序列化后拍到网页中的全局变量 window.__INITIAL_STATE__ ，浏览器用 `window.__INITIAL_STATE__` 来初始化 redux，这样就完成了前后端 redux 数据共享和同构。
+服务器端获取到初始化数据后，更新 redux ，同时在输出 HTML 时，将 redux 中的数据序列化后拍到网页中的全局变量 window.INITIAL_STATE ，浏览器用 `window.INITIAL_STATE` 来初始化 redux，这样就完成了前后端 redux 数据共享和同构。
 
 ## 支持装饰器语法
 ```
