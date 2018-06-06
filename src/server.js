@@ -43,10 +43,9 @@ app.use(async (ctx) => {
       promise.then(resolve).catch(resolve);
     }));
 
-  Promise.all(promises).then(() => {
+  await Promise.all(promises).then(() => {
     const context = {};
     const content = renderer(ctx, store, context);
-    // console.log('--context:', context);
 
     if (context.url) {
       return ctx.redirect(301, context.url);
@@ -56,7 +55,6 @@ app.use(async (ctx) => {
     }
 
     ctx.body = content;
-    console.log('--content:', content);
     return true;
   });
 });
