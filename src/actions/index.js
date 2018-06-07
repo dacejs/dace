@@ -1,11 +1,16 @@
 export const FETCH_USERS = 'fetch_users';
 export const fetchUsers = () => async (dispatch, getState, api) => {
-  const res = await api.get('/users');
+  const state = getState();
+  if (state.users.length === 0) {
+    const res = await api.get('/users');
 
-  dispatch({
-    type: FETCH_USERS,
-    payload: res
-  });
+    dispatch({
+      type: FETCH_USERS,
+      payload: res
+    });
+  } else {
+    console.log('state.users已经获取过');
+  }
 };
 
 export const FETCH_CURRENT_USER = 'fetch_current_user';
