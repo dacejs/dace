@@ -488,6 +488,18 @@ ReactDOM.renderToString(
 - css 不能HRM
 
 ## 拆分成多个包
+webpack 中可以使用 `require.ensure()` 来将代码拆分成多个包，但 node 中没有 `require.ensure()` 方法，服务器端代码运行是会报错，解决方法是为 node 增加一个 require.ensure 的 Polyfill。
+
+1. 先安装依赖包：
+
+```
+npm i require-ensure
+```
+
+2. 运行 polyfill
+```js
+require('require-ensure');
+```
 
 ## 数据管理
 ```
@@ -534,3 +546,5 @@ npm i axios
 
 ## 前后端同构工程发布指南
 http://wiki.corp.qunar.com/confluence/pages/viewpage.action?pageId=189430663
+
+## `require.ensure` 同构
