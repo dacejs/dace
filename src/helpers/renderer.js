@@ -46,7 +46,7 @@ export default (ctx, store, context) => {
   const Root = (
     <Provider store={store}>
       <StaticRouter location={ctx.path} context={context}>
-        <div>{renderRoutes(Routes)}</div>
+        {renderRoutes(Routes)}
       </StaticRouter>
     </Provider>
   );
