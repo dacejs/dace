@@ -10,7 +10,7 @@ function mapStateToProps({ admins }) {
 @connect(mapStateToProps, { fetchAdmins })
 class AdminsListPage extends Component {
   static propTypes = {
-    fetchAdmins: PropTypes.function,
+    fetchAdmins: PropTypes.func,
     admins: PropTypes.arrayOf(PropTypes.shape({
       id: PropTypes.number,
       name: PropTypes.string
@@ -32,6 +32,7 @@ class AdminsListPage extends Component {
   }
 
   render() {
+    // console.log('--a: ', a);
     return (
       <div>
         <h3>Protected list of admins</h3>

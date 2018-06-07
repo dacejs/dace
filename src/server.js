@@ -45,7 +45,29 @@ app.use(async (ctx) => {
 
   await Promise.all(promises).then(() => {
     const context = {};
-    const content = renderer(ctx, store, context);
+    let html;
+    try {
+      html = renderer(ctx, store, context);
+    } catch (e) {
+      // ctx.body = e;
+      // throw (e);
+      const stateCode = 500;
+      html = `
+      <!DOCTYPE html>
+      <html>
+        <head>
+          <meta charset="utf-8">
+          <title>${stateCode}</title>
+        </head>
+        <body>
+          <h1>${stateCode}</h1>
+          <h2>An unexpected error has occurred</h2>
+          <p>${e.toString()}</p>
+        </body>
+      </html>
+      `;
+      ctx.status = stateCode;
+    }
 
     if (context.url) {
       return ctx.redirect(301, context.url);
@@ -54,7 +76,7 @@ app.use(async (ctx) => {
       ctx.status = 404;
     }
 
-    ctx.body = content;
+    ctx.body = html;
     return true;
   });
 });
