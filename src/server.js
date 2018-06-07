@@ -49,9 +49,8 @@ app.use(async (ctx) => {
     try {
       html = renderer(ctx, store, context);
     } catch (e) {
-      // ctx.body = e;
-      // throw (e);
       const stateCode = 500;
+      ctx.status = stateCode;
       html = `
       <!DOCTYPE html>
       <html>
@@ -62,11 +61,10 @@ app.use(async (ctx) => {
         <body>
           <h1>${stateCode}</h1>
           <h2>An unexpected error has occurred</h2>
-          <p>${e.toString()}</p>
+          <pre>${e.stack}</pre>
         </body>
       </html>
       `;
-      ctx.status = stateCode;
     }
 
     if (context.url) {
