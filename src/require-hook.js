@@ -1,4 +1,4 @@
-//  require.ensure polyfill
+// require.ensure polyfill
 require('require-ensure');
 
 require('asset-require-hook')({

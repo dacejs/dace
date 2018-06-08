@@ -21,26 +21,24 @@ export default (ctx, store, context) => {
     }
     throw new Error(`找不到文件：${assetManifest}，请先运行 \`npm run build\``);
   };
-  const { publicPath, assetsByChunkName } = getWebpackStats();
+  const { publicPath, chunks } = getWebpackStats();
+  // 获取初始化网页需要插入的 CSS/JS 静态文件
+  const initialAssets = chunks
+    .filter(item => item.initial)
+    .reduce((accumulator, item) => {
+      accumulator = accumulator.concat(item.files);
+      return accumulator;
+    }, []);
 
-  const renderChunks = (extension, chunks) => {
+  const renderTags = (extension, assets) => {
     const getTagByFilename = filename => (filename.endsWith('js') ?
       <script src={publicPath + filename} key={filename} /> :
       <link rel="stylesheet" href={publicPath + filename} key={filename} />);
 
-    return Object.keys(chunks).reduce((accumulator, key) => {
-      if (Array.isArray(chunks[key])) {
-        chunks[key]
-          .filter(item => !/\.hot-update\./.test(item)) // 过滤掉 HMR 包
-          .filter(item => item.endsWith(extension))
-          .forEach((item) => {
-            accumulator.push(getTagByFilename(item));
-          });
-      } else if (chunks[key].endsWith(extension)) {
-        accumulator.push(getTagByFilename(chunks[key]));
-      }
-      return accumulator;
-    }, []);
+    return assets
+      .filter(item => !/\.hot-update\./.test(item)) // 过滤掉 HMR 包
+      .filter(item => item.endsWith(extension))
+      .map(item => getTagByFilename(item));
   };
 
   const Root = (
@@ -50,8 +48,8 @@ export default (ctx, store, context) => {
       </StaticRouter>
     </Provider>
   );
-  const jsTags = renderToString(renderChunks('js', assetsByChunkName));
-  const cssTags = renderToString(renderChunks('css', assetsByChunkName));
+  const jsTags = renderToString(renderTags('js', initialAssets));
+  const cssTags = renderToString(renderTags('css', initialAssets));
   const content = renderToString(Root);
 
   const helmet = Helmet.renderStatic();

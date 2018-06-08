@@ -22,7 +22,7 @@ export default {
     ]
   },
   // performance: { hints: false },
-  target: 'node',
+  // target: 'node',
   module: {
     rules: [
       {
