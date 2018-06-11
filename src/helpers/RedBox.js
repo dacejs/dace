@@ -1,8 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-export default (props) => {
-  const { error } = props;
-  const message = error.toString();
+const RedBox = (props) => {
+  const { error: { name, message, stack } } = props;
   const bodyStyle = {
     background: 'rgb(204, 0, 0)',
     color: '#fff'
@@ -10,7 +10,7 @@ export default (props) => {
   const preStyle = {
     whiteSpace: 'pre-wrap',
     wordWrap: 'break-word'
-  }
+  };
 
   return (
     <html lang="en">
@@ -19,9 +19,15 @@ export default (props) => {
         <title>{message}</title>
       </head>
       <body style={bodyStyle}>
-        <h3>{error.name}: {error.message}</h3>
-        <pre style={preStyle}>{error.stack}</pre>
+        <h3>{name}: {message}</h3>
+        <pre style={preStyle}>{stack}</pre>
       </body>
     </html>
   );
 };
+
+RedBox.propTypes = {
+  error: PropTypes.object.isRequired
+};
+
+export default RedBox;
