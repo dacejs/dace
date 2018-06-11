@@ -548,3 +548,10 @@ npm i axios
 http://wiki.corp.qunar.com/confluence/pages/viewpage.action?pageId=189430663
 
 ## `require.ensure` 同构
+
+## webpack.config.target 参数
+- web
+  - 启用 HMR
+- node
+  - 不打包 node 内置的模块，如 fs path 等
+  -

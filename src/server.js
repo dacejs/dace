@@ -8,10 +8,13 @@ import proxy from 'koa-proxies';
 import middleware from 'koa-webpack';
 import webpack from 'webpack';
 import { matchRoutes } from 'react-router-config';
+import React from 'react';
+import { renderToString } from 'react-dom/server';
 import webpackConfig from '../webpack/dev.config.babel';
 import Routes from './Routes';
 import createStore from './helpers/create-store';
-import renderer from './helpers/renderer';
+import Html from './helpers/Html';
+import RedBox from './helpers/RedBox';
 
 const IS_DEV = process.env.NODE_ENV === 'local';
 const host = 'localhost';
@@ -47,24 +50,10 @@ app.use(async (ctx) => {
     const context = {};
     let html;
     try {
-      html = renderer(ctx, store, context);
+      html = renderToString(<Html ctx={ctx} context={context} store={store} />);
     } catch (e) {
-      const stateCode = 500;
-      ctx.status = stateCode;
-      html = `
-      <!DOCTYPE html>
-      <html>
-        <head>
-          <meta charset="utf-8">
-          <title>${stateCode}</title>
-        </head>
-        <body>
-          <h1>${stateCode}</h1>
-          <h2>An unexpected error has occurred</h2>
-          <pre>${e.stack}</pre>
-        </body>
-      </html>
-      `;
+      ctx.status = 500;
+      html = renderToString(<RedBox error={e} />);
     }
 
     if (context.url) {
@@ -74,7 +63,7 @@ app.use(async (ctx) => {
       ctx.status = 404;
     }
 
-    ctx.body = html;
+    ctx.body = `<!doctype html>\n${html}`;
     return true;
   });
 });
