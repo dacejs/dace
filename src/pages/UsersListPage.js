@@ -8,12 +8,8 @@ function mapStateToProps(state) {
   return { users: state.users };
 }
 
-function loadData(store) {
-  return store.dispatch(fetchUsers());
-}
-
 @connect(mapStateToProps, { fetchUsers })
-class UsersList extends Component {
+export default class UsersList extends Component {
   static propTypes = {
     fetchUsers: PropTypes.func,
     users: PropTypes.arrayOf(PropTypes.shape({
@@ -29,6 +25,10 @@ class UsersList extends Component {
 
   componentDidMount() {
     this.props.fetchUsers();
+  }
+
+  static getInitialProps(store) {
+    return store.dispatch(fetchUsers());
   }
 
   head() {
@@ -55,8 +55,3 @@ class UsersList extends Component {
     );
   }
 }
-
-export default {
-  loadData,
-  component: UsersList
-};

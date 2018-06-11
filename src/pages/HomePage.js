@@ -11,6 +11,4 @@ const Home = () => (
   </div>
 );
 
-export default {
-  component: Home
-};
+export default Home;

@@ -8,7 +8,7 @@ function mapStateToProps({ admins }) {
 }
 
 @connect(mapStateToProps, { fetchAdmins })
-class AdminsListPage extends Component {
+export default class AdminsListPage extends Component {
   static propTypes = {
     fetchAdmins: PropTypes.func,
     admins: PropTypes.arrayOf(PropTypes.shape({
@@ -26,6 +26,10 @@ class AdminsListPage extends Component {
     this.props.fetchAdmins();
   }
 
+  static getInitialProps(store) {
+    return store.dispatch(fetchAdmins());
+  }
+
   renderAdmins() {
     const { admins } = this.props;
     return admins.map(admin => <li key={admin.id}>{admin.name}</li>);
@@ -41,8 +45,3 @@ class AdminsListPage extends Component {
     );
   }
 }
-
-export default {
-  component: AdminsListPage,
-  loadData: ({ dispatch }) => dispatch(fetchAdmins())
-};

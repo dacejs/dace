@@ -40,7 +40,10 @@ app.use(proxy('/api', {
 app.use(async (ctx) => {
   const store = createStore(ctx);
   const promises = matchRoutes(Routes, ctx.path)
-    .map(({ route }) => (route.loadData ? route.loadData(store) : null))
+    .map(({ route }) => {
+      const { getInitialProps } = route.component;
+      return getInitialProps ? getInitialProps(store) : null;
+    })
     .filter(promise => !!promise)
     .map(promise => new Promise((resolve) => {
       promise.then(resolve).catch(resolve);

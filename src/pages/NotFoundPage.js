@@ -14,6 +14,4 @@ NotFoundPage.defaultProps = {
   staticContext: {}
 };
 
-export default {
-  component: NotFoundPage
-};
+export default NotFoundPage;

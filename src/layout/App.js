@@ -14,6 +14,4 @@ App.propTypes = {
   route: PropTypes.object.isRequired
 };
 
-export default {
-  component: App
-};
+export default App;

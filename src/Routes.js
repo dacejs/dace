@@ -6,23 +6,23 @@ import AdminsListPage from './pages/AdminsListPage';
 
 export default [
   {
-    ...App,
+    component: App,
     routes: [
       {
-        ...HomePage,
         path: '/',
-        exact: true
+        exact: true,
+        component: HomePage
       },
       {
-        ...AdminsListPage,
-        path: '/admins'
+        path: '/admins',
+        component: AdminsListPage
       },
       {
-        ...UsersListPage,
-        path: '/users'
+        path: '/users',
+        component: UsersListPage
       },
       {
-        ...NotFoundPage
+        component: NotFoundPage
       }
     ]
   }
