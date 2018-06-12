@@ -2,14 +2,17 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
-import { fetchUsers } from '../actions';
+import { fetchUsers, fetchCurrentUser } from '../actions';
 import asyncConnect from '../helpers/asyncConnect';
 
 function mapStateToProps(state) {
   return { users: state.users };
 }
 
-@asyncConnect(dispatch => dispatch(fetchUsers()))
+@asyncConnect(dispatch => Promise.all([
+  dispatch(fetchUsers()),
+  dispatch(fetchCurrentUser())
+]))
 @connect(mapStateToProps, { fetchUsers })
 export default class UsersList extends Component {
   static propTypes = {

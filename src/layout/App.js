@@ -8,11 +8,14 @@ import Header from '../components/Header';
 export default class App extends Component {
   static propTypes = {
     route: PropTypes.object.isRequired,
-    dispatch: PropTypes.func.isRequired
+    dispatch: PropTypes.func
+  }
+
+  static defaultProps = {
+    dispatch: () => {}
   }
 
   render() {
-    // console.log('--app.props:', this.props);
     const { route, dispatch } = this.props;
     return (
       <div>

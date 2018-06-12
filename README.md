@@ -532,6 +532,7 @@ npm i babel-plugin-transform-decorators-legacy
 ```
 npm i axios
 ```
+用 axios 能实现前后端获取数据代码方法一致，但前后端获取数据的函数也需要公用一份，这个通过 asyncConnect 来实现，实现原理是使用一个装饰器来修改组件，给组件注入静态方法 getInitialProps 供后端渲染(react-router)使用，给组件注入生命周期函数 `componentDidMount` 供前端渲染使用。前后端都是调用 `asyncConnect()` 第一个参数传递的函数。
 
 ## 避免前后端重复渲染
 保证前后端渲染输出的DOM结构一致即可，react 的 DOM diff 时会对比出 DOM 结构没有发生变化，从而忽略浏览器端渲染。

@@ -2,15 +2,16 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { fetchAdmins } from '../actions';
+import asyncConnect from '../helpers/asyncConnect';
 
 function mapStateToProps({ admins }) {
   return { admins };
 }
 
+@asyncConnect(dispatch => dispatch(fetchAdmins()))
 @connect(mapStateToProps, { fetchAdmins })
 export default class AdminsListPage extends Component {
   static propTypes = {
-    fetchAdmins: PropTypes.func,
     admins: PropTypes.arrayOf(PropTypes.shape({
       id: PropTypes.number,
       name: PropTypes.string
@@ -18,17 +19,8 @@ export default class AdminsListPage extends Component {
   };
 
   static defaultProps = {
-    fetchAdmins: () => {},
     admins: []
   };
-
-  componentDidMount() {
-    this.props.fetchAdmins();
-  }
-
-  static getInitialProps(store) {
-    return store.dispatch(fetchAdmins());
-  }
 
   renderAdmins() {
     const { admins } = this.props;
