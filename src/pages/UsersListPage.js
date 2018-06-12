@@ -3,11 +3,13 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { fetchUsers } from '../actions';
+import asyncConnect from '../helpers/asyncConnect';
 
 function mapStateToProps(state) {
   return { users: state.users };
 }
 
+@asyncConnect(store => store.dispatch(fetchUsers()))
 @connect(mapStateToProps, { fetchUsers })
 export default class UsersList extends Component {
   static propTypes = {
@@ -24,11 +26,8 @@ export default class UsersList extends Component {
   };
 
   componentDidMount() {
+    // 浏览器端获取数据
     this.props.fetchUsers();
-  }
-
-  static getInitialProps(store) {
-    return store.dispatch(fetchUsers());
   }
 
   head() {

@@ -36,7 +36,6 @@ export default class AdminsListPage extends Component {
   }
 
   render() {
-    // console.log('--a: ', a);
     return (
       <div>
         <h3>Protected list of admins</h3>
