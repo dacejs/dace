@@ -1,17 +1,24 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { renderRoutes } from 'react-router-config';
 import PropTypes from 'prop-types';
 import Header from '../components/Header';
 
-const App = ({ route }) => (
-  <div>
-    <Header />
-    {renderRoutes(route.routes)}
-  </div>
-);
+@connect(state => state)
+export default class App extends Component {
+  static propTypes = {
+    route: PropTypes.object.isRequired,
+    dispatch: PropTypes.func.isRequired
+  }
 
-App.propTypes = {
-  route: PropTypes.object.isRequired
-};
-
-export default App;
+  render() {
+    // console.log('--app.props:', this.props);
+    const { route, dispatch } = this.props;
+    return (
+      <div>
+        <Header />
+        {renderRoutes(route.routes, { dispatch })}
+      </div>
+    );
+  }
+}

@@ -9,11 +9,10 @@ function mapStateToProps(state) {
   return { users: state.users };
 }
 
-@asyncConnect(store => store.dispatch(fetchUsers()))
+@asyncConnect(dispatch => dispatch(fetchUsers()))
 @connect(mapStateToProps, { fetchUsers })
 export default class UsersList extends Component {
   static propTypes = {
-    fetchUsers: PropTypes.func,
     users: PropTypes.arrayOf(PropTypes.shape({
       id: PropTypes.number,
       name: PropTypes.string
@@ -21,14 +20,15 @@ export default class UsersList extends Component {
   };
 
   static defaultProps = {
-    fetchUsers: () => {},
     users: []
   };
 
-  componentDidMount() {
-    // 浏览器端获取数据
-    this.props.fetchUsers();
-  }
+  // componentDidMount() {
+  //   // console.log('--this.props:', this.props);
+  //   this.props.dispatch(fetchUsers());
+  //   // 浏览器端获取数据
+  //   // this.props.fetchUsers();
+  // }
 
   head() {
     const { users } = this.props;
