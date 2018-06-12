@@ -27,7 +27,11 @@ const RedBox = (props) => {
 };
 
 RedBox.propTypes = {
-  error: PropTypes.object.isRequired
+  error: PropTypes.shape({
+    name: PropTypes.string,
+    message: PropTypes.string,
+    stack: PropTypes.string
+  }).isRequired
 };
 
 export default RedBox;

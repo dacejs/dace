@@ -1,19 +1,24 @@
-import { createStore, applyMiddleware } from 'redux';
+import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import axios from 'axios';
 import reducers from '../reducers';
+import { isClient } from '../utils';
 
 export default (/* ctx */) => {
+  const baseURL = isClient ? '/api' : 'http://jsonplaceholder.typicode.com';
+  const initialState = isClient ? window.INITIAL_STATE : {};
+  const composeEnhancers = compose;
+
   const axiosInstance = axios.create({
     // baseURL: 'http://localhost:3000',
-    baseURL: 'http://jsonplaceholder.typicode.com'
+    baseURL
     // headers: { cookie: req.get('cookie') || '' }
   });
 
   const store = createStore(
     reducers,
-    {},
-    applyMiddleware(thunk.withExtraArgument(axiosInstance))
+    initialState,
+    composeEnhancers(applyMiddleware(thunk.withExtraArgument(axiosInstance)))
   );
 
   return store;

@@ -9,7 +9,8 @@ import { Provider } from 'react-redux';
 import { renderRoutes } from 'react-router-config';
 import serialize from 'serialize-javascript';
 import { Helmet } from 'react-helmet';
-import Routes from '../Routes';
+import routes from '../routes';
+import { isLocal } from '../utils';
 
 export default class Html extends Component {
   static propTypes = {
@@ -21,10 +22,9 @@ export default class Html extends Component {
   render() {
     const { ctx, context, store } = this.props;
 
-    const IS_DEV = process.env.NODE_ENV === 'local';
     const getWebpackStats = () => {
       const assetManifest = resolve('dist/webpack-stats.json');
-      if (IS_DEV) {
+      if (isLocal) {
         return ctx.state.webpackStats.toJson();
       } else if (existsSync(assetManifest)) {
         return require(assetManifest); // eslint-disable-line
@@ -54,7 +54,7 @@ export default class Html extends Component {
     const Root = (
       <Provider store={store}>
         <StaticRouter location={ctx.path} context={context}>
-          {renderRoutes(Routes)}
+          {renderRoutes(routes)}
         </StaticRouter>
       </Provider>
     );

@@ -10,19 +10,19 @@ import webpack from 'webpack';
 import { matchRoutes } from 'react-router-config';
 import React from 'react';
 import { renderToString } from 'react-dom/server';
-import webpackConfig from '../webpack/dev.config.babel';
-import Routes from './Routes';
+import webpackConfig from '../webpack/dev.babel';
+import routes from './routes';
 import createStore from './helpers/createStore';
 import Html from './helpers/Html';
 import RedBox from './helpers/RedBox';
+import { isLocal } from './utils';
 
-const IS_DEV = process.env.NODE_ENV === 'local';
 const host = 'localhost';
 const port = 3001;
 
 const app = new Koa();
 
-if (IS_DEV) {
+if (isLocal) {
   const dev = { serverSideRender: true };
   const compiler = webpack(webpackConfig);
   app.use(middleware({ compiler, dev }));
@@ -34,12 +34,12 @@ app.use(proxy('/api', {
   target: 'http://jsonplaceholder.typicode.com',
   rewrite: url => url.replace(/^\/api/, ''),
   changeOrigin: true,
-  logs: IS_DEV
+  logs: true
 }));
 
 app.use(async (ctx) => {
   const store = createStore(ctx);
-  const promises = matchRoutes(Routes, ctx.path)
+  const promises = matchRoutes(routes, ctx.path)
     .map(({ route }) => {
       const { getInitialProps } = route.component;
       return getInitialProps ? getInitialProps(store) : null;

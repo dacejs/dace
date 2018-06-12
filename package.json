@@ -2,7 +2,7 @@
   "scripts": {
     "server": "NODE_ENV=local NODE_PATH=src babel-node src/server.js",
     "server:dist": "NODE_ENV=production babel-node src/server.js",
-    "build": "webpack --config webpack/dev.config.babel.js --json > webpack-stats.json",
+    "build": "webpack --config webpack/build.babel.js --json > webpack-stats.json",
     "stylelint": "stylelint --fix \"src/**/*.(css|less|sass|scss)\"",
     "eslint": "eslint --fix src",
     "lint": "npm run stylelint && npm run eslint"
@@ -44,7 +44,8 @@
     "stylelint": "^9.2.1",
     "stylelint-config-standard": "^18.2.0",
     "webpack": "^4.9.1",
-    "webpack-cli": "^2.1.4"
+    "webpack-cli": "^2.1.4",
+    "webpack-merge": "^4.1.2"
   },
   "devDependencies": {
     "redux-devtools": "^3.4.1"

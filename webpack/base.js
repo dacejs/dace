@@ -7,7 +7,6 @@ import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 const nodePathList = (process.env.NODE_PATH || '').split(delimiter).filter(p => !!p);
 
 export default {
-  mode: 'development',
   entry: ['./src/client.js'],
   output: {
     chunkFilename: 'js/[name].[chunkhash:8].js',
