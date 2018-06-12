@@ -14,7 +14,7 @@ export default () => (
           <Link to="/users">Users</Link>
         </li>
         <li>
-          <Link to="/admins">Admins</Link>
+          <Link to="/posts">Posts</Link>
         </li>
       </ul>
     </div>

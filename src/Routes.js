@@ -2,7 +2,7 @@ import App from './layout/App';
 import HomePage from './pages/HomePage';
 import UsersListPage from './pages/UsersListPage';
 import NotFoundPage from './pages/NotFoundPage';
-import AdminsListPage from './pages/AdminsListPage';
+import PostsListPage from './pages/PostsListPage';
 
 export default [
   {
@@ -14,8 +14,8 @@ export default [
         component: HomePage
       },
       {
-        path: '/admins',
-        component: AdminsListPage
+        path: '/posts',
+        component: PostsListPage
       },
       {
         path: '/users',

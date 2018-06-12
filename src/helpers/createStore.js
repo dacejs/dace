@@ -6,7 +6,7 @@ import reducers from '../reducers';
 export default (/* ctx */) => {
   const axiosInstance = axios.create({
     // baseURL: 'http://localhost:3000',
-    baseURL: 'http://react-ssr-api.herokuapp.com'
+    baseURL: 'http://jsonplaceholder.typicode.com'
     // headers: { cookie: req.get('cookie') || '' }
   });
 

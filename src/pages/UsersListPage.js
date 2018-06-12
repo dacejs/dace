@@ -11,7 +11,7 @@ function mapStateToProps(state) {
 
 @asyncConnect(dispatch => Promise.all([
   dispatch(fetchUsers()),
-  dispatch(fetchCurrentUser())
+  dispatch(fetchCurrentUser(2))
 ]))
 @connect(mapStateToProps, { fetchUsers })
 export default class UsersList extends Component {

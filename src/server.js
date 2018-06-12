@@ -31,7 +31,7 @@ if (IS_DEV) {
 }
 
 app.use(proxy('/api', {
-  target: 'http://react-ssr-api.herokuapp.com',
+  target: 'http://jsonplaceholder.typicode.com',
   rewrite: url => url.replace(/^\/api/, ''),
   changeOrigin: true,
   logs: IS_DEV
