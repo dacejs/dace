@@ -28,7 +28,10 @@ export default {
         test: /\.js$/i,
         exclude: ['node_modules'],
         use: {
-          loader: 'babel-loader'
+          loader: 'babel-loader',
+          options: {
+            forceEnv: 'client'
+          }
         }
       },
       {

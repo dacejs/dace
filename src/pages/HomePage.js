@@ -2,7 +2,7 @@ import React from 'react';
 import { Helmet } from 'react-helmet';
 
 const Home = () => (
-  <div className="center-align" style={{ marginTop: '200px' }}>
+  <div>
     <Helmet>
       <title>Home</title>
     </Helmet>

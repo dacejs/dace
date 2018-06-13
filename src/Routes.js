@@ -1,8 +1,8 @@
+/* eslint import/no-dynamic-require: 0 */
+
 import App from './layout/App';
-import HomePage from './pages/HomePage';
-import UsersListPage from './pages/UsersListPage';
+import asyncComponent from './components/AsyncComponent';
 import NotFoundPage from './pages/NotFoundPage';
-import PostsListPage from './pages/PostsListPage';
 
 export default [
   {
@@ -11,15 +11,15 @@ export default [
       {
         path: '/',
         exact: true,
-        component: HomePage
-      },
-      {
-        path: '/posts',
-        component: PostsListPage
+        component: asyncComponent(() => import(/* webpackChunkName: "home" */'./pages/HomePage'))
       },
       {
         path: '/users',
-        component: UsersListPage
+        component: asyncComponent(() => import(/* webpackChunkName: "users" */'./pages/UsersListPage'))
+      },
+      {
+        path: '/posts',
+        component: asyncComponent(() => import(/* webpackChunkName: "posts" */'./pages/PostsListPage'))
       },
       {
         component: NotFoundPage

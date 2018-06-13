@@ -1,8 +1,8 @@
 {
   "scripts": {
-    "server": "NODE_ENV=local NODE_PATH=src babel-node src/server.js",
-    "server:dist": "NODE_ENV=production babel-node src/server.js",
-    "build": "webpack --config webpack/build.babel.js --json > webpack-stats.json",
+    "server": "BABEL_ENV=server NODE_ENV=local babel-node src/server.js",
+    "server:dist": "BABEL_ENV=server NODE_ENV=production babel-node src/server.js",
+    "build": "BABEL_ENV=client webpack --config webpack/build.babel.js --json > webpack-stats.json",
     "stylelint": "stylelint --fix \"src/**/*.(css|less|sass|scss)\"",
     "eslint": "eslint --fix src",
     "lint": "npm run stylelint && npm run eslint"
@@ -12,6 +12,8 @@
     "axios": "^0.18.0",
     "babel-cli": "^6.26.0",
     "babel-loader": "^7.1.4",
+    "babel-plugin-dynamic-import-node": "^1.2.0",
+    "babel-plugin-syntax-dynamic-import": "^6.18.0",
     "babel-plugin-syntax-object-rest-spread": "^6.13.0",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-plugin-transform-decorators-legacy": "^1.3.5",
@@ -39,7 +41,6 @@
     "react-router-dom": "^4.2.2",
     "redux": "^4.0.0",
     "redux-thunk": "^2.3.0",
-    "require-ensure": "^1.0.2",
     "serialize-javascript": "^1.5.0",
     "stylelint": "^9.2.1",
     "stylelint-config-standard": "^18.2.0",

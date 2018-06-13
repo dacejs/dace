@@ -26,13 +26,6 @@ export default class UsersList extends Component {
     users: []
   };
 
-  // componentDidMount() {
-  //   // console.log('--this.props:', this.props);
-  //   this.props.dispatch(fetchUsers());
-  //   // 浏览器端获取数据
-  //   // this.props.fetchUsers();
-  // }
-
   head() {
     const { users } = this.props;
     return (

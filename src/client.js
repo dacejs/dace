@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { renderRoutes } from 'react-router-config';
-// import Routes from './Routes.client';
 import routes from './routes';
 import createStore from './helpers/createStore';
 import { isProduction } from './utils';
@@ -20,18 +19,6 @@ if (!container || !container.firstChild ||
 if (!isProduction) {
   window.React = React; // 为了调试方便
 }
-
-// Routes().then((r) => {
-//   // console.log('--r:', r);
-//   ReactDOM.hydrate(
-//     <Provider store={store}>
-//       <BrowserRouter>
-//         {renderRoutes(r)}
-//       </BrowserRouter>
-//     </Provider>,
-//     container
-//   );
-// });
 
 ReactDOM.hydrate(
   <Provider store={store}>
