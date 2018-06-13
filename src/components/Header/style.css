@@ -42,4 +42,5 @@ nav ul a {
 
 .right {
   float: right !important;
+  display: flex;
 }

@@ -24,6 +24,7 @@
     "css-modules-require-hook": "^4.2.3",
     "eslint": "^4.19.1",
     "eslint-config-qunar": "^3.0.0",
+    "eslint-loader": "^2.0.0",
     "file-loader": "^1.1.11",
     "koa": "^2.5.1",
     "koa-proxies": "^0.7.0",
@@ -31,6 +32,7 @@
     "koa-webpack": "^4.0.0",
     "mini-css-extract-plugin": "^0.4.0",
     "move-webpack-plugin": "0.0.2",
+    "postcss-loader": "^2.1.5",
     "prop-types": "^15.6.1",
     "react": "^16.4.0",
     "react-dom": "^16.4.0",
@@ -44,6 +46,7 @@
     "serialize-javascript": "^1.5.0",
     "stylelint": "^9.2.1",
     "stylelint-config-standard": "^18.2.0",
+    "stylelint-webpack-plugin": "^0.10.5",
     "webpack": "^4.9.1",
     "webpack-cli": "^2.1.4",
     "webpack-merge": "^4.1.2"

@@ -1,7 +1,8 @@
-import { delimiter } from 'path';
+import { delimiter, resolve } from 'path';
 import CleanWebpackPlugin from 'clean-webpack-plugin';
 import MoveWebpackPlugin from 'move-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
+import StylelintWebpackPlugin from 'stylelint-webpack-plugin';
 
 // 支持 NODE_PATH 环境变量
 const nodePathList = (process.env.NODE_PATH || '').split(delimiter).filter(p => !!p);
@@ -27,12 +28,17 @@ export default {
       {
         test: /\.js$/i,
         exclude: ['node_modules'],
-        use: {
-          loader: 'babel-loader',
-          options: {
-            forceEnv: 'client'
+        use: [
+          {
+            loader: 'babel-loader',
+            options: {
+              forceEnv: 'client'
+            }
+          },
+          {
+            loader: 'eslint-loader'
           }
-        }
+        ]
       },
       {
         test: /\.css$/i,
@@ -44,6 +50,9 @@ export default {
               modules: true,
               localIdentName: '[local]_[hash:base64:2]'
             }
+          },
+          {
+            loader: 'postcss-loader'
           }
         ]
       },
@@ -67,6 +76,11 @@ export default {
     new MiniCssExtractPlugin({
       filename: 'css/[name].[contenthash:8].css',
       chunkFilename: 'css/[id].[contenthash:8].css'
+    }),
+    // 编译过程出错信息不会提示，直接报出非零状态码退出
+    new StylelintWebpackPlugin({
+      context: resolve('src'),
+      files: ['**/*.css', '**/*.less', '**/*.s?(a|c)ss']
     })
   ]
 };
