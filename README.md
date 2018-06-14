@@ -1,4 +1,4 @@
-从零开始搭建 webpack SSR 环境
+# isomorphic-app
 
 * 创建工作目录
 ```
