@@ -491,12 +491,12 @@ ReactDOM.renderToString(
 webpack 中可以使用 `import()` 来将代码拆分成多个包，webpack 和 node 都不支持 `import()` 动态加载，分别使用不同的 babel 插件来解决：
 
 * webpack: 用 `babel-plugin-syntax-dynamic-import` 插件编译后的代码可以在 webpack 中运行，而且打包时会拆分成多个包。
-* node: 用 `babel-plugin-dynamic-import-node` 插件，解决 node 中报错的问题。
+* node: 用 `babel-plugin-syntax-import-async-component-sync` 插件，解决 node 中报错的问题。
 
 有一个问题是：这两个插件不能同时使用，同时使用时 webpack 的拆分打包功能就没了。为了让 webpack 和 node 分别使用不同插件，这里使用了 babel 环境变量 `BABEL_ENV`，它和 `NODE_ENV` 类似，在启动时传递进来，`.babelrc` 中用 `env` 会根据 `BABEL_ENV` 来取匹配的配置项。
 
 ```
-npm i babel-plugin-dynamic-import-node babel-plugin-syntax-dynamic-import
+npm i babel-plugin-syntax-dynamic-import babel-plugin-syntax-import-async-component-sync
 ```
 
 ```json
@@ -510,7 +510,7 @@ npm i babel-plugin-dynamic-import-node babel-plugin-syntax-dynamic-import
     },
     "server": {
       "plugins": [
-        "dynamic-import-node"
+        "syntax-import-async-component-sync"
       ]
     }
   }

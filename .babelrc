@@ -17,7 +17,7 @@
     },
     "server": {
       "plugins": [
-        "dynamic-import-node"
+        "syntax-import-async-component-sync"
       ]
     }
   }

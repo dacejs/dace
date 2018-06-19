@@ -5,15 +5,17 @@
     "build": "BABEL_ENV=client webpack --config webpack/build.babel.js --json > webpack-stats.json",
     "stylelint": "stylelint --fix \"src/**/*.(css|less|sass|scss)\"",
     "eslint": "eslint --fix src",
-    "lint": "npm run stylelint && npm run eslint"
+    "lint": "npm run stylelint && npm run eslint",
+    "postrelease": "git push && git push origin --tags",
+    "release": "standard-version && npm publish"
   },
   "dependencies": {
     "asset-require-hook": "^1.2.0",
     "axios": "^0.18.0",
     "babel-cli": "^6.26.0",
     "babel-loader": "^7.1.4",
-    "babel-plugin-dynamic-import-node": "^1.2.0",
     "babel-plugin-syntax-dynamic-import": "^6.18.0",
+    "babel-plugin-syntax-import-async-component-sync": "^1.0.0",
     "babel-plugin-syntax-object-rest-spread": "^6.13.0",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-plugin-transform-decorators-legacy": "^1.3.5",

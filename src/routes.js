@@ -1,5 +1,3 @@
-/* eslint import/no-dynamic-require: 0 */
-
 import App from './layout/App';
 import asyncComponent from './components/AsyncComponent';
 import NotFoundPage from './pages/NotFoundPage';
