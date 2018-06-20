@@ -1,11 +1,10 @@
 const { resolve } = require('path');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
-const MoveWebpackPlugin = require('move-webpack-plugin');
 const StylelintWebpackPlugin = require('stylelint-webpack-plugin');
 const merge = require('webpack-merge');
-const base = require('./base');
+const buildBase = require('./build.base');
 
-module.exports = merge(base, {
+module.exports = merge(buildBase, {
   entry: ['./src/client.js'],
   output: {
     chunkFilename: 'js/[name].[chunkhash:8].js',
@@ -32,10 +31,6 @@ module.exports = merge(base, {
   },
   plugins: [
     new CleanWebpackPlugin('dist', { root: process.cwd() }),
-    new MoveWebpackPlugin({
-      src: 'webpack-stats.json',
-      dest: 'dist'
-    }),
     // 编译过程出错信息不会提示，直接报出非零状态码退出
     new StylelintWebpackPlugin({
       context: resolve('src'),

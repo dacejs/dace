@@ -27,7 +27,7 @@ export default class Html extends Component {
         return ctx.state.webpackStats.toJson();
       }
       if (!existsSync(resolve('dist/webpack-stats.json'))) {
-        throw new Error('找不到文件：dist/webpack-stats.json，请先运行 `npm run build`');
+        throw new Error('找不到文件：dist/webpack-stats.json，请先运行 `npm run build:client`');
       }
       return require('../../dist/webpack-stats.json');
     };

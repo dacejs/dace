@@ -7,7 +7,6 @@ import webpack from 'webpack';
 import { matchRoutes } from 'react-router-config';
 import React from 'react';
 import { renderToString } from 'react-dom/server';
-import webpackConfig from '../webpack/client.babel';
 import routes from './routes';
 import createStore from './helpers/createStore';
 import Html from './helpers/Html';
@@ -21,7 +20,8 @@ const app = new Koa();
 
 if (isLocal) {
   const dev = { serverSideRender: true };
-  const compiler = webpack(webpackConfig);
+  const config = require('../webpack/dev'); // eslint-disable-line
+  const compiler = webpack(config);
   app.use(middleware({ compiler, dev }));
 } else {
   app.use(serve(path.resolve('dist')));

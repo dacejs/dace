@@ -5,8 +5,8 @@
 
 require('asset-require-hook')({
   // 这里的配置要和 file-loader 配置一致
-  extensions: ['png'],
-  name: 'assets/[name].[hash:8].[ext]',
+  extensions: ['png', 'jpg', 'gif'],
+  name: 'assets/[name].[ext]',
   publicPath: '/'
 });
 

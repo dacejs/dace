@@ -9,7 +9,7 @@ import chalk from 'chalk';
 const { argv } = yargs.usage('$0 [args]').help();
 
 // eslint-disable-next-line
-const config = require(`../webpack/${argv.host === 'client' ? 'client' : 'server'}.babel`);
+const config = require(`../webpack/build.${argv.host === 'client' ? 'client' : 'server'}`);
 
 webpack(config, (err, stats) => {
   if (err) {
