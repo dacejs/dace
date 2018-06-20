@@ -1,7 +1,7 @@
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const merge = require('webpack-merge');
 const base = require('./base');
-const { assetExtensions } = require('../isapp');
+const { assetExtensions, localIdentName } = require('../isapp');
 
 module.exports = merge(base, {
   mode: 'development',
@@ -35,7 +35,7 @@ module.exports = merge(base, {
             loader: 'css-loader',
             options: {
               modules: true,
-              localIdentName: '[local]_[hash:base64:2]'
+              localIdentName
             }
           },
           { loader: 'postcss-loader' }

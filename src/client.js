@@ -4,7 +4,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { renderRoutes } from 'react-router-config';
 import routes from './routes';
-import createStore from './helpers/createStore';
+import createStore from './utils/createStore';
 import { isProduction } from './utils';
 
 const store = createStore();

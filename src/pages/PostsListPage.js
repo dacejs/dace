@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { fetchPosts } from '../actions';
-import asyncConnect from '../helpers/asyncConnect';
+import prefetch from '../decorators/prefetch';
 
 function mapStateToProps({ posts }) {
   return { posts };
 }
 
-@asyncConnect(dispatch => dispatch(fetchPosts()))
+@prefetch(dispatch => dispatch(fetchPosts()))
 @connect(mapStateToProps, { fetchPosts })
 export default class PostsListPage extends Component {
   static propTypes = {

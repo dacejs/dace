@@ -3,13 +3,13 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { fetchUsers, fetchCurrentUser } from '../actions';
-import asyncConnect from '../helpers/asyncConnect';
+import prefetch from '../decorators/prefetch';
 
 function mapStateToProps(state) {
   return { users: state.users };
 }
 
-@asyncConnect(dispatch => Promise.all([
+@prefetch(dispatch => Promise.all([
   dispatch(fetchUsers()),
   dispatch(fetchCurrentUser(2))
 ]))

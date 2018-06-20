@@ -5,6 +5,7 @@ import { resolve } from 'path';
 import webpack from 'webpack';
 import yargs from 'yargs';
 import chalk from 'chalk';
+import { dist } from '../config/isapp';
 
 const { argv } = yargs.usage('$0 [args]').help();
 
@@ -20,7 +21,7 @@ webpack(config, (err, stats) => {
     // 让 jenkins 终止编译
     process.exit(1);
   } else {
-    const filename = resolve(__dirname, '../dist/webpack-stats.json');
+    const filename = resolve(__dirname, `../${dist}/webpack-stats.json`);
     const json = stats.toJson({
       all: false,
       publicPath: true,

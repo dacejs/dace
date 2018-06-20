@@ -4,9 +4,9 @@ const base = require('./base');
 
 module.exports = merge(base, {
   mode: 'development',
-  output: {
-    publicPath: '/'
-  },
+  // output: {
+  //   publicPath: '/'
+  // },
   module: {
     rules: [
       {

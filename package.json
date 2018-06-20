@@ -1,7 +1,7 @@
 {
   "scripts": {
-    "start": "BABEL_ENV=server NODE_ENV=local babel-node src/start.js",
-    "start:dist": "NODE_ENV=production node dist/server.js",
+    "start": "BABEL_ENV=server NODE_ENV=local babel-node scripts/start.js",
+    "start:dist": "NODE_ENV=production node prd/server.js",
     "build:client": "babel-node scripts/build.js --host=client",
     "build:server": "babel-node scripts/build.js --host=server",
     "build:all": "npm run build:client && npm run build:server",

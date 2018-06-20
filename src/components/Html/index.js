@@ -9,8 +9,9 @@ import { Provider } from 'react-redux';
 import { renderRoutes } from 'react-router-config';
 import serialize from 'serialize-javascript';
 import { Helmet } from 'react-helmet';
-import routes from '../routes';
-import { isLocal } from '../utils';
+import routes from '../../routes';
+import { isLocal } from '../../utils';
+import { dist } from '../../../config/isapp';
 
 export default class Html extends Component {
   static propTypes = {
@@ -26,10 +27,10 @@ export default class Html extends Component {
       if (isLocal) {
         return ctx.state.webpackStats.toJson();
       }
-      if (!existsSync(resolve('dist/webpack-stats.json'))) {
-        throw new Error('找不到文件：dist/webpack-stats.json，请先运行 `npm run build:client`');
+      if (!existsSync(resolve(dist, 'webpack-stats.json'))) {
+        throw new Error(`找不到文件：${dist}/webpack-stats.json，请先运行 \`npm run build:client\``);
       }
-      return require('../../dist/webpack-stats.json');
+      return require('../../../prd/webpack-stats.json');
     };
     const { publicPath, chunks } = getWebpackStats();
     // 获取初始化网页需要插入的 CSS/JS 静态文件

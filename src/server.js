@@ -8,11 +8,11 @@ import { matchRoutes } from 'react-router-config';
 import React from 'react';
 import { renderToString } from 'react-dom/server';
 import routes from './routes';
-import createStore from './helpers/createStore';
-import Html from './helpers/Html';
-import RedBox from './helpers/RedBox';
+import createStore from './utils/createStore';
+import Html from './components/Html';
+import RedBox from './components/RedBox';
 import { isLocal } from './utils';
-import { host, port } from '../config/isapp';
+import { host, port, dist } from '../config/isapp';
 
 const app = new Koa();
 
@@ -22,7 +22,7 @@ if (isLocal) {
   const compiler = webpack(config);
   app.use(middleware({ compiler, dev }));
 } else {
-  app.use(serve(path.resolve('dist')));
+  app.use(serve(path.resolve(dist)));
 }
 
 app.use(proxy('/api', {
