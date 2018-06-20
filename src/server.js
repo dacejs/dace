@@ -1,6 +1,3 @@
-/* eslint import/first: 0 */
-
-import './requireHook';
 import path from 'path';
 import Koa from 'koa';
 import serve from 'koa-static';
@@ -10,7 +7,7 @@ import webpack from 'webpack';
 import { matchRoutes } from 'react-router-config';
 import React from 'react';
 import { renderToString } from 'react-dom/server';
-import webpackConfig from '../webpack/dev.babel';
+import webpackConfig from '../webpack/client.babel';
 import routes from './routes';
 import createStore from './helpers/createStore';
 import Html from './helpers/Html';

@@ -597,3 +597,5 @@ http://wiki.corp.qunar.com/confluence/pages/viewpage.action?pageId=189430663
 - node
   - 不打包 node 内置的模块，如 fs path 等
   -
+
+## 如何编译工程

@@ -1,4 +1,4 @@
-/* eslint react/no-danger: 0 */
+/* eslint react/no-danger: 0, global-require: 0 */
 import { existsSync } from 'fs';
 import { resolve } from 'path';
 import React, { Component } from 'react';
@@ -23,13 +23,13 @@ export default class Html extends Component {
     const { ctx, context, store } = this.props;
 
     const getWebpackStats = () => {
-      const assetManifest = resolve('dist/webpack-stats.json');
       if (isLocal) {
         return ctx.state.webpackStats.toJson();
-      } else if (existsSync(assetManifest)) {
-        return require(assetManifest); // eslint-disable-line
       }
-      throw new Error(`找不到文件：${assetManifest}，请先运行 \`npm run build\``);
+      if (!existsSync(resolve('dist/webpack-stats.json'))) {
+        throw new Error('找不到文件：dist/webpack-stats.json，请先运行 `npm run build`');
+      }
+      return require('../../dist/webpack-stats.json');
     };
     const { publicPath, chunks } = getWebpackStats();
     // 获取初始化网页需要插入的 CSS/JS 静态文件
