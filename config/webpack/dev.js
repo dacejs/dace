@@ -1,5 +1,7 @@
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const merge = require('webpack-merge');
 const base = require('./base');
+const { assetExtensions } = require('../isapp');
 
 module.exports = merge(base, {
   mode: 'development',
@@ -28,7 +30,7 @@ module.exports = merge(base, {
       {
         test: /\.css$/i,
         use: [
-          { loader: 'style-loader' },
+          { loader: MiniCssExtractPlugin.loader },
           {
             loader: 'css-loader',
             options: {
@@ -40,7 +42,7 @@ module.exports = merge(base, {
         ]
       },
       {
-        test: /\.png$/i,
+        test: new RegExp(`.(${assetExtensions.join('|')})$`, 'i'),
         use: {
           loader: 'file-loader',
           options: {
@@ -49,5 +51,11 @@ module.exports = merge(base, {
         }
       }
     ]
-  }
+  },
+  plugins: [
+    new MiniCssExtractPlugin({
+      filename: 'css/[name].css',
+      chunkFilename: 'css/[id].css'
+    })
+  ]
 });

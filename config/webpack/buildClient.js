@@ -2,7 +2,7 @@ const { resolve } = require('path');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const StylelintWebpackPlugin = require('stylelint-webpack-plugin');
 const merge = require('webpack-merge');
-const buildBase = require('./build.base');
+const buildBase = require('./buildBase');
 
 module.exports = merge(buildBase, {
   entry: ['./src/client.js'],

@@ -1,9 +1,8 @@
 const nodeExternals = require('webpack-node-externals');
 const merge = require('webpack-merge');
-const buildBase = require('./build.base');
+const buildBase = require('./buildBase');
 
 module.exports = merge(buildBase, {
-  // mode: 'development',
   entry: ['./src/server.js'],
   output: {
     filename: 'server.js'
