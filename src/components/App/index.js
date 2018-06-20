@@ -1,8 +1,7 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import { connect } from 'react-redux';
 import { renderRoutes } from 'react-router-config';
 import PropTypes from 'prop-types';
-import Header from '../components/Header';
 
 @connect(state => state)
 export default class App extends Component {
@@ -17,11 +16,6 @@ export default class App extends Component {
 
   render() {
     const { route, dispatch } = this.props;
-    return (
-      <div>
-        <Header />
-        {renderRoutes(route.routes, { dispatch })}
-      </div>
-    );
+    return renderRoutes(route.routes, { dispatch });
   }
 }

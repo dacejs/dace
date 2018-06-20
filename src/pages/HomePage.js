@@ -1,14 +1,15 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
+import DefaultLayout from '../layouts/default';
 
 const Home = () => (
-  <div>
+  <DefaultLayout>
     <Helmet>
       <title>Home</title>
     </Helmet>
     <h3>Welcome</h3>
     <p>Check out these awesome features</p>
-  </div>
+  </DefaultLayout>
 );
 
 export default Home;

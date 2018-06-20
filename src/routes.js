@@ -1,4 +1,4 @@
-import App from './layout/App';
+import App from './components/App';
 import asyncComponent from './components/AsyncComponent';
 import NotFoundPage from './pages/NotFoundPage';
 
