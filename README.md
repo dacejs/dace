@@ -1,4 +1,4 @@
-# isomorphic-app
+# universal-js
 
 * 创建工作目录
 ```
