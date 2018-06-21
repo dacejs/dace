@@ -7,15 +7,11 @@ import PropTypes from 'prop-types';
 export default class App extends Component {
   static propTypes = {
     route: PropTypes.object.isRequired,
-    dispatch: PropTypes.func
-  }
-
-  static defaultProps = {
-    dispatch: () => {}
+    store: PropTypes.object.isRequired
   }
 
   render() {
-    const { route, dispatch } = this.props;
-    return renderRoutes(route.routes, { dispatch });
+    const { route, store } = this.props;
+    return renderRoutes(route.routes, { store });
   }
 }

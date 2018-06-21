@@ -33,7 +33,6 @@ export default class Html extends Component {
       return require('../../../prd/webpack-stats.json');
     };
     const { publicPath, chunks } = getWebpackStats();
-    console.log('--chunks:', chunks);
     // 获取初始化网页需要插入的 CSS/JS 静态文件
     const initialAssets = chunks
       .filter(item => item.initial)
@@ -56,7 +55,7 @@ export default class Html extends Component {
     const Root = (
       <Provider store={store}>
         <StaticRouter location={ctx.path} context={context}>
-          {renderRoutes(routes)}
+          {renderRoutes(routes, { store })}
         </StaticRouter>
       </Provider>
     );

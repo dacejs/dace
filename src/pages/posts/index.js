@@ -5,12 +5,13 @@ import { Helmet } from 'react-helmet';
 import { fetchPosts } from './action';
 import prefetch from '../../decorators/prefetch';
 import DefaultLayout from '../../layouts/default';
+import reducer from './reducer';
 
-function mapStateToProps({ posts }) {
+function mapStateToProps({ posts = [] }) {
   return { posts };
 }
 
-@prefetch(dispatch => dispatch(fetchPosts()))
+@prefetch('posts', reducer, dispatch => dispatch(fetchPosts()))
 @connect(mapStateToProps, { fetchPosts })
 export default class PostsListPage extends Component {
   static propTypes = {

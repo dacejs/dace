@@ -8,7 +8,8 @@ import { matchRoutes } from 'react-router-config';
 import React from 'react';
 import { renderToString } from 'react-dom/server';
 import routes from './routes';
-import createStore from './utils/createStore';
+// import createStore from './utils/createStore';
+import createStore from './initializeStore';
 import Html from './components/Html';
 import RedBox from './components/RedBox';
 import { isLocal } from './utils';
@@ -33,7 +34,7 @@ app.use(proxy('/api', {
 }));
 
 app.use(async (ctx) => {
-  const store = createStore(ctx);
+  const store = createStore();
   const promises = matchRoutes(routes, ctx.path)
     .map(({ route }) => {
       const { getInitialProps } = route.component;

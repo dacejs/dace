@@ -4,7 +4,8 @@ import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { renderRoutes } from 'react-router-config';
 import routes from './routes';
-import createStore from './utils/createStore';
+// import createStore from './utils/createStore';
+import createStore from './initializeStore';
 import { isProduction } from './utils';
 
 const store = createStore();
@@ -23,7 +24,7 @@ if (!isProduction) {
 ReactDOM.hydrate(
   <Provider store={store}>
     <BrowserRouter>
-      {renderRoutes(routes)}
+      {renderRoutes(routes, { store })}
     </BrowserRouter>
   </Provider>,
   container

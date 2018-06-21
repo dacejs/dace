@@ -3,6 +3,7 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const StylelintWebpackPlugin = require('stylelint-webpack-plugin');
 const merge = require('webpack-merge');
 const buildBase = require('./buildBase');
+const { dist } = require('../isapp');
 
 module.exports = merge(buildBase, {
   entry: ['./src/client.js'],
@@ -30,7 +31,7 @@ module.exports = merge(buildBase, {
     ]
   },
   plugins: [
-    new CleanWebpackPlugin('dist', { root: process.cwd() }),
+    new CleanWebpackPlugin(dist, { root: process.cwd() }),
     // 编译过程出错信息不会提示，直接报出非零状态码退出
     new StylelintWebpackPlugin({
       context: resolve('src'),

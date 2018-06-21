@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-export default loadData => Target => class extends Component {
+export default (key, reducer, loadData) => Target => class extends Component {
   static propTypes = {
-    dispatch: PropTypes.func.isRequired
+    store: PropTypes.object.isRequired
   };
 
   constructor(props) {
@@ -11,11 +11,18 @@ export default loadData => Target => class extends Component {
   }
 
   componentDidMount() {
+    // 在浏览器端执行
+    // 动态添加reducer
+    const { store } = this.props;
+    store.injectReducer(key, reducer);
     // 浏览器端获取数据
-    loadData(this.props.dispatch);
+    loadData(store.dispatch);
   }
 
   static getInitialProps(store) {
+    // 在服务器端执行
+    // 动态添加reducer
+    store.injectReducer(key, reducer);
     return loadData(store.dispatch);
   }
 

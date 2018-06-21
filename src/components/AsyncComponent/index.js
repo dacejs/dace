@@ -16,8 +16,8 @@ export default (importComponent) => {
     }
 
     render() {
-      const C = this.state.component;
-      return C ? <C {...this.props} /> : null;
+      const WrappedComponent = this.state.component;
+      return WrappedComponent ? <WrappedComponent {...this.props} /> : null;
     }
   }
 

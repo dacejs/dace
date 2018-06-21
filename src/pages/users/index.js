@@ -5,12 +5,13 @@ import { Helmet } from 'react-helmet';
 import { fetchUsers/* , fetchCurrentUser */ } from './action';
 import prefetch from '../../decorators/prefetch';
 import DefaultLayout from '../../layouts/default';
+import reducer from './reducer';
 
 function mapStateToProps(state) {
-  return { users: state.users };
+  return { users: state.users || [] };
 }
 
-@prefetch(dispatch => Promise.all([
+@prefetch('users', reducer, dispatch => Promise.all([
   dispatch(fetchUsers()) // ,
   // dispatch(fetchCurrentUser(2))
 ]))
