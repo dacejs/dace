@@ -1,4 +1,12 @@
 {
+  "name": "unjs",
+  "description": "A minimalistic universal (isomorphic) react framework for building web apps",
+  "version": "3.2.4",
+  "repository": "un-js/unjs",
+  "keywords": [
+    "universal", "isomorphic", "webpack", "react",
+    "redux", "server-side-rendering", "koa", "code-splitting"
+  ],
   "scripts": {
     "start": "BABEL_ENV=server NODE_ENV=local babel-node scripts/start.js",
     "start:dist": "NODE_ENV=production node prd/server.js",
