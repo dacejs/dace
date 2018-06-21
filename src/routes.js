@@ -1,24 +1,16 @@
 import App from './components/App';
-import asyncComponent from './components/AsyncComponent';
-import NotFoundPage from './pages/NotFoundPage';
+import NotFoundPage from './pages/notFound';
+import home from './pages/home/router';
+import users from './pages/users/router';
+import posts from './pages/posts/router';
 
 export default [
   {
     component: App,
     routes: [
-      {
-        path: '/',
-        exact: true,
-        component: asyncComponent(() => import(/* webpackChunkName: "home" */'./pages/HomePage'))
-      },
-      {
-        path: '/users',
-        component: asyncComponent(() => import(/* webpackChunkName: "users" */'./pages/UsersListPage'))
-      },
-      {
-        path: '/posts',
-        component: asyncComponent(() => import(/* webpackChunkName: "posts" */'./pages/PostsListPage'))
-      },
+      home,
+      users,
+      posts,
       {
         component: NotFoundPage
       }

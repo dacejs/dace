@@ -1,17 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const NotFoundPage = ({ staticContext = {} }) => {
+const NotFound = ({ staticContext = {} }) => {
   staticContext.notFound = true;
   return <h1>Ooops, route not found.</h1>;
 };
 
-NotFoundPage.propTypes = {
+NotFound.propTypes = {
   staticContext: PropTypes.object
 };
 
-NotFoundPage.defaultProps = {
+NotFound.defaultProps = {
   staticContext: {}
 };
 
-export default NotFoundPage;
+export default NotFound;

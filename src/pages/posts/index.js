@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { fetchPosts } from '../actions';
-import prefetch from '../decorators/prefetch';
+import { Helmet } from 'react-helmet';
+import { fetchPosts } from './action';
+import prefetch from '../../decorators/prefetch';
+import DefaultLayout from '../../layouts/default';
 
 function mapStateToProps({ posts }) {
   return { posts };
@@ -29,10 +31,13 @@ export default class PostsListPage extends Component {
 
   render() {
     return (
-      <div>
+      <DefaultLayout>
+        <Helmet>
+          <title>Posts</title>
+        </Helmet>
         <h3>Protected list of posts</h3>
         <ul>{this.renderPosts()}</ul>
-      </div>
+      </DefaultLayout>
     );
   }
 }

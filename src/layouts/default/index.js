@@ -12,7 +12,7 @@ const DefaultLayout = props => (
 DefaultLayout.propTypes = {
   children: PropTypes.oneOfType([
     PropTypes.element,
-    PropTypes.arrayOf(PropTypes.element)
+    PropTypes.array
   ]).isRequired
 };
 

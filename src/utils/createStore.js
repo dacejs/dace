@@ -1,7 +1,7 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import axios from 'axios';
-import reducers from '../reducers';
+import reducers from '../reducer';
 import { isClient } from '../utils';
 
 export default (/* ctx */) => {

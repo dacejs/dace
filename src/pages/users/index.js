@@ -2,16 +2,17 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
-import { fetchUsers, fetchCurrentUser } from '../actions';
-import prefetch from '../decorators/prefetch';
+import { fetchUsers/* , fetchCurrentUser */ } from './action';
+import prefetch from '../../decorators/prefetch';
+import DefaultLayout from '../../layouts/default';
 
 function mapStateToProps(state) {
   return { users: state.users };
 }
 
 @prefetch(dispatch => Promise.all([
-  dispatch(fetchUsers()),
-  dispatch(fetchCurrentUser(2))
+  dispatch(fetchUsers()) // ,
+  // dispatch(fetchCurrentUser(2))
 ]))
 @connect(mapStateToProps, { fetchUsers })
 export default class UsersList extends Component {
@@ -42,11 +43,11 @@ export default class UsersList extends Component {
 
   render() {
     return (
-      <div>
+      <DefaultLayout>
         {this.head()}
         Here is a big list of users:
         <ul>{this.renderUsers()}</ul>
-      </div>
+      </DefaultLayout>
     );
   }
 }

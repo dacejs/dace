@@ -1,4 +1,4 @@
-import { FETCH_POSTS } from '../actions';
+import { FETCH_POSTS } from './action';
 
 export default (state = [], action) => {
   switch (action.type) {
