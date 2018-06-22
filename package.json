@@ -4,15 +4,24 @@
   "version": "3.2.4",
   "repository": "un-js/unjs",
   "keywords": [
-    "universal", "isomorphic", "webpack", "react",
-    "redux", "server-side-rendering", "koa", "code-splitting"
+    "universal",
+    "isomorphic",
+    "webpack",
+    "react",
+    "redux",
+    "server-side-rendering",
+    "koa",
+    "code-splitting"
   ],
+  "bin": {
+    "unjs": "src/bin/unjs.js"
+  },
   "scripts": {
     "start": "BABEL_ENV=server NODE_ENV=local babel-node scripts/start.js",
     "start:dist": "NODE_ENV=production node prd/server.js",
     "build:client": "babel-node scripts/build.js --host=client",
     "build:server": "babel-node scripts/build.js --host=server",
-    "build:all": "npm run build:client && npm run build:server",
+    "build": "npm run build:client && npm run build:server",
     "stylelint": "stylelint --fix \"src/**/*.(css|less|sass|scss)\"",
     "eslint": "eslint --fix src",
     "lint": "npm run stylelint && npm run eslint",
@@ -32,6 +41,7 @@
     "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
     "babel-preset-react": "^6.24.1",
     "clean-webpack-plugin": "^0.1.19",
+    "commander": "^2.15.1",
     "css-loader": "^0.28.11",
     "css-modules-require-hook": "^4.2.3",
     "eslint": "^4.19.1",
@@ -64,6 +74,8 @@
     "webpack-node-externals": "^1.7.2"
   },
   "devDependencies": {
-    "redux-devtools": "^3.4.1"
+    "mocha": "^5.2.0",
+    "redux-devtools": "^3.4.1",
+    "should": "^13.2.1"
   }
 }

@@ -11,7 +11,7 @@ import serialize from 'serialize-javascript';
 import { Helmet } from 'react-helmet';
 import routes from '../../routes';
 import { isLocal } from '../../utils';
-import { dist } from '../../../config/isapp';
+import { dist } from '../../../config/unjs';
 
 export default class Html extends Component {
   static propTypes = {

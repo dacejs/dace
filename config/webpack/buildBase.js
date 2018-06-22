@@ -1,7 +1,7 @@
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const merge = require('webpack-merge');
 const base = require('./base');
-const { assetExtensions, localIdentName } = require('../isapp');
+const { assetExtensions, localIdentName } = require('../unjs');
 
 module.exports = merge(base, {
   mode: 'development',

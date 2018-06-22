@@ -1,11 +1,12 @@
+const { resolve } = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const merge = require('webpack-merge');
 const base = require('./base');
-const { assetExtensions, localIdentName } = require('../isapp');
+const { assetExtensions, localIdentName } = require('../unjs');
 
 module.exports = merge(base, {
   mode: 'development',
-  entry: ['./src/client.js'],
+  entry: [resolve(__dirname, '../../src/client.js')],
   output: {
     chunkFilename: 'js/[name].js',
     filename: 'js/[name].js'
@@ -23,7 +24,11 @@ module.exports = merge(base, {
             }
           },
           {
-            loader: 'eslint-loader'
+            loader: 'eslint-loader',
+            options: {
+              useEslintrc: resolve(__dirname, '../../.stylelintrc.js'),
+              ignorePath: resolve(__dirname, '../../.eslintignore')
+            }
           }
         ]
       },
@@ -57,5 +62,20 @@ module.exports = merge(base, {
       filename: 'css/[name].css',
       chunkFilename: 'css/[id].css'
     })
-  ]
+  ] // ,
+  // optimization: {
+  //   splitChunks: {
+  //     cacheGroups: {
+  //       vendor: {
+  //         test: new RegExp('(react|Header)'), // /(ccc|sub\/bbb|\.\/d)/,
+  //         chunks: 'initial',
+  //         name: 'vendor',
+  //         // 优先级
+  //         priority: 1,
+  //         // 忽略命中次数，只要命中且使用过一次就打入 vendor
+  //         enforce: true
+  //       }
+  //     }
+  //   }
+  // }
 });

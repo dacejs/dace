@@ -5,7 +5,7 @@ import { resolve } from 'path';
 import webpack from 'webpack';
 import yargs from 'yargs';
 import chalk from 'chalk';
-import { dist } from '../config/isapp';
+import { dist } from '../config/unjs';
 
 const { argv } = yargs.usage('$0 [args]').help();
 

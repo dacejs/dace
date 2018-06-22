@@ -13,7 +13,7 @@ import createStore from './initializeStore';
 import Html from './components/Html';
 import RedBox from './components/RedBox';
 import { isLocal } from './utils';
-import { host, port, dist } from '../config/isapp';
+import { host, port, dist } from '../config/unjs';
 
 const app = new Koa();
 

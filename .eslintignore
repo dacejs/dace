@@ -1,5 +1,4 @@
-/.tmp/**
-/docs/**
-/prd/**
-/dist/**
-/node_modules/**
+/docs
+/prd
+/dist
+/node_modules

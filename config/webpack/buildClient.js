@@ -3,10 +3,10 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const StylelintWebpackPlugin = require('stylelint-webpack-plugin');
 const merge = require('webpack-merge');
 const buildBase = require('./buildBase');
-const { dist } = require('../isapp');
+const { dist } = require('../unjs');
 
 module.exports = merge(buildBase, {
-  entry: ['./src/client.js'],
+  entry: [resolve(__dirname, '../../src/client.js')],
   output: {
     chunkFilename: 'js/[name].[chunkhash:8].js',
     filename: 'js/[name].[hash:8].js'
@@ -24,7 +24,11 @@ module.exports = merge(buildBase, {
             }
           },
           {
-            loader: 'eslint-loader'
+            loader: 'eslint-loader',
+            options: {
+              useEslintrc: resolve(__dirname, '../../.stylelintrc.js'),
+              ignorePath: resolve(__dirname, '../../.eslintignore')
+            }
           }
         ]
       }
