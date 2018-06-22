@@ -1,0 +1,10 @@
+{
+  "scripts": {
+    "start": "unjs",
+    "build": "unjs build"
+  },
+  "dependencies": {
+    "commander": "^2.15.1",
+    "unjs": ".."
+  }
+}
