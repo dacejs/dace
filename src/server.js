@@ -8,12 +8,11 @@ import { matchRoutes } from 'react-router-config';
 import React from 'react';
 import { renderToString } from 'react-dom/server';
 import routes from './routes';
-// import createStore from './utils/createStore';
-import createStore from './initializeStore';
+import createStore from './createStore';
 import Html from './components/Html';
 import RedBox from './components/RedBox';
 import { isLocal } from './utils';
-import { host, port, dist } from '../config/unjs';
+import { host, port, dist, ApiUrl } from '../config/unjs';
 
 const app = new Koa();
 
@@ -27,7 +26,7 @@ if (isLocal) {
 }
 
 app.use(proxy('/api', {
-  target: 'http://jsonplaceholder.typicode.com',
+  target: ApiUrl,
   rewrite: url => url.replace(/^\/api/, ''),
   changeOrigin: true,
   logs: true
@@ -35,7 +34,7 @@ app.use(proxy('/api', {
 
 app.use(async (ctx) => {
   const store = createStore();
-  const promises = matchRoutes(routes, ctx.path)
+  const promises = matchRoutes(routes(), ctx.path)
     .map(({ route }) => {
       const { getInitialProps } = route.component;
       return getInitialProps ? getInitialProps(store) : null;

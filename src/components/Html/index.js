@@ -56,7 +56,7 @@ export default class Html extends Component {
     const Root = (
       <Provider store={store}>
         <StaticRouter location={ctx.path} context={context}>
-          {renderRoutes(routes, { store })}
+          {renderRoutes(routes(), { store })}
         </StaticRouter>
       </Provider>
     );

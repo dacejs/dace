@@ -3,9 +3,10 @@ import thunk from 'redux-thunk';
 import axios from 'axios';
 import { isClient } from './utils';
 import createReducer from './rootReducer';
+import { ApiUrl } from '../config/unjs';
 
 const initializeStore = () => {
-  const baseURL = isClient ? '/api' : 'http://jsonplaceholder.typicode.com';
+  const baseURL = isClient ? '/api' : ApiUrl;
   const initialState = isClient ? window.INITIAL_STATE : {};
 
   // 根据服务器端拍回来的数据决定浏览器端初始化 store 需要引入哪些 reducer
@@ -13,12 +14,11 @@ const initializeStore = () => {
   const asyncReducers = {};
   if (isClient && window.INITIAL_STATE) {
     Object.keys(window.INITIAL_STATE).filter(key => key !== 'foo').forEach((key) => {
-      asyncReducers[key] = require(`./pages/${key}/reducer`).default; //eslint-disable-line
+      asyncReducers[key] = require(`./pages/${key}/reducer`); //eslint-disable-line
     });
   }
 
   const axiosInstance = axios.create({
-    // baseURL: 'http://localhost:3000',
     baseURL
     // headers: { cookie: req.get('cookie') || '' }
   });

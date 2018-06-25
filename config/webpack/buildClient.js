@@ -15,6 +15,21 @@ module.exports = merge(buildBase, {
   module: {
     rules: [
       {
+        test: /routes\.js$/,
+        exclude: ['node_modules'],
+        use: [
+          {
+            loader: resolve(__dirname, 'loaders/routesLoader.js')
+          },
+          {
+            loader: 'babel-loader',
+            options: {
+              forceEnv: 'client'
+            }
+          }
+        ]
+      },
+      {
         test: /\.js$/i,
         exclude: ['node_modules'],
         use: [

@@ -26,6 +26,12 @@ module.exports = Object.assign({
   dist: 'prd',
 
   /**
+   * APIs 请求的地址
+   * @type {string}
+   */
+  ApiUrl: 'http://jsonplaceholder.typicode.com',
+
+  /**
    * 自定义css-modules类标识命名规则
    * @type {string}
    */

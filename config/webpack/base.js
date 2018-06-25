@@ -11,6 +11,7 @@ module.exports = {
   },
   resolve: {
     alias: {
+      // 为了在 unjs 里加载实际项目中的文件而添加的 hack
       CWD: `${process.cwd()}/`
     },
     modules: [

@@ -1,19 +1,37 @@
+/**
+ * 该文件仅在 node-require 环境下运行
+ * 当 webpack-require 时，走的是 routesLoader
+ */
+import { existsSync } from 'fs';
+import { resolve } from 'path';
+import glob from 'glob';
 import App from './components/App';
 import NotFoundPage from './pages/notFound';
-import home from './pages/home/router';
-import users from './pages/users/router';
-import posts from './pages/posts/router';
+// import asyncComponent from './components/AsyncComponent';
 
-export default [
-  {
-    component: App,
-    routes: [
-      home,
-      users,
-      posts,
-      {
-        component: NotFoundPage
+export default () => {
+  const routes = [{ component: NotFoundPage }];
+  const cwd = resolve('src/pages');
+  glob
+    .sync('**/index.js', { cwd })
+    .forEach((item) => {
+      const name = item.replace('index.js', '');
+      const routerFile = resolve(cwd, `${name}/router.js`);
+      if (existsSync(routerFile)) {
+        routes.unshift(require(routerFile)); //eslint-disable-line
+      } else {
+        // 动态创建 router 模块
+        routes.unshift({
+          path: `/${name}`,
+          component: require(resolve(cwd, name)) // eslint-disable-line
+        });
       }
-    ]
-  }
-];
+    });
+
+  return [
+    {
+      component: App,
+      routes
+    }
+  ];
+};
