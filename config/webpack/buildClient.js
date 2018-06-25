@@ -4,6 +4,7 @@ const StylelintWebpackPlugin = require('stylelint-webpack-plugin');
 const merge = require('webpack-merge');
 const buildBase = require('./buildBase');
 const { dist } = require('../unjs');
+const WrireStatsFilePlugin = require('./plugins/writeStatsFilePlugin');
 
 module.exports = merge(buildBase, {
   entry: [resolve(__dirname, '../../src/client.js')],
@@ -40,6 +41,7 @@ module.exports = merge(buildBase, {
     new StylelintWebpackPlugin({
       context: resolve('src'),
       files: ['**/*.css', '**/*.less', '**/*.s?(a|c)ss']
-    })
+    }),
+    new WrireStatsFilePlugin()
   ]
 });

@@ -1,4 +1,5 @@
 /docs
-/prd
-/dist
-/node_modules
+prd/
+dev/
+dist/
+node_modules/

@@ -7,9 +7,12 @@ const nodePathList = (process.env.NODE_PATH || '').split(delimiter).filter(p => 
 module.exports = {
   output: {
     publicPath,
-    path: resolve(__dirname, '../../', dist)
+    path: resolve(dist)
   },
   resolve: {
+    alias: {
+      CWD: `${process.cwd()}/`
+    },
     modules: [
       'node_modules',
       ...nodePathList // 支持 NODE_PATH 环境变量

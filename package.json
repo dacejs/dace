@@ -1,7 +1,7 @@
 {
   "name": "unjs",
   "description": "A minimalistic universal (isomorphic) react framework for building web apps",
-  "version": "3.2.4",
+  "version": "1.0.0",
   "repository": "un-js/unjs",
   "keywords": [
     "universal",

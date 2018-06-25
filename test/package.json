@@ -1,10 +1,10 @@
 {
   "scripts": {
     "start": "unjs",
+    "start:dist": "NODE_ENV=production node prd/server.js",
     "build": "unjs build"
   },
   "dependencies": {
-    "commander": "^2.15.1",
     "unjs": ".."
   }
 }

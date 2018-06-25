@@ -1,12 +1,16 @@
 const { resolve } = require('path');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 const nodeExternals = require('webpack-node-externals');
 const merge = require('webpack-merge');
 const buildBase = require('./buildBase');
+const { dist } = require('../unjs');
+
+const bundlerName = 'server.js';
 
 module.exports = merge(buildBase, {
   entry: [resolve(__dirname, '../../src/server.js')],
   output: {
-    filename: 'server.js'
+    filename: bundlerName
   },
   module: {
     rules: [
@@ -24,6 +28,9 @@ module.exports = merge(buildBase, {
       }
     ]
   },
+  plugins: [
+    new CleanWebpackPlugin(resolve(dist, bundlerName), { root: process.cwd() })
+  ],
   target: 'node',
   externals: [nodeExternals()],
   // node: {
