@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 /* eslint global-require: 0 */
+process.env.NODE_PATH = process.cwd();
 require('babel-register');
 const program = require('commander');
 const webpack = require('webpack');

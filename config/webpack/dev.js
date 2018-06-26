@@ -14,14 +14,10 @@ module.exports = merge(base, {
   module: {
     rules: [
       {
-        test: /routes\.js$/,
-        exclude: ['node_modules'],
+        test: /\/routes\.js$/,
         use: [
           {
-            loader: resolve(__dirname, 'loaders/routesLoader.js')
-          },
-          {
-            loader: 'babel-loader',
+            loader: resolve(__dirname, 'loaders/routesLoader.js'),
             options: {
               forceEnv: 'client'
             }

@@ -17,14 +17,11 @@
     "unjs": "src/bin/unjs.js"
   },
   "scripts": {
-    "start": "BABEL_ENV=server NODE_ENV=local babel-node scripts/start.js",
-    "start:dist": "NODE_ENV=production node prd/server.js",
-    "build:client": "babel-node scripts/build.js --host=client",
-    "build:server": "babel-node scripts/build.js --host=server",
-    "build": "npm run build:client && npm run build:server",
+    "build": "rm -rf lib && babel src -d lib",
     "stylelint": "stylelint --fix \"src/**/*.(css|less|sass|scss)\"",
     "eslint": "eslint --fix src",
     "lint": "npm run stylelint && npm run eslint",
+    "prepare": "npm run build",
     "postrelease": "git push && git push origin --tags",
     "release": "standard-version && npm publish"
   },
@@ -53,6 +50,7 @@
     "koa-proxies": "^0.7.0",
     "koa-static": "^4.0.3",
     "koa-webpack": "^4.0.0",
+    "loader-utils": "^1.1.0",
     "mini-css-extract-plugin": "^0.4.0",
     "postcss-loader": "^2.1.5",
     "prop-types": "^15.6.1",

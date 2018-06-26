@@ -7,8 +7,6 @@ import routes from './routes';
 import createStore from './createStore';
 import { isProduction } from './utils';
 
-const store = createStore();
-
 const container = document.getElementById('root');
 if (!container || !container.firstChild ||
   !container.firstChild.attributes ||
@@ -19,6 +17,8 @@ if (!container || !container.firstChild ||
 if (!isProduction) {
   window.React = React; // 为了调试方便
 }
+
+const store = createStore();
 
 ReactDOM.hydrate(
   <Provider store={store}>

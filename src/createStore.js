@@ -14,7 +14,7 @@ const initializeStore = () => {
   const asyncReducers = {};
   if (isClient && window.INITIAL_STATE) {
     Object.keys(window.INITIAL_STATE).filter(key => key !== 'foo').forEach((key) => {
-      asyncReducers[key] = require(`./pages/${key}/reducer`); //eslint-disable-line
+      asyncReducers[key] = require(`src/pages/${key}/reducer`); //eslint-disable-line
     });
   }
 

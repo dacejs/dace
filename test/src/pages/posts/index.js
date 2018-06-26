@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
+import prefetch from 'unjs/lib/decorators/prefetch';
 import { fetchPosts } from './action';
-import prefetch from '../../decorators/prefetch';
-import DefaultLayout from '../../layouts/default';
 import reducer from './reducer';
+import DefaultLayout from '../../layouts/default';
 
 function mapStateToProps({ posts = [] }) {
   return { posts };

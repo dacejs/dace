@@ -30,7 +30,7 @@ export default class Html extends Component {
       if (!existsSync(resolve(dist, 'webpack-stats.json'))) {
         throw new Error(`找不到文件：${dist}/webpack-stats.json，请先运行 \`npm run build:client\``);
       }
-      return require(`CWD/${dist}/webpack-stats.json`); // eslint-disable-line
+      return require('webpack-stats.json'); // eslint-disable-line
       // return require(resolve(dist, 'webpack-stats.json')); // eslint-disable-line
     };
     const { publicPath, chunks } = getWebpackStats();

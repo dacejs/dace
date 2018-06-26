@@ -15,14 +15,10 @@ module.exports = merge(buildBase, {
   module: {
     rules: [
       {
-        test: /routes\.js$/,
-        exclude: ['node_modules'],
+        test: /\/routes\.js$/,
         use: [
           {
-            loader: resolve(__dirname, 'loaders/routesLoader.js')
-          },
-          {
-            loader: 'babel-loader',
+            loader: resolve(__dirname, 'loaders/routesLoader.js'),
             options: {
               forceEnv: 'server'
             }
@@ -46,6 +42,11 @@ module.exports = merge(buildBase, {
   plugins: [
     new CleanWebpackPlugin(resolve(dist, bundlerName), { root: process.cwd() })
   ],
+  resolve: {
+    alias: {
+      'webpack-stats.json': `${process.cwd()}/${dist}/webpack-stats.json`
+    }
+  },
   target: 'node',
   externals: [nodeExternals()],
   // node: {

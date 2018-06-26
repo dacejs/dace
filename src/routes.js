@@ -7,7 +7,6 @@ import { resolve } from 'path';
 import glob from 'glob';
 import App from './components/App';
 import NotFoundPage from './pages/notFound';
-// import asyncComponent from './components/AsyncComponent';
 
 export default () => {
   const routes = [{ component: NotFoundPage }];
@@ -18,7 +17,7 @@ export default () => {
       const name = item.replace('index.js', '');
       const routerFile = resolve(cwd, `${name}/router.js`);
       if (existsSync(routerFile)) {
-        routes.unshift(require(routerFile)); //eslint-disable-line
+        routes.unshift(require(routerFile)); // eslint-disable-line
       } else {
         // 动态创建 router 模块
         routes.unshift({
