@@ -16,11 +16,18 @@ import { host, port, dist, ApiUrl } from './config/unjs';
 
 const app = new Koa();
 
+const { UNIT_TEST } = process.env; // 运行测试用例
+
 if (isLocal) {
   const dev = { serverSideRender: true };
   const config = require('./config/webpack/dev'); // eslint-disable-line
   const compiler = webpack(config);
-  app.use(middleware({ compiler, dev }));
+  const middlewareOptions = { compiler, dev };
+  if (UNIT_TEST) {
+    middlewareOptions.dev.logLevel = 'silent';
+    middlewareOptions.hot = false;
+  }
+  app.use(middleware(middlewareOptions));
 } else {
   app.use(serve(path.resolve(dist)));
 }
@@ -66,10 +73,14 @@ app.use(async (ctx) => {
   });
 });
 
-app.listen(port, (err) => {
-  if (err) {
-    console.error(`==> 😭  OMG!!! ${err}`);
-  } else {
-    console.info(`==> 💻  http://${host}:${port}`);
-  }
-});
+if (!UNIT_TEST) {
+  app.listen(port, (err) => {
+    if (err) {
+      console.error(`==> 😭  OMG!!! ${err}`);
+    } else {
+      console.info(`==> 💻  http://${host}:${port}`);
+    }
+  });
+}
+
+export default app;

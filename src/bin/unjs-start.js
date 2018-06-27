@@ -6,4 +6,6 @@ require('babel-register')(setBabelOptions({
   target: 'node'
 }));
 require('../utils/requireHook');
-require('../server');
+const app = require('../server');
+
+module.exports = app;

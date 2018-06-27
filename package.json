@@ -20,6 +20,7 @@
     "build": "rm -rf lib && babel src -d lib",
     "stylelint": "stylelint --fix \"src/**/*.(css|less|sass|scss)\"",
     "eslint": "eslint --fix src",
+    "test": "node test/index.js",
     "lint": "npm run stylelint && npm run eslint",
     "prepare": "npm run build",
     "postrelease": "git push && git push origin --tags",
@@ -75,6 +76,7 @@
   "devDependencies": {
     "mocha": "^5.2.0",
     "redux-devtools": "^3.4.1",
-    "should": "^13.2.1"
+    "should": "^13.2.1",
+    "supertest": "^3.1.0"
   }
 }

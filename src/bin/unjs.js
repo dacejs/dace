@@ -15,5 +15,6 @@ if (program.logo) {
 }
 
 console.log('==== versions ====');
+console.log(`time:\t\t${new Date()}`);
+console.log(`unjs:\t\t${version}`);
 console.log(`user-agent:\t${process.env.npm_config_user_agent}`);
-console.log(`unjs:\t${version}`);
