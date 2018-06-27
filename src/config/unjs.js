@@ -6,6 +6,8 @@
 
 const { NODE_ENV = 'local' } = process.env;
 
+const configInProject = require('src/config/unjs');
+
 module.exports = Object.assign({
   /**
    * web服务器对外访问主机名
@@ -53,4 +55,4 @@ module.exports = Object.assign({
     'eot',
     'svg'
   ]
-}, require(`./profiles/${NODE_ENV}`));
+}, require(`./profiles/${NODE_ENV}`), configInProject);

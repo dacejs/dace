@@ -15,7 +15,6 @@ if (program.logo) {
   logo();
 }
 
-// info('using', 'npm@%s', npm.version);
-info('using', 'time: %s', new Date());
-info('using', 'unjs: %s', version);
-info('using', 'user-agent: %s', process.env.npm_config_user_agent);
+info('time', new Date());
+info('using', 'unjs@%s', version);
+info('using', process.env.npm_config_user_agent);
