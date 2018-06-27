@@ -4,7 +4,7 @@ const nodeExternals = require('webpack-node-externals');
 const merge = require('webpack-merge');
 const buildBase = require('./buildBase');
 const setBabelOptions = require('../../utils/setBabelOptions');
-const { dist } = require('../unjs');
+const { outputPath } = require('../unjs');
 
 const bundlerName = 'server.js';
 
@@ -41,11 +41,11 @@ module.exports = merge(buildBase, {
     ]
   },
   plugins: [
-    new CleanWebpackPlugin(resolve(dist, bundlerName), { root: process.cwd() })
+    new CleanWebpackPlugin(resolve(outputPath, bundlerName), { root: process.cwd() })
   ],
   resolve: {
     alias: {
-      'webpack-stats.json': `${process.cwd()}/${dist}/webpack-stats.json`
+      'webpack-stats.json': `${process.cwd()}/${outputPath}/webpack-stats.json`
     }
   },
   target: 'node',

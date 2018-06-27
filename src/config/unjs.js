@@ -23,7 +23,7 @@ module.exports = Object.assign({
    * 编译产物输出目录
    * @type {string}
    */
-  dist: 'prd',
+  outputPath: 'prd',
 
   /**
    * APIs 请求的地址

@@ -1,4 +1,4 @@
 module.exports = {
   publicPath: '/',
-  dist: 'prd'
+  outputPath: 'prd'
 };

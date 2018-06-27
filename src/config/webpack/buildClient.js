@@ -5,7 +5,7 @@ const merge = require('webpack-merge');
 const buildBase = require('./buildBase');
 const WrireStatsFilePlugin = require('./plugins/writeStatsFilePlugin');
 const setBabelOptions = require('../../utils/setBabelOptions');
-const { dist } = require('../unjs');
+const { outputPath } = require('../unjs');
 
 module.exports = merge(buildBase, {
   entry: [resolve(__dirname, '../../client.js')],
@@ -48,7 +48,7 @@ module.exports = merge(buildBase, {
     ]
   },
   plugins: [
-    new CleanWebpackPlugin(dist, { root: process.cwd() }),
+    new CleanWebpackPlugin(outputPath, { root: process.cwd() }),
     // 编译过程出错信息不会提示，直接报出非零状态码退出
     new StylelintWebpackPlugin({
       context: resolve('src'),

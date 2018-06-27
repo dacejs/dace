@@ -13,7 +13,7 @@ import { renderRoutes } from 'react-router-config';
 import serialize from 'serialize-javascript';
 import { Helmet } from 'react-helmet';
 import routes from '../../routes';
-import { dist } from '../../config/unjs';
+import { outputPath } from '../../config/unjs';
 import { isLocal, isProduction } from '../../utils';
 
 export default class Html extends Component {
@@ -30,9 +30,9 @@ export default class Html extends Component {
       if (isLocal) {
         return ctx.state.webpackStats.toJson();
       }
-      if (!existsSync(resolve(dist, 'webpack-stats.json'))) {
+      if (!existsSync(resolve(outputPath, 'webpack-stats.json'))) {
         const buildCommand = 'npm run build:client';
-        const message = `找不到文件：${dist}/webpack-stats.json，请先运行 %s`;
+        const message = `找不到文件：${outputPath}/webpack-stats.json，请先运行 %s`;
         error('Html', message, chalk.magenta(buildCommand));
         if (!isProduction) {
           // 在浏览器中抛出异常，方便调试

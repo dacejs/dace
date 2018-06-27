@@ -15,7 +15,7 @@ import createStore from './createStore';
 import Html from './components/Html';
 import RedBox from './components/RedBox';
 import { isLocal } from './utils';
-import { host, port, dist, ApiUrl } from './config/unjs';
+import { host, port, outputPath, ApiUrl } from './config/unjs';
 
 const app = new Koa();
 
@@ -32,7 +32,7 @@ if (isLocal) {
   }
   app.use(middleware(middlewareOptions));
 } else {
-  app.use(serve(path.resolve(dist)));
+  app.use(serve(path.resolve(outputPath)));
 }
 
 app.use(proxy('/api', {
