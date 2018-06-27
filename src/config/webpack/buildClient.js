@@ -3,11 +3,12 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const StylelintWebpackPlugin = require('stylelint-webpack-plugin');
 const merge = require('webpack-merge');
 const buildBase = require('./buildBase');
-const { dist } = require('../unjs');
 const WrireStatsFilePlugin = require('./plugins/writeStatsFilePlugin');
+const setBabelOptions = require('../../utils/setBabelOptions');
+const { dist } = require('../unjs');
 
 module.exports = merge(buildBase, {
-  entry: [resolve(__dirname, '../../src/client.js')],
+  entry: [resolve(__dirname, '../../client.js')],
   output: {
     chunkFilename: 'js/[name].[chunkhash:8].js',
     filename: 'js/[name].[hash:8].js'
@@ -20,7 +21,7 @@ module.exports = merge(buildBase, {
           {
             loader: resolve(__dirname, 'loaders/routesLoader.js'),
             options: {
-              forceEnv: 'client'
+              target: 'web'
             }
           }
         ]
@@ -31,15 +32,15 @@ module.exports = merge(buildBase, {
         use: [
           {
             loader: 'babel-loader',
-            options: {
-              forceEnv: 'client'
-            }
+            options: setBabelOptions({
+              target: 'web'
+            })
           },
           {
             loader: 'eslint-loader',
             options: {
-              useEslintrc: resolve(__dirname, '../../.stylelintrc.js'),
-              ignorePath: resolve(__dirname, '../../.eslintignore')
+              configFile: resolve(__dirname, '../../../.eslintrc.js'),
+              ignorePath: resolve(__dirname, '../../../.eslintignore')
             }
           }
         ]
@@ -51,6 +52,7 @@ module.exports = merge(buildBase, {
     // 编译过程出错信息不会提示，直接报出非零状态码退出
     new StylelintWebpackPlugin({
       context: resolve('src'),
+      configFile: resolve(__dirname, '../../../stylelint.config.js'),
       files: ['**/*.css', '**/*.less', '**/*.s?(a|c)ss']
     }),
     new WrireStatsFilePlugin()

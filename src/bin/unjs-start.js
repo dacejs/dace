@@ -1,6 +1,9 @@
-process.env.BABEL_ENV = 'server';
 process.env.NODE_ENV = 'local';
-process.env.NODE_PATH = process.cwd();
-require('babel-register');
+
+const setBabelOptions = require('../utils/setBabelOptions');
+
+require('babel-register')(setBabelOptions({
+  target: 'node'
+}));
 require('../utils/requireHook');
 require('../server');

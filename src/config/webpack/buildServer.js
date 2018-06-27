@@ -3,12 +3,13 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const nodeExternals = require('webpack-node-externals');
 const merge = require('webpack-merge');
 const buildBase = require('./buildBase');
+const setBabelOptions = require('../../utils/setBabelOptions');
 const { dist } = require('../unjs');
 
 const bundlerName = 'server.js';
 
 module.exports = merge(buildBase, {
-  entry: [resolve(__dirname, '../../src/server.js')],
+  entry: [resolve(__dirname, '../../server.js')],
   output: {
     filename: bundlerName
   },
@@ -20,7 +21,7 @@ module.exports = merge(buildBase, {
           {
             loader: resolve(__dirname, 'loaders/routesLoader.js'),
             options: {
-              forceEnv: 'server'
+              target: 'node'
             }
           }
         ]
@@ -31,9 +32,9 @@ module.exports = merge(buildBase, {
         use: [
           {
             loader: 'babel-loader',
-            options: {
-              forceEnv: 'server'
-            }
+            options: setBabelOptions({
+              target: 'node'
+            })
           }
         ]
       }

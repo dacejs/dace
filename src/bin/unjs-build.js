@@ -1,8 +1,7 @@
 #!/usr/bin/env node
 
 /* eslint global-require: 0 */
-process.env.NODE_PATH = process.cwd();
-require('babel-register');
+
 const program = require('commander');
 const webpack = require('webpack');
 const chalk = require('chalk');
@@ -11,8 +10,8 @@ program
   .option('-t, --type <build-type>', '指定编译类型(all|client|server)', 'all')
   .parse(process.argv);
 
-const clientConfig = require('../../config/webpack/buildClient');
-const serverConfig = require('../../config/webpack/buildServer');
+const clientConfig = require('../config/webpack/buildClient');
+const serverConfig = require('../config/webpack/buildServer');
 
 let configs;
 

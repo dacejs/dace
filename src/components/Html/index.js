@@ -10,7 +10,7 @@ import { renderRoutes } from 'react-router-config';
 import serialize from 'serialize-javascript';
 import { Helmet } from 'react-helmet';
 import routes from '../../routes';
-import { dist } from '../../../config/unjs';
+import { dist } from '../../config/unjs';
 import { isLocal } from '../../utils';
 
 export default class Html extends Component {
@@ -31,7 +31,6 @@ export default class Html extends Component {
         throw new Error(`找不到文件：${dist}/webpack-stats.json，请先运行 \`npm run build:client\``);
       }
       return require('webpack-stats.json'); // eslint-disable-line
-      // return require(resolve(dist, 'webpack-stats.json')); // eslint-disable-line
     };
     const { publicPath, chunks } = getWebpackStats();
     // 获取初始化网页需要插入的 CSS/JS 静态文件

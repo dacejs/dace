@@ -3,7 +3,7 @@ import thunk from 'redux-thunk';
 import axios from 'axios';
 import { isClient } from './utils';
 import createReducer from './rootReducer';
-import { ApiUrl } from '../config/unjs';
+import { ApiUrl } from './config/unjs';
 
 const initializeStore = () => {
   const baseURL = isClient ? '/api' : ApiUrl;
@@ -13,9 +13,13 @@ const initializeStore = () => {
   // 这里约定每个页面在 store 中存储的 key 为页面的 URL
   const asyncReducers = {};
   if (isClient && window.INITIAL_STATE) {
-    Object.keys(window.INITIAL_STATE).filter(key => key !== 'foo').forEach((key) => {
-      asyncReducers[key] = require(`src/pages/${key}/reducer`); //eslint-disable-line
-    });
+    Object.keys(window.INITIAL_STATE)
+      .filter(key => key !== 'foo')
+      .forEach((key) => {
+        // 这里只是添加一个reducer占位符
+        // 浏览器加载页面时会用真正的reducer替换掉占位符
+        asyncReducers[key] = (state = {}) => state;
+      });
   }
 
   const axiosInstance = axios.create({

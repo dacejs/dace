@@ -1,3 +1,7 @@
+/**
+ * 该文件为 target='web' 提供文件系统操作能力
+ * 当  target='web' 时，`require('./routes')` 返回的内容为该 loader 返回的内容
+ */
 const { existsSync } = require('fs');
 const { resolve } = require('path');
 const glob = require('glob');
@@ -15,7 +19,7 @@ module.exports = function routesLoader() {
         return `require('${routerFile}')`;
       }
 
-      const component = options.forceEnv === 'client' ?
+      const component = options.target === 'web' ?
         `asyncComponent(() => import(/* webpackChunkName: "${name}" */'${resolve(cwd, name)}'))` :
         `require('${resolve(cwd, name)}')`;
 

@@ -9,17 +9,5 @@
     "transform-es2015-modules-commonjs",
     "transform-decorators-legacy",
     "syntax-object-rest-spread"
-  ],
-  "env": {
-    "client": {
-      "plugins": [
-        "syntax-dynamic-import"
-      ]
-    },
-    "server": {
-      "plugins": [
-        "syntax-import-async-component-sync"
-      ]
-    }
-  }
+  ]
 }

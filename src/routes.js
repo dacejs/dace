@@ -14,7 +14,7 @@ export default () => {
   glob
     .sync('**/index.js', { cwd })
     .forEach((item) => {
-      const name = item.replace('index.js', '');
+      const name = item.replace('/index.js', '');
       const routerFile = resolve(cwd, `${name}/router.js`);
       if (existsSync(routerFile)) {
         routes.unshift(require(routerFile)); // eslint-disable-line

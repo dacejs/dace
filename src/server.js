@@ -12,13 +12,13 @@ import createStore from './createStore';
 import Html from './components/Html';
 import RedBox from './components/RedBox';
 import { isLocal } from './utils';
-import { host, port, dist, ApiUrl } from '../config/unjs';
+import { host, port, dist, ApiUrl } from './config/unjs';
 
 const app = new Koa();
 
 if (isLocal) {
   const dev = { serverSideRender: true };
-  const config = require('../config/webpack/dev'); // eslint-disable-line
+  const config = require('./config/webpack/dev'); // eslint-disable-line
   const compiler = webpack(config);
   app.use(middleware({ compiler, dev }));
 } else {
