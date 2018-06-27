@@ -1,7 +1,7 @@
-process.env.NODE_ENV = 'local';
-process.env.NODE_PATH = process.cwd();
-// https://www.cnblogs.com/accordion/p/6074350.html
-module.constructor._initPaths(); // eslint-disable-line
+require('../utils/setProcessEnv')({
+  NODE_ENV: 'local',
+  NODE_PATH: process.cwd()
+});
 
 const setBabelOptions = require('../utils/setBabelOptions');
 
