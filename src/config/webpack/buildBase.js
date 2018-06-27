@@ -5,7 +5,7 @@ const base = require('./base');
 const { assetExtensions, localIdentName } = require('../unjs');
 
 module.exports = merge(base, {
-  mode: 'development',
+  mode: 'production',
   module: {
     rules: [
       {

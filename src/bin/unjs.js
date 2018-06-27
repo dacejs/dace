@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 const program = require('commander');
+const { info } = require('npmlog');
 const logo = require('../utils/logo');
 const { version } = require('../../package.json');
 
@@ -14,7 +15,7 @@ if (program.logo) {
   logo();
 }
 
-console.log('==== versions ====');
-console.log(`time:\t\t${new Date()}`);
-console.log(`unjs:\t\t${version}`);
-console.log(`user-agent:\t${process.env.npm_config_user_agent}`);
+// info('using', 'npm@%s', npm.version);
+info('using', 'time: %s', new Date());
+info('using', 'unjs: %s', version);
+info('using', 'user-agent: %s', process.env.npm_config_user_agent);

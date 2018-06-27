@@ -1,7 +1,7 @@
 {
   "name": "unjs",
   "description": "A minimalistic universal (isomorphic) react framework for building web apps",
-  "version": "1.0.0",
+  "version": "1.0.0-beta.1",
   "repository": "un-js/unjs",
   "keywords": [
     "universal",
@@ -13,11 +13,12 @@
     "koa",
     "code-splitting"
   ],
+  "main": "dist/index.js",
   "bin": {
-    "unjs": "src/bin/unjs.js"
+    "unjs": "./dist/bin/unjs.js"
   },
   "scripts": {
-    "build": "rm -rf lib && babel src -d lib",
+    "build": "rm -rf dist && babel src -d dist",
     "stylelint": "stylelint --fix \"src/**/*.(css|less|sass|scss)\"",
     "eslint": "eslint --fix src",
     "test": "node test/index.js",
@@ -47,12 +48,14 @@
     "eslint-config-qunar": "^3.0.0",
     "eslint-loader": "^2.0.0",
     "file-loader": "^1.1.11",
+    "get-port": "^3.2.0",
     "koa": "^2.5.1",
     "koa-proxies": "^0.7.0",
     "koa-static": "^4.0.3",
     "koa-webpack": "^4.0.0",
     "loader-utils": "^1.1.0",
     "mini-css-extract-plugin": "^0.4.0",
+    "npmlog": "^4.1.2",
     "postcss-loader": "^2.1.5",
     "prop-types": "^15.6.1",
     "react": "^16.4.0",
@@ -75,6 +78,7 @@
   },
   "devDependencies": {
     "mocha": "^5.2.0",
+    "node-notifier": "^5.2.1",
     "redux-devtools": "^3.4.1",
     "should": "^13.2.1",
     "supertest": "^3.1.0"

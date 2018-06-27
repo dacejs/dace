@@ -1,4 +1,4 @@
-import asyncComponent from 'unjs/lib/components/AsyncComponent';
+import { asyncComponent } from 'unjs';
 
 export default {
   path: '/',

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
-import prefetch from 'unjs/lib/decorators/prefetch';
+import { prefetch } from 'unjs';
 import { fetchPosts } from './action';
 import reducer from './reducer';
 import DefaultLayout from '../../layouts/default';

@@ -1,6 +1,9 @@
 /* eslint react/no-danger: 0, global-require: 0 */
 import { existsSync } from 'fs';
 import { resolve } from 'path';
+import { error } from 'npmlog';
+import chalk from 'chalk';
+import { format } from 'util';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { renderToString } from 'react-dom/server';
@@ -11,7 +14,7 @@ import serialize from 'serialize-javascript';
 import { Helmet } from 'react-helmet';
 import routes from '../../routes';
 import { dist } from '../../config/unjs';
-import { isLocal } from '../../utils';
+import { isLocal, isProduction } from '../../utils';
 
 export default class Html extends Component {
   static propTypes = {
@@ -28,7 +31,13 @@ export default class Html extends Component {
         return ctx.state.webpackStats.toJson();
       }
       if (!existsSync(resolve(dist, 'webpack-stats.json'))) {
-        throw new Error(`找不到文件：${dist}/webpack-stats.json，请先运行 \`npm run build:client\``);
+        const buildCommand = 'npm run build:client';
+        const message = `找不到文件：${dist}/webpack-stats.json，请先运行 %s`;
+        error('Html', message, chalk.magenta(buildCommand));
+        if (!isProduction) {
+          // 在浏览器中抛出异常，方便调试
+          throw new Error(format(message, buildCommand));
+        }
       }
       return require('webpack-stats.json'); // eslint-disable-line
     };

@@ -1,4 +1,6 @@
 import path from 'path';
+import chalk from 'chalk';
+import { info, warn, error } from 'npmlog';
 import Koa from 'koa';
 import serve from 'koa-static';
 import proxy from 'koa-proxies';
@@ -7,6 +9,7 @@ import webpack from 'webpack';
 import { matchRoutes } from 'react-router-config';
 import React from 'react';
 import { renderToString } from 'react-dom/server';
+import getPort from 'get-port';
 import routes from './routes';
 import createStore from './createStore';
 import Html from './components/Html';
@@ -74,12 +77,17 @@ app.use(async (ctx) => {
 });
 
 if (!UNIT_TEST) {
-  app.listen(port, (err) => {
-    if (err) {
-      console.error(`==> 😭  OMG!!! ${err}`);
-    } else {
-      console.info(`==> 💻  http://${host}:${port}`);
+  getPort({ port }).then((availablePort) => {
+    if (availablePort !== port) {
+      warn('server', `默认端口（${port}）已被占用，将随机端口（${availablePort}）启动 web 服务`);
     }
+    app.listen(availablePort, (err) => {
+      if (err) {
+        error('server', `==> 😭  OMG!!! ${err}`);
+      } else {
+        info('server', '==> 🎉  Ready on %s', chalk.blue.underline(`http://${host}:${availablePort}`));
+      }
+    });
   });
 }
 
