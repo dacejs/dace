@@ -2,6 +2,10 @@
 
 /* eslint global-require: 0 */
 
+process.env.NODE_PATH = process.cwd();
+// https://www.cnblogs.com/accordion/p/6074350.html
+module.constructor._initPaths(); // eslint-disable-line
+
 const { error, warn } = require('npmlog');
 const program = require('commander');
 const webpack = require('webpack');
