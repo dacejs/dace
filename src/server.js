@@ -15,6 +15,7 @@ import createStore from './createStore';
 import Html from './components/Html';
 import RedBox from './components/RedBox';
 import { isLocal } from './utils';
+import random from './utils/random';
 import { host, port, outputPath, ApiUrl } from './config/unjs';
 
 const app = new Koa();
@@ -23,9 +24,10 @@ const { UNIT_TEST } = process.env; // 运行测试用例
 
 if (isLocal) {
   const dev = { serverSideRender: true };
+  const hot = { port: random(4) };
   const config = require('./config/webpack/dev'); // eslint-disable-line
   const compiler = webpack(config);
-  const middlewareOptions = { compiler, dev };
+  const middlewareOptions = { compiler, dev, hot };
   if (UNIT_TEST) {
     middlewareOptions.dev.logLevel = 'silent';
     middlewareOptions.hot = false;
