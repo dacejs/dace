@@ -8,7 +8,13 @@ const { outputPath } = require('../unjs');
 
 const bundlerName = 'server.js';
 
-module.exports = merge(buildBase, {
+/**
+ * @module config/buildServer webpack 配置
+ * @param {object} options
+ * @param {boolean} options.verbose 输出日志
+ * @return {function}
+ */
+module.exports = ({ verbose }) => merge(buildBase, {
   entry: [resolve(__dirname, '../../server.js')],
   output: {
     filename: bundlerName
@@ -41,7 +47,10 @@ module.exports = merge(buildBase, {
     ]
   },
   plugins: [
-    new CleanWebpackPlugin(resolve(outputPath, bundlerName), { root: process.cwd() })
+    new CleanWebpackPlugin(resolve(outputPath, bundlerName), {
+      root: process.cwd(),
+      verbose
+    })
   ],
   resolve: {
     alias: {

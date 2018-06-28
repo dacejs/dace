@@ -8,16 +8,24 @@ const webpack = require('webpack');
 
 program
   .option('-t, --type <build-type>', '指定编译类型(all|client|server)', 'all')
+  .option('-v, --no-verbose', '禁用日志输出功能')
+
   .parse(process.argv);
+
+const { verbose } = program;
 
 const webpackExec = (config, callback) => {
   webpack(config, (err, stats) => {
     if (err || stats.hasErrors()) {
-      error('build', '打包失败 %s', err || stats.compilation.errors);
+      if (program.verbose) {
+        error('build', '打包失败 %s', err || stats.compilation.errors);
+      }
       // 让 jenkins 退出编译
       process.exit(1);
     } else if (stats.hasWarnings()) {
-      warn('build', stats.compilation.errors);
+      if (program.verbose) {
+        warn('build', stats.compilation.errors);
+      }
     }
     if (callback) {
       callback();
@@ -25,8 +33,8 @@ const webpackExec = (config, callback) => {
   });
 };
 
-const clientConfig = require('../config/webpack/buildClient');
-const serverConfig = require('../config/webpack/buildServer');
+const clientConfig = require('../config/webpack/buildClient')({ verbose });
+const serverConfig = require('../config/webpack/buildServer')({ verbose });
 
 let configs;
 
