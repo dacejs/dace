@@ -11,7 +11,7 @@ function mapStateToProps(state) {
   return { users: state.users || [] };
 }
 
-@prefetch('users', reducer, dispatch => Promise.all([
+@prefetch('users', reducer, ({ store: { dispatch } }) => Promise.all([
   dispatch(fetchUsers()) // ,
   // dispatch(fetchCurrentUser(2))
 ]))

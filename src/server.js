@@ -45,9 +45,9 @@ app.use(proxy('/api', {
 app.use(async (ctx) => {
   const store = createStore();
   const promises = matchRoutes(routes(), ctx.path)
-    .map(({ route }) => {
+    .map(({ route, match }) => {
       const { getInitialProps } = route.component;
-      return getInitialProps ? getInitialProps(store) : null;
+      return getInitialProps ? getInitialProps(store, match, ctx.query) : null;
     })
     .filter(promise => !!promise)
     .map(promise => new Promise((resolve) => {

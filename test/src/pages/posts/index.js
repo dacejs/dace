@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import { prefetch } from 'unjs';
 import { fetchPosts } from './action';
@@ -11,7 +12,7 @@ function mapStateToProps({ posts = [] }) {
   return { posts };
 }
 
-@prefetch('posts', reducer, dispatch => dispatch(fetchPosts()))
+@prefetch('posts', reducer, ({ store: { dispatch } }) => dispatch(fetchPosts()))
 @connect(mapStateToProps, { fetchPosts })
 export default class PostsListPage extends Component {
   static propTypes = {
@@ -27,7 +28,11 @@ export default class PostsListPage extends Component {
 
   renderPosts() {
     const { posts } = this.props;
-    return posts.map(post => <li key={post.id}>{post.title}</li>);
+    return posts.map(post => (
+      <li key={post.id}>
+        <Link to={`post/${post.id}`}>{post.title}</Link>
+      </li>
+    ));
   }
 
   render() {
@@ -36,7 +41,7 @@ export default class PostsListPage extends Component {
         <Helmet>
           <title>Posts</title>
         </Helmet>
-        <h3>Protected list of posts</h3>
+        <h3>List of Posts</h3>
         <ul>{this.renderPosts()}</ul>
       </DefaultLayout>
     );

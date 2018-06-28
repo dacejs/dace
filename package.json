@@ -58,6 +58,7 @@
     "npmlog": "^4.1.2",
     "postcss-loader": "^2.1.5",
     "prop-types": "^15.6.1",
+    "qs": "^6.5.2",
     "react": "^16.4.0",
     "react-dom": "^16.4.0",
     "react-helmet": "^5.2.0",
