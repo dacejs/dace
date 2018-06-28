@@ -30,7 +30,7 @@ export default class PostsListPage extends Component {
     const { posts } = this.props;
     return posts.map(post => (
       <li key={post.id}>
-        <Link to={`posts/${post.id}`}>{post.title}</Link>
+        <Link to={`/post/${post.id}`}>{post.title}</Link>
       </li>
     ));
   }
