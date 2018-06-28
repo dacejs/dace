@@ -1,7 +1,7 @@
 import { asyncComponent } from 'unjs';
 
 export default {
-  path: '/post/:id',
+  path: '/posts/:id',
   exact: true,
   component: asyncComponent(() => import(/* webpackChunkName: "post" */'.'))
 };
