@@ -2,30 +2,28 @@ require('../utils/setProcessEnv')({
   NODE_PATH: process.cwd()
 });
 
-const { error, warn } = require('npmlog');
 const program = require('commander');
 const webpack = require('webpack');
+const log = require('npmlog');
 
 program
   .option('-t, --type <build-type>', '指定编译类型(all|client|server)', 'all')
   .option('-v, --no-verbose', '禁用日志输出功能')
-
   .parse(process.argv);
 
 const { verbose } = program;
+if (!verbose) {
+  log.level = 'error';
+}
 
 const webpackExec = (config, callback) => {
   webpack(config, (err, stats) => {
     if (err || stats.hasErrors()) {
-      if (program.verbose) {
-        error('build', '打包失败 %s', err || stats.compilation.errors);
-      }
+      log.error('build', '打包失败 %s', err || stats.compilation.errors);
       // 让 jenkins 退出编译
       process.exit(1);
     } else if (stats.hasWarnings()) {
-      if (program.verbose) {
-        warn('build', stats.compilation.errors);
-      }
+      log.warn('build', stats.compilation.errors);
     }
     if (callback) {
       callback();
