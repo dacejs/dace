@@ -1,17 +1,14 @@
 import { combineReducers } from 'redux';
-// import { isClient } from './utils';
+import { defaultState } from './createStore';
 
 /**
  * @param {Object} - key/value of reducer functions
  */
 const createReducer = (asyncReducers) => {
-  const initReducers = {
-    // combin一个空对象会报错，用 foo 避免报错
-    foo: (state = {}) => state
-  };
-  // if (isClient) {
-  //   initReducers.users = (state = {}) => state;
-  // }
+  const initReducers = Object.keys(defaultState).reduce((total, value) => {
+    total[value] = (state = {}) => state;
+    return total;
+  }, {});
 
   return combineReducers({
     ...initReducers,

@@ -34,6 +34,12 @@ module.exports = Object.assign({
   ApiUrl: 'http://jsonplaceholder.typicode.com',
 
   /**
+   * 禁用服务器端渲染
+   * @type {boolean}
+   */
+  noSSR: true,
+
+  /**
    * 自定义css-modules类标识命名规则
    * @type {string}
    */

@@ -12,6 +12,14 @@ function mapStateToProps({ posts = [] }) {
   return { posts };
 }
 
+/*
+({
+  key: 'posts',
+  reducer: reducer,
+  defer: true,
+  promises: function || object || [function] || [object]
+})
+*/
 @prefetch('posts', reducer, ({ store: { dispatch } }) => dispatch(fetchPosts()))
 @connect(mapStateToProps, { fetchPosts })
 export default class PostsListPage extends Component {

@@ -5,23 +5,15 @@ import { isClient } from './utils';
 import createReducer from './rootReducer';
 import { ApiUrl } from './config/unjs';
 
-const initializeStore = () => {
+export const defaultState = {
+  users: [],
+  posts: [],
+  post: {}
+};
+
+export default () => {
   const baseURL = isClient ? '/api' : ApiUrl;
-  const initialState = isClient ? window.INITIAL_STATE : {};
-
-  // 根据服务器端拍回来的数据决定浏览器端初始化 store 需要引入哪些 reducer
-  // 这里约定每个页面在 store 中存储的 key 为页面的 URL
-  const asyncReducers = {};
-  if (isClient && window.INITIAL_STATE) {
-    Object.keys(window.INITIAL_STATE)
-      .filter(key => key !== 'foo')
-      .forEach((key) => {
-        // 这里只是添加一个reducer占位符
-        // 浏览器加载页面时会用真正的reducer替换掉占位符
-        asyncReducers[key] = (state = {}) => state;
-      });
-  }
-
+  const initialState = isClient ? window.INITIAL_STATE : defaultState;
   const axiosInstance = axios.create({
     baseURL
     // headers: { cookie: req.get('cookie') || '' }
@@ -30,13 +22,11 @@ const initializeStore = () => {
   /* eslint-disable */
   const composeEnhancers =
     typeof window === 'object' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ?
-      window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
-        // Specify extension’s options like name, actionsBlacklist, actionsCreators, serialize...
-      }) : compose;
+      window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__() : compose;
   /* eslint-enable */
 
   const store = createStore(
-    createReducer(asyncReducers),
+    createReducer(),
     initialState,
     composeEnhancers(applyMiddleware(thunk.withExtraArgument(axiosInstance)))
   );
@@ -50,5 +40,3 @@ const initializeStore = () => {
 
   return store;
 };
-
-export default initializeStore;

@@ -1,7 +1,7 @@
 export const FETCH_USERS = 'fetch_users';
 export const fetchUsers = () => async (dispatch, getState, api) => {
   const state = getState();
-  if (!state.users || state.users.length === 0) {
+  if (state.users.length === 0) {
     const res = await api.get('/users');
 
     dispatch({

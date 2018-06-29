@@ -16,7 +16,7 @@ import Html from './components/Html';
 import RedBox from './components/RedBox';
 import { isLocal } from './utils';
 import random from './utils/random';
-import { host, port, outputPath, ApiUrl } from './config/unjs';
+import { host, port, outputPath, ApiUrl, noSSR } from './config/unjs';
 
 const app = new Koa();
 
@@ -53,7 +53,11 @@ app.use(async (ctx) => {
     })
     .filter(promise => !!promise)
     .map(promise => new Promise((resolve) => {
-      promise.then(resolve).catch(resolve);
+      if (noSSR) {
+        resolve(1);
+      } else {
+        promise.then(resolve).catch(resolve);
+      }
     }));
 
   await Promise.all(promises).then(() => {

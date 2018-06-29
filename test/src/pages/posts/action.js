@@ -1,7 +1,7 @@
 export const FETCH_POSTS = 'fetch_posts';
 export const fetchPosts = () => async (dispatch, getState, api) => {
   const state = getState();
-  if (!state.posts || state.posts.length === 0) {
+  if (state.posts.length === 0) {
     try {
       const res = await api.get('/posts');
       dispatch({
