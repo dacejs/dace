@@ -1,5 +1,10 @@
 # universal-js
 
+[![build status](https://img.shields.io/travis/un-js/unjs/master.svg?style=flat-square)](https://travis-ci.org/un-js/unjs) [![npm version](https://img.shields.io/npm/v/unjs.svg?style=flat-square)](https://www.npmjs.com/package/unjs)
+[![npm downloads](https://img.shields.io/npm/dm/unjs.svg?style=flat-square)](https://www.npmjs.com/package/unjs)
+[![Dependency Status](https://david-dm.org/un-js/unjs.svg)](https://david-dm.org/un-js/unjs)
+
+
 * 创建工作目录
 ```
 mkdir bullock
