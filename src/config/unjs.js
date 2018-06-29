@@ -37,7 +37,7 @@ module.exports = Object.assign({
    * 禁用服务器端渲染
    * @type {boolean}
    */
-  noSSR: true,
+  noSSR: false,
 
   /**
    * 自定义css-modules类标识命名规则

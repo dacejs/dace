@@ -1,11 +1,16 @@
+import { isLoaded } from 'unjs';
+
 export const FETCH_POST = 'fetch_post';
 
 export const fetchPost = id => async (dispatch, getState, api) => {
-  const res = await api.get(`/posts/${id}`);
-  dispatch({
-    type: FETCH_POST,
-    payload: res
-  });
+  const { post } = getState();
+  if (!isLoaded(post)) {
+    const res = await api.get(`/posts/${id}`);
+    dispatch({
+      type: FETCH_POST,
+      payload: res
+    });
+  }
   // const state = getState();
   // if (!state.posts || state.posts.length === 0 || !state.posts.some(post => post.id === id)) {
   //   try {
