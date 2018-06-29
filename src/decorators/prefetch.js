@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { parse } from 'qs';
 
-export default (key, reducer, loadData) => Target => class extends Component {
+export default options => Target => class extends Component {
+// export default (key, reducer, loadData) => Target => class extends Component {
   static propTypes = {
     store: PropTypes.object.isRequired,
     match: PropTypes.object.isRequired
@@ -19,16 +20,30 @@ export default (key, reducer, loadData) => Target => class extends Component {
     const { search } = window.location;
     const querystring = search.startsWith('?') ? search.substring(1) : search;
     const query = parse(querystring);
-    store.injectReducer(key, reducer);
-    // 浏览器端获取数据
-    loadData({ store, match, query });
+
+    if (!Array.isArray(options)) {
+      options = [options];
+    }
+    const promises = options.map((item) => {
+      const { key, reducer, promise } = item;
+      store.injectReducer(key, reducer);
+      return promise({ store, match, query });
+    });
+    Promise.all(promises);
   }
 
   static getInitialProps(store, match, query) {
     // 该方法在页面服务器端渲染时会调用
     // 在服务器端动态添加reducer
-    store.injectReducer(key, reducer);
-    return loadData({ store, match, query });
+    if (!Array.isArray(options)) {
+      options = [options];
+    }
+    const promises = options.filter(item => !item.defer).map((item) => {
+      const { key, reducer, promise } = item;
+      store.injectReducer(key, reducer);
+      return promise({ store, match, query });
+    });
+    return Promise.all(promises);
   }
 
   render() {

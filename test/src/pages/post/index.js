@@ -7,12 +7,18 @@ import reducer from './reducer';
 import { fetchPost } from './action';
 import DefaultLayout from '../../layouts/default';
 
-@prefetch('post', reducer, ({ store: { dispatch }, match/* , query */ }) => {
-  // console.log('--query:', query); // Get query string
-  const { id } = match.params; // Get url parameters
-  return Promise.all([
-    dispatch(fetchPost(id))
-  ]);
+@prefetch({
+  key: 'post',
+  reducer,
+  promise: ({ store: { dispatch }, match/* , query */ }) => {
+    // console.log('--query:', query); // Get query string
+    const { id } = match.params; // Get url parameters
+    return dispatch(fetchPost(id));
+
+    // return Promise.all([
+    //   dispatch(fetchPost(id))
+    // ]);
+  }
 })
 @connect(({ post = {} }) => ({ post }))
 export default class Post extends Component {

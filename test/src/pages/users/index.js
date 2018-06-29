@@ -11,9 +11,13 @@ function mapStateToProps(state) {
   return { users: state.users || [] };
 }
 
-@prefetch('users', reducer, ({ store: { dispatch } }) => Promise.all([
-  dispatch(fetchUsers())
-]))
+@prefetch({
+  key: 'users',
+  reducer,
+  promise: ({ store: { dispatch } }) => Promise.all([
+    dispatch(fetchUsers())
+  ])
+})
 @connect(mapStateToProps, { fetchUsers })
 export default class UsersList extends Component {
   static propTypes = {
