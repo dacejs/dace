@@ -6,7 +6,6 @@ import createReducer from './rootReducer';
 import { ApiUrl } from './config/unjs';
 import pagesObject from './nodeAddons/getPagesName';
 
-  posts: [],
 let a = pagesObject;
 if (typeof a === 'function') {
   a = JSON.stringify(pagesObject({ rootContext: process.cwd() }));

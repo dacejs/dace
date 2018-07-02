@@ -5,5 +5,5 @@
 module.exports = function nodeLoader(source) {
   // console.log('--source:', source);
   const result = eval(source)(this); // eslint-disable-line
-  return `module.exports = ${result}`;
+  return `module.exports = '${JSON.stringify(result)}'`;
 };
