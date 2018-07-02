@@ -14,5 +14,17 @@ module.exports = {
       'node_modules',
       ...nodePathList // 支持 NODE_PATH 环境变量
     ]
+  },
+  module: {
+    rules: [
+      {
+        test: /\/nodeAddons\//,
+        use: [
+          {
+            loader: resolve(__dirname, 'loaders/nodeLoader.js')
+          }
+        ]
+      }
+    ]
   }
 };
