@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { parse } from 'qs';
+import isClient from '../utils/isClient';
 
 export default options => Target => class extends Component {
 // export default (key, reducer, loadData) => Target => class extends Component {
@@ -11,9 +12,12 @@ export default options => Target => class extends Component {
 
   constructor(props) {
     super(props, Target);
+    this.state = {
+      loaded: false
+    };
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     // 该方法在页面浏览器端渲染时会调用
     // 在浏览器端动态添加reducer
     const { store, match } = this.props;
@@ -29,7 +33,8 @@ export default options => Target => class extends Component {
       store.injectReducer(key, reducer);
       return promise({ store, match, query });
     });
-    Promise.all(promises);
+    await Promise.all(promises);
+    this.setState({ loaded: true }); // eslint-disable-line
   }
 
   static getInitialProps(store, match, query) {
@@ -47,6 +52,12 @@ export default options => Target => class extends Component {
   }
 
   render() {
+    // console.log('--this.state.loaded:', this.state.loaded);
+    // return this.state.loaded ? <Target {...this.props} /> : <div>loading</div>;
+    if (isClient) {
+      return this.state.loaded ? <Target {...this.props} /> : <div>loading</div>;
+    }
+    // 服务器端渲染时不需要显示 loading
     return <Target {...this.props} />;
   }
 };

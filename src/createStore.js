@@ -4,30 +4,12 @@ import axios from 'axios';
 import { isClient } from './utils';
 import createReducer from './rootReducer';
 import { ApiUrl } from './config/unjs';
-import pagesObject from './nodeAddons/getPagesName';
+import pages from '__PAGES__'; // eslint-disable-line
 
-let a = pagesObject;
-if (typeof a === 'function') {
-  a = JSON.stringify(pagesObject({ rootContext: process.cwd() }));
-}
-a = JSON.parse(a);
-
-// {
-//   users: [],
-//   posts: [],
-//   post: {}
-// };
-
-export const defaultState = a.pages.reduce((state, page) => {
+export const defaultState = pages.pages.reduce((state, page) => {
   state[page] = (page === 'post') ? {} : [];
   return state;
 }, {});
-
-// export const defaultState = {
-//   users: [],
-//   posts: [],
-//   post: {}
-// };
 
 export default () => {
   const baseURL = isClient ? '/api' : ApiUrl;

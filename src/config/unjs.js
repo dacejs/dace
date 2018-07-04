@@ -3,10 +3,11 @@
  */
 
 /* eslint import/no-dynamic-require: 0 */
+// import configInProject from '__CONFIG__/src/config/unjs'; // eslint-disable-line
 
-const { NODE_ENV = 'local' } = process.env;
+// const { NODE_ENV = 'local' } = ;
 
-const configInProject = require('src/config/unjs');
+const configInProject = require('__CONFIG__/src/config/unjs');
 
 module.exports = Object.assign({
   /**
@@ -61,4 +62,4 @@ module.exports = Object.assign({
     'eot',
     'svg'
   ]
-}, require(`./profiles/${NODE_ENV}`), configInProject);
+}, require(`./profiles/${process.env.NODE_ENV}`), configInProject);

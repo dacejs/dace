@@ -5,6 +5,7 @@ module.exports = (options) => {
   const babelrcPath = resolve(__dirname, '../../.babelrc');
   const babelrcText = readFileSync(babelrcPath, { encoding: 'utf8' });
   const babelrc = JSON.parse(babelrcText);
+  babelrc.plugins.push(resolve(__dirname, '../babel-plugin/index'));
 
   switch (options.target) {
     case 'web':

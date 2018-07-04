@@ -7,8 +7,8 @@ import glob from 'glob';
 
 export default (self) => {
   // console.log('--self:', self);
-  const { rootContext } = self;
-  // console.log('--rootContext: ', rootContext);
+  const { rootContext = process.cwd() } = self;
+  console.log('--rootContext: ', rootContext);
   const cwd = resolve(rootContext, 'src/pages');
   const pages = glob
     .sync('**/index.js', { cwd })

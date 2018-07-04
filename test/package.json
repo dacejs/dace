@@ -2,7 +2,7 @@
   "scripts": {
     "start": "unjs",
     "start:dist": "NODE_ENV=production node prd/server.js",
-    "build": "unjs build",
+    "build": "NODE_ENV=local unjs build --type=client && NODE_ENV=local unjs build --type=server",
     "test": "npm run build && npm run start:dist"
   },
   "dependencies": {

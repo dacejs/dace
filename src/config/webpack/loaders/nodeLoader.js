@@ -3,6 +3,9 @@
  * 因为需要获取到 this，所以该文件只能使用 function 形式函数来定义，不能使用尖头函数定义
  */
 module.exports = function nodeLoader(source) {
+  if (this.cacheable) {
+    this.cacheable();
+  }
   // console.log('--source:', source);
   const result = eval(source)(this); // eslint-disable-line
   return `module.exports = '${JSON.stringify(result)}'`;
