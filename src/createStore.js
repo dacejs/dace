@@ -1,10 +1,10 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import axios from 'axios';
+import pages from '__PAGES__';
 import { isClient } from './utils';
 import createReducer from './rootReducer';
 import { ApiUrl } from './config/unjs';
-import pages from '__PAGES__'; // eslint-disable-line
 
 export const defaultState = pages.pages.reduce((state, page) => {
   state[page] = (page === 'post') ? {} : [];
