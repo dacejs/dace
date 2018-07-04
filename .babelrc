@@ -4,10 +4,10 @@
     "react"
   ],
   "plugins": [
+    "preval", ["transform-decorators-legacy"],
     "add-module-exports",
     "transform-class-properties",
     "transform-es2015-modules-commonjs",
-    "transform-decorators-legacy",
     "syntax-object-rest-spread"
   ]
 }
