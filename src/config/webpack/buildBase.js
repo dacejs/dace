@@ -1,7 +1,7 @@
-const { resolve } = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const merge = require('webpack-merge');
 const base = require('./base');
+const getConfigPath = require('../../utils/getConfigPath');
 const { assetExtensions, localIdentName } = require('../unjs');
 
 module.exports = merge(base, {
@@ -23,7 +23,7 @@ module.exports = merge(base, {
             loader: 'postcss-loader',
             options: {
               config: {
-                path: resolve(__dirname, '../../../postcss.config.js')
+                path: getConfigPath('postcss.config.js', '.postcss.js', '.postcssrc')
               }
             }
           }

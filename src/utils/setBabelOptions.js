@@ -1,8 +1,9 @@
 const { readFileSync } = require('fs');
 const { resolve } = require('path');
+const getConfigPath = require('./getConfigPath');
 
 module.exports = (options) => {
-  const babelrcPath = resolve(__dirname, '../../.babelrc');
+  const babelrcPath = getConfigPath('.babelrc');
   const babelrcText = readFileSync(babelrcPath, { encoding: 'utf8' });
   const babelrc = JSON.parse(babelrcText);
   babelrc.plugins.push(resolve(__dirname, '../babel-plugin/index'));

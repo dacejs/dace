@@ -3,6 +3,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const merge = require('webpack-merge');
 const base = require('./base');
 const setBabelOptions = require('../../utils/setBabelOptions');
+const getConfigPath = require('../../utils/getConfigPath');
 const { assetExtensions, localIdentName } = require('../unjs');
 
 module.exports = merge(base, {
@@ -41,8 +42,8 @@ module.exports = merge(base, {
           {
             loader: 'eslint-loader',
             options: {
-              configFile: resolve(__dirname, '../../../.eslintrc.js'),
-              ignorePath: resolve(__dirname, '../../../.eslintignore')
+              configFile: getConfigPath('.eslintrc.js', '.eslintrc', '.eslint.config.js'),
+              ignorePath: getConfigPath('.eslintignore')
             }
           }
         ]
@@ -62,7 +63,7 @@ module.exports = merge(base, {
             loader: 'postcss-loader',
             options: {
               config: {
-                path: resolve(__dirname, '../../../postcss.config.js')
+                path: getConfigPath('postcss.config.js', '.postcssrc.js', '.postcssrc')
               }
             }
           }

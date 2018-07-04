@@ -4,6 +4,7 @@ const StylelintWebpackPlugin = require('stylelint-webpack-plugin');
 const merge = require('webpack-merge');
 const buildBase = require('./buildBase');
 const WrireStatsFilePlugin = require('./plugins/writeStatsFilePlugin');
+const getConfigPath = require('../../utils/getConfigPath');
 const setBabelOptions = require('../../utils/setBabelOptions');
 const { outputPath } = require('../unjs');
 
@@ -45,8 +46,8 @@ module.exports = ({ verbose }) => merge(buildBase, {
           {
             loader: 'eslint-loader',
             options: {
-              configFile: resolve(__dirname, '../../../.eslintrc.js'),
-              ignorePath: resolve(__dirname, '../../../.eslintignore')
+              configFile: getConfigPath('.eslintrc.js', '.eslintrc', '.eslint.config.js'),
+              ignorePath: getConfigPath('.eslintignore')
             }
           }
         ]
@@ -61,7 +62,7 @@ module.exports = ({ verbose }) => merge(buildBase, {
     // 编译过程出错信息不会提示，直接报出非零状态码退出
     new StylelintWebpackPlugin({
       context: resolve('src'),
-      configFile: resolve(__dirname, '../../../stylelint.config.js'),
+      configFile: getConfigPath('stylelint.config.js', '.stylelintrc.js', '.stylelintrc'),
       files: ['**/*.css', '**/*.less', '**/*.s?(a|c)ss']
     }),
     new WrireStatsFilePlugin()
