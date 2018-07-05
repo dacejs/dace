@@ -6,6 +6,7 @@ const program = require('commander');
 const webpack = require('webpack');
 const log = require('npmlog');
 const setBabelOptions = require('../utils/setBabelOptions');
+const getWebpackConfig = require('../utils/getWebpackConfig');
 
 program
   .option('-t, --type <build-type>', '指定编译类型(client|server)')
@@ -21,15 +22,15 @@ let configFile;
 let target;
 if (type === 'client') {
   target = 'web';
-  configFile = '../webpack/buildClient';
+  configFile = 'buildClient';
 } else {
   target = 'node';
-  configFile = '../webpack/buildServer';
+  configFile = 'buildServer';
 }
 
 require('babel-register')(setBabelOptions({ target }));
 
-const config = require(configFile)({ verbose }); // eslint-disable-line
+const config = getWebpackConfig(configFile); // eslint-disable-line
 
 // build:server 依赖 build:client
 // 需要确保 build:client 编译成功后再启动 build:server

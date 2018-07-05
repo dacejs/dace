@@ -10,11 +10,9 @@ const bundlerName = 'server.js';
 
 /**
  * @module config/buildServer webpack 配置
- * @param {object} options
- * @param {boolean} options.verbose 输出日志
  * @return {function}
  */
-module.exports = ({ verbose }) => merge(buildBase, {
+module.exports = merge(buildBase, {
   entry: [resolve(__dirname, '../server.js')],
   output: {
     filename: bundlerName
@@ -47,10 +45,7 @@ module.exports = ({ verbose }) => merge(buildBase, {
     ]
   },
   plugins: [
-    new CleanWebpackPlugin(resolve(outputPath, bundlerName), {
-      root: process.cwd(),
-      verbose
-    })
+    new CleanWebpackPlugin(resolve(outputPath, bundlerName), { root: process.cwd() })
   ],
   resolve: {
     alias: {

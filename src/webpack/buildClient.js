@@ -10,11 +10,9 @@ const { outputPath } = require('../config/unjs');
 
 /**
  * @module config/buildClient webpack 配置
- * @param {object} options
- * @param {boolean} options.verbose 输出日志
  * @return {function}
  */
-module.exports = ({ verbose }) => merge(buildBase, {
+module.exports = merge(buildBase, {
   entry: [resolve(__dirname, '../client.js')],
   output: {
     chunkFilename: 'js/[name].[chunkhash:8].js',
@@ -55,10 +53,7 @@ module.exports = ({ verbose }) => merge(buildBase, {
     ]
   },
   plugins: [
-    new CleanWebpackPlugin(outputPath, {
-      root: process.cwd(),
-      verbose
-    }),
+    new CleanWebpackPlugin(outputPath, { root: process.cwd() }),
     // 编译过程出错信息不会提示，直接报出非零状态码退出
     new StylelintWebpackPlugin({
       context: resolve('src'),
