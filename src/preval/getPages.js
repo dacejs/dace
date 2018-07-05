@@ -7,7 +7,7 @@
 const { resolve } = require('path');
 const glob = require('glob');
 
-const cwd = resolve(process.cwd(), 'src/pages');
+const cwd = resolve('src/pages');
 const pages = glob
   .sync('**/index.js', { cwd })
   .map(item => item.replace('/index.js', ''));

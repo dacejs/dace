@@ -2,13 +2,13 @@ const { resolve } = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const merge = require('webpack-merge');
 const base = require('./base');
-const setBabelOptions = require('../../utils/setBabelOptions');
-const getConfigPath = require('../../utils/getConfigPath');
-const { assetExtensions, localIdentName } = require('../unjs');
+const setBabelOptions = require('../utils/setBabelOptions');
+const getConfigPath = require('../utils/getConfigPath');
+const { assetExtensions, localIdentName } = require('../config/unjs');
 
 module.exports = merge(base, {
   mode: 'development',
-  entry: [resolve(__dirname, '../../client.js')],
+  entry: [resolve(__dirname, '../client.js')],
   output: {
     chunkFilename: 'js/[name].js',
     filename: 'js/[name].js'
@@ -35,9 +35,6 @@ module.exports = merge(base, {
             options: setBabelOptions({
               target: 'web'
             })
-            // options: {
-            //   forceEnv: 'client'
-            // }
           },
           {
             loader: 'eslint-loader',

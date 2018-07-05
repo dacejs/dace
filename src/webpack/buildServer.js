@@ -3,8 +3,8 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const nodeExternals = require('webpack-node-externals');
 const merge = require('webpack-merge');
 const buildBase = require('./buildBase');
-const setBabelOptions = require('../../utils/setBabelOptions');
-const { outputPath } = require('../unjs');
+const setBabelOptions = require('../utils/setBabelOptions');
+const { outputPath } = require('../config/unjs');
 
 const bundlerName = 'server.js';
 
@@ -15,7 +15,7 @@ const bundlerName = 'server.js';
  * @return {function}
  */
 module.exports = ({ verbose }) => merge(buildBase, {
-  entry: [resolve(__dirname, '../../server.js')],
+  entry: [resolve(__dirname, '../server.js')],
   output: {
     filename: bundlerName
   },

@@ -4,9 +4,9 @@ const StylelintWebpackPlugin = require('stylelint-webpack-plugin');
 const merge = require('webpack-merge');
 const buildBase = require('./buildBase');
 const WrireStatsFilePlugin = require('./plugins/writeStatsFilePlugin');
-const getConfigPath = require('../../utils/getConfigPath');
-const setBabelOptions = require('../../utils/setBabelOptions');
-const { outputPath } = require('../unjs');
+const getConfigPath = require('../utils/getConfigPath');
+const setBabelOptions = require('../utils/setBabelOptions');
+const { outputPath } = require('../config/unjs');
 
 /**
  * @module config/buildClient webpack 配置
@@ -15,7 +15,7 @@ const { outputPath } = require('../unjs');
  * @return {function}
  */
 module.exports = ({ verbose }) => merge(buildBase, {
-  entry: [resolve(__dirname, '../../client.js')],
+  entry: [resolve(__dirname, '../client.js')],
   output: {
     chunkFilename: 'js/[name].[chunkhash:8].js',
     filename: 'js/[name].[hash:8].js'

@@ -11,7 +11,7 @@ import React from 'react';
 import { renderToString } from 'react-dom/server';
 import getPort from 'get-port';
 import routes from './routes';
-import createStore from './createStore';
+import createStore from './redux/createStore';
 import Html from './components/Html';
 import RedBox from './components/RedBox';
 import { isLocal } from './utils';
@@ -25,7 +25,7 @@ const { UNIT_TEST } = process.env; // 运行测试用例
 if (isLocal) {
   const dev = { serverSideRender: true };
   const hot = { port: random(4) };
-  const config = require('./config/webpack/dev'); // eslint-disable-line
+  const config = require('./webpack/dev'); // eslint-disable-line
   const compiler = webpack(config);
   const middlewareOptions = { compiler, dev, hot };
   if (UNIT_TEST) {

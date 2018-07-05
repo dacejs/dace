@@ -21,10 +21,10 @@ let configFile;
 let target;
 if (type === 'client') {
   target = 'web';
-  configFile = '../config/webpack/buildClient';
+  configFile = '../webpack/buildClient';
 } else {
   target = 'node';
-  configFile = '../config/webpack/buildServer';
+  configFile = '../webpack/buildServer';
 }
 
 require('babel-register')(setBabelOptions({ target }));
