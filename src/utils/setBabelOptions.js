@@ -1,14 +1,15 @@
 const { readFileSync } = require('fs');
-const { resolve } = require('path');
+// const { resolve } = require('path');
 const getConfigPath = require('./getConfigPath');
 
 module.exports = (options) => {
   const babelrcPath = getConfigPath('.babelrc');
   const babelrcText = readFileSync(babelrcPath, { encoding: 'utf8' });
   const babelrc = JSON.parse(babelrcText);
-  babelrc.plugins.push(resolve(__dirname, '../babel-plugin/index'));
+  // babelrc.plugins.push(resolve(__dirname, '../babel-plugin/index'));
+  const { target, ...others } = options;
 
-  switch (options.target) {
+  switch (target) {
     case 'web':
       babelrc.plugins.push('syntax-dynamic-import');
       break;
@@ -19,6 +20,7 @@ module.exports = (options) => {
   }
 
   return {
+    ...others,
     ...babelrc,
     babelrc: false
   };

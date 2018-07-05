@@ -3,13 +3,11 @@
  */
 
 /* eslint import/no-dynamic-require: 0 */
-// import configInProject from '__CONFIG__/src/config/unjs'; // eslint-disable-line
+const projectConfig = require('../preval/getConfig');
 
-// const { NODE_ENV = 'local' } = ;
+const profileConfig = require(`./profiles/${process.env.NODE_ENV}`);
 
-const configInProject = require('__CONFIG__/src/config/unjs');
-
-module.exports = Object.assign({
+const defaultConfig = {
   /**
    * web服务器对外访问主机名
    * @type {string}
@@ -62,4 +60,10 @@ module.exports = Object.assign({
     'eot',
     'svg'
   ]
-}, require(`./profiles/${process.env.NODE_ENV}`), configInProject);
+};
+
+module.exports = {
+  ...defaultConfig,
+  ...profileConfig,
+  ...projectConfig
+};

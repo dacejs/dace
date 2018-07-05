@@ -1,7 +1,7 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import axios from 'axios';
-import pages from '__PAGES__';
+import pages from './preval/getPages';
 import { isClient } from './utils';
 import createReducer from './rootReducer';
 import { ApiUrl } from './config/unjs';

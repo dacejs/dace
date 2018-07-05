@@ -12,7 +12,8 @@ program
 const setBabelOptions = require('../utils/setBabelOptions');
 
 require('babel-register')(setBabelOptions({
-  target: 'node'
+  target: 'node',
+  cache: false
 }));
 
 require('../utils/requireHook');
