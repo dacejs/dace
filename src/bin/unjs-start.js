@@ -1,6 +1,5 @@
 require('../utils/setProcessEnv')({
-  NODE_ENV: 'local' // ,
-  // NODE_PATH: process.cwd()
+  NODE_ENV: 'local'
 });
 
 const program = require('commander');

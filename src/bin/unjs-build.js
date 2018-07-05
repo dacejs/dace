@@ -1,7 +1,3 @@
-// require('../utils/setProcessEnv')({
-//   NODE_PATH: process.cwd()
-// });
-
 const program = require('commander');
 const webpack = require('webpack');
 const log = require('npmlog');
@@ -18,15 +14,8 @@ if (!verbose) {
   log.level = 'error';
 }
 
-let configFile;
-let target;
-if (type === 'client') {
-  target = 'web';
-  configFile = 'buildClient';
-} else {
-  target = 'node';
-  configFile = 'buildServer';
-}
+const configFile = type === 'client' ? 'buildClient' : 'buildServer';
+const target = type === 'client' ? 'web' : 'node';
 
 require('babel-register')(setBabelOptions({ target }));
 
