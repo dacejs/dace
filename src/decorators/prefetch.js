@@ -13,7 +13,7 @@ export default options => Target => class extends Component {
   constructor(props) {
     super(props, Target);
     this.state = {
-      loaded: false
+      loaded: true
     };
   }
 
@@ -52,8 +52,6 @@ export default options => Target => class extends Component {
   }
 
   render() {
-    // console.log('--this.state.loaded:', this.state.loaded);
-    // return this.state.loaded ? <Target {...this.props} /> : <div>loading</div>;
     if (isClient) {
       return this.state.loaded ? <Target {...this.props} /> : <div>loading</div>;
     }

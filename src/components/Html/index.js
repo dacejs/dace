@@ -44,7 +44,10 @@ export default class Html extends Component {
     const { publicPath, chunks } = getWebpackStats();
     // 获取初始化网页需要插入的 CSS/JS 静态文件
     const initialAssets = chunks
-      .filter(item => item.initial)
+      .filter((item) => {
+        const routeName = ctx.url.substring(1) || 'home';
+        return item.initial || item.names[0] === routeName;
+      })
       .reduce((accumulator, item) => {
         accumulator = accumulator.concat(item.files);
         return accumulator;
