@@ -1,3 +1,8 @@
+/**
+ * 返回浏览器控制台输出格式化日志函数
+ * @return {object}
+ */
+
 const css = {
   prefix: 'color: #999; padding: 0 0 0 20px; line-height: 16px; background: url(https://webpack.js.org/6bc5d8cf78d442a984e70195db059b69.svg) no-repeat; background-size: 16px 16px; background-position: 0 -2px;',
   reset: 'color: #444'

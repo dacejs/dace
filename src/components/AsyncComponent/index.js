@@ -1,5 +1,12 @@
 import React, { Component } from 'react';
 
+/**
+ * 辅助 webpack 拆分打包的高阶组件
+ * 目的是为了动态加载其它页面组件
+ *
+ * @param {component} importComponent 欲动态加载的组件
+ * @return {component}
+ */
 export default (importComponent) => {
   class AsyncComponent extends Component {
     constructor(props) {

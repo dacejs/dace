@@ -16,6 +16,11 @@ import routes from '../../routes';
 import { outputPath } from '../../config/unjs';
 import { isLocal, isProduction } from '../../utils';
 
+/**
+ * 服务器端渲染使用的入口组件
+ *
+ * @return {component}
+ */
 export default class Html extends Component {
   static propTypes = {
     ctx: PropTypes.object.isRequired,

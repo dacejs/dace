@@ -1,6 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+/**
+ * 显示错误信息的页面组件
+ * 只在服务器渲染时调用
+ *
+ * @param {object} props
+ * @return {component}
+ */
 const RedBox = (props) => {
   const { error: { name, message, stack } } = props;
   const bodyStyle = {

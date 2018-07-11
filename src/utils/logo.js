@@ -1,4 +1,6 @@
-// eslint disable
+/**
+ * 在 CLI 输入 unjs logo
+ */
 
 const chalk = require('chalk');
 
