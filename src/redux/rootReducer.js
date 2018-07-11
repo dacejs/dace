@@ -1,14 +1,13 @@
 import { combineReducers } from 'redux';
-import { defaultState } from './createStore';
 
 /**
  * @param {Object} - key/value of reducer functions
  */
 const createReducer = (asyncReducers) => {
-  const initReducers = Object.keys(defaultState).reduce((total, value) => {
-    total[value] = (state = {}) => state;
-    return total;
-  }, {});
+  // 开发环境下会报错，但线上不会
+  const initReducers = {
+    // foo: (state = {}) => state
+  };
 
   return combineReducers({
     ...initReducers,

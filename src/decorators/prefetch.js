@@ -3,6 +3,12 @@ import PropTypes from 'prop-types';
 import { parse } from 'qs';
 import isClient from '../utils/isClient';
 
+/**
+ * @param {object} options
+ * @param {string} options.key
+ * @param {function} options.reducer
+ * @param {array|function} options.promise
+ */
 export default options => Target => class extends Component {
 // export default (key, reducer, loadData) => Target => class extends Component {
   static propTypes = {

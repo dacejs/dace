@@ -1,15 +1,11 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import axios from 'axios';
-import pages from '../preval/getPages';
 import { isClient } from '../utils';
 import createReducer from './rootReducer';
 import { ApiUrl } from '../config/unjs';
 
-export const defaultState = pages.pages.reduce((state, page) => {
-  state[page] = (page === 'post') ? {} : [];
-  return state;
-}, {});
+const defaultState = {};
 
 export default () => {
   const baseURL = isClient ? '/api' : ApiUrl;
