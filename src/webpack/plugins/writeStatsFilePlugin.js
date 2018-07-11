@@ -2,6 +2,9 @@ const { resolve, dirname } = require('path');
 const { writeFileSync } = require('fs');
 const mkdirp = require('mkdirp');
 
+/**
+ * 将 webpack state 信息写入文件
+ */
 class WriteStatsFilePlugin {
   constructor(options) {
     this.options = {
