@@ -33,7 +33,7 @@ module.exports = function routesLoader() {
   return `
     import App from './components/App';
     import NotFoundPage from './pages/notFound';
-    import asyncComponent from './components/AsyncComponent';
+    import asyncComponent from './decorators/asyncComponent';
 
     export default () => [
       {
