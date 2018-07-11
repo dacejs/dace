@@ -5,7 +5,7 @@ import { Helmet } from 'react-helmet';
 import { prefetch } from 'unjs';
 import reducer from './reducer';
 import { fetchPost } from './action';
-import DefaultLayout from '../../layouts/default';
+import Layout from '../../layouts/default';
 
 @prefetch({
   key: 'post',
@@ -30,17 +30,21 @@ export default class Post extends Component {
     post: {}
   };
 
+  componentWillUnmount() {
+    console.log('---componentWillUnmount---');
+  }
+
   render() {
     const { post: { title, body } } = this.props;
 
     return (
-      <DefaultLayout>
+      <Layout>
         <Helmet>
           <title>Posts</title>
         </Helmet>
         <h3>{title}</h3>
         <p>{body}</p>
-      </DefaultLayout>
+      </Layout>
     );
   }
 }

@@ -6,7 +6,7 @@ import { Helmet } from 'react-helmet';
 import { prefetch } from 'unjs';
 import { fetchPosts } from './action';
 import reducer from './reducer';
-import DefaultLayout from '../../layouts/default';
+import Layout from '../../layouts/default';
 
 function mapStateToProps({ posts = [] }) {
   return { posts };
@@ -42,13 +42,13 @@ export default class PostsListPage extends Component {
 
   render() {
     return (
-      <DefaultLayout>
+      <Layout>
         <Helmet>
           <title>Posts</title>
         </Helmet>
         <h3>List of Posts (Rendering by browser)</h3>
         <ul>{this.renderPosts()}</ul>
-      </DefaultLayout>
+      </Layout>
     );
   }
 }

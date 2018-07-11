@@ -5,7 +5,7 @@ import { Helmet } from 'react-helmet';
 import { prefetch } from 'unjs';
 import { fetchUsers } from './action';
 import reducer from './reducer';
-import DefaultLayout from '../../layouts/default';
+import Layout from '../../layouts/default';
 
 function mapStateToProps(state) {
   return { users: state.users || [] };
@@ -47,11 +47,11 @@ export default class UsersList extends Component {
 
   render() {
     return (
-      <DefaultLayout>
+      <Layout>
         {this.head()}
         Here is a big list of users:
         <ul>{this.renderUsers()}</ul>
-      </DefaultLayout>
+      </Layout>
     );
   }
 }
