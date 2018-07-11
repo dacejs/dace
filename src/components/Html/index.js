@@ -90,7 +90,7 @@ export default class Html extends Component {
         </head>
         <body>
           <div id="root" dangerouslySetInnerHTML={{ __html: content }} />
-          <script dangerouslySetInnerHTML={{ __html: `window.INITIAL_STATE=${serialize(store.getState())};` }} charSet="UTF-8" />
+          <script dangerouslySetInnerHTML={{ __html: `window.firstRendering=true;window.INITIAL_STATE=${serialize(store.getState())};` }} charSet="UTF-8" />
           {jsTags}
         </body>
       </html>

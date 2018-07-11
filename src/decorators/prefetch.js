@@ -1,3 +1,4 @@
+/* eslint react/no-did-mount-set-state: 0 */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { parse } from 'qs';
@@ -13,6 +14,7 @@ import isClient from '../utils/isClient';
  * @param {string} options.key
  * @param {function} options.reducer
  * @param {function|[function]} options.promise
+ * @param {component} options.loading
  */
 export default options => Target => class extends Component {
   static propTypes = {
@@ -22,9 +24,12 @@ export default options => Target => class extends Component {
 
   constructor(props) {
     super(props, Target);
-    this.state = {
-      loaded: true
-    };
+    this.loading = options.loading;
+    if (isClient) {
+      this.state = {
+        loaded: window.firstRendering
+      };
+    }
   }
 
   async componentDidMount() {
@@ -44,7 +49,10 @@ export default options => Target => class extends Component {
       return promise({ store, match, query });
     });
     await Promise.all(promises);
-    this.setState({ loaded: true }); // eslint-disable-line
+    this.setState({ loaded: true });
+    if (window.firstRendering) {
+      window.firstRendering = false;
+    }
   }
 
   /**
@@ -76,8 +84,8 @@ export default options => Target => class extends Component {
   }
 
   render() {
-    if (isClient) {
-      return this.state.loaded ? <Target {...this.props} /> : <div>loading</div>;
+    if (isClient && this.loading) {
+      return this.state.loaded ? <Target {...this.props} /> : this.loading;
     }
     // 服务器端渲染时不需要显示 loading
     return <Target {...this.props} />;

@@ -1,3 +1,4 @@
+/* eslint react/no-did-mount-set-state: 0 */
 import React, { Component } from 'react';
 
 /**
@@ -19,7 +20,7 @@ export default (importComponent) => {
 
     async componentDidMount() {
       const { default: component } = await importComponent();
-      this.setState({ component }); // eslint-disable-line
+      this.setState({ component });
     }
 
     render() {

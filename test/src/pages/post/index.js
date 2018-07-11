@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { prefetch } from 'unjs';
 import reducer from './reducer';
-import { fetchPost } from './action';
+import { fetchPost, cleanPost } from './action';
 import Layout from '../../layouts/default';
 
 @prefetch({
@@ -23,7 +23,8 @@ import Layout from '../../layouts/default';
 @connect(({ post = {} }) => ({ post }))
 export default class Post extends Component {
   static propTypes = {
-    post: PropTypes.object
+    post: PropTypes.object,
+    dispatch: PropTypes.func.isRequired
   };
 
   static defaultProps = {
@@ -31,7 +32,8 @@ export default class Post extends Component {
   };
 
   componentWillUnmount() {
-    console.log('---componentWillUnmount---');
+    // 清除当前 store ，防治下次渲染时内容露出
+    this.props.dispatch(cleanPost());
   }
 
   render() {

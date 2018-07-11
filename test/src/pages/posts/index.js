@@ -7,6 +7,7 @@ import { prefetch } from 'unjs';
 import { fetchPosts } from './action';
 import reducer from './reducer';
 import Layout from '../../layouts/default';
+import Loading from '../../components/Loading';
 
 function mapStateToProps({ posts = [] }) {
   return { posts };
@@ -16,6 +17,7 @@ function mapStateToProps({ posts = [] }) {
   key: 'posts',
   reducer,
   defer: true,
+  loading: Loading,
   promise: ({ store: { dispatch } }) => dispatch(fetchPosts())
 })
 @connect(mapStateToProps, { fetchPosts })
