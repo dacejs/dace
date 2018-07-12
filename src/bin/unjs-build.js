@@ -29,6 +29,6 @@ webpack(config, (err, stats) => {
     // 让 jenkins 退出编译
     process.exit(1);
   } else if (stats.hasWarnings()) {
-    log.warn('build', stats.compilation.errors);
+    log.warn('build', stats.compilation.warnings);
   }
 });
