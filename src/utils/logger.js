@@ -10,7 +10,7 @@ const css = {
 
 export default ['warn', 'info', 'error'].reduce((total, item) => {
   total[item] = (message) => {
-    console[item]('%c｢unjs｣%c', css.prefix, css.reset, message);
+    console[item]('%c｢dace｣%c', css.prefix, css.reset, message);
   };
   return total;
 }, {});

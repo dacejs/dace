@@ -1,5 +1,4 @@
 // import request from 'supertest';
-// import app from '../../../src/bin/unjs-start';
 process.env.UNIT_TEST = true;
 process.env.NODE_ENV = 'local';
 

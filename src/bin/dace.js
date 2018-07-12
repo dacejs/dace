@@ -16,5 +16,5 @@ if (program.logo) {
 }
 
 info('time', new Date());
-info('using', 'unjs@%s', version);
+info('using', 'dace@%s', version);
 info('using', process.env.npm_config_user_agent);

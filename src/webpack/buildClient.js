@@ -6,7 +6,7 @@ const buildBase = require('./buildBase');
 const WrireStatsFilePlugin = require('./plugins/writeStatsFilePlugin');
 const getConfigPath = require('../utils/getConfigPath');
 const setBabelOptions = require('../utils/setBabelOptions');
-const { outputPath } = require('../config/unjs');
+const { outputPath } = require('../config/dace');
 
 /**
  * @module config/buildClient webpack 配置

@@ -1,4 +1,4 @@
-import { logger } from 'unjs';
+import { logger } from 'dace';
 
 export const FETCH_POST = 'fetch_post';
 export const CLEAN_POST = 'clean_post';

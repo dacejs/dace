@@ -1,8 +1,8 @@
 {
-  "name": "unjs",
+  "name": "dace",
   "description": "A minimalistic universal (isomorphic) react framework for building web apps",
   "version": "1.0.0-beta.1",
-  "repository": "un-js/unjs",
+  "repository": "dacejs/dace",
   "keywords": [
     "universal",
     "isomorphic",
@@ -15,10 +15,14 @@
   ],
   "main": "dist/index.js",
   "bin": {
-    "unjs": "./dist/bin/unjs.js"
+    "dace": "./dist/bin/dace.js"
   },
+  "files": [
+    "dist",
+    ".eslintrc.js"
+  ],
   "scripts": {
-    "build": "rm -rf dist && babel src -d dist",
+    "build": "rm -rf dist && NODE_ENV=local babel src -d dist",
     "stylelint": "stylelint --fix \"src/**/*.(css|less|sass|scss)\"",
     "eslint": "eslint --fix src",
     "test": "echo \"Error: no test specified\" && exit 0",
@@ -82,7 +86,6 @@
   },
   "devDependencies": {
     "mocha": "^5.2.0",
-    "node-notifier": "^5.2.1",
     "redux-devtools": "^3.4.1",
     "should": "^13.2.1",
     "supertest": "^3.1.0"

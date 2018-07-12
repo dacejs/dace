@@ -1,4 +1,4 @@
-import { isLoaded, logger } from 'unjs';
+import { isLoaded, logger } from 'dace';
 
 export const FETCH_USERS = 'fetch_users';
 export const fetchUsers = () => async (dispatch, getState, api) => {

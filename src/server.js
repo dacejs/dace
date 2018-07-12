@@ -1,3 +1,4 @@
+// import fs from 'fs';
 import path from 'path';
 import chalk from 'chalk';
 import { info, warn, error } from 'npmlog';
@@ -17,7 +18,7 @@ import RedBox from './components/RedBox';
 import { isLocal } from './utils';
 import random from './utils/random';
 import getWebpackConfig from './utils/getWebpackConfig';
-import { host, port, outputPath, ApiUrl, noSSR } from './config/unjs';
+import { host, port, outputPath, ApiUrl, noSSR } from './config/dace';
 
 const app = new Koa();
 
@@ -42,7 +43,20 @@ app.use(proxy('/api', {
   target: ApiUrl,
   rewrite: url => url.replace(/^\/api/, ''),
   changeOrigin: true,
-  logs: true
+  logs: true // ,
+  // events: {
+  //   proxyRes(proxyRes, req, res) {
+  //     const filename = req.url.substring(1);
+  //     console.log(filename);
+  //     if (fs.existsSync(path.resolve(`mock${req.url}.js`))) {
+  //       console.log('exist');
+  //     }
+  //     // res.setHeader('Content-Type', ['text/html;charset=UTF-8']);
+  //     // res.statusCode = 200;
+  //     // res.write('[{"id":1,"name":"Joe"}]');
+  //     // res.end();
+  //   }
+  // }
 }));
 
 app.use(async (ctx) => {

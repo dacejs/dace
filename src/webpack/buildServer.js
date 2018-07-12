@@ -4,7 +4,7 @@ const nodeExternals = require('webpack-node-externals');
 const merge = require('webpack-merge');
 const buildBase = require('./buildBase');
 const setBabelOptions = require('../utils/setBabelOptions');
-const { outputPath } = require('../config/unjs');
+const { outputPath } = require('../config/dace');
 
 const bundlerName = 'server.js';
 

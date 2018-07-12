@@ -1,11 +1,11 @@
 {
   "scripts": {
-    "start": "unjs",
+    "start": "dace",
     "start:dist": "NODE_ENV=production node prd/server.js",
-    "build": "NODE_ENV=local unjs build",
+    "build": "NODE_ENV=local dace build",
     "test": "npm run build && npm run start:dist"
   },
   "dependencies": {
-    "unjs": ".."
+    "dace": ".."
   }
 }

@@ -13,7 +13,7 @@ import { renderRoutes } from 'react-router-config';
 import serialize from 'serialize-javascript';
 import { Helmet } from 'react-helmet';
 import routes from '../../routes';
-import { outputPath } from '../../config/unjs';
+import { outputPath } from '../../config/dace';
 import { isLocal, isProduction } from '../../utils';
 
 /**

@@ -1,4 +1,4 @@
-import { asyncComponent } from 'unjs';
+import { asyncComponent } from 'dace';
 
 export default {
   path: '/',

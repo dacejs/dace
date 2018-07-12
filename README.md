@@ -1,9 +1,9 @@
 # universal-js
 
-[![Build Status](https://travis-ci.com/un-js/unjs.svg?branch=master)](https://travis-ci.com/un-js/unjs)
-[![npm version](https://img.shields.io/npm/v/unjs.svg?style=flat-square)](https://www.npmjs.com/package/unjs)
-[![npm downloads](https://img.shields.io/npm/dm/unjs.svg?style=flat-square)](https://www.npmjs.com/package/unjs)
-[![Dependency Status](https://david-dm.org/un-js/unjs.svg)](https://david-dm.org/un-js/unjs)
+[![Build Status](https://travis-ci.com/dacejs/dace.svg?branch=master)](https://travis-ci.com/dacejs/dace)
+[![npm version](https://img.shields.io/npm/v/dace.svg?style=flat-square)](https://www.npmjs.com/package/dace)
+[![npm downloads](https://img.shields.io/npm/dm/dace.svg?style=flat-square)](https://www.npmjs.com/package/dace)
+[![Dependency Status](https://david-dm.org/dacejs/dace.svg)](https://david-dm.org/dacejs/dace)
 
 
 * 创建工作目录

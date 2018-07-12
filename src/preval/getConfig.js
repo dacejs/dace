@@ -4,8 +4,8 @@ const { existsSync } = require('fs');
 const { resolve } = require('path');
 
 /* eslint-disable */
-const configFile = resolve('src/config/unjs.js');
-const profileConfigFile = resolve(`src/config/profiles/${process.env.NODE_ENV}/unjs.js`);
+const configFile = resolve('src/config/dace.js');
+const profileConfigFile = resolve(`src/config/profiles/${process.env.NODE_ENV}/dace.js`);
 
 const config = existsSync(configFile) ? require(configFile) : {};
 const profileConfig = existsSync(profileConfigFile) ? require(profileConfigFile) : {}

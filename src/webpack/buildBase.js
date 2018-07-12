@@ -2,7 +2,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const merge = require('webpack-merge');
 const base = require('./base');
 const getConfigPath = require('../utils/getConfigPath');
-const { assetExtensions, localIdentName } = require('../config/unjs');
+const { assetExtensions, localIdentName } = require('../config/dace');
 
 module.exports = merge(base, {
   mode: 'production',

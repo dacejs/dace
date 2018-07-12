@@ -18,7 +18,7 @@ const defaultConfig = {
    * web服务器对外访问端口
    * @type {number}
    */
-  port: 3001,
+  port: 3000,
 
   /**
    * 编译产物输出目录

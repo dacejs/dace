@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
-import { prefetch } from 'unjs';
+import { prefetch } from 'dace';
 import { fetchPosts } from './action';
 import reducer from './reducer';
 import Layout from '../../layouts/default';

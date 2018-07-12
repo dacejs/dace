@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
-import { prefetch } from 'unjs';
+import { prefetch } from 'dace';
 import { fetchUsers } from './action';
 import reducer from './reducer';
 import Layout from '../../layouts/default';
