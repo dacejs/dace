@@ -39,8 +39,8 @@ module.exports = merge(base, {
           {
             loader: 'eslint-loader',
             options: {
-              configFile: getConfigPath('.eslintrc.js', '.eslintrc', '.eslint.config.js'),
-              ignorePath: getConfigPath('.eslintignore')
+              configFile: getConfigPath('.eslintrc.js', '.eslintrc', '.eslint.config.js') // ,
+              // ignorePath: getConfigPath('.eslintignore')
             }
           }
         ]

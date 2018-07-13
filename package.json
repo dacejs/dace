@@ -1,7 +1,7 @@
 {
   "name": "dace",
   "description": "A minimalistic universal (isomorphic) react framework for building web apps",
-  "version": "1.0.0-beta.1",
+  "version": "1.0.0-beta.4",
   "repository": "dacejs/dace",
   "keywords": [
     "universal",
@@ -13,22 +13,25 @@
     "koa",
     "code-splitting"
   ],
-  "main": "dist/index.js",
+  "main": "src/index.js",
   "bin": {
-    "dace": "./dist/bin/dace.js"
+    "dace": "./src/bin/dace.js"
   },
   "files": [
-    "dist",
-    ".eslintrc.js"
+    "src",
+    ".eslintignore",
+    ".eslintrc.js",
+    ".babelrc",
+    ".stylelintignore",
+    "postcss.config.js",
+    "stylelint.config.js"
   ],
   "scripts": {
-    "build": "rm -rf dist && NODE_ENV=local babel src -d dist",
     "stylelint": "stylelint --fix \"src/**/*.(css|less|sass|scss)\"",
     "eslint": "eslint --fix src",
     "test": "echo \"Error: no test specified\" && exit 0",
     "test-bak": "node test/index.js",
     "lint": "npm run stylelint && npm run eslint",
-    "prepare": "npm run build",
     "postrelease": "git push && git push origin --tags",
     "release": "standard-version && npm publish"
   },
@@ -66,8 +69,6 @@
     "postcss-loader": "^2.1.5",
     "prop-types": "^15.6.1",
     "qs": "^6.5.2",
-    "react": "^16.4.0",
-    "react-dom": "^16.4.0",
     "react-helmet": "^5.2.0",
     "react-redux": "^5.0.7",
     "react-router": "^4.2.0",
@@ -85,6 +86,8 @@
     "webpack-node-externals": "^1.7.2"
   },
   "devDependencies": {
+    "react": "^16.4.0",
+    "react-dom": "^16.4.0",
     "mocha": "^5.2.0",
     "redux-devtools": "^3.4.1",
     "should": "^13.2.1",

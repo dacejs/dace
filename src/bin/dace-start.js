@@ -12,7 +12,13 @@ const setBabelOptions = require('../utils/setBabelOptions');
 
 require('babel-register')(setBabelOptions({
   target: 'node',
-  cache: false
+  cache: false,
+  ignore: (filename) => {
+    if (/node_modules\/dace/.test(filename)) {
+      return false;
+    }
+    return /node_modules/.test(filename);
+  }
 }));
 
 require('../utils/requireHook');
