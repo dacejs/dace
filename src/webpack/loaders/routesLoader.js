@@ -14,6 +14,7 @@ module.exports = function routesLoader() {
     .sync('**/index.js', { cwd })
     .map(item => item.replace('/index.js', ''))
     .map((name) => {
+      const endpoint = name === 'home' ? '' : name;
       const routerFile = resolve(cwd, `${name}/router.js`);
       if (existsSync(routerFile)) {
         return `require('${routerFile}')`;
@@ -24,7 +25,7 @@ module.exports = function routesLoader() {
         `require('${resolve(cwd, name)}')`;
 
       return `{
-        path: '/${name}',
+        path: '/${endpoint}',
         component: ${component}
       }`;
     });
