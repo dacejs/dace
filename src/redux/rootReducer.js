@@ -7,7 +7,7 @@ import { combineReducers } from 'redux';
 export default (asyncReducers) => {
   // 开发环境下会报错，但线上不会
   const initReducers = {
-    // foo: (state = {}) => state
+    foo: (state = {}) => state
   };
 
   return combineReducers({

@@ -23,6 +23,7 @@ export default () => {
         // 动态创建 router 模块
         routes.unshift({
           path: `/${endpoint}`,
+          exact: true,
           component: require(resolve(cwd, name)) // eslint-disable-line
         });
       }

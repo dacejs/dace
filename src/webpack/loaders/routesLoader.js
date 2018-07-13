@@ -26,6 +26,7 @@ module.exports = function routesLoader() {
 
       return `{
         path: '/${endpoint}',
+        exact: true,
         component: ${component}
       }`;
     });
