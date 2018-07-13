@@ -1,7 +1,6 @@
 /* eslint react/no-did-mount-set-state: 0 */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { parse } from 'qs';
 import isClient from '../utils/isClient';
 
 /**
@@ -35,14 +34,11 @@ export default options => Target => class extends Component {
   async componentDidMount() {
     // 该方法在页面浏览器端渲染时会调用
     // 在浏览器端动态添加reducer
-    const { store, match } = this.props;
-    const { search } = window.location;
-    const querystring = search.startsWith('?') ? search.substring(1) : search;
-    const query = parse(querystring);
-
     if (!Array.isArray(options)) {
       options = [options];
     }
+
+    const { store, match, location: { query } } = this.props;
     const promises = options.map((item) => {
       const { key, reducer, promise } = item;
       store.injectReducer(key, reducer);
