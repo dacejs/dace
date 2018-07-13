@@ -29,8 +29,6 @@
   "scripts": {
     "stylelint": "stylelint --fix \"src/**/*.(css|less|sass|scss)\"",
     "eslint": "eslint --fix src",
-    "test": "echo \"Error: no test specified\" && exit 0",
-    "test-bak": "node test/index.js",
     "lint": "npm run stylelint && npm run eslint",
     "postrelease": "git push && git push origin --tags",
     "release": "standard-version && npm publish"
