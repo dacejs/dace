@@ -16,12 +16,13 @@ export default () => {
     .forEach((item) => {
       const name = item.replace('/index.js', '');
       const routerFile = resolve(cwd, `${name}/router.js`);
+      const endpoint = name === 'home' ? '' : name;
       if (existsSync(routerFile)) {
         routes.unshift(require(routerFile)); // eslint-disable-line
       } else {
         // 动态创建 router 模块
         routes.unshift({
-          path: `/${name}`,
+          path: `/${endpoint}`,
           component: require(resolve(cwd, name)) // eslint-disable-line
         });
       }
