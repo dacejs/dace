@@ -1,3 +1,4 @@
+/* eslint global-require: 0, import/no-dynamic-require: 0 */
 /**
  * 该文件为 target='web' 提供文件系统操作能力
  * 当  target='web' 时，`require('./routes')` 返回的内容为该 loader 返回的内容
@@ -14,20 +15,30 @@ module.exports = function routesLoader() {
     .sync('**/index.js', { cwd })
     .map(item => item.replace('/index.js', ''))
     .map((name) => {
-      const endpoint = name === 'home' ? '' : name;
+      let endpoint;
+      let page;
+
       const routerFile = resolve(cwd, `${name}/router.js`);
+
       if (existsSync(routerFile)) {
-        return `require('${routerFile}')`;
+        const { path, component } = require(routerFile);
+        endpoint = path;
+        page = component;
       }
 
-      const component = options.target === 'web' ?
-        `asyncComponent(() => import(/* webpackChunkName: "${name}" */'${resolve(cwd, name)}'))` :
-        `require('${resolve(cwd, name)}')`;
+      if (!endpoint) {
+        endpoint = name === 'home' ? '/' : `/${name}`;
+      }
+      if (!page) {
+        page = options.target === 'web' ?
+          `asyncComponent(() => import(/* webpackChunkName: "${name}" */'${resolve(cwd, name)}'))` :
+          `require('${resolve(cwd, name)}')`;
+      }
 
       return `{
-        path: '/${endpoint}',
+        path: '${endpoint}',
         exact: true,
-        component: ${component}
+        component: ${page}
       }`;
     });
 
