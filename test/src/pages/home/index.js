@@ -1,12 +1,12 @@
 import React from 'react';
-import { Helmet } from 'react-helmet';
+import { Head } from 'dace';
 import Layout from '../../layouts/default';
 
 const Home = () => (
   <Layout>
-    <Helmet>
+    <Head>
       <title>Home</title>
-    </Helmet>
+    </Head>
     <h3>Welcome</h3>
     <p>Check out these awesome features</p>
   </Layout>

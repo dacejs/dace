@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { Helmet } from 'react-helmet';
-import { prefetch } from 'dace';
+import { prefetch, Head } from 'dace';
 import { fetchPosts } from './action';
 import reducer from './reducer';
 import Layout from '../../layouts/default';
@@ -45,9 +44,9 @@ export default class PostsListPage extends Component {
   render() {
     return (
       <Layout>
-        <Helmet>
+        <Head>
           <title>Posts</title>
-        </Helmet>
+        </Head>
         <h3>List of Posts (Rendering by browser)</h3>
         <ul>{this.renderPosts()}</ul>
       </Layout>

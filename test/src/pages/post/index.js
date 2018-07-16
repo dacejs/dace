@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Helmet } from 'react-helmet';
-import { prefetch } from 'dace';
+import { prefetch, Head } from 'dace';
 import reducer from './reducer';
 import { fetchPost, cleanPost } from './action';
 import Layout from '../../layouts/default';
@@ -10,9 +9,8 @@ import Layout from '../../layouts/default';
 @prefetch({
   key: 'post',
   reducer,
-  promise: ({ store: { dispatch }, match/* , query */ }) => {
-    // console.log('--query:', query); // Get query string
-    const { id } = match.params; // Get url parameters
+  promise: ({ store: { dispatch }, match }) => {
+    const { id } = match.params;
     return dispatch(fetchPost(id));
 
     // return Promise.all([
@@ -41,9 +39,9 @@ export default class Post extends Component {
 
     return (
       <Layout>
-        <Helmet>
+        <Head>
           <title>Posts</title>
-        </Helmet>
+        </Head>
         <h3>{title}</h3>
         <p>{body}</p>
       </Layout>

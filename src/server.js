@@ -64,7 +64,7 @@ app.use(async (ctx) => {
   const promises = matchRoutes(routes(), ctx.path)
     .map(({ route, match }) => {
       const { getInitialProps } = route.component;
-      return getInitialProps ? getInitialProps(store, match, ctx.query) : null;
+      return getInitialProps ? getInitialProps(store, match) : null;
     })
     .filter(promise => !!promise)
     .map(promise => new Promise((resolve) => {
