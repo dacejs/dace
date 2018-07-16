@@ -65,16 +65,16 @@ export default options => Target => class extends Component {
    *
    * @return {Promise}
    */
-  static getInitialProps(store, match, query) {
+  static getInitialProps(store, match) {
     // 该方法在页面服务器端渲染时会调用
-    // 在服务器端动态添加reducer
+    // 在服务器端动态添加 reducer
     if (!Array.isArray(options)) {
       options = [options];
     }
     const promises = options.filter(item => !item.defer).map((item) => {
       const { key, reducer, promise } = item;
       store.injectReducer(key, reducer);
-      return promise({ store, match, query });
+      return promise({ store, match });
     });
     return Promise.all(promises);
   }
