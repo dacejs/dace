@@ -24,7 +24,8 @@
     ".babelrc",
     ".stylelintignore",
     "postcss.config.js",
-    "stylelint.config.js"
+    "stylelint.config.js",
+    "preset.js"
   ],
   "scripts": {
     "stylelint": "stylelint --fix \"src/**/*.(css|less|sass|scss)\"",
