@@ -62,6 +62,10 @@ const defaultConfig = {
   ]
 };
 
+if (typeof window === 'object') {
+  console.error('config/dace.js 只能在服务器端代码中使用，请勿将浏览器端配置信息写在该文件中！');
+}
+
 module.exports = {
   ...defaultConfig,
   ...profileConfig,
