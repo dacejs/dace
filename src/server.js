@@ -17,7 +17,7 @@ import Html from './components/Html';
 import RedBox from './components/RedBox';
 import { isLocal } from './utils';
 import random from './utils/random';
-import getWebpackConfig from './utils/getWebpackConfig';
+import getDevWebpackConfig from /* preval('dev') */ './preval/getWebpackConfig';
 import { host, port, outputPath, ApiUrl, noSSR } from './config/dace';
 
 const app = new Koa();
@@ -27,8 +27,7 @@ const { UNIT_TEST } = process.env; // 运行测试用例
 if (isLocal) {
   const dev = { serverSideRender: true };
   const hot = { port: random(4) };
-  const config = getWebpackConfig('dev');
-  const compiler = webpack(config);
+  const compiler = webpack(getDevWebpackConfig);
   const middlewareOptions = { compiler, dev, hot };
   if (UNIT_TEST) {
     middlewareOptions.dev.logLevel = 'silent';

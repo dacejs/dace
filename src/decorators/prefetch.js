@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import isClient from '../utils/isClient';
 
+const getDefaultKey = match => match.url.substring(1).replace(/\//g, '-') || 'home';
+
 /**
  * 页面组件渲染前获取数据的装饰器
  * 装饰器会将数据获取的请求代码分别注入到组件的
@@ -40,7 +42,7 @@ export default options => Target => class extends Component {
 
     const { store, match, location: { query } } = this.props;
     const promises = options.map((item) => {
-      const defaultKey = match.url.substring(1).replace(/\//g, '-');
+      const defaultKey = getDefaultKey(match);
       const { key = defaultKey, reducer, promise } = item;
       store.injectReducer(key, reducer);
       return promise({ store, match, query });
@@ -73,7 +75,7 @@ export default options => Target => class extends Component {
       options = [options];
     }
     const promises = options.filter(item => !item.defer).map((item) => {
-      const defaultKey = match.url.substring(1).replace(/\//g, '-');
+      const defaultKey = getDefaultKey(match);
       const { key = defaultKey, reducer, promise } = item;
       store.injectReducer(key, reducer);
       return promise({ store, match });

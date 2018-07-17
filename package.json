@@ -1,7 +1,7 @@
 {
   "name": "dace",
   "description": "A minimalistic universal (isomorphic) react framework for building web apps",
-  "version": "1.0.0-beta.5",
+  "version": "1.0.0-beta.6",
   "repository": "dacejs/dace",
   "keywords": [
     "universal",
