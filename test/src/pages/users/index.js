@@ -41,7 +41,6 @@ export default class Users extends Component {
   }
 
   renderUsers() {
-    console.log('--this.props:', this.props);
     const { users } = this.props;
     return users.map(user => <li key={user.id}>{user.name}</li>);
   }
