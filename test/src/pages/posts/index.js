@@ -8,12 +8,15 @@ import reducer from './reducer';
 import Layout from '../../layouts/default';
 import Loading from '../../components/Loading';
 
-function mapStateToProps({ posts = [] }) {
-  return { posts };
+const defaultProps = {
+  posts: []
+};
+
+function mapStateToProps(state) {
+  return { posts: state.posts.data };
 }
 
 @prefetch({
-  key: 'posts',
   reducer,
   defer: true,
   loading: Loading,
@@ -28,9 +31,7 @@ export default class PostsListPage extends Component {
     }))
   };
 
-  static defaultProps = {
-    posts: []
-  };
+  static defaultProps = defaultProps;
 
   renderPosts() {
     const { posts } = this.props;

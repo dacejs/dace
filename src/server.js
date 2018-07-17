@@ -106,7 +106,7 @@ if (!UNIT_TEST) {
       if (err) {
         error('server', `==> 😭  OMG!!! ${err}`);
       } else {
-        info('server', '==> 🎉  Ready on %s', chalk.blue.underline(`http://${host}:${availablePort}`));
+        info('server', '==> 🐟  Ready on %s', chalk.blue.underline(`http://${host}:${availablePort}`));
       }
     });
   });

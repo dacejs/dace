@@ -1,25 +1,27 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Helmet } from 'react-helmet';
-import { prefetch } from 'dace';
+import { prefetch, Head } from 'dace';
 import { fetchUsers } from './action';
 import reducer from './reducer';
 import Layout from '../../layouts/default';
 
+const defaultProps = {
+  users: []
+};
+
 function mapStateToProps(state) {
-  return { users: state.users || [] };
+  return { users: state.users.data };
 }
 
 @prefetch({
-  key: 'users',
   reducer,
   promise: ({ store: { dispatch } }) => Promise.all([
     dispatch(fetchUsers())
   ])
 })
-@connect(mapStateToProps, { fetchUsers })
-export default class UsersList extends Component {
+@connect(mapStateToProps)
+export default class Users extends Component {
   static propTypes = {
     users: PropTypes.arrayOf(PropTypes.shape({
       id: PropTypes.number,
@@ -27,20 +29,19 @@ export default class UsersList extends Component {
     }))
   };
 
-  static defaultProps = {
-    users: []
-  };
+  static defaultProps = defaultProps;
 
   head() {
     const { users } = this.props;
     return (
-      <Helmet>
+      <Head>
         <title>{`${users.length} Users Loaded`}</title>
-      </Helmet>
+      </Head>
     );
   }
 
   renderUsers() {
+    console.log('--this.props:', this.props);
     const { users } = this.props;
     return users.map(user => <li key={user.id}>{user.name}</li>);
   }
