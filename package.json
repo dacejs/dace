@@ -91,5 +91,9 @@
     "redux-devtools": "^3.4.1",
     "should": "^13.2.1",
     "supertest": "^3.1.0"
+  },
+  "peerDependencies": {
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0"
   }
 }
