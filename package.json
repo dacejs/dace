@@ -80,7 +80,6 @@
     "stylelint-config-standard": "^18.2.0",
     "stylelint-webpack-plugin": "^0.10.5",
     "webpack": "^4.9.1",
-    "webpack-cli": "^2.1.4",
     "webpack-merge": "^4.1.2",
     "webpack-node-externals": "^1.7.2"
   },
@@ -90,7 +89,8 @@
     "mocha": "^5.2.0",
     "redux-devtools": "^3.4.1",
     "should": "^13.2.1",
-    "supertest": "^3.1.0"
+    "supertest": "^3.1.0",
+    "webpack-cli": "^2.1.4"
   },
   "peerDependencies": {
     "react": "^16.0.0",
