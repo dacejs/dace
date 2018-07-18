@@ -4,7 +4,7 @@ export const FETCH_USERS = 'fetch_users';
 export const fetchUsers = () => async (dispatch, getState, api) => {
   const { users } = getState();
   if (!isLoaded(users)) {
-    const res = await api.get('/users');
+    const res = await api.get('http://jsonplaceholder.typicode.com/users');
 
     dispatch({
       type: FETCH_USERS,

@@ -5,7 +5,7 @@ export const fetchPosts = () => async (dispatch, getState, api) => {
   const { posts } = getState();
   if (!isLoaded(posts)) {
     try {
-      const res = await api.get('/posts');
+      const res = await api.get('http://jsonplaceholder.typicode.com/posts');
       dispatch({
         type: FETCH_POSTS,
         payload: res

@@ -5,7 +5,7 @@ export const CLEAN_POST = 'clean_post';
 
 export const fetchPost = id => async (dispatch, getState, api) => {
   try {
-    const res = await api.get(`/posts/${id}`);
+    const res = await api.get(`http://jsonplaceholder.typicode.com/posts/${id}`);
     dispatch({
       type: FETCH_POST,
       payload: res

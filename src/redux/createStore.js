@@ -4,7 +4,7 @@ import thunk from 'redux-thunk';
 import axios from 'axios';
 import { isClient } from '../utils';
 import createReducer from './rootReducer';
-import { ApiUrl } from '../config/dace';
+// import { ApiUrl } from '../config/dace';
 
 /**
  * 创建 store
@@ -12,10 +12,10 @@ import { ApiUrl } from '../config/dace';
  * @return {store}
  */
 export default () => {
-  const baseURL = isClient ? '/api' : ApiUrl;
+  // const baseURL = isClient ? '/api' : ApiUrl;
   const initialState = isClient ? window.INITIAL_STATE : {};
   const axiosInstance = axios.create({
-    baseURL
+    // baseURL
     // headers: { cookie: req.get('cookie') || '' }
   });
 

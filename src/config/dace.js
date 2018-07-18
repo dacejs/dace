@@ -1,5 +1,6 @@
 /**
- * 返回合并 profiles/${NODE_ENV} 配置
+ * 该文件只放 编译过程／本地调试 环境所需要的配置
+ * 运行时需要的配置请放到 `${process.cwd()}/config/publicRuntime.js`
  */
 
 /* eslint import/no-dynamic-require: 0 */
