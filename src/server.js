@@ -17,22 +17,17 @@ import Html from './components/Html';
 import RedBox from './components/RedBox';
 import { isLocal } from './utils';
 import random from './utils/random';
-import getDevWebpackConfig from /* preval('dev') */ './preval/getWebpackConfig';
+import getWebpackConfig from './utils/getWebpackConfig';
 import { host, port, outputPath, ApiUrl, noSSR } from './config/dace';
 
 const app = new Koa();
 
-const { UNIT_TEST } = process.env; // 运行测试用例
-
 if (isLocal) {
   const dev = { serverSideRender: true };
   const hot = { port: random(4) };
-  const compiler = webpack(getDevWebpackConfig);
+  const config = getWebpackConfig('dev');
+  const compiler = webpack(config);
   const middlewareOptions = { compiler, dev, hot };
-  if (UNIT_TEST) {
-    middlewareOptions.dev.logLevel = 'silent';
-    middlewareOptions.hot = false;
-  }
   app.use(middleware(middlewareOptions));
 } else {
   app.use(serve(path.resolve(outputPath)));
@@ -96,19 +91,17 @@ app.use(async (ctx) => {
   });
 });
 
-if (!UNIT_TEST) {
-  getPort({ port }).then((availablePort) => {
-    if (availablePort !== port) {
-      warn('server', `默认端口（${port}）已被占用，将随机端口（${availablePort}）启动 web 服务`);
+getPort({ port }).then((availablePort) => {
+  if (availablePort !== port) {
+    warn('server', `默认端口（${port}）已被占用，将随机端口（${availablePort}）启动 web 服务`);
+  }
+  app.listen(availablePort, (err) => {
+    if (err) {
+      error('server', `==> 😭  OMG!!! ${err}`);
+    } else {
+      info('server', '==> 🐟  Ready on %s', chalk.blue.underline(`http://${host}:${availablePort}`));
     }
-    app.listen(availablePort, (err) => {
-      if (err) {
-        error('server', `==> 😭  OMG!!! ${err}`);
-      } else {
-        info('server', '==> 🐟  Ready on %s', chalk.blue.underline(`http://${host}:${availablePort}`));
-      }
-    });
   });
-}
+});
 
 export default app;
