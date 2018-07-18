@@ -4,7 +4,8 @@
     "react"
   ],
   "plugins": [
-    "preval", ["transform-decorators-legacy"],
+    "preval",
+    "transform-decorators-legacy",
     "add-module-exports",
     "transform-class-properties",
     "transform-es2015-modules-commonjs",

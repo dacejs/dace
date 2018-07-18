@@ -15,6 +15,7 @@ module.exports = (options) => {
   const babelrc = JSON.parse(babelrcText);
   const { target, ...others } = options;
 
+  babelrc.plugins = babelrc.plugins || [];
   switch (target) {
     case 'web':
       babelrc.plugins.push('syntax-dynamic-import');
