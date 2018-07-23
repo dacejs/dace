@@ -24,10 +24,15 @@ module.exports = function appLoader() {
       }`);
     });
 
+  // 在 routes 最后添加 404 找不到网页的路由
+  routes.push(`{
+    component: require('./components/NotFound')
+  }`);
+
   return `
     export default [
       {
-        component: require('./App'),
+        component: require('./components/App'),
         routes: [
           ${routes.join(',')}
         ]

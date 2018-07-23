@@ -13,7 +13,7 @@ const server = express();
 server
   .disable('x-powered-by')
   .use(express.static(path.resolve('dist')))
-  .get('/', (req, res) => {
+  .get('*', (req, res) => {
     // 查找当前 URL 匹配的路由
     let props = {};
     matchRoutes(routes, req.url).forEach(async ({
