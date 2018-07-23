@@ -6,6 +6,7 @@ import express from 'express';
 import { renderToString } from 'react-dom/server';
 import { Helmet } from 'react-helmet';
 import serialize from 'serialize-javascript';
+import RedBox from './components/RedBox';
 import routes from './routes';
 import { isPromise } from '../utils/typeof';
 
@@ -72,7 +73,16 @@ server
         {renderRoutes(routes, props)}
       </StaticRouter>
     );
-    const markup = renderToString(Markup);
+
+    let markup;
+    try {
+      markup = renderToString(Markup);
+    } catch (e) {
+      // ctx.status = 500;
+      res.status(500);
+      markup = renderToString(<RedBox error={e} />);
+    }
+
 
     if (context.url) {
       res.redirect(context.url);
