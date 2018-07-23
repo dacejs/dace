@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "start": "dace"
+    "start": "NODE_ENV=local dace"
   },
   "dependencies": {
     "dace": ".."

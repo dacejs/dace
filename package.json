@@ -26,6 +26,7 @@
     "chalk": "^2.4.1",
     "commander": "^2.16.0",
     "css-loader": "^1.0.0",
+    "dotenv": "^6.0.0",
     "eslint": "^5.1.0",
     "eslint-config-qunar": "^3.0.0",
     "eslint-loader": "^2.1.0",
