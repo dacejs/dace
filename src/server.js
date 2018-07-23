@@ -1,107 +1,99 @@
-// import fs from 'fs';
 import path from 'path';
-import chalk from 'chalk';
-import { info, warn, error } from 'npmlog';
-import Koa from 'koa';
-import serve from 'koa-static';
-import proxy from 'koa-proxies';
-import middleware from 'koa-webpack';
-import webpack from 'webpack';
-import { matchRoutes } from 'react-router-config';
 import React from 'react';
+import { StaticRouter } from 'react-router-dom';
+import { matchRoutes, renderRoutes } from 'react-router-config';
+import express from 'express';
 import { renderToString } from 'react-dom/server';
-import getPort from 'get-port';
+import { Helmet } from 'react-helmet';
+import serialize from 'serialize-javascript';
 import routes from './routes';
-import createStore from './redux/createStore';
-import Html from './components/Html';
-import RedBox from './components/RedBox';
-import { isLocal } from './utils';
-import random from './utils/random';
-import getWebpackConfig from './utils/getWebpackConfig';
-import { host, port, outputPath, ApiUrl, noSSR } from './config/dace';
+import { isPromise } from '../utils/typeof';
 
-const app = new Koa();
-
-if (isLocal) {
-  const dev = { serverSideRender: true };
-  const hot = { port: random(4) };
-  const config = getWebpackConfig('dev');
-  const compiler = webpack(config);
-  const middlewareOptions = { compiler, dev, hot };
-  app.use(middleware(middlewareOptions));
-} else {
-  app.use(serve(path.resolve(outputPath)));
-}
-
-app.use(proxy('/api', {
-  target: ApiUrl,
-  rewrite: url => url.replace(/^\/api/, ''),
-  changeOrigin: true,
-  logs: true // ,
-  // events: {
-  //   proxyRes(proxyRes, req, res) {
-  //     const filename = req.url.substring(1);
-  //     console.log(filename);
-  //     if (fs.existsSync(path.resolve(`mock${req.url}.js`))) {
-  //       console.log('exist');
-  //     }
-  //     // res.setHeader('Content-Type', ['text/html;charset=UTF-8']);
-  //     // res.statusCode = 200;
-  //     // res.write('[{"id":1,"name":"Joe"}]');
-  //     // res.end();
-  //   }
-  // }
-}));
-
-app.use(async (ctx) => {
-  const store = createStore();
-  const promises = matchRoutes(routes(), ctx.path)
-    .map(({ route, match }) => {
-      const { getInitialProps } = route.component;
-      return getInitialProps ? getInitialProps(store, match) : null;
-    })
-    .filter(promise => !!promise)
-    .map(promise => new Promise((resolve) => {
-      if (noSSR) {
-        resolve(1);
-      } else {
-        promise.then(resolve).catch(resolve);
+const server = express();
+server
+  .disable('x-powered-by')
+  .use(express.static(path.resolve('dist')))
+  .get('/', (req, res) => {
+    // 查找当前 URL 匹配的路由
+    let props = {};
+    matchRoutes(routes, req.url).forEach(async ({
+      route,
+      match,
+      location,
+      history
+    }) => {
+      const { component } = route;
+      if (component && component.getInitialProps) {
+        const ctx = {
+          req,
+          res,
+          match,
+          location,
+          history
+        };
+        const { getInitialProps } = component;
+        props = isPromise(getInitialProps) ? await getInitialProps(ctx) : getInitialProps(ctx);
       }
-    }));
+    });
 
-  await Promise.all(promises).then(() => {
-    const context = {};
-    let html;
-    try {
-      html = renderToString(<Html ctx={ctx} context={context} store={store} />);
-    } catch (e) {
-      ctx.status = 500;
-      html = renderToString(<RedBox error={e} />);
+    if (!process.env.WEBPACK_STATS_JSON) {
+      throw new Error('Not found `WEBPACK_STATS_JSON` in `process.env`');
     }
+    const { publicPath, chunks } = require(process.env.WEBPACK_STATS_JSON);
+    // 获取初始化网页需要插入的 CSS/JS 静态文件
+    const initialAssets = chunks
+      .filter((item) => {
+        const routeName = req.url.substring(1) || 'home';
+        return item.initial || item.names[0] === routeName;
+      })
+      .reduce((accumulator, item) => {
+        accumulator = accumulator.concat(item.files);
+        return accumulator;
+      }, []);
+
+    const renderTags = (extension, assets) => {
+      const getTagByFilename = filename => (filename.endsWith('js') ?
+        `<script src=${publicPath + filename}></script>` :
+        `<link rel="stylesheet" href=${publicPath + filename} />`);
+
+      return assets
+        .filter(item => !/\.hot-update\./.test(item)) // 过滤掉 HMR 包
+        .filter(item => item.endsWith(extension))
+        .map(item => getTagByFilename(item));
+    };
+
+    const jsTags = renderTags('js', initialAssets);
+    const cssTags = renderTags('css', initialAssets);
+    const helmet = Helmet.renderStatic();
+
+    const context = {};
+    const Markup = (
+      <StaticRouter context={context} location={req.url}>
+        {renderRoutes(routes, props)}
+      </StaticRouter>
+    );
+    const markup = renderToString(Markup);
 
     if (context.url) {
-      return ctx.redirect(301, context.url);
-    }
-    if (context.notFound) {
-      ctx.status = 404;
-    }
-
-    ctx.body = `<!doctype html>\n${html}`;
-    return true;
-  });
-});
-
-getPort({ port }).then((availablePort) => {
-  if (availablePort !== port) {
-    warn('server', `默认端口（${port}）已被占用，将随机端口（${availablePort}）启动 web 服务`);
-  }
-  app.listen(availablePort, (err) => {
-    if (err) {
-      error('server', `==> 😭  OMG!!! ${err}`);
+      res.redirect(context.url);
     } else {
-      info('server', '==> 🐟  Ready on %s', chalk.blue.underline(`http://${host}:${availablePort}`));
+      const html = `<!doctype html>
+  <html>
+  <head>
+    ${helmet.title.toString()}
+    ${helmet.meta.toString()}
+    ${cssTags}
+  </head>
+  <body>
+    <div id="root">${markup}</div>
+    <script>
+      window.INITIAL_STATE=${serialize(props)};
+    </script>
+    ${jsTags}
+  </body>
+</html>`;
+      res.status(200).send(html);
     }
   });
-});
 
-export default app;
+export default server;

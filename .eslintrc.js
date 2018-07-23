@@ -10,6 +10,7 @@ module.exports = {
     'global-require': 0,
     'react/forbid-prop-types': 0,
     'jsx-a11y/anchor-is-valid': 0,
-    'import/no-dynamic-require': 0
+    'import/no-dynamic-require': 0,
+    'complexity': 0
   }
 };
