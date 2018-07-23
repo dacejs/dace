@@ -283,7 +283,11 @@ module.exports = (target = 'web', env = 'local', webpack) => {
       libraryTarget: 'commonjs2'
     };
 
-    config.entry = [paths.appServerIndexJs];
+    config.entry = [
+      fs.existsSync(`${paths.appServerIndexJs}.js`) ?
+        paths.appServerIndexJs :
+        paths.ownServerIndexJs
+    ];
 
     if (IS_DEV) {
       config.watch = true;
@@ -314,7 +318,9 @@ module.exports = (target = 'web', env = 'local', webpack) => {
       config.entry = {
         client: [
           require.resolve('../utils/webpackHotDevClient'),
-          paths.appClientIndexJs
+          fs.existsSync(`${paths.appClientIndexJs}.js`) ?
+            paths.appClientIndexJs :
+            paths.ownClientIndexJs
         ]
       };
 
