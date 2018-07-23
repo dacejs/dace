@@ -14,8 +14,9 @@ module.exports = {
   appBabelRc: resolveApp('.babelrc'),
   appEslintRc: resolveApp('.eslintrc.js'),
   appSrc: resolveApp('.'),
-  ownServerIndexJs: resolveOwn('src'),
-  ownClientIndexJs: resolveOwn('src/client'),
   appServerIndexJs: resolveApp('.'),
-  appClientIndexJs: resolveApp('client')
+  appClientIndexJs: resolveApp('client'),
+  ownEslintRc: resolveOwn('.eslintrc.js'),
+  ownServerIndexJs: resolveOwn('src'),
+  ownClientIndexJs: resolveOwn('src/client')
 };

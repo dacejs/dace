@@ -56,10 +56,7 @@ module.exports = (target = 'web', env = 'local', webpack) => {
   if (hasEslintRc) {
     console.log('Using .eslintrc defined in your app root');
   } else {
-    mainEslintOptions.baseConfig = {
-      extends: [require.resolve('eslint-config-qunar')]
-    };
-    mainEslintOptions.useEslintrc = false;
+    mainEslintOptions.baseConfig = require(paths.ownEslintRc);
   }
 
   const config = {
@@ -75,21 +72,6 @@ module.exports = (target = 'web', env = 'local', webpack) => {
     module: {
       strictExportPresence: true,
       rules: [
-        // {
-        //   test: /dace\/src\/App\.js$/,
-        //   use: [
-        //     {
-        //       loader: 'babel-loader',
-        //       options: mainBabelOptions
-        //     },
-        //     {
-        //       loader: path.resolve(__dirname, '../loaders/appLoader.js'),
-        //       options: {
-        //         target
-        //       }
-        //     }
-        //   ]
-        // },
         {
           test: /dace\/src\/routes\.js$/,
           use: [
@@ -102,19 +84,19 @@ module.exports = (target = 'web', env = 'local', webpack) => {
             }
           ]
         },
-        // {
-        //   test: /\.(js|jsx)$/,
-        //   enforce: 'pre',
-        //   exclude: [/node_modules/],
-        //   use: [
-        //     {
-        //       options: mainEslintOptions,
-        //       loader: require.resolve('eslint-loader')
-        //     }
-        //   ]
-        // },
         {
-          test: /\.(js|jsx)$/,
+          test: /\.js$/,
+          enforce: 'pre',
+          exclude: [/node_modules/],
+          use: [
+            {
+              options: mainEslintOptions,
+              loader: require.resolve('eslint-loader')
+            }
+          ]
+        },
+        {
+          test: /\.js$/,
           exclude: [/node_modules/],
           use: [
             {

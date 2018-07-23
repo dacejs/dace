@@ -1,5 +1,3 @@
-/docs
-prd/
-dev/
-dist/
-node_modules/
+prd
+dist
+node_modules
