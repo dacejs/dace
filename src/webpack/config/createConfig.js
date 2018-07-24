@@ -194,7 +194,7 @@ module.exports = (target = 'web', env = 'local', webpack) => {
         // using the extension .module.css
         {
           test: /\.module\.css$/,
-          // exclude: [paths.appBuild],
+          exclude: [paths.appBuild],
           use: IS_NODE ? [
             {
               // on the server we do not need to embed the css and just want the identifier mappings
@@ -288,7 +288,10 @@ module.exports = (target = 'web', env = 'local', webpack) => {
     config.plugins = [
       ...config.plugins,
       new WrireStatsFilePlugin(),
-      new CleanWebpackPlugin(paths.appBuild, { root: paths.appPath })
+      new CleanWebpackPlugin(paths.appBuild, {
+        root: paths.appPath,
+        verbose: true
+      })
     ];
 
     if (IS_DEV) {
