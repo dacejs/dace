@@ -1,3 +1,4 @@
+/* eslint no-nested-ternary: 0 */
 const fs = require('fs');
 const path = require('path');
 const WebpackBar = require('webpackbar');
@@ -154,97 +155,87 @@ module.exports = (target = 'web', env = 'local', webpack) => {
         {
           test: /\.css$/,
           exclude: [/\.module\.css$/],
-          use: IS_NODE
-            ? // Style-loader does not work in Node.js without some crazy
-              // magic. Luckily we just need css-loader.
-              [
-                {
-                  loader: require.resolve('css-loader'),
-                  options: {
-                    importLoaders: 1,
-                  },
-                },
-              ]
-            : IS_DEV
-              ? [
-                  require.resolve('style-loader'),
-                  {
-                    loader: require.resolve('css-loader'),
-                    options: {
-                      importLoaders: 1,
-                    },
-                  },
-                  {
-                    loader: require.resolve('postcss-loader'),
-                    options: postCssOptions,
-                  },
-                ]
-              : [
-                  MiniCssExtractPlugin.loader,
-                  {
-                    loader: require.resolve('css-loader'),
-                    options: {
-                      importLoaders: 1,
-                      modules: false,
-                      minimize: true,
-                    },
-                  },
-                  {
-                    loader: require.resolve('postcss-loader'),
-                    options: postCssOptions,
-                  },
-                ],
+          use: IS_NODE ? [
+            {
+              loader: require.resolve('css-loader'),
+              options: {
+                importLoaders: 1
+              }
+            }
+          ] : (IS_DEV ? [
+            require.resolve('style-loader'),
+            {
+              loader: require.resolve('css-loader'),
+              options: {
+                importLoaders: 1
+              }
+            },
+            {
+              loader: require.resolve('postcss-loader'),
+              options: postCssOptions
+            }
+          ] : [
+            MiniCssExtractPlugin.loader,
+            {
+              loader: require.resolve('css-loader'),
+              options: {
+                importLoaders: 1,
+                modules: false,
+                minimize: true
+              }
+            },
+            {
+              loader: require.resolve('postcss-loader'),
+              options: postCssOptions
+            }
+          ])
         },
         // Adds support for CSS Modules (https://github.com/css-modules/css-modules)
         // using the extension .module.css
         {
           test: /\.module\.css$/,
           // exclude: [paths.appBuild],
-          use: IS_NODE
-            ? [
-                {
-                  // on the server we do not need to embed the css and just want the identifier mappings
-                  // https://github.com/webpack-contrib/css-loader#scope
-                  loader: require.resolve('css-loader/locals'),
-                  options: {
-                    modules: true,
-                    importLoaders: 1,
-                    localIdentName: '[path]__[name]___[local]',
-                  },
-                },
-              ]
-            : IS_DEV
-              ? [
-                  require.resolve('style-loader'),
-                  {
-                    loader: require.resolve('css-loader'),
-                    options: {
-                      modules: true,
-                      importLoaders: 1,
-                      localIdentName: '[path]__[name]___[local]',
-                    },
-                  },
-                  {
-                    loader: require.resolve('postcss-loader'),
-                    options: postCssOptions,
-                  },
-                ]
-              : [
-                  MiniCssExtractPlugin.loader,
-                  {
-                    loader: require.resolve('css-loader'),
-                    options: {
-                      modules: true,
-                      importLoaders: 1,
-                      minimize: true,
-                      localIdentName: '[path]__[name]___[local]',
-                    },
-                  },
-                  {
-                    loader: require.resolve('postcss-loader'),
-                    options: postCssOptions,
-                  },
-                ]
+          use: IS_NODE ? [
+            {
+              // on the server we do not need to embed the css and just want the identifier mappings
+              // https://github.com/webpack-contrib/css-loader#scope
+              loader: require.resolve('css-loader/locals'),
+              options: {
+                modules: true,
+                importLoaders: 1,
+                localIdentName: '[path]__[name]___[local]'
+              }
+            }
+          ] : (IS_DEV ? [
+            require.resolve('style-loader'),
+            {
+              loader: require.resolve('css-loader'),
+              options: {
+                modules: true,
+                importLoaders: 1,
+                localIdentName: '[path]__[name]___[local]'
+              }
+            },
+            {
+              loader: require.resolve('postcss-loader'),
+              options: postCssOptions
+            }
+          ] : [
+            MiniCssExtractPlugin.loader,
+            {
+              loader: require.resolve('css-loader'),
+              options: {
+                modules: true,
+                importLoaders: 1,
+                minimize: true,
+                localIdentName: '[path]__[name]___[local]'
+              }
+            },
+            {
+              loader: require.resolve('postcss-loader'),
+              options: postCssOptions
+            }
+          ])
         }
       ]
     },
