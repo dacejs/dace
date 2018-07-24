@@ -4,24 +4,29 @@ const WebpackBar = require('webpackbar');
 const StartServerPlugin = require('start-server-webpack-plugin');
 const errorOverlayMiddleware = require('react-dev-utils/errorOverlayMiddleware');
 const eslintFormatter = require('react-dev-utils/eslintFormatter');
-const autoprefixer = require('autoprefixer');
+// const autoprefixer = require('autoprefixer');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const postcssPresetEnv = require('postcss-preset-env');
+// const postcssPresetEnv = require('postcss-preset-env');
 const WrireStatsFilePlugin = require('../plugins/writeStatsFilePlugin');
 const paths = require('./paths');
 
 const postCssOptions = {
   ident: 'postcss',
   plugins: () => [
-    postcssPresetEnv,
-    autoprefixer({
-      browsers: [
-        '>1%',
-        'last 4 versions',
-        'Firefox ESR',
-        'not ie < 9' // React doesn't support IE8 anyway
-      ],
-      flexbox: 'no-2009'
+    require('postcss-cssnext')(),
+    require('stylelint')({
+      config: {
+        extends: 'stylelint-config-standard',
+        rules: {
+          'at-rule-empty-line-before': null,
+          'selector-pseudo-class-no-unknown': [true, {
+            ignorePseudoClasses: ['global']
+          }],
+          'font-family-no-missing-generic-family-keyword': null
+        }
+      }
+      // configFile: resolve(__dirname, 'stylelint.config.js'),
+      // ignorePath: resolve(__dirname, '.stylelintignore')
     })
   ]
 };
