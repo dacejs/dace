@@ -1,5 +1,6 @@
-const paths = require('../webpack/config/paths');
 const fs = require('fs');
+const paths = require('../webpack/config/paths');
+const defaultEnv = require('../webpack/config/defaultEnv');
 // const path = require('path');
 
 // Make sure that including paths.js after env.js will read .env variables.
@@ -26,6 +27,13 @@ dotenvFiles.forEach((dotenvFile) => {
     require('dotenv').config({
       path: dotenvFile
     });
+  }
+});
+
+// 最后使用 dace 默认 dotenv 兜底
+Object.keys(defaultEnv).forEach((key) => {
+  if (!(key in process.env)) {
+    process.env[key] = defaultEnv[key];
   }
 });
 
