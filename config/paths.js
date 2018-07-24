@@ -10,7 +10,8 @@ const resolveOwn = relativePath => path.resolve(__dirname, '..', relativePath);
 module.exports = {
   dotenv: resolveApp('.env'),
   appPath: resolveApp('.'),
-  appManifest: resolveApp('dist/webpack-stats.json'),
+  appBuild: resolveApp('build'),
+  appManifest: resolveApp('build/webpack-stats.json'),
   appBabelRc: resolveApp('.babelrc'),
   appEslintRc: resolveApp('.eslintrc.js'),
   appSrc: resolveApp('.'),

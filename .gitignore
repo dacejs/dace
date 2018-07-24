@@ -61,6 +61,6 @@ typings/
 .DS_Store
 
 # 编译产物输出目录
-dev/
+examples/build/
 prd/
 dist/
