@@ -1,0 +1,4 @@
+--require should
+--recursive
+--timeout 0
+--exit

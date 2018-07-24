@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "NODE_ENV=test mocha"
   },
   "bin": {
     "dace": "./bin/dace.js"
@@ -52,5 +52,10 @@
     "webpack-dev-server-speedy": "^3.1.1",
     "webpackbar": "^2.6.1"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "mocha": "^5.2.0",
+    "ps-tree": "^1.1.0",
+    "shelljs": "^0.8.2",
+    "should": "^13.2.1"
+  }
 }

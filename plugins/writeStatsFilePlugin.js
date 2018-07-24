@@ -23,7 +23,6 @@ class WriteStatsFilePlugin {
       const { filename, toJsonOptions, outputPath = compiler.options.output.path } = this.options;
       const json = stats.toJson(toJsonOptions);
       const fullpath = resolve(outputPath, filename);
-      console.log('-------fullpath------:', fullpath);
       mkdirp.sync(dirname(fullpath));
       writeFileSync(fullpath, JSON.stringify(json));
     });
