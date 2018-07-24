@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const WebpackBar = require('webpackbar');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 const StartServerPlugin = require('start-server-webpack-plugin');
 const errorOverlayMiddleware = require('react-dev-utils/errorOverlayMiddleware');
 const eslintFormatter = require('react-dev-utils/eslintFormatter');
@@ -54,14 +55,13 @@ module.exports = (target = 'web', env = 'local', webpack) => {
   if (hasBabelRc) {
     console.log('Using .babelrc defined in your app root');
   } else {
-    console.log(require.resolve('../babel'));
-    mainBabelOptions.presets.push(require.resolve('../babel'));
+    mainBabelOptions.presets.push(require.resolve('../../babel'));
   }
 
   if (hasEslintRc) {
     console.log('Using .eslintrc defined in your app root');
   } else {
-    mainEslintOptions.baseConfig = require(paths.ownEslintRc);
+    mainEslintOptions.baseConfig = require.resolve('../../../.eslintrc.js');
   }
 
   const config = {
@@ -78,7 +78,7 @@ module.exports = (target = 'web', env = 'local', webpack) => {
       strictExportPresence: true,
       rules: [
         {
-          test: /dace\/src\/routes\.js$/,
+          test: /dace\/src\/core\/routes\.js$/,
           use: [
             {
               loader: 'babel-loader',
@@ -264,14 +264,14 @@ module.exports = (target = 'web', env = 'local', webpack) => {
     };
 
     config.output = {
-      // path: paths.appBuild,
+      path: paths.appBuild,
       publicPath: 'http://localhost:3001/',
       filename: 'server.js',
       libraryTarget: 'commonjs2'
     };
 
     config.entry = [
-      fs.existsSync(`${paths.appServerIndexJs}.js`) ?
+      fs.existsSync(paths.appServerIndexJs) ?
         paths.appServerIndexJs :
         paths.ownServerIndexJs
     ];
@@ -296,7 +296,8 @@ module.exports = (target = 'web', env = 'local', webpack) => {
   if (IS_WEB) {
     config.plugins = [
       ...config.plugins,
-      new WrireStatsFilePlugin()
+      new WrireStatsFilePlugin(),
+      new CleanWebpackPlugin(paths.appBuild, { root: paths.appPath })
     ];
 
     if (IS_DEV) {
@@ -304,8 +305,8 @@ module.exports = (target = 'web', env = 'local', webpack) => {
       // specify our client entry point /client/index.js
       config.entry = {
         client: [
-          require.resolve('../utils/webpackHotDevClient'),
-          fs.existsSync(`${paths.appClientIndexJs}.js`) ?
+          require.resolve('../../utils/webpackHotDevClient'),
+          fs.existsSync(paths.appClientIndexJs) ?
             paths.appClientIndexJs :
             paths.ownClientIndexJs
         ]
@@ -313,7 +314,7 @@ module.exports = (target = 'web', env = 'local', webpack) => {
 
       // Configure our client bundles output. Not the public path is to 3001.
       config.output = {
-        // path: paths.appBuildPublic,
+        path: paths.appBuild,
         publicPath: 'http://localhost:3001/',
         pathinfo: true,
         libraryTarget: 'var',

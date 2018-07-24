@@ -2,8 +2,8 @@
 
 const program = require('commander');
 const logger = require('../utils/logger');
-const { version } = require('../package.json');
-require('../config/env');
+const { version } = require('../../package.json');
+require('../utils/env');
 
 program
   .command('dev', '启动本地服务', { isDefault: true })

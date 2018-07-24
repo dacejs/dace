@@ -5,19 +5,19 @@ const fs = require('fs');
 // https://github.com/facebookincubator/create-react-app/issues/637
 const appDirectory = fs.realpathSync(process.cwd());
 const resolveApp = relativePath => path.resolve(appDirectory, relativePath);
-const resolveOwn = relativePath => path.resolve(__dirname, '..', relativePath);
+const resolveOwn = relativePath => path.resolve(__dirname, '../../..', relativePath);
 
 module.exports = {
   dotenv: resolveApp('.env'),
   appPath: resolveApp('.'),
-  appBuild: resolveApp('build'),
-  appManifest: resolveApp('build/webpack-stats.json'),
   appBabelRc: resolveApp('.babelrc'),
   appEslintRc: resolveApp('.eslintrc.js'),
-  appSrc: resolveApp('.'),
-  appServerIndexJs: resolveApp('.'),
-  appClientIndexJs: resolveApp('client'),
-  ownEslintRc: resolveOwn('.eslintrc.js'),
-  ownServerIndexJs: resolveOwn('src'),
-  ownClientIndexJs: resolveOwn('src/client')
+  appSrc: resolveApp('src'),
+  appPages: resolveApp('src/pages'),
+  appServerIndexJs: resolveApp('src/index.js'),
+  appClientIndexJs: resolveApp('src/client.js'),
+  appBuild: resolveApp('build'),
+  appManifest: resolveApp('build/webpack-stats.json'),
+  ownServerIndexJs: resolveOwn('src/core/index.js'),
+  ownClientIndexJs: resolveOwn('src/core/client.js')
 };

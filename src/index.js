@@ -1,26 +1,10 @@
-import http from 'http';
-import app from './server';
+/* eslint import/prefer-default-export: 0 */
 
-const server = http.createServer(app);
-
-let currentApp = app;
-
-server.listen(3000, (error) => {
-  if (error) {
-    console.log(error);
-  }
-
-  console.log('🐟 🐟 🐟 Dace running at http://localhost:3000/');
-});
-
-if (module.hot) {
-  console.log('✅  Server-side HMR Enabled!');
-
-  module.hot.accept('./server', () => {
-    console.log('🔁  HMR Reloading `./server`...');
-    server.removeListener('request', currentApp);
-    const newApp = require('./server');
-    server.on('request', newApp);
-    currentApp = newApp;
-  });
-}
+// export { default as asyncComponent } from './decorators/asyncComponent';
+// export { default as prefetch } from './decorators/prefetch';
+// export { default as isLoaded } from './utils/isLoaded';
+// export { default as logger } from './utils/logger';
+// export axios from 'axios';
+export { Link } from 'react-router-dom';
+export { Helmet as Head } from 'react-helmet';
+// export { default as createStore } from './store';

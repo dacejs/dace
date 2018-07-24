@@ -1,7 +1,7 @@
 const webpack = require('webpack');
 const DevServer = require('webpack-dev-server-speedy');
 const logger = require('../utils/logger');
-const createConfig = require('../config/createConfig');
+const createConfig = require('../webpack/config/createConfig');
 const setPorts = require('../utils/setPorts');
 
 // Webpack compile in a try-catch

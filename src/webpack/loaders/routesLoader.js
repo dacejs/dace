@@ -6,11 +6,12 @@
 // const { existsSync } = require('fs');
 const { resolve } = require('path');
 const glob = require('glob');
+const paths = require('../config/paths');
 // const { getOptions } = require('loader-utils');
 
-module.exports = function appLoader() {
+module.exports = function routesLoader() {
   // const options = getOptions(this) || {};
-  const cwd = resolve('pages');
+  const cwd = paths.appPages;
   const routes = glob
     .sync('**.js', { cwd })
     .map(item => item.replace('.js', ''))
