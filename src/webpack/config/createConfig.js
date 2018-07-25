@@ -13,20 +13,6 @@ const WrireStatsFilePlugin = require('../plugins/writeStatsFilePlugin');
 const paths = require('./paths');
 const logger = require('../../utils/logger');
 
-const postCssOptions = {
-  ident: 'postcss',
-  plugins: () => [
-    require('postcss-cssnext')(),
-    require('stylelint')({
-      config: {
-        extends: 'stylelint-config-dace'
-      }
-      // configFile: resolve(__dirname, 'stylelint.config.js'),
-      // ignorePath: resolve(__dirname, '.stylelintignore')
-    })
-  ]
-};
-
 module.exports = (target = 'web', env = 'local', webpack) => {
   const IS_NODE = target === 'node';
   const IS_WEB = target === 'web';
@@ -73,6 +59,25 @@ module.exports = (target = 'web', env = 'local', webpack) => {
     console.log('Using .eslintrc defined in your app root');
   // } else {
   //   mainEslintOptions.baseConfig = require.resolve('../../../.eslintrc.js');
+  }
+
+  // 获取 postcss 配置
+  const hasPostcssRc = fs.existsSync(paths.appPostcssRc);
+  const mainPostcssOptions = { ident: 'postcss' };
+  if (hasPostcssRc) {
+    // 只能指定 postcss.config.js 所在的目录
+    mainPostcssOptions.config = {
+      path: path.dirname(paths.appPostcssRc)
+    };
+  } else {
+    mainPostcssOptions.plugins = () => [
+      require('postcss-cssnext')(),
+      require('stylelint')({
+        config: {
+          extends: 'stylelint-config-dace'
+        }
+      })
+    ];
   }
 
   const config = {
@@ -184,7 +189,7 @@ module.exports = (target = 'web', env = 'local', webpack) => {
             },
             {
               loader: require.resolve('postcss-loader'),
-              options: postCssOptions
+              options: mainPostcssOptions
             }
           ] : [
             MiniCssExtractPlugin.loader,
@@ -198,7 +203,7 @@ module.exports = (target = 'web', env = 'local', webpack) => {
             },
             {
               loader: require.resolve('postcss-loader'),
-              options: postCssOptions
+              options: mainPostcssOptions
             }
           ])
         },
@@ -230,7 +235,7 @@ module.exports = (target = 'web', env = 'local', webpack) => {
             },
             {
               loader: require.resolve('postcss-loader'),
-              options: postCssOptions
+              options: mainPostcssOptions
             }
           ] : [
             MiniCssExtractPlugin.loader,
@@ -245,7 +250,7 @@ module.exports = (target = 'web', env = 'local', webpack) => {
             },
             {
               loader: require.resolve('postcss-loader'),
-              options: postCssOptions
+              options: mainPostcssOptions
             }
           ])
         }

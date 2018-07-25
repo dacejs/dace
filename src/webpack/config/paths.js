@@ -12,6 +12,7 @@ module.exports = {
   appPath: resolveApp('.'),
   appBabelRc: resolveApp('.babelrc'),
   appEslintRc: resolveApp('.eslintrc.js'),
+  appPostcssRc: resolveApp('postcss.config.js'),
   appSrc: resolveApp('src'),
   appPages: resolveApp('src/pages'),
   appServerIndexJs: resolveApp('src/index.js'),
