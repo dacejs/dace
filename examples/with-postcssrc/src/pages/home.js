@@ -1,5 +1,5 @@
 import React from 'react';
-import '../../public/style.css';
+import './style.css';
 
 export default () => (
   <div>

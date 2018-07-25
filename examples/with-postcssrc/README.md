@@ -11,7 +11,10 @@
       'postcss-cssnext': {},
       stylelint: {
         config: {
-          extends: 'stylelint-config-dace'
+          extends: 'stylelint-config-dace',
+          rules: {
+            // ...
+          }
         }
       }
     }
