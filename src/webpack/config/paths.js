@@ -16,6 +16,7 @@ module.exports = {
   appPages: resolveApp('src/pages'),
   appServerIndexJs: resolveApp('src/index.js'),
   appClientIndexJs: resolveApp('src/client.js'),
+  appNodeModules: resolveApp('node_modules'),
   appBuild: resolveApp('build'),
   appManifest: resolveApp('build/webpack-stats.json'),
   ownServerIndexJs: resolveOwn('src/core/index.js'),

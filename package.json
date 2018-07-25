@@ -9,7 +9,21 @@
   "bin": {
     "dace": "./src/bin/dace.js"
   },
-  "keywords": [],
+  "keywords": [
+    "universal",
+    "isomorphic",
+    "webpack",
+    "react",
+    "redux",
+    "server-side-rendering",
+    "koa",
+    "code-splitting"
+  ],
+  "files": [
+    "src",
+    ".eslintrc.js",
+    "babel.js"
+  ],
   "author": "",
   "license": "ISC",
   "dependencies": {

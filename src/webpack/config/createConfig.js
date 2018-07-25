@@ -11,6 +11,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 // const postcssPresetEnv = require('postcss-preset-env');
 const WrireStatsFilePlugin = require('../plugins/writeStatsFilePlugin');
 const paths = require('./paths');
+const logger = require('../../utils/logger');
 
 const postCssOptions = {
   ident: 'postcss',
@@ -38,13 +39,30 @@ module.exports = (target = 'web', env = 'local', webpack) => {
   const IS_WEB = target === 'web';
   const IS_DEV = env === 'local';
 
-  const hasBabelRc = fs.existsSync(paths.appBabelRc);
-  const mainBabelOptions = {
-    babelrc: true,
-    cacheDirectory: true,
-    presets: []
+  // 获取 .babelrc 配置
+  let mainBabelOptions = {
+    babelrc: false,
+    cacheDirectory: true
   };
+  const hasBabelRc = fs.existsSync(paths.appBabelRc);
+  if (hasBabelRc) {
+    console.log('Using .babelrc defined in your app root');
+    const babelrcText = fs.readFileSync(paths.appBabelRc, { encoding: 'utf8' });
+    try {
+      const appBabelRc = JSON.parse(babelrcText);
+      mainBabelOptions = {
+        ...appBabelRc,
+        ...mainBabelOptions
+      };
+    } catch (error) {
+      logger.error('.babelrc 不是一个有效的 JSON 文件');
+      throw new Error('.babelrc 格式错误');
+    }
+  } else {
+    mainBabelOptions.presets = [require.resolve('../../babel')];
+  }
 
+  // 获取 .eslintrc.js 配置
   const hasEslintRc = fs.existsSync(paths.appEslintRc);
   const mainEslintOptions = {
     formatter: eslintFormatter,
@@ -52,12 +70,6 @@ module.exports = (target = 'web', env = 'local', webpack) => {
     ignore: false,
     useEslintrc: true
   };
-
-  if (hasBabelRc) {
-    console.log('Using .babelrc defined in your app root');
-  } else {
-    mainBabelOptions.presets.push(require.resolve('../../babel'));
-  }
 
   if (hasEslintRc) {
     console.log('Using .eslintrc defined in your app root');
@@ -67,9 +79,11 @@ module.exports = (target = 'web', env = 'local', webpack) => {
 
   const config = {
     mode: IS_DEV ? 'development' : 'production',
+    context: process.cwd(),
     target,
     devtool: 'cheap-module-source-map',
     resolve: {
+      modules: ['node_modules', paths.appNodeModules].concat((process.env.NODE_PATH || '').split(path.delimiter).filter(Boolean)),
       alias: {
         // This is required so symlinks work during development.
         'webpack/hot/poll': require.resolve('webpack/hot/poll')
@@ -290,7 +304,7 @@ module.exports = (target = 'web', env = 'local', webpack) => {
       new WrireStatsFilePlugin(),
       new CleanWebpackPlugin(paths.appBuild, {
         root: paths.appPath,
-        verbose: true
+        verbose: false
       })
     ];
 
