@@ -12,11 +12,11 @@ describe('Dace start', async () => {
   glob.sync('*', { cwd: examples }).forEach((exampleName) => {
     it(exampleName, () => {
       const example = path.resolve(examples, exampleName);
-      if (!fs.existsSync(path.resolve(example, 'node_modules/dace'))) {
-        throw new Error(`没有找到依赖包，请在 ${exampleName} 目录运行 \`npm i\``);
-      }
-      shell.exec('sleep 1');
       shell.cd(example);
+      // 如果例子工程没有安装依赖包，程序自动执行安装
+      if (!fs.existsSync(path.resolve(example, 'node_modules/dace'))) {
+        shell.exec('npm i --no-package-lock');
+      }
       const testResult = [];
       const run = new Promise((resolve) => {
         const child = shell.exec('./node_modules/.bin/dace start', () => {

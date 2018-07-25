@@ -1,6 +1,6 @@
-import { renderRoutes } from 'react-router-config';
-import PropTypes from 'prop-types';
-import { parse } from 'qs';
+const { renderRoutes } = require('react-router-config');
+const PropTypes = require('prop-types');
+const { parse } = require('qs');
 
 /**
  * 网站入口组件
@@ -24,4 +24,4 @@ App.propTypes = {
   location: PropTypes.object.isRequired
 };
 
-export default App;
+module.exports = App;

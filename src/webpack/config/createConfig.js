@@ -19,14 +19,7 @@ const postCssOptions = {
     require('postcss-cssnext')(),
     require('stylelint')({
       config: {
-        extends: 'stylelint-config-standard',
-        rules: {
-          'at-rule-empty-line-before': null,
-          'selector-pseudo-class-no-unknown': [true, {
-            ignorePseudoClasses: ['global']
-          }],
-          'font-family-no-missing-generic-family-keyword': null
-        }
+        extends: 'stylelint-config-dace'
       }
       // configFile: resolve(__dirname, 'stylelint.config.js'),
       // ignorePath: resolve(__dirname, '.stylelintignore')
@@ -59,7 +52,12 @@ module.exports = (target = 'web', env = 'local', webpack) => {
       throw new Error('.babelrc 格式错误');
     }
   } else {
-    mainBabelOptions.presets = [require.resolve('../../babel')];
+    // mainBabelOptions.presets = [require.resolve('../../babel')];
+    // mainBabelOptions.presets = ['babel-preset-dace'];
+    mainBabelOptions = {
+      ...mainBabelOptions,
+      presets: ['env', 'dace']
+    };
   }
 
   // 获取 .eslintrc.js 配置
@@ -73,8 +71,8 @@ module.exports = (target = 'web', env = 'local', webpack) => {
 
   if (hasEslintRc) {
     console.log('Using .eslintrc defined in your app root');
-  } else {
-    mainEslintOptions.baseConfig = require.resolve('../../../.eslintrc.js');
+  // } else {
+  //   mainEslintOptions.baseConfig = require.resolve('../../../.eslintrc.js');
   }
 
   const config = {
@@ -146,7 +144,7 @@ module.exports = (target = 'web', env = 'local', webpack) => {
             emitFile: true
           }
         },
-        // "url" loader works like "file" loader except that it embeds assets
+        // 'url' loader works like 'file' loader except that it embeds assets
         // smaller than specified limit in bytes as data URLs to avoid requests.
         // A missing `test` is equivalent to a match.
         {
@@ -159,11 +157,11 @@ module.exports = (target = 'web', env = 'local', webpack) => {
           }
         },
 
-        // "postcss" loader applies autoprefixer to our CSS.
-        // "css" loader resolves paths in CSS and adds assets as dependencies.
-        // "style" loader turns CSS into JS modules that inject <style> tags.
+        // 'postcss' loader applies autoprefixer to our CSS.
+        // 'css' loader resolves paths in CSS and adds assets as dependencies.
+        // 'style' loader turns CSS into JS modules that inject <style> tags.
         // In production, we use a plugin to extract that CSS to a file, but
-        // in development "style" loader enables hot editing of CSS.
+        // in development 'style' loader enables hot editing of CSS.
         //
         // Note: this yields the exact same CSS config as create-react-app.
         {
@@ -289,6 +287,7 @@ module.exports = (target = 'web', env = 'local', webpack) => {
         ...config.plugins,
         new webpack.HotModuleReplacementPlugin(),
         // Supress errors to console (we use our own logger)
+        // StartServerPlugin 会出 DeprecationWarning: Buffer()
         new StartServerPlugin({
           name: 'server.js'
         }),

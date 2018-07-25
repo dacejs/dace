@@ -1,5 +1,5 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+const React = require('react');
+const PropTypes = require('prop-types');
 
 /**
  * 显示错误信息的页面组件
@@ -41,4 +41,4 @@ RedBox.propTypes = {
   }).isRequired
 };
 
-export default RedBox;
+module.exports = RedBox;

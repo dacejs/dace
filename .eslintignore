@@ -1,3 +1,4 @@
-prd
-dist
-node_modules
+prd/
+dist/
+build/
+node_modules/

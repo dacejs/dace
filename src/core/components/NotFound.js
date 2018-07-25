@@ -1,5 +1,5 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+const React = require('react');
+const PropTypes = require('prop-types');
 
 /**
  * 路由无匹配结果时提示找不到页面的组件
@@ -20,4 +20,4 @@ NotFound.defaultProps = {
   staticContext: {}
 };
 
-export default NotFound;
+module.exports = NotFound;
