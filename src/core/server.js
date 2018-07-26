@@ -59,7 +59,8 @@ server
       return assets
         .filter(item => !/\.hot-update\./.test(item)) // 过滤掉 HMR 包
         .filter(item => item.endsWith(extension))
-        .map(item => getTagByFilename(item));
+        .map(item => getTagByFilename(item))
+        .join('');
     };
 
     const jsTags = renderTags('js', initialAssets);

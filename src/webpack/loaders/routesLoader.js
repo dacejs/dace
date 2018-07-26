@@ -21,7 +21,7 @@ module.exports = function routesLoader() {
       return (`{
         path: '${endpoint}',
         exact: true,
-        component: asyncComponent(() => import(/* webpackChunkName: "${name}" */'${pathWithoutExtension}'))
+        component: require('${pathWithoutExtension}')
       }`);
     });
 
@@ -31,10 +31,6 @@ module.exports = function routesLoader() {
   }`);
 
   return `
-    import asyncComponent from './decorators/asyncComponent';
-
-    
-
     export default [
       {
         component: require('./components/App'),
