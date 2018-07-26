@@ -6,7 +6,8 @@ const { version } = require('../../package.json');
 require('../utils/env');
 
 program
-  .command('dev', '启动本地服务', { isDefault: true })
+  .command('start', '启动本地服务', { isDefault: true })
+  .command('build', '编译工程')
   .parse(process.argv);
 
 logger.info(`using dace@${version}`);

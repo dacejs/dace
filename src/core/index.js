@@ -5,12 +5,12 @@ const server = http.createServer(app);
 
 let currentApp = app;
 
-server.listen(3000, (error) => {
+server.listen(process.env.DACE_PORT, (error) => {
   if (error) {
     console.log(error);
   }
 
-  console.log('🐟 🐟 🐟 Dace running at http://localhost:3000/');
+  console.log(`🐟 Your application is running at http://${process.env.DACE_HOST}:${process.env.DACE_PORT}`);
 });
 
 if (module.hot) {

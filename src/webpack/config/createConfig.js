@@ -2,6 +2,7 @@
 const fs = require('fs');
 const path = require('path');
 const WebpackBar = require('webpackbar');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const StartServerPlugin = require('start-server-webpack-plugin');
 const errorOverlayMiddleware = require('react-dev-utils/errorOverlayMiddleware');
@@ -17,6 +18,7 @@ module.exports = (target = 'web', env = 'local', webpack) => {
   const IS_NODE = target === 'node';
   const IS_WEB = target === 'web';
   const IS_DEV = env === 'local';
+  const devServerPort = parseInt(process.env.DACE_PORT, 10) + 1;
 
   // 获取 .babelrc 配置
   let mainBabelOptions = {
@@ -65,6 +67,7 @@ module.exports = (target = 'web', env = 'local', webpack) => {
   const hasPostcssRc = fs.existsSync(paths.appPostcssRc);
   const mainPostcssOptions = { ident: 'postcss' };
   if (hasPostcssRc) {
+    console.log('Using postcss.config.js defined in your app root');
     // 只能指定 postcss.config.js 所在的目录
     mainPostcssOptions.config = {
       path: path.dirname(paths.appPostcssRc)
@@ -256,11 +259,7 @@ module.exports = (target = 'web', env = 'local', webpack) => {
         }
       ]
     },
-    plugins: [
-      new webpack.DefinePlugin({
-        'process.env.WEBPACK_STATS_JSON': JSON.stringify(process.env.WEBPACK_STATS_JSON)
-      })
-    ]
+    plugins: []
   };
 
   if (IS_NODE) {
@@ -273,7 +272,7 @@ module.exports = (target = 'web', env = 'local', webpack) => {
 
     config.output = {
       path: paths.appBuild,
-      publicPath: 'http://localhost:3001/',
+      publicPath: IS_DEV ? `http://${process.env.DACE_HOST}:${devServerPort}/` : '/',
       filename: 'server.js',
       libraryTarget: 'commonjs2'
     };
@@ -282,6 +281,20 @@ module.exports = (target = 'web', env = 'local', webpack) => {
       fs.existsSync(paths.appServerIndexJs) ?
         paths.appServerIndexJs :
         paths.ownServerIndexJs
+    ];
+
+    config.plugins = [
+      // We define environment variables that can be accessed globally in our
+      new webpack.DefinePlugin(Object.keys(process.env)
+        .filter(key => key.startsWith('DACE_'))
+        .reduce((envs, key) => {
+          envs[`process.env.${key}`] = JSON.stringify(process.env[key]);
+          return envs;
+        }, {})),
+      // 防止 node 编译时打成多个包
+      new webpack.optimize.LimitChunkCountPlugin({
+        maxChunks: 1
+      })
     ];
 
     if (IS_DEV) {
@@ -297,12 +310,20 @@ module.exports = (target = 'web', env = 'local', webpack) => {
           name: 'server.js'
         }),
         // Ignore assets.json to avoid infinite recompile bug
-        new webpack.WatchIgnorePlugin([paths.appManifest])
+        new webpack.WatchIgnorePlugin([paths.appStatsJson])
       ];
     }
   }
 
   if (IS_WEB) {
+    config.entry = {
+      client: [
+        fs.existsSync(paths.appClientIndexJs) ?
+          paths.appClientIndexJs :
+          paths.ownClientIndexJs
+      ]
+    };
+
     config.plugins = [
       ...config.plugins,
       new WrireStatsFilePlugin(),
@@ -313,21 +334,12 @@ module.exports = (target = 'web', env = 'local', webpack) => {
     ];
 
     if (IS_DEV) {
-      // Setup Webpack Dev Server on port 3001 and
-      // specify our client entry point /client/index.js
-      config.entry = {
-        client: [
-          require.resolve('../../utils/webpackHotDevClient'),
-          fs.existsSync(paths.appClientIndexJs) ?
-            paths.appClientIndexJs :
-            paths.ownClientIndexJs
-        ]
-      };
+      config.entry.client.push(require.resolve('../../utils/webpackHotDevClient'));
 
       // Configure our client bundles output. Not the public path is to 3001.
       config.output = {
         path: paths.appBuild,
-        publicPath: 'http://localhost:3001/',
+        publicPath: `http://${process.env.DACE_HOST}:${devServerPort}/`,
         pathinfo: true,
         libraryTarget: 'var',
         filename: 'static/js/bundle.js',
@@ -351,11 +363,11 @@ module.exports = (target = 'web', env = 'local', webpack) => {
           // See https://github.com/facebookincubator/create-react-app/issues/387.
           disableDotRule: true
         },
-        host: 'localhost',
+        host: process.env.DACE_HOST,
         hot: true,
         noInfo: true,
         overlay: false,
-        port: 3001,
+        port: devServerPort,
         quiet: true,
         // By default files from `contentBase` will not trigger a page reload.
         // Reportedly, this avoids CPU overload on some systems.
@@ -375,13 +387,96 @@ module.exports = (target = 'web', env = 'local', webpack) => {
           multiStep: true
         })
       ];
+    } else {
+      config.output = {
+        path: paths.appBuild,
+        publicPath: process.env.DACE_PUBLIC_PATH || '/',
+        filename: 'static/js/bundle.[chunkhash:8].js',
+        chunkFilename: 'static/js/[name].[chunkhash:8].chunk.js',
+        libraryTarget: 'var'
+      };
+
+      config.plugins = [
+        ...config.plugins,
+        // Define production environment vars
+        // new webpack.DefinePlugin(dotenv.stringified),
+        // Extract our CSS into a files.
+        new MiniCssExtractPlugin({
+          filename: 'static/css/bundle.[contenthash:8].css',
+          // allChunks: true because we want all css to be included in the main
+          // css bundle when doing code splitting to avoid FOUC:
+          // https://github.com/facebook/create-react-app/issues/2415
+          allChunks: true
+        }),
+        new webpack.HashedModuleIdsPlugin(),
+        new webpack.optimize.AggressiveMergingPlugin()
+      ];
 
       config.optimization = {
+        minimize: true,
+        minimizer: [
+          new UglifyJsPlugin({
+            uglifyOptions: {
+              parse: {
+                // we want uglify-js to parse ecma 8 code. However, we don't want it
+                // to apply any minfication steps that turns valid ecma 5 code
+                // into invalid ecma 5 code. This is why the 'compress' and 'output'
+                // sections only apply transformations that are ecma 5 safe
+                // https://github.com/facebook/create-react-app/pull/4234
+                ecma: 8
+              },
+              compress: {
+                ecma: 5,
+                warnings: false,
+                // Disabled because of an issue with Uglify breaking seemingly valid code:
+                // https://github.com/facebook/create-react-app/issues/2376
+                // Pending further investigation:
+                // https://github.com/mishoo/UglifyJS2/issues/2011
+                comparisons: false
+              },
+              mangle: {
+                safari10: true
+              },
+              output: {
+                ecma: 5,
+                comments: false,
+                // Turned on because emoji and regex is not minified properly using default
+                // https://github.com/facebook/create-react-app/issues/2488
+                ascii_only: true
+              }
+            },
+            // Use multi-process parallel running to improve the build speed
+            // Default number of concurrent runs: os.cpus().length - 1
+            parallel: true,
+            // Enable file caching
+            cache: true,
+            // @todo add flag for sourcemaps
+            sourceMap: true
+          })
+        ]
         // @todo automatic vendor bundle
         // Automatically split vendor and commons
         // https://twitter.com/wSokra/status/969633336732905474
         // splitChunks: {
         //   chunks: 'all',
+        //   minSize: 30000,
+        //   minChunks: 1,
+        //   maxAsyncRequests: 5,
+        //   maxInitialRequests: 3,
+        //   name: true,
+        //   cacheGroups: {
+        //     commons: {
+        //       test: /[\\/]node_modules[\\/]/,
+        //       name: 'vendor',
+        //       chunks: 'all',
+        //     },
+        //     main: {
+        //       chunks: 'all',
+        //       minChunks: 2,
+        //       reuseExistingChunk: true,
+        //       enforce: true,
+        //     },
+        //   },
         // },
         // Keep the runtime chunk seperated to enable long term caching
         // https://twitter.com/wSokra/status/969679223278505985

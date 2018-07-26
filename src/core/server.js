@@ -1,4 +1,3 @@
-import path from 'path';
 import React from 'react';
 import { StaticRouter } from 'react-router-dom';
 import { matchRoutes, renderRoutes } from 'react-router-config';
@@ -13,7 +12,7 @@ import { isPromise } from '../utils/typeof';
 const server = express();
 server
   .disable('x-powered-by')
-  .use(express.static(path.resolve('dist')))
+  .use(express.static(process.env.DACE_BUILD_PATH))
   .get('*', (req, res) => {
     // 查找当前 URL 匹配的路由
     let props = {};
@@ -37,10 +36,10 @@ server
       }
     });
 
-    if (!process.env.WEBPACK_STATS_JSON) {
-      throw new Error('Not found `WEBPACK_STATS_JSON` in `process.env`');
+    if (!process.env.DACE_STATS_JSON) {
+      throw new Error('Not found `DACE_STATS_JSON` in `process.env`');
     }
-    const { publicPath, chunks } = require(process.env.WEBPACK_STATS_JSON);
+    const { publicPath, chunks } = require(process.env.DACE_STATS_JSON);
     // 获取初始化网页需要插入的 CSS/JS 静态文件
     const initialAssets = chunks
       .filter((item) => {

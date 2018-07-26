@@ -4,6 +4,8 @@ const logger = require('../utils/logger');
 const createConfig = require('../webpack/config/createConfig');
 const setPorts = require('../utils/setPorts');
 
+process.noDeprecation = true; // 关闭告警信息，避免对进度条显示产生干扰
+
 // Webpack compile in a try-catch
 function compile(config) {
   let compiler;

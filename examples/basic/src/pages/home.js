@@ -11,8 +11,7 @@ export default class Home extends Component {
     name: ''
   }
 
-  static getInitialProps(ctx) {
-    console.log('---getInitialProps.ctx:', ctx);
+  static getInitialProps() {
     return { name: 'Joe' };
   }
 
