@@ -10,14 +10,24 @@ const paths = require('../config/paths');
 // const { getOptions } = require('loader-utils');
 
 module.exports = function routesLoader() {
+  function getEndpointFromPath(pagePath) {
+    let endpoint = `/${pagePath}`;
+    while (endpoint.endsWith('/index')) {
+      endpoint = endpoint.replace('/index', '');
+    }
+    return endpoint || '/';
+  }
+
   // const options = getOptions(this) || {};
-  const cwd = paths.appPages;
+  const pageDir = paths.appPages;
+  const pageExtension = '.jsx';
   const routes = glob
-    .sync('**.js', { cwd })
-    .map(item => item.replace('.js', ''))
+    .sync(`**/*${pageExtension}`, { cwd: pageDir })
+    .map(item => item.replace(pageExtension, ''))
     .map((name) => {
-      const pathWithoutExtension = resolve(cwd, name);
-      const endpoint = name === 'home' ? '/' : `/${name}`;
+      const endpoint = getEndpointFromPath(name);
+      const pathWithoutExtension = resolve(pageDir, name);
+      // const endpoint = name === 'home' ? '/' : `/${name}`;
       return (`{
         path: '${endpoint}',
         exact: true,
@@ -31,6 +41,7 @@ module.exports = function routesLoader() {
   }`);
 
   return `
+
     export default [
       {
         component: require('./components/App'),

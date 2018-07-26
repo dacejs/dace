@@ -90,6 +90,7 @@ module.exports = (target = 'web', env = 'local', webpack) => {
     devtool: 'cheap-module-source-map',
     resolve: {
       modules: ['node_modules', paths.appNodeModules].concat((process.env.NODE_PATH || '').split(path.delimiter).filter(Boolean)),
+      extensions: ['.js', '.jsx'],
       alias: {
         // This is required so symlinks work during development.
         'webpack/hot/poll': require.resolve('webpack/hot/poll')
@@ -111,7 +112,7 @@ module.exports = (target = 'web', env = 'local', webpack) => {
           ]
         },
         {
-          test: /\.js$/,
+          test: /\.(js|jsx)$/,
           enforce: 'pre',
           exclude: [/node_modules/],
           use: [
@@ -122,7 +123,7 @@ module.exports = (target = 'web', env = 'local', webpack) => {
           ]
         },
         {
-          test: /\.js$/,
+          test: /\.(js|jsx)$/,
           exclude: [/node_modules/],
           use: [
             {
