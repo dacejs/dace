@@ -1,9 +1,6 @@
 /* eslint react/no-did-mount-set-state: 0 */
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import isClient from '../utils/isClient';
-
-const getDefaultKey = match => match.url.substring(1).replace(/\//g, '-') || 'home';
+// import PropTypes from 'prop-types';
 
 /**
  * 页面组件渲染前获取数据的装饰器
@@ -18,19 +15,13 @@ const getDefaultKey = match => match.url.substring(1).replace(/\//g, '-') || 'ho
  * @param {component} options.loading
  */
 export default options => Target => class extends Component {
-  static propTypes = {
-    store: PropTypes.object.isRequired,
-    match: PropTypes.object.isRequired
-  };
+  // static propTypes = {
+  //   store: PropTypes.object.isRequired,
+  //   match: PropTypes.object.isRequired
+  // };
 
   constructor(props) {
     super(props, Target);
-    this.loading = options.loading;
-    if (isClient) {
-      this.state = {
-        loaded: window.firstRendering
-      };
-    }
   }
 
   async componentDidMount() {
@@ -42,16 +33,11 @@ export default options => Target => class extends Component {
 
     const { store, match, location: { query } } = this.props;
     const promises = options.map((item) => {
-      const defaultKey = getDefaultKey(match);
-      const { key = defaultKey, reducer, promise } = item;
-      store.injectReducer(key, reducer);
+      const { reducer, promise } = item;
+      store.injectReducer(reducer);
       return promise({ store, match, query });
     });
     await Promise.all(promises);
-    this.setState({ loaded: true });
-    if (window.firstRendering) {
-      window.firstRendering = false;
-    }
   }
 
   /**
@@ -68,25 +54,21 @@ export default options => Target => class extends Component {
    *
    * @return {Promise}
    */
-  static getInitialProps(store, match) {
+  static getInitialProps(ctx) {
     // 该方法在页面服务器端渲染时会调用
     // 在服务器端动态添加 reducer
     if (!Array.isArray(options)) {
       options = [options];
     }
     const promises = options.filter(item => !item.defer).map((item) => {
-      const defaultKey = getDefaultKey(match);
-      const { key = defaultKey, reducer, promise } = item;
-      store.injectReducer(key, reducer);
-      return promise({ store, match });
+      const { reducer, promise } = item;
+      ctx.store.injectReducer(reducer);
+      return promise(ctx);
     });
     return Promise.all(promises);
   }
 
   render() {
-    if (isClient && this.loading) {
-      return this.state.loaded ? <Target {...this.props} /> : this.loading;
-    }
     // 服务器端渲染时不需要显示 loading
     return <Target {...this.props} />;
   }

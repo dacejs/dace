@@ -3,7 +3,7 @@
  * 该文件为 target='web' 提供文件系统操作能力
  * 当  target='web' 时，`require('./routes')` 返回的内容为该 loader 返回的内容
  */
-// const { existsSync } = require('fs');
+const { existsSync } = require('fs');
 const { resolve } = require('path');
 const glob = require('glob');
 const paths = require('../config/paths');
@@ -16,6 +16,14 @@ module.exports = function routesLoader() {
       endpoint = endpoint.replace('/index', '');
     }
     return endpoint || '/';
+  }
+
+  function getComponentPath(file) {
+    const appComponent = resolve(paths.appSrc, `components/${file}.js`);
+    if (existsSync(appComponent)) {
+      return appComponent;
+    }
+    return resolve(__dirname, `../../core/components/${file}.js`);
   }
 
   // const options = getOptions(this) || {};
@@ -37,14 +45,13 @@ module.exports = function routesLoader() {
 
   // 在 routes 最后添加 404 找不到网页的路由
   routes.push(`{
-    component: require('./components/NotFound')
+    component: require('${getComponentPath('NotFound')}')
   }`);
 
   return `
-
     export default [
       {
-        component: require('./components/App'),
+        component: require('${getComponentPath('App')}'),
         routes: [
           ${routes.join(',')}
         ]
