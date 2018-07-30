@@ -12,7 +12,6 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 // const postcssPresetEnv = require('postcss-preset-env');
 const WrireStatsFilePlugin = require('../plugins/writeStatsFilePlugin');
 const paths = require('./paths');
-const logger = require('../../utils/logger');
 
 module.exports = (target = 'web', env = 'local', webpack) => {
   const IS_NODE = target === 'node';
@@ -22,29 +21,19 @@ module.exports = (target = 'web', env = 'local', webpack) => {
 
   // 获取 .babelrc 配置
   let mainBabelOptions = {
-    babelrc: false,
     cacheDirectory: true
   };
   const hasBabelRc = fs.existsSync(paths.appBabelRc);
   if (hasBabelRc) {
     console.log('Using .babelrc defined in your app root');
-    const babelrcText = fs.readFileSync(paths.appBabelRc, { encoding: 'utf8' });
-    try {
-      const appBabelRc = JSON.parse(babelrcText);
-      mainBabelOptions = {
-        ...appBabelRc,
-        ...mainBabelOptions
-      };
-    } catch (error) {
-      logger.error('.babelrc 不是一个有效的 JSON 文件');
-      throw new Error('.babelrc 格式错误');
-    }
   } else {
-    // mainBabelOptions.presets = [require.resolve('../../babel')];
-    // mainBabelOptions.presets = ['babel-preset-dace'];
     mainBabelOptions = {
       ...mainBabelOptions,
-      presets: ['env', 'dace']
+      presets: [
+        require.resolve('babel-preset-env'),
+        require.resolve('babel-preset-dace')
+      ],
+      babelrc: false
     };
   }
 
@@ -59,8 +48,8 @@ module.exports = (target = 'web', env = 'local', webpack) => {
 
   if (hasEslintRc) {
     console.log('Using .eslintrc defined in your app root');
-  // } else {
-  //   mainEslintOptions.baseConfig = require.resolve('../../../.eslintrc.js');
+  } else {
+    mainEslintOptions.configFile = path.resolve(__dirname, '../../../.eslintrc.js');
   }
 
   // 获取 postcss 配置
@@ -108,6 +97,15 @@ module.exports = (target = 'web', env = 'local', webpack) => {
             },
             {
               loader: path.resolve(__dirname, '../loaders/routesLoader.js')
+            }
+          ]
+        },
+        {
+          test: /dace\/src\/core\//,
+          use: [
+            {
+              loader: 'babel-loader',
+              options: mainBabelOptions
             }
           ]
         },
