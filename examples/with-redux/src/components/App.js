@@ -11,7 +11,7 @@ const App = (props) => {
   const { route, location: { search } } = props;
   // 将解析后的 querystring 对象挂载到 location 对象上
   props.location.query = parse(search, { ignoreQueryPrefix: true });
-  return renderRoutes(route.routes, props);
+  return renderRoutes(route.routes);
 };
 
 App.propTypes = {

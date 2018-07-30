@@ -4,7 +4,7 @@
  * 当  target='web' 时，`require('./routes')` 返回的内容为该 loader 返回的内容
  */
 const { existsSync } = require('fs');
-const { resolve } = require('path');
+const { resolve, dirname } = require('path');
 const glob = require('glob');
 const paths = require('../config/paths');
 // const { getOptions } = require('loader-utils');
@@ -33,9 +33,17 @@ module.exports = function routesLoader() {
     .sync(`**/*${pageExtension}`, { cwd: pageDir })
     .map(item => item.replace(pageExtension, ''))
     .map((name) => {
-      const endpoint = getEndpointFromPath(name);
       const pathWithoutExtension = resolve(pageDir, name);
-      // const endpoint = name === 'home' ? '/' : `/${name}`;
+
+      let endpoint;
+      // 当存在路由文件时，页面的路由地址以路由文件中配置的 path 为准
+      const routerFile = resolve(dirname(pathWithoutExtension), 'router.js');
+      if (existsSync(routerFile)) {
+        endpoint = require(routerFile).path;
+      } else {
+        endpoint = getEndpointFromPath(name);
+      }
+
       return (`{
         path: '${endpoint}',
         exact: true,
