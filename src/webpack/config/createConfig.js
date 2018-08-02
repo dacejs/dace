@@ -89,30 +89,19 @@ module.exports = (target = 'web', env = 'local', webpack) => {
       strictExportPresence: true,
       rules: [
         {
-          test: /dace\/src\/core\/routes\.js$/,
+          test: /dace\/dist\/core\/routes\.js$/,
           use: [
-            {
-              loader: 'babel-loader',
-              options: mainBabelOptions
-            },
             {
               loader: path.resolve(__dirname, '../loaders/routesLoader.js')
             }
           ]
         },
         {
-          test: /dace\/src\/core\//,
-          use: [
-            {
-              loader: 'babel-loader',
-              options: mainBabelOptions
-            }
-          ]
-        },
-        {
           test: /\.(js|jsx)$/,
           enforce: 'pre',
-          exclude: [/node_modules/],
+          // 本地调试时 dace 并未在 node_modules 目录下
+          // 需要单独排除
+          exclude: [/node_modules/, /\/dace\//],
           use: [
             {
               options: mainEslintOptions,

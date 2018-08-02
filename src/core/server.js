@@ -7,35 +7,34 @@ import { Helmet } from 'react-helmet';
 import serialize from 'serialize-javascript';
 import RedBox from './components/RedBox';
 import routes from './routes';
-import { isPromise } from '../utils/typeof';
 
 const server = express();
 server
   .disable('x-powered-by')
   .use(express.static(process.env.DACE_BUILD_PATH))
-  .get('*', (req, res) => {
+  .get('*', async (req, res) => {
     // 查找当前 URL 匹配的路由
-    let props = {};
+    let initialProps = {};
 
-    matchRoutes(routes, req.url).forEach(async ({
-      route,
-      match,
-      location,
-      history
-    }) => {
-      const { component } = route;
-      if (component && component.getInitialProps) {
-        const ctx = {
-          req,
-          res,
-          match,
-          location,
-          history
-        };
-        const { getInitialProps } = component;
-        props = isPromise(getInitialProps) ? await getInitialProps(ctx) : getInitialProps(ctx);
-      }
-    });
+    const promises = matchRoutes(routes, req.url)
+      .map(({ route, match, location, history }) => {
+        const { component } = route;
+        if (component && component.getInitialProps) {
+          const ctx = {
+            req,
+            res,
+            match,
+            location,
+            history
+          };
+          const { getInitialProps } = component;
+          return getInitialProps ? getInitialProps(ctx) : null;
+        }
+        return null;
+      })
+      .filter(Boolean);
+
+    [initialProps] = await Promise.all(promises);
 
     if (!process.env.DACE_STATS_JSON) {
       throw new Error('Not found `DACE_STATS_JSON` in `process.env`');
@@ -71,7 +70,7 @@ server
     const context = {};
     const Markup = (
       <StaticRouter context={context} location={req.url}>
-        {renderRoutes(routes, props)}
+        {renderRoutes(routes, { initialProps })}
       </StaticRouter>
     );
 
@@ -98,12 +97,12 @@ server
   <body>
     <div id="root">${markup}</div>
     <script>
-      window.INITIAL_STATE=${serialize(props)};
+      window.INITIAL_STATE=${serialize(initialProps)};
     </script>
     ${jsTags}
   </body>
 </html>`;
-      res.status(200).send(html);
+      res.status(200).end(html);
     }
   });
 

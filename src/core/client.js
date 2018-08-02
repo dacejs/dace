@@ -4,11 +4,11 @@ import { hydrate } from 'react-dom';
 import { renderRoutes } from 'react-router-config';
 import routes from './routes';
 
-const props = window.INITIAL_STATE || {};
+const initialProps = window.INITIAL_STATE || {};
 
 hydrate(
   <BrowserRouter>
-    {renderRoutes(routes, props)}
+    {renderRoutes(routes, { initialProps })}
   </BrowserRouter>,
   document.getElementById('root')
 );

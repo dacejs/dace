@@ -20,6 +20,6 @@ module.exports = {
   appNodeModules: resolveApp('node_modules'),
   appBuild: resolveApp('build'),
   appStatsJson: resolveApp('build/webpack-stats.json'),
-  ownServerIndexJs: resolveOwn('src/core/index.js'),
-  ownClientIndexJs: resolveOwn('src/core/client.js')
+  ownServerIndexJs: resolveOwn('dist/core/index.js'),
+  ownClientIndexJs: resolveOwn('dist/core/client.js')
 };

@@ -2,12 +2,14 @@
   "name": "dace",
   "version": "1.0.0-beta.8",
   "description": "",
-  "main": "src/index.js",
+  "main": "dist/index.js",
   "scripts": {
+    "build": "babel src -d dist --presets=env,dace",
+    "build:debug": "npm run build -- --watch",
     "test": "NODE_ENV=test mocha"
   },
   "bin": {
-    "dace": "./src/bin/dace.js"
+    "dace": "./dist/bin/dace.js"
   },
   "keywords": [
     "universal",
@@ -20,7 +22,7 @@
     "code-splitting"
   ],
   "files": [
-    "src",
+    "dist",
     ".eslintrc.js"
   ],
   "author": "",
@@ -62,6 +64,7 @@
     "webpackbar": "^2.6.1"
   },
   "devDependencies": {
+    "babel-cli": "^6.26.0",
     "babel-preset-env": "^1.7.0",
     "mocha": "^5.2.0",
     "ps-tree": "^1.1.0",
