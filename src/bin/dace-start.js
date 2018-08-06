@@ -31,7 +31,7 @@ function main() {
       dace = require(paths.appDaceConfig);
     } catch (e) {
       clearConsole();
-      logger.error('Invalid razzle.config.js file.', e);
+      logger.error('Invalid dace.config.js file.', e);
       process.exit(1);
     }
   }

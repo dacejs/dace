@@ -4,7 +4,6 @@
  * 当  target='web' 时，`require('./routes')` 返回的内容为该 loader 返回的内容
  */
 const { existsSync } = require('fs');
-const path = require('path');
 const { resolve, dirname } = require('path');
 const glob = require('glob');
 const paths = require('../config/paths');
@@ -23,6 +22,13 @@ module.exports = function routesLoader() {
     const appComponent = resolve(paths.appSrc, `components/${file}.js`);
     if (existsSync(appComponent)) {
       return appComponent;
+    }
+    // 检查是否使用了 dace-plugin-redux
+    if (file === 'App') {
+      const reduxApp = resolve('node_modules/dace-plugin-redux/dist/App.js');
+      if (existsSync(reduxApp)) {
+        return reduxApp;
+      }
     }
     return resolve(__dirname, `../../core/components/${file}.js`);
   }
@@ -57,13 +63,11 @@ module.exports = function routesLoader() {
     component: require('${getComponentPath('NotFound')}')
   }`);
 
-  console.log('--App.js: ', path.resolve('dace-plugin-redux'));
 
   return `
     export default [
       {
-        // component: require('${getComponentPath('App')}'),
-        component: require('/Users/zhi.zhong/workspace/github/dacejs/dace/examples/with-redux/node_modules/dace-plugin-redux/dist/components/App.js'),
+        component: require('${getComponentPath('App')}'),
         routes: [
           ${routes.join(',')}
         ]
