@@ -9,7 +9,7 @@ import reducer from './reducer';
   reducer,
   promise: ({ store: { dispatch } }) => dispatch(fetchUsers())
 })
-@connect()
+@connect(state => state)
 export default class Users extends Component {
   static propTypes = {
     users: PropTypes.arrayOf(PropTypes.shape({

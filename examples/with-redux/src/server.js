@@ -6,8 +6,8 @@ import { renderToString } from 'react-dom/server';
 import { Helmet } from 'react-helmet';
 import { Provider } from 'react-redux';
 import serialize from 'serialize-javascript';
-import RedBox from 'dace/src/core/components/RedBox';
-import routes from 'dace/src/core/routes';
+import RedBox from 'dace/dist/core/components/RedBox';
+import routes from 'dace/dist/core/routes';
 import createStore from './createStore';
 
 const server = express();

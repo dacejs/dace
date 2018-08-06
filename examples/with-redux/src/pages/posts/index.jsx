@@ -9,7 +9,7 @@ import reducer from './reducer';
   reducer,
   promise: ({ store: { dispatch } }) => dispatch(fetchPosts())
 })
-@connect()
+@connect(state => state)
 export default class Posts extends Component {
   static propTypes = {
     posts: PropTypes.arrayOf(PropTypes.shape({
