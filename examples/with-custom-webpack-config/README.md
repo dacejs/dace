@@ -1,16 +1,13 @@
-# 自定义 eslint 规则
+# 自定义 webpack 配置
 
 下面的文档将介绍如何在工程中自定义 webpack 配置。
 
 ## 要点
-- 在工程根目录新增 `.eslintrc.js`，在 `.eslintrc.js` 增加 rules 即可。
-- `.eslintrc.js` 中的规则会和 dace 默认的 eslint 规则合并。
-- 如果希望在编辑器中（如 atom）看到实时校验结果，请使用如下 `extends` 方式继承 dace 默认规则：
-  ```js
-  module.exports = {
-    extends: ['eslint-config-qunar'].map(require.resolve),
-    rules: {
-      'no-unused-vars': 0
-    }
-  };
-  ```
+- 在工程根目录新增 `dace.config.js`。
+- 在 `dace.config.js` 中返回 `modify()` 方法。
+- `modify()` 参数如下：
+  - config：默认 webpack 配置。
+  - { target, dev }：环境信息。
+    - target：编译类型，参考 `webpack.config.target` 。可选值：`web`（浏览器端）, `node`（浏览器端）。
+    - dev：`NODE_ENV` 值。可选值：`local`, `development`, `beta`, `production`。
+  - webpack：webpack 实例。可能在修改 plugin 时用到。

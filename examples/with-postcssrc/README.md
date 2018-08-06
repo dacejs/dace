@@ -1,6 +1,6 @@
 # 自定义 postcss 规则
 
-下面的文档将介绍如何在工程中自定义 eslint 规则。
+下面的文档将介绍如何在工程中自定义 postcss 规则。
 
 ## 要点
 - 在工程根目录新增 `postcss.config.js`，在 `postcss.config.js` 增加配置即可。
