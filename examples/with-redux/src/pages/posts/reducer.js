@@ -4,8 +4,8 @@ export default (state = {}, action) => {
   switch (action.type) {
     case FETCH_POSTS:
       return {
-        posts: action.payload.data.map(({ id, title }) => ({ id, title })),
-        ...state
+        ...state,
+        posts: action.payload.data.map(({ id, title }) => ({ id, title }))
       };
     default:
       return state;

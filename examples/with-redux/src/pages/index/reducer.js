@@ -5,8 +5,8 @@ export default (state = {}, action) => {
     case FETCH_USERS:
       // 只能返回对象，不能返回数组
       return {
-        users: action.payload.data.map(({ id, name }) => ({ id, name })),
-        ...state
+        ...state,
+        users: action.payload.data.map(({ id, name }) => ({ id, name }))
       };
     default:
       return state;
