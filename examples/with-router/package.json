@@ -3,6 +3,6 @@
     "start": "NODE_ENV=local dace"
   },
   "dependencies": {
-    "dace": "../.."
+    "dace": "latest"
   }
 }

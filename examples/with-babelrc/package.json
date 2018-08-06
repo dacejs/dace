@@ -4,6 +4,6 @@
     "build": "NODE_ENV=local dace build"
   },
   "dependencies": {
-    "dace": "../.."
+    "dace": "latest"
   }
 }
