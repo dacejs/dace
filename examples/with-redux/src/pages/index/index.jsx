@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { prefetch, Link } from 'dace';
+import { Link } from 'dace';
+import { getInitialProps } from 'dace-plugin-redux';
 import { fetchUsers } from './action';
 import reducer from './reducer';
 
-@prefetch({
+@getInitialProps({
   reducer,
   promise: ({ store: { dispatch } }) => dispatch(fetchUsers())
 })

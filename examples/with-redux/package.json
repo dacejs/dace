@@ -4,12 +4,7 @@
     "start": "NODE_ENV=local dace"
   },
   "dependencies": {
-    "dace": "../..",
-    "axios": "^0.18.0",
-    "react-redux": "^5.0.7",
-    "redux": "^4.0.0",
-    "redux-devtools-extension": "^2.13.5",
-    "redux-merge-reducers": "0.0.2",
-    "redux-thunk": "^2.3.0"
+    "dace": "latest",
+    "dace-plugin-redux": "latest"
   }
 }

@@ -13,7 +13,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const WrireStatsFilePlugin = require('../plugins/writeStatsFilePlugin');
 const paths = require('./paths');
 
-module.exports = (target = 'web', env = 'local', webpack) => {
+module.exports = (target = 'web', env = 'local', { modify }, webpack) => {
   const IS_NODE = target === 'node';
   const IS_WEB = target === 'web';
   const IS_DEV = env === 'local';
@@ -72,7 +72,7 @@ module.exports = (target = 'web', env = 'local', webpack) => {
     ];
   }
 
-  const config = {
+  let config = {
     mode: IS_DEV ? 'development' : 'production',
     context: process.cwd(),
     target,
@@ -489,6 +489,10 @@ module.exports = (target = 'web', env = 'local', webpack) => {
         name: target === 'web' ? 'client' : 'server'
       })
     ];
+  }
+
+  if (modify) {
+    config = modify(config, { target, dev: IS_DEV }, webpack);
   }
 
   return config;

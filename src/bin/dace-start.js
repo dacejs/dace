@@ -1,6 +1,9 @@
+const fs = require('fs');
 const webpack = require('webpack');
 const DevServer = require('webpack-dev-server-speedy');
+const clearConsole = require('react-dev-utils/clearConsole');
 const logger = require('../utils/logger');
+const paths = require('../webpack/config/paths');
 const createConfig = require('../webpack/config/createConfig');
 const setPorts = require('../utils/setPorts');
 
@@ -21,8 +24,20 @@ function compile(config) {
 function main() {
   logger.start('Compiling...');
 
-  const clientConfig = createConfig('web', 'local', webpack);
-  const serverConfig = createConfig('node', 'local', webpack);
+  let dace = {};
+
+  if (fs.existsSync(paths.appDaceConfig)) {
+    try {
+      dace = require(paths.appDaceConfig);
+    } catch (e) {
+      clearConsole();
+      logger.error('Invalid razzle.config.js file.', e);
+      process.exit(1);
+    }
+  }
+
+  const clientConfig = createConfig('web', 'local', dace, webpack);
+  const serverConfig = createConfig('node', 'local', dace, webpack);
 
   // Compile our assets with webpack
   const clientCompiler = compile(clientConfig);
