@@ -8,7 +8,7 @@ const initialProps = window.INITIAL_STATE || {};
 
 hydrate(
   <BrowserRouter>
-    {renderRoutes(routes, { initialProps })}
+    {renderRoutes(routes, { initialProps, routes })}
   </BrowserRouter>,
   document.getElementById('root')
 );
