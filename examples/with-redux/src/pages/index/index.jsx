@@ -2,14 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'dace';
-import { getInitialProps } from 'dace-plugin-redux';
 import { fetchUsers } from './action';
 import reducer from './reducer';
 
-@getInitialProps({
-  reducer,
-  promise: ({ store: { dispatch } }) => dispatch(fetchUsers())
-})
 @connect(state => state)
 export default class Users extends Component {
   static propTypes = {
@@ -21,6 +16,11 @@ export default class Users extends Component {
 
   static defaultProps = {
     users: []
+  }
+
+  static getInitialProps = (ctx) => {
+    ctx.store.injectReducer(reducer);
+    return ctx.store.dispatch(fetchUsers());
   }
 
   render() {

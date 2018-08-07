@@ -2,14 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'dace';
-import { getInitialProps } from 'dace-plugin-redux';
 import { fetchPosts } from './action';
 import reducer from './reducer';
 
-@getInitialProps({
-  reducer,
-  promise: ({ store: { dispatch } }) => dispatch(fetchPosts())
-})
 @connect(state => state)
 export default class Posts extends Component {
   static propTypes = {
@@ -21,6 +16,11 @@ export default class Posts extends Component {
 
   static defaultProps = {
     posts: []
+  }
+
+  static getInitialProps = (ctx) => {
+    ctx.store.injectReducer(reducer);
+    return ctx.store.dispatch(fetchPosts());
   }
 
   render() {

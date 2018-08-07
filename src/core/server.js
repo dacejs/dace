@@ -20,13 +20,7 @@ server
       .map(({ route, match, location, history }) => {
         const { component } = route;
         if (component && component.getInitialProps) {
-          const ctx = {
-            req,
-            res,
-            match,
-            location,
-            history
-          };
+          const ctx = { match, location, history };
           const { getInitialProps } = component;
           return getInitialProps ? getInitialProps(ctx) : null;
         }
