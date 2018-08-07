@@ -18,9 +18,9 @@ export default class Users extends Component {
     users: []
   }
 
-  static getInitialProps = (ctx) => {
-    ctx.store.injectReducer(reducer);
-    return ctx.store.dispatch(fetchUsers());
+  static getInitialProps = ({ store }) => {
+    store.injectReducer(reducer);
+    return store.dispatch(fetchUsers());
   }
 
   render() {

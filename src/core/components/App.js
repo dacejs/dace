@@ -45,7 +45,10 @@ export default class App extends Component {
         .filter(Boolean);
 
       try {
-        const [initialProps] = await Promise.all(promises);
+        let initialProps = {};
+        (await Promise.all(promises)).forEach((item) => {
+          initialProps = { ...initialProps, ...item };
+        });
         this.setState({ initialProps });
       } catch (e) {
         console.log('getInitialProps error: ', e);

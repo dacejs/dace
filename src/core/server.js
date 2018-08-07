@@ -28,7 +28,9 @@ server
       })
       .filter(Boolean);
 
-    [initialProps] = await Promise.all(promises);
+    (await Promise.all(promises)).forEach((item) => {
+      initialProps = { ...initialProps, ...item };
+    });
 
     if (!process.env.DACE_STATS_JSON) {
       throw new Error('Not found `DACE_STATS_JSON` in `process.env`');
