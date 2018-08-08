@@ -15,7 +15,7 @@ describe('Dace start', async () => {
       shell.cd(example);
       // 如果例子工程没有安装依赖包，程序自动执行安装
       if (!fs.existsSync(path.resolve(example, 'node_modules/dace'))) {
-        shell.exec('npm i --no-package-lock');
+        shell.exec('cnpm i --no-package-lock');
       }
       const testResult = [];
       const run = new Promise((resolve) => {
