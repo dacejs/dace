@@ -33,10 +33,12 @@ export default class App extends Component {
       window.scrollTo(0, 0);
 
       const promises = matchRoutes(this.props.routes, nextProps.location.pathname)
-        .map(({ route, match, location, history }) => {
+        .map(({ route, match }) => {
           const { component } = route;
           if (component && component.getInitialProps) {
-            const ctx = { match, location, history };
+            // 将解析后的 querystring 对象挂载到 location 对象上
+            const query = parse(window.location.search, { ignoreQueryPrefix: true });
+            const ctx = { match, query };
             const { getInitialProps } = component;
             return getInitialProps ? getInitialProps(ctx) : null;
           }
@@ -58,9 +60,7 @@ export default class App extends Component {
 
   render() {
     const { initialProps } = this.state;
-    const { route, location: { search } } = this.props;
-    // 将解析后的 querystring 对象挂载到 location 对象上
-    this.props.location.query = parse(search, { ignoreQueryPrefix: true });
+    const { route } = this.props;
     return renderRoutes(route.routes, initialProps);
   }
 }

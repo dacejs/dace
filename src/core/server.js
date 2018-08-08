@@ -15,12 +15,13 @@ server
   .get('*', async (req, res) => {
     // 查找当前 URL 匹配的路由
     let initialProps = {};
+    const { query, _parsedUrl: { pathname } } = req;
 
-    const promises = matchRoutes(routes, req.url)
-      .map(({ route, match, location, history }) => {
+    const promises = matchRoutes(routes, pathname) // <- react-router 不匹配 querystring
+      .map(({ route, match }) => {
         const { component } = route;
         if (component && component.getInitialProps) {
-          const ctx = { match, location, history };
+          const ctx = { match, query };
           const { getInitialProps } = component;
           return getInitialProps ? getInitialProps(ctx) : null;
         }
