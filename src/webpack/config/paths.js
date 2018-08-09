@@ -18,9 +18,9 @@ module.exports = {
   appServerIndexJs: resolveApp('src/index.js'),
   appClientIndexJs: resolveApp('src/client.js'),
   appNodeModules: resolveApp('node_modules'),
-  appBuild: resolveApp('build'),
+  appBuild: resolveApp('prd'),
+  appStatsJson: resolveApp('prd/webpack-stats.json'),
   appDaceConfig: resolveApp('dace.config.js'),
-  appStatsJson: resolveApp('build/webpack-stats.json'),
   ownServerIndexJs: resolveOwn('dist/core/index.js'),
   ownClientIndexJs: resolveOwn('dist/core/client.js')
 };
