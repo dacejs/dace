@@ -1,12 +1,14 @@
-
 process.on('unhandledRejection', (err) => {
   throw err;
 });
 
+const fs = require('fs');
+const clearConsole = require('react-dev-utils/clearConsole');
 const chalk = require('chalk');
 const webpack = require('webpack');
 const { measureFileSizesBeforeBuild, printFileSizesAfterBuild } = require('react-dev-utils/FileSizeReporter');
 const formatWebpackMessages = require('react-dev-utils/formatWebpackMessages');
+const logger = require('../utils/logger');
 const paths = require('../webpack/config/paths');
 const createConfig = require('../webpack/config/createConfig');
 const printErrors = require('../utils/printErrors');
@@ -28,8 +30,20 @@ function compile(config, cb) {
 }
 
 function build(previousFileSizes) {
-  const clientConfig = createConfig('web', 'prod', webpack);
-  const serverConfig = createConfig('node', 'prod', webpack);
+  let dace = {};
+
+  if (fs.existsSync(paths.appDaceConfig)) {
+    try {
+      dace = require(paths.appDaceConfig);
+    } catch (e) {
+      clearConsole();
+      logger.error('Invalid dace.config.js file.', e);
+      process.exit(1);
+    }
+  }
+
+  const clientConfig = createConfig('web', 'prod', dace, webpack);
+  const serverConfig = createConfig('node', 'prod', dace, webpack);
 
   console.log('Creating an optimized production build...');
   console.log('Compiling client...');
