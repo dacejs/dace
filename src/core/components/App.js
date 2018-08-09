@@ -32,12 +32,15 @@ export default class App extends Component {
     if (navigated) {
       window.scrollTo(0, 0);
 
+      // 浏览器端路由（首次渲染后）时解析 querystring -> object
+      const query = parse(nextProps.location, { ignoreQueryPrefix: true });
+      nextProps.location.query = query;
+
       const promises = matchRoutes(this.props.routes, nextProps.location.pathname)
         .map(({ route, match }) => {
           const { component } = route;
           if (component && component.getInitialProps) {
             // 将解析后的 querystring 对象挂载到 location 对象上
-            const query = parse(window.location.search, { ignoreQueryPrefix: true });
             const ctx = { match, query };
             const { getInitialProps } = component;
             return getInitialProps ? getInitialProps(ctx) : null;
@@ -60,7 +63,10 @@ export default class App extends Component {
 
   render() {
     const { initialProps } = this.state;
-    const { route } = this.props;
+    const { route, location } = this.props;
+    // 让 children 能通过 props.location.query 能取到 query string
+    // App 组件首次渲染时执行
+    location.query = parse(location.search, { ignoreQueryPrefix: true });
     return renderRoutes(route.routes, initialProps);
   }
 }
