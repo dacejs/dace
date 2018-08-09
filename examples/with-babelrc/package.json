@@ -4,6 +4,8 @@
     "build": "NODE_ENV=local dace build"
   },
   "dependencies": {
+    "react": "^16.4.1",
+    "react-dom": "^16.4.1",
     "dace": "latest"
   }
 }

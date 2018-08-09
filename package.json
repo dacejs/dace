@@ -48,9 +48,7 @@
     "postcss-loader": "^2.1.6",
     "prop-types": "^15.6.2",
     "qs": "^6.5.2",
-    "react": "^16.4.1",
     "react-dev-utils": "^5.0.1",
-    "react-dom": "^16.4.1",
     "react-helmet": "^5.2.0",
     "react-router-config": "^1.0.0-beta.4",
     "react-router-dom": "^4.3.1",
@@ -71,6 +69,8 @@
     "babel-preset-env": "^1.7.0",
     "mocha": "^5.2.0",
     "ps-tree": "^1.1.0",
+    "react": "^16.4.1",
+    "react-dom": "^16.4.1",
     "shelljs": "^0.8.2",
     "should": "^13.2.1"
   }
