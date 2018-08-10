@@ -10,7 +10,7 @@ server.listen(process.env.DACE_PORT, (error) => {
     console.log(error);
   }
 
-  console.log(`🐟 Your application is running at http://${process.env.DACE_HOST}:${process.env.DACE_PORT}`);
+  console.log(`\n🐟 Your application is running at http://${process.env.DACE_HOST}:${process.env.DACE_PORT}`);
 });
 
 if (module.hot) {

@@ -9,7 +9,7 @@
     "postrelease": "git push && git push origin --tags",
     "prepare": "npm run build",
     "release": "standard-version && npm publish",
-    "test": "NODE_ENV=test mocha"
+    "test": "mocha"
   },
   "bin": {
     "dace": "./dist/bin/dace.js"

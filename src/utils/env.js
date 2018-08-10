@@ -6,11 +6,9 @@ const logger = require('../utils/logger');
 // Make sure that including paths.js after env.js will read .env variables.
 delete require.cache[require.resolve('../webpack/config/paths')];
 
-// 当 process.env.NODE_ENV 不存在时，将其设置为线上环境
-// 避免错误的发布配置导致线上故障
 if (!('NODE_ENV' in process.env)) {
   logger.warn('The NODE_ENV environment variable is required but was not specified.');
-  process.env.NODE_ENV = 'production';
+  process.env.NODE_ENV = 'local';
 }
 
 const { NODE_ENV, PROFILE } = process.env;

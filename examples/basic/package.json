@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "start": "NODE_ENV=local dace",
+    "start": "dace",
     "build": "NODE_ENV=production dace build",
     "start:prod": "NODE_ENV=production node build/server.js"
   },
