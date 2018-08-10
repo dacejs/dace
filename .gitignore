@@ -61,7 +61,6 @@ typings/
 .DS_Store
 
 # 编译产物输出目录
-examples/*/build/
+examples/*/prd/
 examples/*/package-lock.json
-prd/
 dist/

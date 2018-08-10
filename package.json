@@ -38,6 +38,7 @@
     "clean-webpack-plugin": "^0.1.19",
     "commander": "^2.16.0",
     "css-loader": "^1.0.0",
+    "dace-plugin-redux": "^1.0.12",
     "dotenv": "^6.0.0",
     "eslint": "^5.1.0",
     "eslint-config-qunar": "^4.0.0",

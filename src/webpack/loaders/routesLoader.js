@@ -24,12 +24,12 @@ module.exports = function routesLoader() {
       return appComponent;
     }
     // 检查是否使用了 dace-plugin-redux
-    if (file === 'App') {
-      const reduxApp = resolve('node_modules/dace-plugin-redux/dist/App.js');
-      if (existsSync(reduxApp)) {
-        return reduxApp;
-      }
-    }
+    // if (file === 'App') {
+    //   const reduxApp = resolve('node_modules/dace-plugin-redux/dist/App.js');
+    //   if (existsSync(reduxApp)) {
+    //     return reduxApp;
+    //   }
+    // }
     return resolve(__dirname, `../../core/components/${file}.js`);
   }
 
