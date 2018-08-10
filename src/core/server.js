@@ -87,9 +87,11 @@ server
       const html = `<!doctype html>
   <html>
   <head>
+    <meta charset="utf-8" />
     <link rel="icon" type="image/png" href="//m.qunar.com/zhuanti/dace-logo-200.png" />
     ${helmet.title.toString()}
     ${helmet.meta.toString()}
+    ${helmet.link.toString()}
     ${cssTags}
   </head>
   <body>
