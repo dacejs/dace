@@ -19,6 +19,13 @@ module.exports = (target = 'web', env = 'local', { modify }, webpack) => {
   const IS_DEV = env === 'local';
   const devServerPort = parseInt(process.env.DACE_PORT, 10) + 1;
 
+  const daceEnv = Object.keys(process.env)
+    .filter(key => key.startsWith('DACE_'))
+    .reduce((envs, key) => {
+      envs[`process.env.${key}`] = JSON.stringify(process.env[key]);
+      return envs;
+    }, {});
+
   // 获取 .babelrc 配置
   let mainBabelOptions = {
     cacheDirectory: true
@@ -273,12 +280,7 @@ module.exports = (target = 'web', env = 'local', { modify }, webpack) => {
 
     config.plugins = [
       // We define environment variables that can be accessed globally in our
-      new webpack.DefinePlugin(Object.keys(process.env)
-        .filter(key => key.startsWith('DACE_'))
-        .reduce((envs, key) => {
-          envs[`process.env.${key}`] = JSON.stringify(process.env[key]);
-          return envs;
-        }, {})),
+      new webpack.DefinePlugin(daceEnv),
       // 防止 node 编译时打成多个包
       new webpack.optimize.LimitChunkCountPlugin({
         maxChunks: 1
@@ -318,7 +320,8 @@ module.exports = (target = 'web', env = 'local', { modify }, webpack) => {
       new CleanWebpackPlugin(paths.appBuild, {
         root: paths.appPath,
         verbose: false
-      })
+      }),
+      new webpack.DefinePlugin(daceEnv)
     ];
 
     if (IS_DEV) {
@@ -386,8 +389,6 @@ module.exports = (target = 'web', env = 'local', { modify }, webpack) => {
 
       config.plugins = [
         ...config.plugins,
-        // Define production environment vars
-        // new webpack.DefinePlugin(dotenv.stringified),
         // Extract our CSS into a files.
         new MiniCssExtractPlugin({
           filename: 'static/css/bundle.[contenthash:8].css',

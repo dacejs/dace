@@ -1,0 +1,11 @@
+{
+  "scripts": {
+    "build": "dace build",
+    "start": "dace"
+  },
+  "dependencies": {
+    "react": "^16.4.1",
+    "react-dom": "^16.4.1",
+    "dace": "../.."
+  }
+}
