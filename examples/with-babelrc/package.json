@@ -1,7 +1,7 @@
 {
   "scripts": {
-    "start": "NODE_ENV=local dace",
-    "build": "NODE_ENV=local dace build"
+    "start": "dace",
+    "build": "dace build"
   },
   "dependencies": {
     "react": "^16.4.1",
