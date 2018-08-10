@@ -6,8 +6,14 @@ const logger = require('../utils/logger');
 // Make sure that including paths.js after env.js will read .env variables.
 delete require.cache[require.resolve('../webpack/config/paths')];
 
-const { NODE_ENV = 'local', PROFILE } = process.env;
+// 当 process.env.NODE_ENV 不存在时，将其设置为线上环境
+// 避免错误的发布配置导致线上故障
+if (!('NODE_ENV' in process.env.hasOwnProperty)) {
+  logger.warn('The NODE_ENV environment variable is required but was not specified.');
+  process.env.NODE_ENV = 'production';
+}
 
+const { NODE_ENV, PROFILE } = process.env;
 logger.info(`process.env.NODE_ENV: ${NODE_ENV}`);
 
 // https://github.com/bkeepers/dotenv#what-other-env-files-can-i-use
