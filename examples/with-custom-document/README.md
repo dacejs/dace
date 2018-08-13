@@ -23,5 +23,5 @@
   ```
 
 ## 相关文档
-- [如何自定义 webpack 配置](https://dacejs.github.io/faq/custom-webpack.md)
-- [document.js API](https://dacejs.github.io/api/document.md)
+- [如何自定义 webpack 配置](https://dacejs.github.io/faq/custom-webpack.html)
+- [document.js API](https://dacejs.github.io/api/document.html)
