@@ -15,7 +15,7 @@ export default class Index extends Component {
     users: []
   }
 
-  static async getInitialProps(ctx) {
+  static async getInitialProps() {
     const res = await axios.get('http://jsonplaceholder.typicode.com/users');
     const res2 = await axios.get('http://jsonplaceholder.typicode.com/users/1');
     return {
