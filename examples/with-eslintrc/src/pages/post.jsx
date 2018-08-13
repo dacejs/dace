@@ -1,6 +1,7 @@
 import React from 'react';
 
-var a = 'a';
+const address = { city: 'Beijing' };
+const city = address.city;
 
 export default () => (
   <div>

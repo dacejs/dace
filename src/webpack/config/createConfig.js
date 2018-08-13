@@ -49,12 +49,11 @@ module.exports = (target = 'web', env = 'local', { modify }, webpack) => {
   const mainEslintOptions = {
     formatter: eslintFormatter,
     eslintPath: require.resolve('eslint'),
-    ignore: false,
     useEslintrc: true
   };
 
   if (hasEslintRc) {
-    console.log('Using .eslintrc defined in your app root');
+    console.log('Using .eslintrc.js defined in your app root');
   } else {
     mainEslintOptions.configFile = path.resolve(__dirname, '../../../.eslintrc.js');
   }
@@ -108,7 +107,7 @@ module.exports = (target = 'web', env = 'local', { modify }, webpack) => {
           enforce: 'pre',
           // 本地调试时 dace 并未在 node_modules 目录下
           // 需要单独排除
-          exclude: [/node_modules/, /\/dace\//],
+          exclude: [/node_modules/, /\/dace\/dist\//],
           use: [
             {
               options: mainEslintOptions,
