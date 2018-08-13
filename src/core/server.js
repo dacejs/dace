@@ -60,9 +60,13 @@ server
         .join('');
     };
 
+    const helmetToString = head => ['title', 'meta', 'link', 'style', 'script', 'noscript']
+      .filter(key => head[key])
+      .map(key => head[key].toString())
+      .join('');
+
     const jsTags = renderTags('js', initialAssets);
     const cssTags = renderTags('css', initialAssets);
-    const helmet = Helmet.renderStatic();
 
     const context = {};
     const Markup = (
@@ -80,21 +84,21 @@ server
       markup = renderToString(<RedBox error={e} />);
     }
 
+    // renderStatic 需要在 root 元素 render 后执行
+    const helmet = Helmet.renderStatic();
 
     if (context.url) {
       res.redirect(context.url);
     } else {
       const html = `<!doctype html>
-  <html>
+  <html ${helmet.htmlAttributes.toString()}>
   <head>
     <meta charset="utf-8" />
-    <link rel="icon" type="image/png" href="//m.qunar.com/zhuanti/dace-logo-200.png" />
-    ${helmet.title.toString()}
-    ${helmet.meta.toString()}
-    ${helmet.link.toString()}
+    ${helmetToString(helmet)}
     ${cssTags}
+    <link rel="icon" type="image/png" href="//m.qunar.com/zhuanti/dace-logo-200.png" />
   </head>
-  <body>
+  <body ${helmet.bodyAttributes.toString()}>
     <div id="root">${markup}</div>
     <script>
       window.INITIAL_STATE=${serialize(initialProps)};
