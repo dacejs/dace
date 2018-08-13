@@ -5,6 +5,7 @@ import express from 'express';
 import { renderToString } from 'react-dom/server';
 import { Helmet } from 'react-helmet';
 import serialize from 'serialize-javascript';
+import document from './document';
 import RedBox from './components/RedBox';
 import routes from './routes';
 
@@ -60,11 +61,6 @@ server
         .join('');
     };
 
-    const helmetToString = head => ['title', 'meta', 'link', 'style', 'script', 'noscript']
-      .filter(key => head[key])
-      .map(key => head[key].toString())
-      .join('');
-
     const jsTags = renderTags('js', initialAssets);
     const cssTags = renderTags('css', initialAssets);
 
@@ -86,26 +82,12 @@ server
 
     // renderStatic 需要在 root 元素 render 后执行
     const helmet = Helmet.renderStatic();
+    const state = serialize(initialProps);
 
     if (context.url) {
       res.redirect(context.url);
     } else {
-      const html = `<!doctype html>
-  <html ${helmet.htmlAttributes.toString()}>
-  <head>
-    <meta charset="utf-8" />
-    ${helmetToString(helmet)}
-    ${cssTags}
-    <link rel="icon" type="image/png" href="//m.qunar.com/zhuanti/dace-logo-200.png" />
-  </head>
-  <body ${helmet.bodyAttributes.toString()}>
-    <div id="root">${markup}</div>
-    <script>
-      window.INITIAL_STATE=${serialize(initialProps)};
-    </script>
-    ${jsTags}
-  </body>
-</html>`;
+      const html = document({ helmet, cssTags, jsTags, markup, state });
       res.status(200).end(html);
     }
   });

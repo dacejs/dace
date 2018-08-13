@@ -21,7 +21,6 @@ export default class Home extends Component {
       <Layout>
         <Head>
           <title>Home</title>
-          <script src="test.js" />
         </Head>
         <h1>basic example</h1>
         <h2>{this.props.name}</h2>

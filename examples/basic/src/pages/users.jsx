@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
+import { Head } from 'dace';
 import Layout from '../layouts/default';
 
 export default class Index extends Component {
@@ -27,6 +28,9 @@ export default class Index extends Component {
   render() {
     return (
       <Layout>
+        <Head>
+          <title>Users</title>
+        </Head>
         <h1>Users</h1>
         <ol>
           {

@@ -1,7 +1,7 @@
 {
   "scripts": {
     "start": "dace",
-    "build": "NODE_ENV=production dace build",
+    "build": "NODE_ENV=local dace build",
     "start:prod": "NODE_ENV=production node build/server.js"
   },
   "dependencies": {
