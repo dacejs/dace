@@ -1,4 +1,5 @@
 import http from 'http';
+import chalk from 'chalk';
 import app from './server';
 
 const server = http.createServer(app);
@@ -10,7 +11,8 @@ server.listen(process.env.DACE_PORT, (error) => {
     console.log(error);
   }
 
-  console.log(`\n🐟 Your application is running at http://${process.env.DACE_HOST}:${process.env.DACE_PORT}`);
+  const url = chalk.underline(`http://${process.env.DACE_HOST}:${process.env.DACE_PORT}`);
+  console.log(`\n🐟 Your application is running at ${url}`);
 });
 
 if (module.hot) {
