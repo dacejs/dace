@@ -1,22 +1,31 @@
 /* eslint no-nested-ternary: 0 */
-const fs = require('fs');
-const path = require('path');
-const WebpackBar = require('webpackbar');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
-const StartServerPlugin = require('start-server-webpack-plugin');
-const errorOverlayMiddleware = require('react-dev-utils/errorOverlayMiddleware');
-const eslintFormatter = require('react-dev-utils/eslintFormatter');
-// const autoprefixer = require('autoprefixer');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-// const postcssPresetEnv = require('postcss-preset-env');
-const WrireStatsFilePlugin = require('../plugins/writeStatsFilePlugin');
-const paths = require('./paths');
+import fs from 'fs';
+import path from 'path';
+import WebpackBar from 'webpackbar';
+import UglifyJsPlugin from 'uglifyjs-webpack-plugin';
+import CleanWebpackPlugin from 'clean-webpack-plugin';
+import StartServerPlugin from 'start-server-webpack-plugin';
+import errorOverlayMiddleware from 'react-dev-utils/errorOverlayMiddleware';
+import eslintFormatter from 'react-dev-utils/eslintFormatter';
+// import autoprefixer from 'autoprefixer';
+import MiniCssExtractPlugin from 'mini-css-extract-plugin';
+// import postcssPresetEnv from 'postcss-preset-env';
+import WrireStatsFilePlugin from '../plugins/writeStatsFilePlugin';
+import paths from './paths';
 
-module.exports = (target = 'web', env = 'local', { modify }, webpack) => {
+/**
+ * webpack config 生成器
+ *
+ * @param {object} webpack 父模块创建的 webpack 实例
+ * @param {object} config dace.config.js
+ * @param {string} [target='web']
+ * @param {string} [type='dev'] 配置类型 [dev: 开发 | build: 编译]
+ * @return {object} webpack 配置对象
+ */
+export default (webpack, { modify }, target = 'web', type = 'dev') => {
   const IS_NODE = target === 'node';
   const IS_WEB = target === 'web';
-  const IS_DEV = env === 'local';
+  const IS_DEV = type === 'dev';
   const devServerPort = parseInt(process.env.DACE_PORT, 10) + 1;
 
   const daceEnv = Object.keys(process.env)
@@ -104,6 +113,7 @@ module.exports = (target = 'web', env = 'local', { modify }, webpack) => {
         },
         {
           test: /\.(js|jsx)$/,
+          // 强制在其他 loader 之前执行
           enforce: 'pre',
           // 本地调试时 dace 并未在 node_modules 目录下
           // 需要单独排除
@@ -377,7 +387,7 @@ module.exports = (target = 'web', env = 'local', { modify }, webpack) => {
           multiStep: true
         })
       ];
-    } else {
+    } else { // web-build
       config.output = {
         path: paths.appBuild,
         publicPath: process.env.DACE_PUBLIC_PATH || '/',

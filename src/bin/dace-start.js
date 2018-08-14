@@ -24,7 +24,6 @@ function compile(config) {
 function main() {
   logger.start('Compiling...');
 
-  const { NODE_ENV } = process.env;
   let dace = {};
 
   if (fs.existsSync(paths.appDaceConfig)) {
@@ -37,8 +36,8 @@ function main() {
     }
   }
 
-  const clientConfig = createConfig('web', NODE_ENV, dace, webpack);
-  const serverConfig = createConfig('node', NODE_ENV, dace, webpack);
+  const clientConfig = createConfig(webpack, dace, 'web', 'dev');
+  const serverConfig = createConfig(webpack, dace, 'node', 'dev');
 
   // Compile our assets with webpack
   const clientCompiler = compile(clientConfig);

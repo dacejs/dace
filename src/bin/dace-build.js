@@ -30,7 +30,6 @@ function compile(config, cb) {
 }
 
 function build(previousFileSizes) {
-  const { NODE_ENV } = process.env;
   let dace = {};
 
   if (fs.existsSync(paths.appDaceConfig)) {
@@ -43,8 +42,8 @@ function build(previousFileSizes) {
     }
   }
 
-  const clientConfig = createConfig('web', NODE_ENV, dace, webpack);
-  const serverConfig = createConfig('node', NODE_ENV, dace, webpack);
+  const clientConfig = createConfig(webpack, dace, 'web', 'build');
+  const serverConfig = createConfig(webpack, dace, 'node', 'build');
 
   console.log('Creating an optimized production build...');
   console.log('Compiling client...');

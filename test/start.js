@@ -27,8 +27,16 @@ describe('Dace start', async () => {
             shell.exec('sleep 5');
             const js = getContext('localhost:3001/static/js/bundle.js');
             const html = getContext('localhost:3000');
-            testResult.push(js.stdout.includes('React'));
-            testResult.push(html.stdout.includes(exampleName));
+            const reactTestResult = js.stdout.includes('React');
+            testResult.push(reactTestResult);
+            if (!reactTestResult) {
+              console.log('js test failed.');
+            }
+            const nameTextResult = html.stdout.includes(exampleName);
+            testResult.push(nameTextResult);
+            if (!nameTextResult) {
+              console.log('name test failed.');
+            }
             kill(child.pid);
           }
         });

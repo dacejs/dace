@@ -1,7 +1,7 @@
-const fs = require('fs');
-const paths = require('../webpack/config/paths');
-const defaultEnv = require('../webpack/config/defaultEnv');
-const logger = require('../utils/logger');
+import fs from 'fs';
+import paths from '../webpack/config/paths';
+import defaultEnv from '../webpack/config/defaultEnv';
+import logger from '../utils/logger';
 
 // Make sure that including paths.js after env.js will read .env variables.
 delete require.cache[require.resolve('../webpack/config/paths')];

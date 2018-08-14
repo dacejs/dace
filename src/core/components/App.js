@@ -1,7 +1,7 @@
-const { Component } = require('react');
-const { renderRoutes, matchRoutes } = require('react-router-config');
-const PropTypes = require('prop-types');
-const { parse } = require('qs');
+import { Component } from 'react';
+import { renderRoutes, matchRoutes } from 'react-router-config';
+import PropTypes from 'prop-types';
+import { parse } from 'qs';
 
 /**
  * 网站入口组件

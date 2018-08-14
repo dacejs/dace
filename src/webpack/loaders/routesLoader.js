@@ -3,13 +3,12 @@
  * 该文件为 target='web' 提供文件系统操作能力
  * 当  target='web' 时，`require('./routes')` 返回的内容为该 loader 返回的内容
  */
-const { existsSync } = require('fs');
-const { resolve, dirname } = require('path');
-const glob = require('glob');
-const paths = require('../config/paths');
-// const { getOptions } = require('loader-utils');
+import { existsSync } from 'fs';
+import { resolve, dirname } from 'path';
+import glob from 'glob';
+import paths from '../config/paths';
 
-module.exports = function routesLoader() {
+export default () => {
   function getEndpointFromPath(pagePath) {
     let endpoint = `/${pagePath}`;
     while (endpoint.endsWith('/index')) {
@@ -23,17 +22,9 @@ module.exports = function routesLoader() {
     if (existsSync(appComponent)) {
       return appComponent;
     }
-    // 检查是否使用了 dace-plugin-redux
-    // if (file === 'App') {
-    //   const reduxApp = resolve('node_modules/dace-plugin-redux/dist/App.js');
-    //   if (existsSync(reduxApp)) {
-    //     return reduxApp;
-    //   }
-    // }
     return resolve(__dirname, `../../core/components/${file}.js`);
   }
 
-  // const options = getOptions(this) || {};
   const pageDir = paths.appPages;
   const pageExtension = '.jsx';
   const routes = glob

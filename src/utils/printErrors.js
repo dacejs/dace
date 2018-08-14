@@ -1,6 +1,4 @@
-'use strict';
-
-const chalk = require('chalk');
+import chalk from 'chalk';
 
 /**
  * Print an array of errors to console.
@@ -8,13 +6,11 @@ const chalk = require('chalk');
  * @param {string} summary Summary of error
  * @param {Array<Error>} errors Array of Errors
  */
-function printErrors(summary, errors) {
+export default (summary, errors) => {
   console.log(chalk.red(summary));
   console.log();
-  errors.forEach(err => {
+  errors.forEach((err) => {
     console.log(err.message || err);
     console.log();
   });
-}
-
-module.exports = printErrors;
+};

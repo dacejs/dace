@@ -1,6 +1,6 @@
-const { resolve, dirname } = require('path');
-const { writeFileSync } = require('fs');
-const mkdirp = require('mkdirp');
+import { resolve, dirname } from 'path';
+import { writeFileSync } from 'fs';
+import mkdirp from 'mkdirp';
 
 /**
  * 将 webpack state 信息写入文件
