@@ -40,7 +40,6 @@ export default class App extends Component {
         .map(({ route, match }) => {
           const { component } = route;
           if (component && component.getInitialProps) {
-            // 将解析后的 querystring 对象挂载到 location 对象上
             const ctx = { match, query };
             const { getInitialProps } = component;
             return getInitialProps ? getInitialProps(ctx) : null;

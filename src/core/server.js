@@ -81,13 +81,13 @@ server
     }
 
     // renderStatic 需要在 root 元素 render 后执行
-    const helmet = Helmet.renderStatic();
+    const head = Helmet.renderStatic();
     const state = serialize(initialProps);
 
     if (context.url) {
       res.redirect(context.url);
     } else {
-      const html = document({ helmet, cssTags, jsTags, markup, state });
+      const html = document({ head, cssTags, jsTags, markup, state });
       res.status(200).end(html);
     }
   });

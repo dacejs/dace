@@ -6,7 +6,7 @@
   "dependencies": {
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
-    "dace": "latest",
+    "dace": "../..",
     "dace-plugin-redux": "latest"
   }
 }

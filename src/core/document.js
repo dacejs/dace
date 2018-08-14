@@ -11,20 +11,20 @@
  */
 
 export default ({
-  helmet, cssTags, jsTags, markup, state
+  head, cssTags, jsTags, markup, state
 }) => `<!doctype html>
-<html ${helmet.htmlAttributes.toString()}>
+<html ${head.htmlAttributes.toString()}>
 <head>
   <meta charset="utf-8" />
-  ${helmet.title.toString()}
-  ${helmet.meta.toString()}
-  ${helmet.link.toString()}
-  ${helmet.style.toString()}
-  ${helmet.script.toString()}
-  ${helmet.noscript.toString()}
+  ${head.title.toString()}
+  ${head.meta.toString()}
+  ${head.link.toString()}
+  ${head.style.toString()}
+  ${head.script.toString()}
+  ${head.noscript.toString()}
   ${cssTags}
 </head>
-<body ${helmet.bodyAttributes.toString()}>
+<body ${head.bodyAttributes.toString()}>
   <div id="root">${markup}</div>
   <script>
   window.INITIAL_STATE=${state};
