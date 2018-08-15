@@ -334,7 +334,7 @@ export default (webpack, { modify }, target = 'web', type = 'dev') => {
     ];
 
     if (IS_DEV) {
-      config.entry.client.push(require.resolve('../../utils/webpackHotDevClient'));
+      config.entry.client.unshift(require.resolve('../../utils/webpackHotDevClient'));
 
       // Configure our client bundles output. Not the public path is to 3001.
       config.output = {

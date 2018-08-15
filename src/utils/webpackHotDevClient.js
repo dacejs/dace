@@ -1,3 +1,7 @@
+/* eslint-disable */
+
+'use strict';
+
 // This alternative WebpackDevServer combines the functionality of:
 // https://github.com/webpack/webpack-dev-server/blob/webpack-1/client/index.js
 // https://github.com/webpack/webpack/blob/webpack-1/hot/dev-server.js
@@ -14,8 +18,6 @@ var launchEditorEndpoint = require('react-dev-utils/launchEditorEndpoint');
 var formatWebpackMessages = require('react-dev-utils/formatWebpackMessages');
 var ErrorOverlay = require('react-error-overlay');
 
-/* eslint-disable */
-
 // We need to keep track of if there has been a runtime error.
 // Essentially, we cannot guarantee application state was not corrupted by the
 // runtime error. To prevent confusing behavior, we forcibly reload the entire
@@ -27,7 +29,7 @@ ErrorOverlay.startReportingRuntimeErrors({
   launchEditorEndpoint: url.format({
     protocol: window.location.protocol,
     hostname: window.location.hostname,
-    port: 3001,
+    port: parseInt(process.env.DACE_PORT, 10) + 1 || window.location.port,
     pathname: launchEditorEndpoint,
   }),
   onError: function() {
@@ -48,7 +50,7 @@ var connection = new SockJS(
   url.format({
     protocol: window.location.protocol,
     hostname: window.location.hostname,
-    port: 3001,
+    port: parseInt(process.env.DACE_PORT, 10) + 1 || window.location.port,
     // Hardcoded in WebpackDevServer
     pathname: '/sockjs-node',
   })
@@ -86,6 +88,7 @@ function handleSuccess() {
   var isHotUpdate = !isFirstCompilation;
   isFirstCompilation = false;
   hasCompileErrors = false;
+  console.log('--------a');
 
   // Attempt to apply hot updates or reload.
   if (isHotUpdate) {

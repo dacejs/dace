@@ -75,7 +75,6 @@ server
     try {
       markup = renderToString(Markup);
     } catch (e) {
-      // ctx.status = 500;
       res.status(500);
       markup = renderToString(<RedBox error={e} />);
     }
