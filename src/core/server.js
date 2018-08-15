@@ -51,8 +51,8 @@ server
 
     const renderTags = (extension, assets) => {
       const getTagByFilename = filename => (filename.endsWith('js') ?
-        `<script src=${publicPath + filename}></script>` :
-        `<link rel="stylesheet" href=${publicPath + filename} />`);
+        `<script src="${publicPath + filename}"></script>` :
+        `<link rel="stylesheet" href="${publicPath + filename}" />`);
 
       return assets
         .filter(item => !/\.hot-update\./.test(item)) // 过滤掉 HMR 包
