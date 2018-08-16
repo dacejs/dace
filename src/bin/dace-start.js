@@ -43,16 +43,14 @@ function main() {
   const clientCompiler = compile(clientConfig);
   const serverCompiler = compile(serverConfig);
 
-  // Start our server webpack instance in watch mode after assets compile
-  clientCompiler.plugin('done', () => {
-    serverCompiler.watch(
-      {
+  // 在确保浏览器端编译成功后再启动服务器端编译
+  clientCompiler.plugin('done', (stats) => {
+    if (stats.compilation.errors.length === 0) {
+      serverCompiler.watch({
         quiet: true,
         stats: 'none'
-      },
-      /* eslint-disable no-unused-vars */
-      (stats) => {}
-    );
+      }, () => {});
+    }
   });
 
   // Create a new instance of Webpack-dev-server for our client assets.
@@ -60,13 +58,15 @@ function main() {
   const clientDevServer = new DevServer(clientCompiler, clientConfig.devServer);
 
   // Start Webpack-dev-server
-  clientDevServer.listen(3001, (err) => {
+  const devPort = (process.env.DACE_PORT && parseInt(process.env.DACE_PORT, 10) + 1) || 3001;
+  clientDevServer.listen(devPort, (err) => {
     if (err) {
       logger.error(err);
     }
   });
 }
 
+// 确保服务端口可用
 setPorts()
   .then(main)
   .catch(console.error);

@@ -13,6 +13,7 @@ export default class Home extends Component {
   }
 
   static getInitialProps() {
+    // console.log(ctx);
     return { name: 'Joe' };
   }
 

@@ -6,7 +6,8 @@ import UglifyJsPlugin from 'uglifyjs-webpack-plugin';
 import CleanWebpackPlugin from 'clean-webpack-plugin';
 import StartServerPlugin from 'start-server-webpack-plugin';
 import errorOverlayMiddleware from 'react-dev-utils/errorOverlayMiddleware';
-import eslintFormatter from 'react-dev-utils/eslintFormatter';
+// import eslintFormatter from 'react-dev-utils/eslintFormatter';
+import nodeExternals from 'webpack-node-externals';
 // import autoprefixer from 'autoprefixer';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 // import postcssPresetEnv from 'postcss-preset-env';
@@ -56,7 +57,8 @@ export default (webpack, { modify }, target = 'web', type = 'dev') => {
   // 获取 .eslintrc.js 配置
   const hasEslintRc = fs.existsSync(paths.appEslintRc);
   const mainEslintOptions = {
-    formatter: eslintFormatter,
+    // formatter: eslintFormatter,
+    failOnError: true,
     eslintPath: require.resolve('eslint'),
     useEslintrc: true
   };
@@ -273,6 +275,18 @@ export default (webpack, { modify }, target = 'web', type = 'dev') => {
       __dirname: false,
       __filename: false
     };
+
+    config.externals = [
+      nodeExternals({
+        whitelist: [
+          IS_DEV ? 'webpack/hot/poll?300' : null,
+          /\.(eot|woff|woff2|ttf|otf)$/,
+          /\.(svg|png|jpg|jpeg|gif|ico)$/,
+          /\.(mp4|mp3|ogg|swf|webp)$/,
+          /\.(css|scss|sass|sss|less)$/
+        ].filter(Boolean)
+      })
+    ];
 
     config.output = {
       path: paths.appBuild,
