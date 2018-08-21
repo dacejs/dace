@@ -521,8 +521,10 @@ export default (webpack, { modify, plugins }, target = 'web', isDev = true) => {
     if (!Array.isArray(plugins)) {
       plugins = [plugins];
     }
+    const pluginPrefix = 'dace-plugin-';
     plugins.forEach((name) => {
-      const completePluginName = `dace-plugin-${name}`;
+      // 支持类似 babel preset 的语法
+      const completePluginName = name.startsWith(pluginPrefix) ? name : `${pluginPrefix}${name}`;
       let dacePlugin;
       try {
         dacePlugin = require(completePluginName);
@@ -530,7 +532,7 @@ export default (webpack, { modify, plugins }, target = 'web', isDev = true) => {
           dacePlugin = dacePlugin.default;
         }
       } catch (e) {
-        console.log(`Not found ${completePluginName}`);
+        console.log(`Not found dace plugin: ${completePluginName}`);
         throw e;
       }
       // console.log('--dacePlugin:', dacePlugin);
