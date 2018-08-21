@@ -1,8 +1,9 @@
 {
   "name": "dace",
-  "version": "1.0.0-beta.22",
+  "version": "1.0.0-beta.23",
   "description": "",
   "main": "dist/index.js",
+  "repository": "git@github.com:zhongzhi107/dace.git",
   "scripts": {
     "build": "babel src -d dist --presets=env,dace",
     "build:debug": "npm run build -- --watch",
@@ -49,19 +50,17 @@
     "postcss-loader": "^2.1.6",
     "prop-types": "^15.6.2",
     "qs": "^6.5.2",
-    "react-dev-utils": "^5.0.1",
+    "react-dev-utils": "^4.2.1",
     "react-helmet": "^5.2.0",
     "react-router-config": "^1.0.0-beta.4",
     "react-router-dom": "^4.3.1",
-    "start-server-webpack-plugin": "^2.2.5",
     "style-loader": "^0.21.0",
     "stylelint": "^9.3.0",
     "stylelint-config-dace": "^1.0.0",
     "uglifyjs-webpack-plugin": "^1.2.7",
     "url-loader": "^1.0.1",
     "webpack": "^4.16.1",
-    "webpack-dev-server-speedy": "^3.1.1",
-    "webpack-node-externals": "^1.7.2",
+    "webpack-node-externals": "^1.6.0",
     "webpackbar": "^2.6.1"
   },
   "devDependencies": {
@@ -73,7 +72,7 @@
     "react-dom": "^16.4.1",
     "shelljs": "^0.8.2",
     "should": "^13.2.1",
-    "sockjs-client": "^1.1.5",
-    "strip-ansi": "^4.0.0"
+    "start-server-webpack-plugin": "^2.2.5",
+    "webpack-dev-server-speedy": "^3.1.1"
   }
 }
