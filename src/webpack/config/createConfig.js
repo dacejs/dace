@@ -2,7 +2,7 @@
 import fs from 'fs';
 import path from 'path';
 import util from 'util';
-// import WebpackBar from 'webpackbar';
+import WebpackBar from 'webpackbar';
 import UglifyJsPlugin from 'uglifyjs-webpack-plugin';
 import CleanWebpackPlugin from 'clean-webpack-plugin';
 import StartServerPlugin from 'start-server-webpack-plugin';
@@ -502,15 +502,15 @@ export default (webpack, { modify, plugins }, target = 'web', isDev = true) => {
     }
   }
 
-  // if (IS_DEV) {
-  //   config.plugins = [
-  //     ...config.plugins,
-  //     new WebpackBar({
-  //       color: target === 'web' ? '#f5a623' : '#9013fe',
-  //       name: target === 'web' ? 'client' : 'server'
-  //     })
-  //   ];
-  // }
+  if (IS_DEV) {
+    config.plugins = [
+      ...config.plugins,
+      new WebpackBar({
+        color: target === 'web' ? '#f5a623' : '#9013fe',
+        name: target === 'web' ? 'client' : 'server'
+      })
+    ];
+  }
 
   if (modify) {
     config = modify(config, { target, isDev: IS_DEV }, webpack);
