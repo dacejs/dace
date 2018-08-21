@@ -54,9 +54,8 @@ export default () => {
     component: require('${getComponentPath('NotFound')}')
   }`);
 
-
   return `
-    export default [
+    module.exports = [
       {
         component: require('${getComponentPath('App')}'),
         routes: [

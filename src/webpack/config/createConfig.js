@@ -1,7 +1,8 @@
 /* eslint no-nested-ternary: 0 */
 import fs from 'fs';
 import path from 'path';
-import WebpackBar from 'webpackbar';
+import util from 'util';
+// import WebpackBar from 'webpackbar';
 import UglifyJsPlugin from 'uglifyjs-webpack-plugin';
 import CleanWebpackPlugin from 'clean-webpack-plugin';
 import StartServerPlugin from 'start-server-webpack-plugin';
@@ -20,13 +21,13 @@ import paths from './paths';
  * @param {object} webpack 父模块创建的 webpack 实例
  * @param {object} config dace.config.js
  * @param {string} [target='web']
- * @param {string} [type='dev'] 配置类型 [dev: 开发 | build: 编译]
+ * @param {boolean} [isDev='true'] 是否为开发环境
  * @return {object} webpack 配置对象
  */
-export default (webpack, { modify }, target = 'web', type = 'dev') => {
+export default (webpack, { modify, plugins }, target = 'web', isDev = true) => {
   const IS_NODE = target === 'node';
   const IS_WEB = target === 'web';
-  const IS_DEV = type === 'dev';
+  const IS_DEV = isDev;
   const devServerPort = parseInt(process.env.DACE_PORT, 10) + 1;
 
   const daceEnv = Object.keys(process.env)
@@ -106,7 +107,11 @@ export default (webpack, { modify }, target = 'web', type = 'dev') => {
       strictExportPresence: true,
       rules: [
         {
-          test: /dace\/dist\/core\/routes\.js$/,
+          // 这个正则需要兼容一下两种形式：
+          // 1. `../../dist/core/routes.js`
+          // 2. `dace/dist/core/routes`
+          // 3. /routes
+          test: /\/daceRoutes/,
           use: [
             {
               loader: path.resolve(__dirname, '../loaders/routesLoader.js')
@@ -497,26 +502,42 @@ export default (webpack, { modify }, target = 'web', type = 'dev') => {
     }
   }
 
-  if (IS_DEV) {
-    config.plugins = [
-      ...config.plugins,
-      // Use our own FriendlyErrorsPlugin during development.
-      // new FriendlyErrorsPlugin({
-      //   verbose: dotenv.raw.VERBOSE,
-      //   target,
-      //   onSuccessMessage: `Your application is running at http://${
-      //     dotenv.raw.HOST
-      //   }:${dotenv.raw.PORT}`,
-      // }),
-      new WebpackBar({
-        color: target === 'web' ? '#f5a623' : '#9013fe',
-        name: target === 'web' ? 'client' : 'server'
-      })
-    ];
-  }
+  // if (IS_DEV) {
+  //   config.plugins = [
+  //     ...config.plugins,
+  //     new WebpackBar({
+  //       color: target === 'web' ? '#f5a623' : '#9013fe',
+  //       name: target === 'web' ? 'client' : 'server'
+  //     })
+  //   ];
+  // }
 
   if (modify) {
-    config = modify(config, { target, dev: IS_DEV }, webpack);
+    config = modify(config, { target, isDev: IS_DEV }, webpack);
+  }
+
+  // 绑定 dace 插件
+  if (plugins) {
+    if (!Array.isArray(plugins)) {
+      plugins = [plugins];
+    }
+    plugins.forEach((name) => {
+      const completePluginName = `dace-plugin-${name}`;
+      let dacePlugin;
+      try {
+        dacePlugin = require(completePluginName);
+        if (dacePlugin.default) {
+          dacePlugin = dacePlugin.default;
+        }
+      } catch (e) {
+        console.log(`Not found ${completePluginName}`);
+        throw e;
+      }
+      // console.log('--dacePlugin:', dacePlugin);
+      if (dacePlugin.modify && util.isFunction(dacePlugin.modify)) {
+        config = dacePlugin.modify(config, { target, isDev }, webpack, { paths });
+      }
+    });
   }
 
   return config;

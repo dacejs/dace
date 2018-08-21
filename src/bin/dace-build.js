@@ -42,8 +42,8 @@ function build(previousFileSizes) {
     }
   }
 
-  const clientConfig = createConfig(webpack, dace, 'web', 'build');
-  const serverConfig = createConfig(webpack, dace, 'node', 'build');
+  const clientConfig = createConfig(webpack, dace, 'web', false);
+  const serverConfig = createConfig(webpack, dace, 'node', false);
 
   console.log('Creating an optimized production build...');
   console.log('Compiling client...');

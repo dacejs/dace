@@ -4,9 +4,9 @@
     "start": "dace"
   },
   "dependencies": {
+    "dace": "^1.0.0-beta.22",
+    "dace-plugin-redux": "latest",
     "react": "^16.4.1",
-    "react-dom": "^16.4.1",
-    "dace": "latest",
-    "dace-plugin-redux": "latest"
+    "react-dom": "^16.4.1"
   }
 }

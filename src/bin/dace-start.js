@@ -9,7 +9,9 @@ const setPorts = require('../utils/setPorts');
 
 process.noDeprecation = true; // 关闭告警信息，避免对进度条显示产生干扰
 
-// Webpack compile in a try-catch
+process.env.NODE_ENV = 'local';
+
+// 捕获 webpack 执行过程中的错误
 function compile(config) {
   let compiler;
   try {
@@ -36,8 +38,8 @@ function main() {
     }
   }
 
-  const clientConfig = createConfig(webpack, dace, 'web', 'dev');
-  const serverConfig = createConfig(webpack, dace, 'node', 'dev');
+  const clientConfig = createConfig(webpack, dace, 'web', true);
+  const serverConfig = createConfig(webpack, dace, 'node', true);
 
   // Compile our assets with webpack
   const clientCompiler = compile(clientConfig);

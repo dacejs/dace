@@ -3,9 +3,14 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'dace';
+import { getInitialProps } from 'dace-plugin-redux';
 import { fetchPosts } from './action';
 import reducer from './reducer';
 
+@getInitialProps({
+  reducer,
+  promise: ({ store }) => store.dispatch(fetchPosts(1))
+})
 @connect(state => state)
 export default class Posts extends Component {
   static propTypes = {
@@ -13,21 +18,11 @@ export default class Posts extends Component {
       id: PropTypes.number.isRequired,
       title: PropTypes.string.isRequired
     })),
-    dispatch: PropTypes.func.isRequired,
-    store: PropTypes.object.isRequired
+    dispatch: PropTypes.func.isRequired
   };
 
   static defaultProps = {
     posts: []
-  }
-
-  static getInitialProps = (ctx) => {
-    // 服务器端渲染时，ctx 是服务器端的上下文
-    // injectReducer 只改变了服务器端的 store
-    // 所以还需要在 componentDidMount 中执行一次 injectReducer
-    // 防止浏览器中找不到对应的 reducer
-    ctx.store.injectReducer(reducer);
-    return ctx.store.dispatch(fetchPosts(1));
   }
 
   constructor(props) {
@@ -35,10 +30,6 @@ export default class Posts extends Component {
     this.state = {
       page: 1
     };
-  }
-
-  componentDidMount() {
-    this.props.store.injectReducer(reducer);
   }
 
   next() {
@@ -60,7 +51,7 @@ export default class Posts extends Component {
             <Link to="/posts">Posts</Link>
           </li>
         </ul>
-        <ol start={(this.state.page * 10) + 1}>
+        <ol start={((this.state.page - 1) * 10) + 1}>
           {
             this.props.posts.map(post => <li key={post.id}>{post.title}</li>)
           }

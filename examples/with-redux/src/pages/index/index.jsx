@@ -11,7 +11,8 @@ export default class Users extends Component {
     users: PropTypes.arrayOf(PropTypes.shape({
       id: PropTypes.number,
       name: PropTypes.string
-    }))
+    })),
+    store: PropTypes.object.isRequired
   };
 
   static defaultProps = {
@@ -21,6 +22,10 @@ export default class Users extends Component {
   static getInitialProps = ({ store }) => {
     store.injectReducer(reducer);
     return store.dispatch(fetchUsers());
+  }
+
+  componentDidMount() {
+    this.props.store.injectReducer(reducer);
   }
 
   render() {

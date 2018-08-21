@@ -14,12 +14,12 @@ module.exports = {
   appPostcssRc: resolveApp('postcss.config.js'),
   appSrc: resolveApp('src'),
   appPages: resolveApp('src/pages'),
-  appServerIndexJs: resolveApp('src/index.js'),
+  appServerIndexJs: resolveApp('src/server.js'),
   appClientIndexJs: resolveApp('src/client.js'),
   appNodeModules: resolveApp('node_modules'),
   appBuild: resolveApp('prd'),
   appStatsJson: resolveApp('prd/webpack-stats.json'),
   appDaceConfig: resolveApp('dace.config.js'),
-  ownServerIndexJs: resolveOwn('dist/core/index.js'),
+  ownServerIndexJs: resolveOwn('dist/core/server.js'),
   ownClientIndexJs: resolveOwn('dist/core/client.js')
 };
