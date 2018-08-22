@@ -6,8 +6,8 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "dace": "../..",
     "react": "^16.4.1",
-    "react-dom": "^16.4.1",
-    "dace": "../.."
+    "react-dom": "^16.4.1"
   }
 }

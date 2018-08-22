@@ -7,7 +7,7 @@ import UglifyJsPlugin from 'uglifyjs-webpack-plugin';
 import CleanWebpackPlugin from 'clean-webpack-plugin';
 import StartServerPlugin from 'start-server-webpack-plugin';
 import errorOverlayMiddleware from 'react-dev-utils/errorOverlayMiddleware';
-// import eslintFormatter from 'react-dev-utils/eslintFormatter';
+import eslintFormatter from 'react-dev-utils/eslintFormatter';
 import nodeExternals from 'webpack-node-externals';
 // import autoprefixer from 'autoprefixer';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
@@ -21,7 +21,7 @@ import paths from './paths';
  * @param {object} webpack 父模块创建的 webpack 实例
  * @param {object} config dace.config.js
  * @param {string} [target='web']
- * @param {boolean} [isDev='true'] 是否为开发环境
+ * @param {boolean} [isDev=true] 是否为开发环境
  * @return {object} webpack 配置对象
  */
 export default (webpack, { modify, plugins }, target = 'web', isDev = true) => {
@@ -58,8 +58,8 @@ export default (webpack, { modify, plugins }, target = 'web', isDev = true) => {
   // 获取 .eslintrc.js 配置
   const hasEslintRc = fs.existsSync(paths.appEslintRc);
   const mainEslintOptions = {
-    // formatter: eslintFormatter,
-    failOnError: true,
+    formatter: eslintFormatter,
+    // failOnError: true,
     eslintPath: require.resolve('eslint'),
     useEslintrc: true
   };

@@ -88,7 +88,6 @@ function handleSuccess() {
   var isHotUpdate = !isFirstCompilation;
   isFirstCompilation = false;
   hasCompileErrors = false;
-  console.log('--------a');
 
   // Attempt to apply hot updates or reload.
   if (isHotUpdate) {
