@@ -8,6 +8,7 @@ require('../utils/env');
 program
   .command('start', '启动本地服务', { isDefault: true })
   .command('build', '编译工程')
+  .command('mock', '模拟测试数据')
   .parse(process.argv);
 
 logger.info(`using dace@${version}`);

@@ -5,6 +5,7 @@ import express from 'express';
 import { renderToString } from 'react-dom/server';
 import { Helmet } from 'react-helmet';
 import serialize from 'serialize-javascript';
+import urlrewrite from 'packing-urlrewrite';
 import document from './document';
 import RedBox from './components/RedBox';
 import routes from './daceRoutes';
@@ -13,6 +14,7 @@ const server = express();
 server
   .disable('x-powered-by')
   .use(express.static(process.env.DACE_BUILD_PATH))
+  .use(urlrewrite(require(process.env.DACE_MOCK_RULES_CONFIG)))
   .get('*', async (req, res) => {
     // 查找当前 URL 匹配的路由
     let initialProps = {};

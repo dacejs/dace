@@ -1,4 +1,5 @@
 const fs = require('fs');
+const cp = require('child_process');
 const webpack = require('webpack');
 const DevServer = require('webpack-dev-server-speedy');
 const clearConsole = require('react-dev-utils/clearConsole');
@@ -6,6 +7,9 @@ const logger = require('../utils/logger');
 const paths = require('../webpack/config/paths');
 const createConfig = require('../webpack/config/createConfig');
 const setPorts = require('../utils/setPorts');
+
+// 启动模拟数据服务器
+cp.exec('node_modules/.bin/dace mock');
 
 process.noDeprecation = true; // 关闭告警信息，避免对进度条显示产生干扰
 
