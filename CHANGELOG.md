@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.1.1"></a>
+## [1.1.1](https://github.com/zhongzhi107/dace/compare/v1.1.0...v1.1.1) (2018-08-23)
+
+
+### Bug Fixes
+
+* 修复 rules 配置文件不存在时报错的问题 ([297edd8](https://github.com/zhongzhi107/dace/commit/297edd8))
+
+
+
 <a name="1.1.0"></a>
 # [1.1.0](https://github.com/zhongzhi107/dace/compare/v1.0.0...v1.1.0) (2018-08-22)
 
