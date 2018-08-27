@@ -4,6 +4,7 @@
   "description": "🐟 A minimalistic universal (isomorphic) react framework for building web apps",
   "main": "dist/index.js",
   "repository": "git@github.com:dacejs/dace.git",
+  "homepage": "https://dacejs.github.io",
   "scripts": {
     "build": "babel src -d dist --presets=env,dace",
     "build:debug": "npm run build -- --watch",
