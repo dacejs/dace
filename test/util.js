@@ -49,11 +49,15 @@ const test = run => (done) => {
       console.log('--results:', results);
     }
     if (results.length === 0) {
-      throw new Error('返回的测试结果为空，可能是3000端口号被占用导致启动失败，请使用 `ps -ef|grep node` 查看详情');
+      const message = '返回的测试结果为空，可能是3000端口号被占用导致启动失败。请使用 `ps -ef|grep node` 查看详情'
+        .split('。')
+        .map(text => `    ${text}`)
+        .join('\n');
+      console.log(message);
     }
     results.forEach(result => result.should.be.true());
     done();
-  });
+  }).catch(e => console.log(e));
 };
 
 const getContext = url => shell.exec(`curl -sb -o "" ${url}`, { silent: true });

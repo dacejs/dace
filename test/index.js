@@ -9,7 +9,7 @@ const path = require('path');
 
 const startTime = Date.now();
 
-const files = glob.sync('*.js', { cwd: `${__dirname}/cases` });
+const files = glob.sync('with-custom-document.js', { cwd: `${__dirname}/cases` });
 files.sort((a, b) => path.dirname(a) > path.dirname(b));
 
 const errors = [];
@@ -19,7 +19,12 @@ files.forEach((file, i) => {
   console.log(chalk.yellow(title));
   try {
     const stdout = cp.execSync(cmd, { encoding: 'utf-8' });
-    console.log(stdout);
+    if (stdout.includes('expected false to be true')) {
+      errors.push(title);
+      console.log(chalk.red(stdout));
+    } else {
+      console.log(stdout);
+    }
   } catch (e) {
     errors.push(title);
     console.log(chalk.red(e.stdout));
