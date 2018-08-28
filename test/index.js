@@ -9,7 +9,7 @@ const path = require('path');
 
 const startTime = Date.now();
 
-const files = glob.sync('with-custom-document.js', { cwd: `${__dirname}/cases` });
+const files = glob.sync('*.js', { cwd: `${__dirname}/cases` });
 files.sort((a, b) => path.dirname(a) > path.dirname(b));
 
 const errors = [];
