@@ -11,7 +11,9 @@
     "postrelease": "git push && git push origin --tags",
     "prepare": "npm run build",
     "release": "standard-version && npm publish",
-    "test": "mocha"
+    "test": "node test/index.js",
+    "test:debug": "DEBUG=true node test/index.js",
+    "pretest": "npm run build"
   },
   "bin": {
     "dace": "./dist/bin/dace.js"

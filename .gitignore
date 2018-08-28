@@ -64,3 +64,4 @@ typings/
 examples/*/prd/
 examples/*/package-lock.json
 dist/
+test/workspace

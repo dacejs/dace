@@ -6,7 +6,7 @@ module.exports = {
 
     appConfig.resolve.alias = {
       ...appConfig.resolve.alias,
-      '../../dist/core/document.js': path.resolve(__dirname, 'src/document.js')
+      './document': path.resolve(__dirname, 'src/document.js')
     };
     return appConfig;
   }

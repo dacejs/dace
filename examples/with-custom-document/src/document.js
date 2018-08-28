@@ -25,7 +25,7 @@ export default ({
   ${cssTags}
 </head>
 <body ${head.bodyAttributes.toString()}>
-  <h1>with-custom-document example</h1>
+  <h1>with-custom-document</h1>
   <div id="root">${markup}</div>
   <script>
   window.INITIAL_STATE=${state};

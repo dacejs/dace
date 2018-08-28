@@ -1,11 +1,11 @@
 {
   "scripts": {
+    "start": "dace",
     "build": "dace build",
-    "start": "dace"
+    "start:prod": "NODE_ENV=production node prd/server.js"
   },
   "dependencies": {
     "dace": "latest",
-    "dace-plugin-redux": "latest",
     "react": "^16.4.1",
     "react-dom": "^16.4.1"
   }

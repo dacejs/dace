@@ -1,6 +1,4 @@
 {
-  "presets": [
-    "babel-preset-env",
-    "babel-preset-dace"
-  ]
+  "presets": ["env", "dace"],
+  "plugins": "babel-plugin-transform-function-bind"
 }
