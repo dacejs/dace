@@ -1,6 +1,6 @@
 {
   "name": "dace",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "description": "🐟 A minimalistic universal (isomorphic) react framework for building web apps",
   "main": "dist/index.js",
   "repository": "git@github.com:dacejs/dace.git",
