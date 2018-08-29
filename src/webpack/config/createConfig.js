@@ -523,6 +523,13 @@ export default (webpack, { modify, plugins }, target = 'web', isDev = true) => {
     }
     const pluginPrefix = 'dace-plugin-';
     plugins.forEach((name) => {
+      // 解析带参数的插件 [['redux', {}], 'mobx']
+      let options = { paths };
+      if (util.isArray(name)) {
+        let opts = {};
+        [name, opts] = name;
+        options = { ...options, ...opts };
+      }
       // 支持类似 babel preset 的语法
       const completePluginName = name.startsWith(pluginPrefix) ? name : `${pluginPrefix}${name}`;
       let dacePlugin;
@@ -537,7 +544,7 @@ export default (webpack, { modify, plugins }, target = 'web', isDev = true) => {
       }
       // console.log('--dacePlugin:', dacePlugin);
       if (dacePlugin.modify && util.isFunction(dacePlugin.modify)) {
-        config = dacePlugin.modify(config, { target, isDev }, webpack, { paths });
+        config = dacePlugin.modify(config, { target, isDev }, webpack, options);
       }
     });
   }

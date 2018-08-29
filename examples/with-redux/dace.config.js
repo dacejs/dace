@@ -1,3 +1,9 @@
 module.exports = {
-  plugins: ['redux']
+  plugins: [
+    ['redux'/* , {
+      middlewares: [
+        'require(\'redux-logger\').default'
+      ]
+    } */]
+  ]
 };
