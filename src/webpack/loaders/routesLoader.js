@@ -50,9 +50,9 @@ export default () => {
     });
 
   // 在 routes 最后添加 404 找不到网页的路由
-  routes.push(`{
-    component: require('${getComponentPath('NotFound')}')
-  }`);
+  // routes.push(`{
+  //   component: require('${getComponentPath('NotFound')}')
+  // }`);
 
   return `
     module.exports = [
