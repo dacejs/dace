@@ -23,9 +23,9 @@ const kill = (pid, signal = 'SIGKILL', callback) => {
 };
 
 const setup = (name) => {
-  const dist = path.resolve('dist');
-  const workspace = path.resolve('test/workspace');
-  const examples = path.resolve('examples');
+  const dist = path.resolve(__dirname, '../dist');
+  const workspace = path.resolve(__dirname, 'workspace');
+  const examples = path.resolve(__dirname, '../examples');
 
   if (!shell.test('-d', workspace)) {
     shell.mkdir(workspace);
