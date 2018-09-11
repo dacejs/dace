@@ -111,7 +111,7 @@ export default (webpack, { modify, plugins }, target = 'web', isDev = true) => {
           // 1. `../../dist/core/routes.js`
           // 2. `dace/dist/core/routes`
           // 3. /routes
-          test: /\/daceRoutes/,
+          test: require.resolve('dace/dist/core/routes'),
           use: [
             {
               loader: path.resolve(__dirname, '../loaders/routesLoader.js')

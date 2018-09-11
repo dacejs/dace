@@ -2,7 +2,7 @@ import BrowserRouter from 'react-router-dom/BrowserRouter';
 import React from 'react';
 import { hydrate } from 'react-dom';
 import { renderRoutes } from 'react-router-config';
-import routes from './daceRoutes';
+import routes from './routes';
 
 const initialProps = window.INITIAL_STATE || {};
 

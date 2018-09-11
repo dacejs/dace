@@ -8,7 +8,7 @@ import serialize from 'serialize-javascript';
 import urlrewrite from 'packing-urlrewrite';
 import document from './document';
 import RedBox from './components/RedBox';
-import routes from './daceRoutes';
+import routes from './routes';
 
 // 防止 rules 配置文件不存在时报错
 let rules;
