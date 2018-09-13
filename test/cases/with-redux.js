@@ -14,7 +14,7 @@ describe(exampleName, async () => {
     child.stdout.on('data', (data) => {
       if (data.includes('Server-side HMR Enabled!')) {
         shell.exec('sleep 3');
-        const js = getContext('localhost:3001/static/js/bundle.js');
+        const js = getContext('localhost:3001/js/bundle.js');
         const html = getContext('localhost:3000');
         const html2 = getContext('localhost:3000/posts');
         const reactTestResult = js.stdout.includes('React');

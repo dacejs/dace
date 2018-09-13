@@ -160,7 +160,7 @@ export default (webpack, { modify, plugins }, target = 'web', isDev = true) => {
           ],
           loader: require.resolve('file-loader'),
           options: {
-            name: 'static/media/[name].[hash:8].[ext]',
+            name: 'media/[name].[hash:8].[ext]',
             emitFile: true
           }
         },
@@ -172,7 +172,7 @@ export default (webpack, { modify, plugins }, target = 'web', isDev = true) => {
           loader: require.resolve('url-loader'),
           options: {
             limit: 10000,
-            name: 'static/media/[name].[hash:8].[ext]',
+            name: 'media/[name].[hash:8].[ext]',
             emitFile: true
           }
         },
