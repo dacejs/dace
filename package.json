@@ -6,7 +6,7 @@
   "repository": "git@github.com:dacejs/dace.git",
   "homepage": "https://dacejs.github.io",
   "scripts": {
-    "build": "babel src -d dist --presets=env,dace",
+    "build": "NODE_ENV=local babel src -d dist --presets=env,dace",
     "build:debug": "npm run build -- --watch",
     "postrelease": "git push && git push origin --tags",
     "prepare": "npm run build",
@@ -37,7 +37,7 @@
   "dependencies": {
     "babel-core": "^6.26.3",
     "babel-loader": "^7.1.5",
-    "babel-preset-dace": "^1.0.6",
+    "babel-preset-dace": "^1.0.7",
     "chalk": "^2.4.1",
     "clean-webpack-plugin": "^0.1.19",
     "commander": "^2.16.0",
@@ -58,7 +58,6 @@
     "react-dev-utils": "^4.0.0",
     "react-error-overlay": "^2.0.0",
     "react-helmet": "^5.2.0",
-    "react-loadable": "^5.5.0",
     "react-router-config": "^1.0.0-beta.4",
     "react-router-dom": "^4.3.1",
     "start-server-webpack-plugin": "2.2.5",
