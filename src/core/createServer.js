@@ -3,6 +3,7 @@ import { StaticRouter } from 'react-router-dom';
 import { matchRoutes, renderRoutes } from 'react-router-config';
 import express from 'express';
 import { renderToString } from 'react-dom/server';
+import { getLoadableState } from 'loadable-components/server';
 import { Helmet } from 'react-helmet';
 import serialize from 'serialize-javascript';
 import urlrewrite from 'packing-urlrewrite';
@@ -40,9 +41,11 @@ server
       })
       .filter(Boolean);
 
-    (await Promise.all(promises)).forEach((item) => {
-      initialProps = { ...initialProps, ...item };
-    });
+    if (promises.length > 0) {
+      (await Promise.all(promises)).forEach((item) => {
+        initialProps = { ...initialProps, ...item };
+      });
+    }
 
     if (!process.env.DACE_STATS_JSON) {
       throw new Error('Not found `DACE_STATS_JSON` in `process.env`');
@@ -81,6 +84,8 @@ server
       </StaticRouter>
     );
 
+    const loadableState = await getLoadableState(Markup);
+
     let markup;
     try {
       markup = renderToString(Markup);
@@ -96,7 +101,7 @@ server
     if (context.url) {
       res.redirect(context.url);
     } else {
-      const html = document({ head, cssTags, jsTags, markup, state });
+      const html = document({ head, cssTags, jsTags, markup, state, loadableState });
       res.status(200).end(html);
     }
   });
