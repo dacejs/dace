@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "start": "dace"
+    "start": "dace start"
   },
   "dependencies": {
     "react": "^16.4.1",

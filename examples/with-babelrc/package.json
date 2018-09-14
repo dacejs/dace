@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "start": "dace",
+    "start": "dace start",
     "build": "dace build"
   },
   "dependencies": {

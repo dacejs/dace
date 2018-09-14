@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "start": "dace"
+    "start": "dace start"
   },
   "dependencies": {
     "axios": "^0.18.0",
