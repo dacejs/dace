@@ -8,12 +8,17 @@ const chalk = require('chalk');
 const webpack = require('webpack');
 const { measureFileSizesBeforeBuild, printFileSizesAfterBuild } = require('react-dev-utils/FileSizeReporter');
 const formatWebpackMessages = require('react-dev-utils/formatWebpackMessages');
+const program = require('commander');
 const logger = require('../utils/logger');
 const paths = require('../webpack/config/paths');
 const createConfig = require('../webpack/config/createConfig');
 const printErrors = require('../utils/printErrors');
 
 process.noDeprecation = true; // 关闭告警信息，避免对进度条显示产生干扰
+
+program
+  .option('-v, --verbose', '显示详细日志信息')
+  .parse(process.argv);
 
 // Wrap webpack compile in a try catch.
 function compile(config, cb) {
@@ -42,8 +47,8 @@ function build(previousFileSizes) {
     }
   }
 
-  const clientConfig = createConfig(webpack, dace, 'web', false);
-  const serverConfig = createConfig(webpack, dace, 'node', false);
+  const clientConfig = createConfig({ webpack, dace, target: 'web', isDev: false, program });
+  const serverConfig = createConfig({ webpack, dace, target: 'node', isDev: false, program });
 
   console.log('Creating an optimized production build...');
   console.log('Compiling client...');

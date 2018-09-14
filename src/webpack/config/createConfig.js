@@ -18,13 +18,21 @@ import paths from './paths';
 /**
  * webpack config 生成器
  *
- * @param {object} webpack 父模块创建的 webpack 实例
- * @param {object} config dace.config.js
- * @param {string} [target='web']
- * @param {boolean} [isDev=true] 是否为开发环境
+ * @param {object} option
+ * @param {object} option.webpack 父模块创建的 webpack 实例
+ * @param {object} option.dace dace.config.js
+ * @param {string} option.[target='web']
+ * @param {boolean} option.[isDev=true] 是否为开发环境
+ * @param {object} option.[program={}] 程序运行句柄，能获取到命令参数
  * @return {object} webpack 配置对象
  */
-export default (webpack, { modify, plugins }, target = 'web', isDev = true) => {
+export default ({
+  webpack,
+  dace: { modify, plugins },
+  target = 'web',
+  isDev = true,
+  program = {}
+}) => {
   const IS_NODE = target === 'node';
   const IS_WEB = target === 'web';
   const IS_DEV = isDev;
@@ -385,10 +393,10 @@ export default (webpack, { modify, plugins }, target = 'web', isDev = true) => {
         },
         host: process.env.DACE_HOST,
         hot: true,
-        noInfo: true,
+        noInfo: !program.verbose,
         overlay: false,
         port: devServerPort,
-        quiet: true,
+        quiet: !program.verbose,
         // By default files from `contentBase` will not trigger a page reload.
         // Reportedly, this avoids CPU overload on some systems.
         // https://github.com/facebookincubator/create-react-app/issues/293
@@ -420,7 +428,7 @@ export default (webpack, { modify, plugins }, target = 'web', isDev = true) => {
         ...config.plugins,
         // Extract our CSS into a files.
         new MiniCssExtractPlugin({
-          filename: 'css/bundle.[contenthash:8].css',
+          filename: 'css/[name].[contenthash:8].css',
           // allChunks: true because we want all css to be included in the main
           // css bundle when doing code splitting to avoid FOUC:
           // https://github.com/facebook/create-react-app/issues/2415
@@ -431,7 +439,7 @@ export default (webpack, { modify, plugins }, target = 'web', isDev = true) => {
       ];
 
       config.optimization = {
-        minimize: true,
+        minimize: false,
         minimizer: [
           new UglifyJsPlugin({
             uglifyOptions: {
@@ -471,21 +479,13 @@ export default (webpack, { modify, plugins }, target = 'web', isDev = true) => {
             // @todo add flag for sourcemaps
             sourceMap: true
           })
-        ] // ,
-        // splitChunks: {
-        //   cacheGroups: {
-        //     commons: {
-        //       test: /[\\/]node_modules[\\/]/,
-        //       name: 'vendor',
-        //       chunks: 'all'
-        //     }
-        //   }
-        // }
+        ],
+        splitChunks: false
       };
     }
   }
 
-  if (IS_DEV) {
+  if (IS_DEV && !program.verbose) {
     config.plugins = [
       ...config.plugins,
       new WebpackBar({

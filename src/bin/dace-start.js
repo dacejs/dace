@@ -1,5 +1,6 @@
 const fs = require('fs');
 const cp = require('child_process');
+const program = require('commander');
 const webpack = require('webpack');
 const DevServer = require('webpack-dev-server-speedy');
 const clearConsole = require('react-dev-utils/clearConsole');
@@ -7,6 +8,10 @@ const logger = require('../utils/logger');
 const paths = require('../webpack/config/paths');
 const createConfig = require('../webpack/config/createConfig');
 const setPorts = require('../utils/setPorts');
+
+program
+  .option('-v, --verbose', '显示详细日志信息')
+  .parse(process.argv);
 
 // 启动模拟数据服务器
 cp.exec('node_modules/.bin/dace mock');
@@ -42,8 +47,8 @@ function main() {
     }
   }
 
-  const clientConfig = createConfig(webpack, dace, 'web', true);
-  const serverConfig = createConfig(webpack, dace, 'node', true);
+  const clientConfig = createConfig({ webpack, dace, target: 'web', isDev: true, program });
+  const serverConfig = createConfig({ webpack, dace, target: 'node', isDev: true, program });
 
   // Compile our assets with webpack
   const clientCompiler = compile(clientConfig);

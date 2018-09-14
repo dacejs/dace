@@ -43,7 +43,7 @@ export default () => {
         exact = config.exact || 'false';
       } else {
         endpoint = getEndpointFromPath(name);
-        exact = endpoint === '/' ? 'true' : 'false';
+        exact = (endpoint === '/').toString();
       }
 
       return (`{
