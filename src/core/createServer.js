@@ -30,12 +30,19 @@ server
     const { query, _parsedUrl: { pathname } } = req;
 
     const promises = matchRoutes(routes, pathname) // <- react-router 不匹配 querystring
-      .map(({ route, match }) => {
+      .map(async ({ route, match }) => {
         const { component } = route;
-        if (component && component.getInitialProps) {
-          const ctx = { match, query, req, res };
-          const { getInitialProps } = component;
-          return getInitialProps ? getInitialProps(ctx) : null;
+        if (component) {
+          if (component.load && !component.loadingPromise) {
+            // 预加载 loadable-component
+            // 确保服务器端第一次渲染时能拿到数据
+            await component.load();
+          }
+          if (component.getInitialProps) {
+            const ctx = { match, query, req, res };
+            const { getInitialProps } = component;
+            return getInitialProps ? getInitialProps(ctx) : null;
+          }
         }
         return null;
       })
@@ -101,7 +108,14 @@ server
     if (context.url) {
       res.redirect(context.url);
     } else {
-      const html = document({ head, cssTags, jsTags, markup, state, loadableState });
+      const html = document({
+        head,
+        cssTags,
+        jsTags,
+        markup,
+        state,
+        loadableState: loadableState.getScriptTag()
+      });
       res.status(200).end(html);
     }
   });

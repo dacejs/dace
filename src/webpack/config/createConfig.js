@@ -107,7 +107,7 @@ export default (webpack, { modify, plugins }, target = 'web', isDev = true) => {
       strictExportPresence: true,
       rules: [
         {
-          test: require.resolve('dace/dist/core/routes'),
+          test: /\/routes/,
           // 多个 loaders 按 `从后往前` 的顺序执行
           use: [
             {
@@ -471,34 +471,16 @@ export default (webpack, { modify, plugins }, target = 'web', isDev = true) => {
             // @todo add flag for sourcemaps
             sourceMap: true
           })
-        ]
-        // @todo automatic vendor bundle
-        // Automatically split vendor and commons
-        // https://twitter.com/wSokra/status/969633336732905474
+        ] // ,
         // splitChunks: {
-        //   chunks: 'all',
-        //   minSize: 30000,
-        //   minChunks: 1,
-        //   maxAsyncRequests: 5,
-        //   maxInitialRequests: 3,
-        //   name: true,
         //   cacheGroups: {
         //     commons: {
         //       test: /[\\/]node_modules[\\/]/,
         //       name: 'vendor',
-        //       chunks: 'all',
-        //     },
-        //     main: {
-        //       chunks: 'all',
-        //       minChunks: 2,
-        //       reuseExistingChunk: true,
-        //       enforce: true,
-        //     },
-        //   },
-        // },
-        // Keep the runtime chunk seperated to enable long term caching
-        // https://twitter.com/wSokra/status/969679223278505985
-        // runtimeChunk: true,
+        //       chunks: 'all'
+        //     }
+        //   }
+        // }
       };
     }
   }
@@ -543,7 +525,6 @@ export default (webpack, { modify, plugins }, target = 'web', isDev = true) => {
         console.log(`Not found dace plugin: ${completePluginName}`);
         throw e;
       }
-      // console.log('--dacePlugin:', dacePlugin);
       if (dacePlugin.modify && util.isFunction(dacePlugin.modify)) {
         config = dacePlugin.modify(config, { target, isDev }, webpack, options);
       }
