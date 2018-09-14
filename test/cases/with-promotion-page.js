@@ -27,7 +27,7 @@ express()
         <h1>Promotion page</h1>
         <p>==================</p>
         <div id="root"></div>
-        <script src="/static/js/bundle.js"></script>
+        <script src="/js/bundle.js"></script>
       </body>
       </html>
     `);

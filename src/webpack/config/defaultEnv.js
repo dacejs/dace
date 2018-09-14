@@ -23,5 +23,5 @@ module.exports = {
   DACE_PUBLIC_PATH: '/',
 
   // 编译产物输出目录位置
-  DACE_BUILD_PATH: paths.appBuild
+  DACE_BUILD_PATH: paths.appClientBuild
 };

@@ -16,21 +16,21 @@ describe(exampleName, async () => {
         shell.exec('sleep 3');
         const js = getContext('localhost:3001/js/bundle.js');
         const html = getContext('localhost:3000');
-        const html2 = getContext('localhost:3000/posts');
         const reactTestResult = js.stdout.includes('React');
         testResult.push(reactTestResult);
         if (!reactTestResult) {
           console.log('js test failed.');
         }
-        const nameTextResult = html.stdout.includes('<li>Leanne Graham</li>');
+        const nameTextResult = html.stdout.includes(exampleName);
         testResult.push(nameTextResult);
-        testResult.push(html2.stdout.includes('<li>qui est esse</li>'));
         if (!nameTextResult) {
           console.log('name test failed.');
         }
+        // 检测是否包含 LOADABLE_STATE
+        testResult.push(/{"id":"[^"]+"}/.test(html.stdout));
         kill(child.pid);
       }
     });
   });
-  it('应该能正常拿到store中的数据', test(run));
+  it('网页服务器和静态文件服务器都应该都正常启动', test(run));
 });

@@ -107,12 +107,13 @@ export default (webpack, { modify, plugins }, target = 'web', isDev = true) => {
       strictExportPresence: true,
       rules: [
         {
-          // 这个正则需要兼容一下两种形式：
-          // 1. `../../dist/core/routes.js`
-          // 2. `dace/dist/core/routes`
-          // 3. /routes
-          test: /\/daceRoutes/,
+          test: /\/routes/,
+          // 多个 loaders 按 `从后往前` 的顺序执行
           use: [
+            {
+              loader: require.resolve('babel-loader'),
+              options: mainBabelOptions
+            },
             {
               loader: path.resolve(__dirname, '../loaders/routesLoader.js')
             }
@@ -159,7 +160,7 @@ export default (webpack, { modify, plugins }, target = 'web', isDev = true) => {
           ],
           loader: require.resolve('file-loader'),
           options: {
-            name: 'static/media/[name].[hash:8].[ext]',
+            name: 'media/[name].[hash:8].[ext]',
             emitFile: true
           }
         },
@@ -171,7 +172,7 @@ export default (webpack, { modify, plugins }, target = 'web', isDev = true) => {
           loader: require.resolve('url-loader'),
           options: {
             limit: 10000,
-            name: 'static/media/[name].[hash:8].[ext]',
+            name: 'media/[name].[hash:8].[ext]',
             emitFile: true
           }
         },
@@ -225,7 +226,7 @@ export default (webpack, { modify, plugins }, target = 'web', isDev = true) => {
         // using the extension .module.css
         {
           test: /\.module\.css$/,
-          exclude: [paths.appBuild],
+          exclude: [paths.appClientBuild, paths.appServerBuild],
           use: IS_NODE ? [
             {
               // on the server we do not need to embed the css and just want the identifier mappings
@@ -294,7 +295,7 @@ export default (webpack, { modify, plugins }, target = 'web', isDev = true) => {
     ];
 
     config.output = {
-      path: paths.appBuild,
+      path: paths.appServerBuild,
       publicPath: IS_DEV ? `http://${process.env.DACE_HOST}:${devServerPort}/` : '/',
       filename: 'server.js',
       libraryTarget: 'commonjs2'
@@ -345,7 +346,7 @@ export default (webpack, { modify, plugins }, target = 'web', isDev = true) => {
     config.plugins = [
       ...config.plugins,
       new WrireStatsFilePlugin(),
-      new CleanWebpackPlugin(paths.appBuild, {
+      new CleanWebpackPlugin([paths.appClientBuild, paths.appServerBuild], {
         root: paths.appPath,
         verbose: false
       }),
@@ -357,12 +358,12 @@ export default (webpack, { modify, plugins }, target = 'web', isDev = true) => {
 
       // Configure our client bundles output. Not the public path is to 3001.
       config.output = {
-        path: paths.appBuild,
+        path: paths.appClientBuild,
         publicPath: `http://${process.env.DACE_HOST}:${devServerPort}/`,
         pathinfo: true,
         libraryTarget: 'var',
-        filename: 'static/js/bundle.js',
-        chunkFilename: 'static/js/[name].chunk.js',
+        filename: 'js/bundle.js',
+        chunkFilename: 'js/[name].chunk.js',
         devtoolModuleFilenameTemplate: info =>
           path.resolve(info.resourcePath).replace(/\\/g, '/')
       };
@@ -408,10 +409,10 @@ export default (webpack, { modify, plugins }, target = 'web', isDev = true) => {
       ];
     } else { // web-build
       config.output = {
-        path: paths.appBuild,
+        path: paths.appClientBuild,
         publicPath: process.env.DACE_PUBLIC_PATH || '/',
-        filename: 'static/js/bundle.[chunkhash:8].js',
-        chunkFilename: 'static/js/[name].[chunkhash:8].chunk.js',
+        filename: 'js/bundle.[chunkhash:8].js',
+        chunkFilename: 'js/[name].[chunkhash:8].chunk.js',
         libraryTarget: 'var'
       };
 
@@ -419,7 +420,7 @@ export default (webpack, { modify, plugins }, target = 'web', isDev = true) => {
         ...config.plugins,
         // Extract our CSS into a files.
         new MiniCssExtractPlugin({
-          filename: 'static/css/bundle.[contenthash:8].css',
+          filename: 'css/bundle.[contenthash:8].css',
           // allChunks: true because we want all css to be included in the main
           // css bundle when doing code splitting to avoid FOUC:
           // https://github.com/facebook/create-react-app/issues/2415
@@ -470,34 +471,16 @@ export default (webpack, { modify, plugins }, target = 'web', isDev = true) => {
             // @todo add flag for sourcemaps
             sourceMap: true
           })
-        ]
-        // @todo automatic vendor bundle
-        // Automatically split vendor and commons
-        // https://twitter.com/wSokra/status/969633336732905474
+        ] // ,
         // splitChunks: {
-        //   chunks: 'all',
-        //   minSize: 30000,
-        //   minChunks: 1,
-        //   maxAsyncRequests: 5,
-        //   maxInitialRequests: 3,
-        //   name: true,
         //   cacheGroups: {
         //     commons: {
         //       test: /[\\/]node_modules[\\/]/,
         //       name: 'vendor',
-        //       chunks: 'all',
-        //     },
-        //     main: {
-        //       chunks: 'all',
-        //       minChunks: 2,
-        //       reuseExistingChunk: true,
-        //       enforce: true,
-        //     },
-        //   },
-        // },
-        // Keep the runtime chunk seperated to enable long term caching
-        // https://twitter.com/wSokra/status/969679223278505985
-        // runtimeChunk: true,
+        //       chunks: 'all'
+        //     }
+        //   }
+        // }
       };
     }
   }
@@ -542,7 +525,6 @@ export default (webpack, { modify, plugins }, target = 'web', isDev = true) => {
         console.log(`Not found dace plugin: ${completePluginName}`);
         throw e;
       }
-      // console.log('--dacePlugin:', dacePlugin);
       if (dacePlugin.modify && util.isFunction(dacePlugin.modify)) {
         config = dacePlugin.modify(config, { target, isDev }, webpack, options);
       }

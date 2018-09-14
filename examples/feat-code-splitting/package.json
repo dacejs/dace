@@ -1,0 +1,13 @@
+{
+  "scripts": {
+    "start": "dace",
+    "build": "dace build",
+    "start:prod": "NODE_ENV=production node prd/server.js"
+  },
+  "dependencies": {
+    "axios": "^0.18.0",
+    "dace": "latest",
+    "react": "^16.4.1",
+    "react-dom": "^16.4.1"
+  }
+}

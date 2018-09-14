@@ -34,18 +34,22 @@ export default () => {
       const pathWithoutExtension = resolve(pageDir, name);
 
       let endpoint;
+      let exact;
       // 当存在路由文件时，页面的路由地址以路由文件中配置的 path 为准
       const routerFile = resolve(dirname(pathWithoutExtension), 'router.js');
       if (existsSync(routerFile)) {
-        endpoint = require(routerFile).path;
+        const config = require(routerFile);
+        endpoint = config.path;
+        exact = config.exact || 'false';
       } else {
         endpoint = getEndpointFromPath(name);
+        exact = endpoint === '/' ? 'true' : 'false';
       }
 
       return (`{
         path: '${endpoint}',
-        exact: true,
-        component: require('${pathWithoutExtension}')
+        exact: ${exact},
+        component: loadable(() => import(/* webpackChunkName: "${name}" */ '${pathWithoutExtension}'))
       }`);
     });
 
@@ -55,7 +59,8 @@ export default () => {
   // }`);
 
   return `
-    module.exports = [
+    import loadable from 'loadable-components';
+    export default [
       {
         component: require('${getComponentPath('App')}'),
         routes: [

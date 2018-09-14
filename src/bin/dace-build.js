@@ -84,7 +84,7 @@ function build(previousFileSizes) {
   });
 }
 
-measureFileSizesBeforeBuild(paths.appBuild)
+measureFileSizesBeforeBuild(paths.appClientBuild)
   .then(previousFileSizes => build(previousFileSizes))
   .then(
     ({ stats, previousFileSizes, warnings }) => {
@@ -97,7 +97,7 @@ measureFileSizesBeforeBuild(paths.appBuild)
         console.log(chalk.green('Compiled successfully.\n'));
       }
       console.log('File sizes after gzip:\n');
-      printFileSizesAfterBuild(stats, previousFileSizes, paths.appBuild);
+      printFileSizesAfterBuild(stats, previousFileSizes, paths.appClientBuild);
       console.log();
     },
     (err) => {

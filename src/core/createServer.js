@@ -3,12 +3,13 @@ import { StaticRouter } from 'react-router-dom';
 import { matchRoutes, renderRoutes } from 'react-router-config';
 import express from 'express';
 import { renderToString } from 'react-dom/server';
+import { getLoadableState } from 'loadable-components/server';
 import { Helmet } from 'react-helmet';
 import serialize from 'serialize-javascript';
 import urlrewrite from 'packing-urlrewrite';
 import document from './document';
 import RedBox from './components/RedBox';
-import routes from './daceRoutes';
+import routes from './routes';
 
 // 防止 rules 配置文件不存在时报错
 let rules;
@@ -29,20 +30,29 @@ server
     const { query, _parsedUrl: { pathname } } = req;
 
     const promises = matchRoutes(routes, pathname) // <- react-router 不匹配 querystring
-      .map(({ route, match }) => {
+      .map(async ({ route, match }) => {
         const { component } = route;
-        if (component && component.getInitialProps) {
-          const ctx = { match, query, req, res };
-          const { getInitialProps } = component;
-          return getInitialProps ? getInitialProps(ctx) : null;
+        if (component) {
+          if (component.load && !component.loadingPromise) {
+            // 预加载 loadable-component
+            // 确保服务器端第一次渲染时能拿到数据
+            await component.load();
+          }
+          if (component.getInitialProps) {
+            const ctx = { match, query, req, res };
+            const { getInitialProps } = component;
+            return getInitialProps ? getInitialProps(ctx) : null;
+          }
         }
         return null;
       })
       .filter(Boolean);
 
-    (await Promise.all(promises)).forEach((item) => {
-      initialProps = { ...initialProps, ...item };
-    });
+    if (promises.length > 0) {
+      (await Promise.all(promises)).forEach((item) => {
+        initialProps = { ...initialProps, ...item };
+      });
+    }
 
     if (!process.env.DACE_STATS_JSON) {
       throw new Error('Not found `DACE_STATS_JSON` in `process.env`');
@@ -81,6 +91,8 @@ server
       </StaticRouter>
     );
 
+    const loadableState = await getLoadableState(Markup);
+
     let markup;
     try {
       markup = renderToString(Markup);
@@ -96,7 +108,14 @@ server
     if (context.url) {
       res.redirect(context.url);
     } else {
-      const html = document({ head, cssTags, jsTags, markup, state });
+      const html = document({
+        head,
+        cssTags,
+        jsTags,
+        markup,
+        state,
+        loadableState: loadableState.getScriptTag()
+      });
       res.status(200).end(html);
     }
   });
