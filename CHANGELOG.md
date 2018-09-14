@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.3.0"></a>
+# [1.3.0](https://github.com/dacejs/dace/compare/v1.2.0...v1.3.0) (2018-09-14)
+
+
+### Features
+
+* 将前后端编译产物输出到不同目录 ([9297e7e](https://github.com/dacejs/dace/commit/9297e7e))
+* 支持 code-splitting ([937295a](https://github.com/dacejs/dace/commit/937295a))
+
+
+
 <a name="1.2.0"></a>
 # [1.2.0](https://github.com/dacejs/dace/compare/v1.1.1...v1.2.0) (2018-08-29)
 
