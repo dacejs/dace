@@ -51,6 +51,10 @@ function build(previousFileSizes) {
   const serverConfig = createConfig({ webpack, dace, target: 'node', isDev: false, program });
 
   console.log('Creating an optimized production build...');
+  if (program.verbose) {
+    console.log('Client build config:');
+    console.dir(clientConfig, { showHidden: true, depth: 10 });
+  }
   console.log('Compiling client...');
 
   return new Promise((resolve, reject) => {
@@ -64,6 +68,10 @@ function build(previousFileSizes) {
       }
 
       console.log(chalk.green('Compiled client successfully.'));
+      if (program.verbose) {
+        console.log('Server build config:');
+        console.dir(serverConfig, { showHidden: true, depth: 10 });
+      }
       console.log('Compiling server...');
 
       compile(serverConfig, (serverError, serverStats) => {
