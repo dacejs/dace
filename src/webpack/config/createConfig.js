@@ -434,12 +434,12 @@ export default ({
           // https://github.com/facebook/create-react-app/issues/2415
           allChunks: true
         }),
-        new webpack.HashedModuleIdsPlugin(),
-        new webpack.optimize.AggressiveMergingPlugin()
+        new webpack.HashedModuleIdsPlugin() // ,
+        // new webpack.optimize.AggressiveMergingPlugin()
       ];
 
       config.optimization = {
-        minimize: false,
+        minimize: true,
         minimizer: [
           new UglifyJsPlugin({
             uglifyOptions: {
