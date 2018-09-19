@@ -61,7 +61,7 @@ server
     // 获取初始化网页需要插入的 CSS/JS 静态文件
     const initialAssets = chunks
       .filter((item) => {
-        const routeName = req.url.substring(1) || 'home';
+        const routeName = req.url.substring(1) || 'index';
         return item.initial || item.names[0] === routeName;
       })
       .reduce((accumulator, item) => {
