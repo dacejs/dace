@@ -7,7 +7,7 @@
   "homepage": "https://dacejs.github.io",
   "scripts": {
     "build": "NODE_ENV=local babel src -d dist --presets=env,dace",
-    "build:debug": "npm run build -- --watch",
+    "build:watch": "npm run build -- --watch",
     "postrelease": "git push && git push origin --tags",
     "prepare": "npm run build",
     "release": "standard-version && npm publish",
@@ -53,6 +53,7 @@
     "packing-urlrewrite": "^0.2.0",
     "postcss-cssnext": "^3.1.0",
     "postcss-loader": "^2.1.6",
+    "postcss-preset-env": "^6.0.6",
     "prop-types": "^15.6.2",
     "qs": "^6.5.2",
     "react-dev-utils": "^4.0.0",

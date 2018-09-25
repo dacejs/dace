@@ -88,13 +88,13 @@ export default ({
       path: path.dirname(paths.appPostcssRc)
     };
   } else {
-    mainPostcssOptions.plugins = () => [
-      require('postcss-cssnext')(),
+    mainPostcssOptions.plugins = [
       require('stylelint')({
         config: {
           extends: 'stylelint-config-dace'
         }
-      })
+      }),
+      require('postcss-preset-env')()
     ];
   }
 
