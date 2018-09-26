@@ -9,9 +9,8 @@ import StartServerPlugin from 'start-server-webpack-plugin';
 import errorOverlayMiddleware from 'react-dev-utils/errorOverlayMiddleware';
 import eslintFormatter from 'react-dev-utils/eslintFormatter';
 import nodeExternals from 'webpack-node-externals';
-// import autoprefixer from 'autoprefixer';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
-// import postcssPresetEnv from 'postcss-preset-env';
+import stylelintFormatter from '../../utils/stylelintFormatter';
 import WrireStatsFilePlugin from '../plugins/writeStatsFilePlugin';
 import paths from './paths';
 
@@ -94,7 +93,14 @@ export default ({
           extends: 'stylelint-config-dace'
         }
       }),
-      require('postcss-preset-env')()
+      require('postcss-preset-env')(),
+      require('postcss-reporter')({
+        throwError: true,
+        clearReportedMessages: true,
+        clearAllMessages: true,
+        plugins: ['stylelint'],
+        formatter: stylelintFormatter
+      })
     ];
   }
 
