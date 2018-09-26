@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.4.0"></a>
+# [1.4.0](https://github.com/dacejs/dace/compare/v1.3.0...v1.4.0) (2018-09-26)
+
+
+### Bug Fixes
+
+* 修复默认首页不加载index.css的问题 ([117ae1a](https://github.com/dacejs/dace/commit/117ae1a))
+* 美化 Stylelint Error 输出格式 ( [#10](https://github.com/dacejs/dace/issues/10)  ) ([5d4f105](https://github.com/dacejs/dace/commit/5d4f105))
+* 解决编译过程自动合并导致打包结果与预期不一致的问题 ([cd41f5c](https://github.com/dacejs/dace/commit/cd41f5c))
+
+
+### Features
+
+* **cli:** 增加 verbose 参数，显示详细日志信息 ([f05a276](https://github.com/dacejs/dace/commit/f05a276))
+* 用 post-preset-env 代替 post-cssnext ([3864c25](https://github.com/dacejs/dace/commit/3864c25))
+
+
+
 <a name="1.3.0"></a>
 # [1.3.0](https://github.com/dacejs/dace/compare/v1.2.0...v1.3.0) (2018-09-14)
 
