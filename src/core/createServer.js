@@ -61,8 +61,11 @@ server
     // 获取初始化网页需要插入的 CSS/JS 静态文件
     const initialAssets = chunks
       .filter((item) => {
-        const routeName = req.url.substring(1) || 'index';
-        return item.initial || item.names[0] === routeName;
+        const routeName = req.url.substring(1);
+        const routeNameWithIndex = routeName ? 'index' : `${routeName}/index`;
+        // 将 vendor.js、styles.css、路由对应的.js 直接输出到 HTML 中
+        return item.initial ||
+          [routeName, routeNameWithIndex, 'styles'].indexOf(item.names[0]) > -1;
       })
       .reduce((accumulator, item) => {
         accumulator = accumulator.concat(item.files);
@@ -76,6 +79,7 @@ server
 
       return assets
         .filter(item => !/\.hot-update\./.test(item)) // 过滤掉 HMR 包
+        // .filter(item => !/styles.[^.]{8}.chunk.js/.test(item)) // 过滤掉 styles.js
         .filter(item => item.endsWith(extension))
         .map(item => getTagByFilename(item))
         .join('');
