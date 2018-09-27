@@ -66,11 +66,11 @@
     "style-loader": "0.20.3",
     "stylelint": "^9.3.0",
     "stylelint-config-dace": "^1.0.0",
-    "uglifyjs-webpack-plugin": "^2.0.1",
     "url-loader": "^1.0.1",
     "webpack": "^4.20.2",
     "webpack-dev-server-speedy": "^3.1.1",
     "webpack-node-externals": "^1.7.2",
+    "webpack-visualizer-plugin": "^0.1.11",
     "webpackbar": "^2.6.3"
   },
   "devDependencies": {
