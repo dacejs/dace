@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.5.1"></a>
+## [1.5.1](https://github.com/dacejs/dace/compare/v1.5.0...v1.5.1) (2018-09-27)
+
+
+### Bug Fixes
+
+* 修复多级目录时初始化HTML插入script标签错误的问题 ([42750fa](https://github.com/dacejs/dace/commit/42750fa))
+
+
+
 <a name="1.5.0"></a>
 # [1.5.0](https://github.com/dacejs/dace/compare/v1.4.0...v1.5.0) (2018-09-27)
 
