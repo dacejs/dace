@@ -61,8 +61,8 @@ server
     // 获取初始化网页需要插入的 CSS/JS 静态文件
     const initialAssets = chunks
       .filter((item) => {
-        const routeName = req.url.substring(1);
-        const routeNameWithIndex = routeName ? 'index' : `${routeName}/index`;
+        const routeName = req.url.substring(1) || 'index';
+        const routeNameWithIndex = `${routeName}/index`;
         // 将 vendor.js、styles.css、路由对应的.js 直接输出到 HTML 中
         return item.initial ||
           [routeName, routeNameWithIndex, 'styles'].indexOf(item.names[0]) > -1;
