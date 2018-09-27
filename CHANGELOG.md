@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.5.0"></a>
+# [1.5.0](https://github.com/dacejs/dace/compare/v1.4.0...v1.5.0) (2018-09-27)
+
+
+### Features
+
+* **cli:** 增加 `--visualizer` 参数，是否启用 webpack-visualizer 打包分析工具 ([9603265](https://github.com/dacejs/dace/commit/9603265))
+* 在首屏HTML中直接输出css标签，避免页面抖动 ([1d57379](https://github.com/dacejs/dace/commit/1d57379))
+
+
+
 <a name="1.4.0"></a>
 # [1.4.0](https://github.com/dacejs/dace/compare/v1.3.0...v1.4.0) (2018-09-26)
 
