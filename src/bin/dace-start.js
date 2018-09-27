@@ -1,6 +1,7 @@
 const fs = require('fs');
 const cp = require('child_process');
 const program = require('commander');
+const chalk = require('chalk');
 const webpack = require('webpack');
 const DevServer = require('webpack-dev-server-speedy');
 const clearConsole = require('react-dev-utils/clearConsole');
@@ -58,6 +59,12 @@ function main() {
   // 在确保浏览器端编译成功后再启动服务器端编译
   clientCompiler.plugin('done', (stats) => {
     if (stats.compilation.errors.length === 0) {
+      if (program.visualizer) {
+        const file = `${paths.appClientBuild}/stats.html`;
+        const message = `\`webpack visualizer\` has been generated.\nOpen it ${chalk.underline(`open file://${file}`)}`;
+        logger.info(message);
+      }
+
       serverCompiler.watch({
         quiet: true,
         stats: 'none'

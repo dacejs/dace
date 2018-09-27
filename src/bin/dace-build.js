@@ -69,6 +69,12 @@ function build(previousFileSizes) {
       }
 
       console.log(chalk.green('Compiled client successfully.'));
+      if (program.visualizer) {
+        const file = `${paths.appClientBuild}/stats.html`;
+        const message = `\`webpack visualizer\` has been generated.\nOpen it ${chalk.underline(`open file://${file}`)}`;
+        logger.info(message);
+      }
+
       if (program.verbose) {
         console.log('Server build config:');
         console.dir(serverConfig, { showHidden: true, depth: 10 });
