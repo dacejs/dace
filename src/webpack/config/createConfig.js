@@ -3,13 +3,13 @@ import fs from 'fs';
 import path from 'path';
 import util from 'util';
 import WebpackBar from 'webpackbar';
-import UglifyJsPlugin from 'uglifyjs-webpack-plugin';
 import CleanWebpackPlugin from 'clean-webpack-plugin';
 import StartServerPlugin from 'start-server-webpack-plugin';
 import errorOverlayMiddleware from 'react-dev-utils/errorOverlayMiddleware';
 import eslintFormatter from 'react-dev-utils/eslintFormatter';
 import nodeExternals from 'webpack-node-externals';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
+import Visualizer from 'webpack-visualizer-plugin';
 import stylelintFormatter from '../../utils/stylelintFormatter';
 import WrireStatsFilePlugin from '../plugins/writeStatsFilePlugin';
 import paths from './paths';
@@ -367,6 +367,31 @@ export default ({
       new webpack.DefinePlugin(daceEnv)
     ];
 
+    config.optimization = {
+      minimize: false,
+      splitChunks: {
+        cacheGroups: {
+
+          // 将指定的包打到 vendor.js
+          vendor: {
+            name: 'vendor',
+            test: /(react|redux|loadable-components|core-js|deep-equal|dace\/dist)/,
+            chunks: 'all',
+            enforce: true
+          },
+
+          // 暂时将所有 css 打成一个包
+          styles: {
+            name: 'styles',
+            test: /\.css$/,
+            chunks: 'all',
+            enforce: true
+          }
+
+        }
+      }
+    };
+
     if (IS_DEV) {
       config.entry.client.unshift(require.resolve('../../utils/webpackHotDevClient'));
 
@@ -444,50 +469,7 @@ export default ({
         // new webpack.optimize.AggressiveMergingPlugin()
       ];
 
-      config.optimization = {
-        minimize: true,
-        minimizer: [
-          new UglifyJsPlugin({
-            uglifyOptions: {
-              parse: {
-                // we want uglify-js to parse ecma 8 code. However, we don't want it
-                // to apply any minfication steps that turns valid ecma 5 code
-                // into invalid ecma 5 code. This is why the 'compress' and 'output'
-                // sections only apply transformations that are ecma 5 safe
-                // https://github.com/facebook/create-react-app/pull/4234
-                ecma: 8
-              },
-              compress: {
-                ecma: 5,
-                warnings: false,
-                // Disabled because of an issue with Uglify breaking seemingly valid code:
-                // https://github.com/facebook/create-react-app/issues/2376
-                // Pending further investigation:
-                // https://github.com/mishoo/UglifyJS2/issues/2011
-                comparisons: false
-              },
-              mangle: {
-                safari10: true
-              },
-              output: {
-                ecma: 5,
-                comments: false,
-                // Turned on because emoji and regex is not minified properly using default
-                // https://github.com/facebook/create-react-app/issues/2488
-                ascii_only: true
-              }
-            },
-            // Use multi-process parallel running to improve the build speed
-            // Default number of concurrent runs: os.cpus().length - 1
-            parallel: true,
-            // Enable file caching
-            cache: true,
-            // @todo add flag for sourcemaps
-            sourceMap: true
-          })
-        ],
-        splitChunks: false
-      };
+      config.optimization = { ...config.optimization, minimize: true };
     }
   }
 
@@ -498,6 +480,13 @@ export default ({
         color: target === 'web' ? '#f5a623' : '#9013fe',
         name: target === 'web' ? 'client' : 'server'
       })
+    ];
+  }
+
+  if (program.visualizer) {
+    config.plugins = [
+      ...config.plugins,
+      new Visualizer()
     ];
   }
 

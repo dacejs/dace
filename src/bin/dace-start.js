@@ -11,6 +11,7 @@ const setPorts = require('../utils/setPorts');
 
 program
   .option('-v, --verbose', '显示详细日志信息')
+  .option('-V, --visualizer', '启用 webpack-visualizer 打包分析工具')
   .parse(process.argv);
 
 // 启动模拟数据服务器
