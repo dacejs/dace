@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.5.2"></a>
+## [1.5.2](https://github.com/dacejs/dace/compare/v1.5.1...v1.5.2) (2018-09-28)
+
+
+### Bug Fixes
+
+* 禁止 splitChunks 自动生成 vendors 包 ([2c435e5](https://github.com/dacejs/dace/commit/2c435e5))
+* 给 script 标签加上 crossorigin="anonymous" ([d9e3a2a](https://github.com/dacejs/dace/commit/d9e3a2a))
+
+
+
 <a name="1.5.1"></a>
 ## [1.5.1](https://github.com/dacejs/dace/compare/v1.5.0...v1.5.1) (2018-09-27)
 
