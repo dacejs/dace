@@ -371,6 +371,9 @@ export default ({
       minimize: false,
       splitChunks: {
         cacheGroups: {
+          // 禁止自动生成 vendors 包
+          vendors: false,
+          default: false,
 
           // 将指定的包打到 vendor.js
           vendor: {
