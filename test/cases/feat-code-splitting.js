@@ -14,9 +14,9 @@ describe(exampleName, async () => {
     child.stdout.on('data', (data) => {
       if (data.includes('Server-side HMR Enabled!')) {
         shell.exec('sleep 3');
-        const js = getContext('localhost:3001/js/bundle.js');
+        const js = getContext('localhost:3001/js/styles.chunk.js');
         const html = getContext('localhost:3000');
-        const reactTestResult = js.stdout.includes('React');
+        const reactTestResult = js.stdout.includes('style.css');
         testResult.push(reactTestResult);
         if (!reactTestResult) {
           console.log('js test failed.');
