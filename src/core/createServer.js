@@ -6,24 +6,14 @@ import { renderToString } from 'react-dom/server';
 import { getLoadableState } from 'loadable-components/server';
 import { Helmet } from 'react-helmet';
 import serialize from 'serialize-javascript';
-import urlrewrite from 'packing-urlrewrite';
 import document from './document';
 import RedBox from './components/RedBox';
 import routes from './routes';
-
-// 防止 rules 配置文件不存在时报错
-let rules;
-try {
-  rules = require(process.env.DACE_MOCK_RULES_CONFIG);
-} catch (e) {
-  rules = {};
-}
 
 const server = express();
 server
   .disable('x-powered-by')
   .use(express.static(process.env.DACE_BUILD_PATH))
-  .use(urlrewrite(rules))
   .get('*', async (req, res) => {
     // 查找当前 URL 匹配的路由
     let initialProps = {};
