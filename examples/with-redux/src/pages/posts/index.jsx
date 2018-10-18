@@ -9,7 +9,10 @@ import reducer from './reducer';
 
 @getInitialProps({
   reducer,
-  promise: ({ store }) => store.dispatch(fetchPosts(1))
+  promise: ({ store, query }) => {
+    const { page = 1 } = query;
+    return store.dispatch(fetchPosts(page));
+  }
 })
 @connect(state => state)
 export default class Posts extends Component {
@@ -18,7 +21,8 @@ export default class Posts extends Component {
       id: PropTypes.number.isRequired,
       title: PropTypes.string.isRequired
     })),
-    dispatch: PropTypes.func.isRequired
+    dispatch: PropTypes.func.isRequired,
+    history: PropTypes.any.isRequired
   };
 
   static defaultProps = {
@@ -32,10 +36,11 @@ export default class Posts extends Component {
     };
   }
 
-  next() {
+  async next() {
     const { page } = this.state;
     const nextPage = page + 1;
-    this.props.dispatch(fetchPosts(nextPage));
+    this.props.history.push(`/posts?page=${nextPage}`);
+    await this.props.dispatch(fetchPosts(nextPage));
     this.setState({ page: nextPage });
   }
 
