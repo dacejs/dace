@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.6.0"></a>
+# [1.6.0](https://github.com/dacejs/dace/compare/v1.5.2...v1.6.0) (2018-10-18)
+
+
+### Bug Fixes
+
+* 修复使用 history.push 修改 url 后 query 获取异常的问题 ([d45fc63](https://github.com/dacejs/dace/commit/d45fc63))
+
+
+### Features
+
+* 删除 dace mock 服务，使用 webpack-dev-server 的 proxy 代替 ([2e62298](https://github.com/dacejs/dace/commit/2e62298))
+
+
+
 <a name="1.5.2"></a>
 ## [1.5.2](https://github.com/dacejs/dace/compare/v1.5.1...v1.5.2) (2018-09-28)
 
