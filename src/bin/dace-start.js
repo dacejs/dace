@@ -15,9 +15,6 @@ program
   .option('-V, --visualizer', '启用 webpack-visualizer 打包分析工具')
   .parse(process.argv);
 
-// 启动模拟数据服务器
-cp.exec('node_modules/.bin/dace mock');
-
 process.noDeprecation = true; // 关闭告警信息，避免对进度条显示产生干扰
 
 process.env.NODE_ENV = 'local';

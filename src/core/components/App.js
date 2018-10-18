@@ -28,12 +28,10 @@ export default class App extends Component {
   }
 
   async componentWillReceiveProps(nextProps/* , nextState */) {
-    const navigated = nextProps.location !== this.props.location;
+    const navigated = nextProps.location.pathname !== this.props.location.pathname;
     if (navigated) {
-      window.scrollTo(0, 0);
-
       // 浏览器端路由（首次渲染后）时解析 querystring -> object
-      const query = parse(nextProps.location, { ignoreQueryPrefix: true });
+      const query = parse(nextProps.location.search, { ignoreQueryPrefix: true });
       nextProps.location.query = query;
 
       const promises = matchRoutes(this.props.routes, nextProps.location.pathname)

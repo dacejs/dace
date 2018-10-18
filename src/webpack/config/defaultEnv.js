@@ -10,12 +10,6 @@ module.exports = {
   // 本地开发 web server 端口
   DACE_PORT: 3000,
 
-  // 本地开发 mock server 端口
-  DACE_MOCK_PORT: 3002,
-
-  // mock 地址转发规则文件地址
-  DACE_MOCK_RULES_CONFIG: paths.appMockRulesConfig,
-
   // API 接口地址 BaseURL，建议配置在 profiles 中
   DACE_API_BASE_URL: 'http://localhost:3002',
 

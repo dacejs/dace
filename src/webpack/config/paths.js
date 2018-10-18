@@ -14,7 +14,6 @@ module.exports = {
   appPostcssRc: resolveApp('postcss.config.js'),
   appSrc: resolveApp('src'),
   appPages: resolveApp('src/pages'),
-  appMockRulesConfig: resolveApp('src/config/mock.js'),
   appServerIndexJs: resolveApp('src/server.js'),
   appClientIndexJs: resolveApp('src/client.js'),
   appNodeModules: resolveApp('node_modules'),
