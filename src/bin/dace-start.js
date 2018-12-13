@@ -1,5 +1,4 @@
 const fs = require('fs');
-const cp = require('child_process');
 const program = require('commander');
 const chalk = require('chalk');
 const webpack = require('webpack');
