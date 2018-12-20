@@ -10,6 +10,7 @@ import eslintFormatter from 'react-dev-utils/eslintFormatter';
 import nodeExternals from 'webpack-node-externals';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import Visualizer from 'webpack-visualizer-plugin';
+import LoadablePlugin from '@loadable/webpack-plugin';
 import stylelintFormatter from '../../utils/stylelintFormatter';
 import WrireStatsFilePlugin from '../plugins/writeStatsFilePlugin';
 import paths from './paths';
@@ -55,7 +56,7 @@ export default ({
     mainBabelOptions = {
       ...mainBabelOptions,
       presets: [
-        require.resolve('babel-preset-env'),
+        require.resolve('@babel/preset-env'),
         require.resolve('babel-preset-dace')
       ],
       babelrc: false
@@ -285,7 +286,9 @@ export default ({
         }
       ]
     },
-    plugins: []
+    plugins: [
+      new LoadablePlugin()
+    ]
   };
 
   if (IS_NODE) {
@@ -322,6 +325,7 @@ export default ({
     ];
 
     config.plugins = [
+      ...config.plugins,
       // We define environment variables that can be accessed globally in our
       new webpack.DefinePlugin(daceEnv),
       // 防止 node 编译时打成多个包
@@ -378,7 +382,7 @@ export default ({
           // 将指定的包打到 vendor.js
           vendor: {
             name: 'vendor',
-            test: /(react|redux|loadable-components|core-js|deep-equal|dace\/dist)/,
+            test: /(react|redux|core-js|deep-equal|dace\/dist)/,
             chunks: 'all',
             enforce: true
           },

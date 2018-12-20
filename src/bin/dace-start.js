@@ -1,13 +1,13 @@
-const fs = require('fs');
-const program = require('commander');
-const chalk = require('chalk');
-const webpack = require('webpack');
-const DevServer = require('webpack-dev-server-speedy');
-const clearConsole = require('react-dev-utils/clearConsole');
-const logger = require('../utils/logger');
-const paths = require('../webpack/config/paths');
-const createConfig = require('../webpack/config/createConfig');
-const setPorts = require('../utils/setPorts');
+import fs from 'fs';
+import program from 'commander';
+import chalk from 'chalk';
+import webpack from 'webpack';
+import DevServer from 'webpack-dev-server-speedy';
+import clearConsole from 'react-dev-utils/clearConsole';
+import logger from '../utils/logger';
+import paths from '../webpack/config/paths';
+import createConfig from '../webpack/config/createConfig';
+import setPorts from '../utils/setPorts';
 
 program
   .option('-v, --verbose', '显示详细日志信息')

@@ -6,11 +6,13 @@
   "repository": "git@github.com:dacejs/dace.git",
   "homepage": "https://dacejs.github.io",
   "scripts": {
-    "build": "NODE_ENV=local babel src -d dist --presets=env,dace",
+    "build": "NODE_ENV=local babel src -d dist --presets=@babel/preset-env,babel-preset-dace",
     "build:watch": "npm run build -- --watch",
     "postrelease": "git push && git push origin --tags",
     "prepare": "npm run build",
     "release": "standard-version && npm publish",
+    "release:minor": "standard-version --release-as minor && npm publish",
+    "release:major": "standard-version --release-as major && npm publish",
     "test": "node test/index.js",
     "test:debug": "DEBUG=true node test/index.js",
     "pretest": "npm run build"
@@ -35,10 +37,13 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "babel-core": "^6.26.3",
-    "babel-loader": "^7.1.5",
-    "babel-preset-dace": "^1.0.7",
-    "babel-preset-env": "^1.7.0",
+    "@babel/core": "^7.0.0",
+    "@babel/preset-env": "^7.0.0",
+    "@loadable/component": "^5.2.2",
+    "@loadable/server": "^5.2.2",
+    "@loadable/webpack-plugin": "^5.2.2",
+    "babel-loader": "^8.0.0",
+    "babel-preset-dace": "^2.0.2",
     "chalk": "^2.4.1",
     "clean-webpack-plugin": "^0.1.19",
     "commander": "^2.18.0",
@@ -74,7 +79,7 @@
     "webpackbar": "^2.6.3"
   },
   "devDependencies": {
-    "babel-cli": "^6.26.0",
+    "@babel/cli": "^7.0.0",
     "mocha": "^5.2.0",
     "ps-tree": "^1.1.0",
     "react": "^16.4.1",

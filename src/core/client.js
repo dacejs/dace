@@ -1,7 +1,7 @@
 import BrowserRouter from 'react-router-dom/BrowserRouter';
 import React from 'react';
 import { hydrate } from 'react-dom';
-import { loadComponents } from 'loadable-components';
+import { loadComponents } from '@loadable/component';
 import { renderRoutes } from 'react-router-config';
 import routes from './routes';
 
