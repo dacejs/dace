@@ -50,6 +50,7 @@ export default () => {
         path: '${endpoint}',
         exact: ${exact},
         component: loadable(() => import(/* webpackChunkName: "${name}" */ '${pathWithoutExtension}'))
+        // component: require('${pathWithoutExtension}').default
       }`);
     });
 

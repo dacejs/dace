@@ -1,11 +1,12 @@
+import path from 'path';
 import React from 'react';
 import { StaticRouter } from 'react-router-dom';
 import { matchRoutes, renderRoutes } from 'react-router-config';
 import express from 'express';
 import { renderToString } from 'react-dom/server';
-import { getLoadableState } from 'loadable-components/server';
 import { Helmet } from 'react-helmet';
 import serialize from 'serialize-javascript';
+import { ChunkExtractor } from '@loadable/server';
 import document from './document';
 import RedBox from './components/RedBox';
 import routes from './routes';
@@ -18,6 +19,9 @@ server
     // 查找当前 URL 匹配的路由
     let initialProps = {};
     const { query, _parsedUrl: { pathname } } = req;
+    const statsFile = path.resolve('./prd/loadable-stats.json');
+    const extractor = new ChunkExtractor({ statsFile, entrypoints: ['client'] });
+    const scriptTags = extractor.getScriptTags();
 
     const promises = matchRoutes(routes, pathname) // <- react-router 不匹配 querystring
       .map(async ({ route, match }) => {
@@ -85,8 +89,6 @@ server
       </StaticRouter>
     );
 
-    const loadableState = await getLoadableState(Markup);
-
     let markup;
     try {
       markup = renderToString(Markup);
@@ -99,6 +101,8 @@ server
     const head = Helmet.renderStatic();
     const state = serialize(initialProps);
 
+    console.log('--scriptTags:', scriptTags);
+
     if (context.url) {
       res.redirect(context.url);
     } else {
@@ -108,7 +112,7 @@ server
         jsTags,
         markup,
         state,
-        loadableState: loadableState.getScriptTag()
+        loadableState: scriptTags
       });
       res.status(200).end(html);
     }

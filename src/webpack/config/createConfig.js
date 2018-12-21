@@ -286,9 +286,7 @@ export default ({
         }
       ]
     },
-    plugins: [
-      new LoadablePlugin()
-    ]
+    plugins: []
   };
 
   if (IS_NODE) {
@@ -363,6 +361,7 @@ export default ({
 
     config.plugins = [
       ...config.plugins,
+      new LoadablePlugin({ writeToDisk: true }),
       new WrireStatsFilePlugin(),
       new CleanWebpackPlugin([paths.appClientBuild, paths.appServerBuild], {
         root: paths.appPath,

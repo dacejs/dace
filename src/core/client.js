@@ -1,14 +1,13 @@
 import BrowserRouter from 'react-router-dom/BrowserRouter';
 import React from 'react';
 import { hydrate } from 'react-dom';
-import { loadComponents } from '@loadable/component';
 import { renderRoutes } from 'react-router-config';
+import { loadableReady } from '@loadable/component';
 import routes from './routes';
 
 const initialProps = window.INITIAL_STATE || {};
 
-// 在渲染前加载好所需要的组件
-loadComponents().then(() => {
+loadableReady(() => {
   hydrate(
     <BrowserRouter>
       {renderRoutes(routes, { initialProps, routes })}
