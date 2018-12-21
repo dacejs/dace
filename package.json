@@ -43,7 +43,7 @@
     "@loadable/server": "^5.2.2",
     "@loadable/webpack-plugin": "^5.2.2",
     "babel-loader": "^8.0.0",
-    "babel-preset-dace": "^2.0.2",
+    "babel-preset-dace": "^2.0.3",
     "chalk": "^2.4.1",
     "clean-webpack-plugin": "^0.1.19",
     "commander": "^2.18.0",
