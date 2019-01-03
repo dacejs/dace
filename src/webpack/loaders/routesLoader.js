@@ -6,26 +6,26 @@
 import { existsSync } from 'fs';
 import { resolve, dirname } from 'path';
 import glob from 'glob';
-import paths from '../config/paths';
+import { appSrc, appPages, index } from '../config/paths';
 
 export default () => {
   function getEndpointFromPath(pagePath) {
     let endpoint = `/${pagePath}`;
-    while (endpoint.endsWith('/index')) {
-      endpoint = endpoint.replace('/index', '');
+    while (endpoint.endsWith(`/${index}`)) {
+      endpoint = endpoint.replace(`/${index}`, '');
     }
     return endpoint || '/';
   }
 
   function getComponentPath(file) {
-    const appComponent = resolve(paths.appSrc, `components/${file}.js`);
+    const appComponent = resolve(appSrc, `components/${file}.js`);
     if (existsSync(appComponent)) {
       return appComponent;
     }
     return resolve(__dirname, `../../core/components/${file}.js`);
   }
 
-  const pageDir = paths.appPages;
+  const pageDir = appPages;
   const pageExtension = '.jsx';
   const routes = glob
     .sync(`**/*${pageExtension}`, { cwd: pageDir })
