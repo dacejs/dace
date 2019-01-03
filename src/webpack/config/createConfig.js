@@ -361,7 +361,7 @@ export default ({
       ...config.plugins,
       new WrireStatsFilePlugin(),
       new CleanWebpackPlugin([paths.appClientBuild, paths.appServerBuild], {
-        root: paths.appPath,
+        root: paths.appRoot,
         verbose: false
       }),
       new webpack.DefinePlugin(daceEnv)
@@ -418,7 +418,8 @@ export default ({
         compress: true,
         // watchContentBase: true,
         headers: {
-          'Access-Control-Allow-Origin': '*'
+          'Access-Control-Allow-Origin': `http://${process.env.DACE_HOST}:${process.env.DACE_PORT}`,
+          'Access-Control-Allow-Credentials': true
         },
         historyApiFallback: {
           // Paths with dots should still use the history fallback.
