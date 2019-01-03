@@ -2,10 +2,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Link } from 'dace';
+import { Head } from 'dace';
 import { getInitialProps } from 'dace-plugin-redux';
 import { fetchPosts } from './action';
 import reducer from './reducer';
+import Layout from '../../layouts/default';
 
 @getInitialProps({
   reducer,
@@ -22,7 +23,8 @@ export default class Posts extends Component {
       title: PropTypes.string.isRequired
     })),
     dispatch: PropTypes.func.isRequired,
-    history: PropTypes.any.isRequired
+    history: PropTypes.any.isRequired,
+    location: PropTypes.object.isRequired
   };
 
   static defaultProps = {
@@ -31,9 +33,9 @@ export default class Posts extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {
-      page: 1
-    };
+    let { page = 1 } = props.location.query;
+    page = parseInt(page, 10);
+    this.state = { page };
   }
 
   async next() {
@@ -46,16 +48,10 @@ export default class Posts extends Component {
 
   render() {
     return (
-      <div>
-        <h1>with-redux example</h1>
-        <ul>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/posts">Posts</Link>
-          </li>
-        </ul>
+      <Layout>
+        <Head>
+          <title>Posts</title>
+        </Head>
         <ol start={((this.state.page - 1) * 10) + 1}>
           {
             this.props.posts.map(post => <li key={post.id}>{post.title}</li>)
@@ -64,7 +60,7 @@ export default class Posts extends Component {
         <div>
           <button onClick={this.next.bind(this)}>下一页</button>
         </div>
-      </div>
+      </Layout>
     );
   }
 }

@@ -5,7 +5,7 @@ export default (state = {}, action) => {
     case FETCH_POSTS:
       return {
         ...state,
-        posts: action.payload.data.map(({ id, title }) => ({ id, title }))
+        posts: action.payload.data
       };
     default:
       return state;

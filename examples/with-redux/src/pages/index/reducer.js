@@ -6,7 +6,7 @@ export default (state = {}, action) => {
       // 只能返回对象，不能返回数组
       return {
         ...state,
-        users: action.payload.data.map(({ id, name }) => ({ id, name }))
+        users: action.payload.data
       };
     default:
       return state;
