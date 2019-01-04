@@ -1,9 +1,9 @@
 module.exports = {
-  modify(config, { target, dev }) {
+  modify(config, { target, isDev }) {
     const appConfig = config;
 
-    // 修改开发环境下浏览器端编译输出文件的名称
-    if (target === 'web' && dev) {
+    // 修改开发环境下webpack的模式
+    if (target === 'web' && isDev) {
       appConfig.mode = 'production';
     }
 
