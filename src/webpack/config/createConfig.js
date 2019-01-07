@@ -11,6 +11,7 @@ import nodeExternals from 'webpack-node-externals';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import Visualizer from 'webpack-visualizer-plugin';
 import stylelintFormatter from '../../utils/stylelintFormatter';
+import logger from '../../utils/logger';
 import WrireStatsFilePlugin from '../plugins/writeStatsFilePlugin';
 import paths from './paths';
 
@@ -50,7 +51,9 @@ export default ({
   };
   const hasBabelRc = fs.existsSync(paths.appBabelRc);
   if (hasBabelRc) {
-    console.log('Using .babelrc defined in your app root');
+    if (IS_WEB) {
+      logger.info('Using custom .babelrc');
+    }
   } else {
     mainBabelOptions = {
       ...mainBabelOptions,
@@ -72,7 +75,9 @@ export default ({
   };
 
   if (hasEslintRc) {
-    console.log('Using .eslintrc.js defined in your app root');
+    if (IS_WEB) {
+      logger.info('Using custom .eslintrc.js');
+    }
   } else {
     mainEslintOptions.configFile = path.resolve(__dirname, '../../../.eslintrc.js');
   }
@@ -81,7 +86,9 @@ export default ({
   const hasPostcssRc = fs.existsSync(paths.appPostcssRc);
   const mainPostcssOptions = { ident: 'postcss' };
   if (hasPostcssRc) {
-    console.log('Using postcss.config.js defined in your app root');
+    if (IS_WEB) {
+      logger.info('Using custom postcss.config.js');
+    }
     // 只能指定 postcss.config.js 所在的目录
     mainPostcssOptions.config = {
       path: path.dirname(paths.appPostcssRc)
@@ -421,11 +428,6 @@ export default ({
           'Access-Control-Allow-Origin': `http://${process.env.DACE_HOST}:${process.env.DACE_PORT}`,
           'Access-Control-Allow-Credentials': true
         },
-        historyApiFallback: {
-          // Paths with dots should still use the history fallback.
-          // See https://github.com/facebookincubator/create-react-app/issues/387.
-          disableDotRule: true
-        },
         host: process.env.DACE_HOST,
         hot: true,
         noInfo: !program.verbose,
@@ -521,7 +523,7 @@ export default ({
           dacePlugin = dacePlugin.default;
         }
       } catch (e) {
-        console.log(`Not found dace plugin: ${completePluginName}`);
+        logger.error(`Not found dace plugin: ${completePluginName}`);
         throw e;
       }
       if (dacePlugin.modify && util.isFunction(dacePlugin.modify)) {
