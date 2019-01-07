@@ -22,9 +22,9 @@ describe(exampleName, async () => {
         if (!reactTestResult) {
           console.log('js test failed.');
         }
-        const nameTextResult = html.stdout.includes('<li>Leanne Graham</li>');
+        const nameTextResult = html.stdout.includes('<li>张三</li>');
         testResult.push(nameTextResult);
-        testResult.push(html2.stdout.includes('<li>qui est esse</li>'));
+        testResult.push(html2.stdout.includes('<li>标题1</li>'));
         if (!nameTextResult) {
           console.log('name test failed.');
         }
