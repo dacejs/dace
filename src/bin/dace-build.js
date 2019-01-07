@@ -1,18 +1,18 @@
-process.on('unhandledRejection', (err) => {
-  throw err;
-});
+// process.on('unhandledRejection', (reason, p) => {
+//   console.log('Unhandled Rejection at:', p, 'reason:', reason);
+// });
 
-const fs = require('fs');
-const clearConsole = require('react-dev-utils/clearConsole');
-const chalk = require('chalk');
-const webpack = require('webpack');
-const { measureFileSizesBeforeBuild, printFileSizesAfterBuild } = require('react-dev-utils/FileSizeReporter');
-const formatWebpackMessages = require('react-dev-utils/formatWebpackMessages');
-const program = require('commander');
-const logger = require('../utils/logger');
-const paths = require('../webpack/config/paths');
-const createConfig = require('../webpack/config/createConfig');
-const printErrors = require('../utils/printErrors');
+import fs from 'fs';
+import chalk from 'chalk';
+import webpack from 'webpack';
+import program from 'commander';
+import clearConsole from 'react-dev-utils/clearConsole';
+import { measureFileSizesBeforeBuild, printFileSizesAfterBuild } from 'react-dev-utils/FileSizeReporter';
+import formatWebpackMessages from 'react-dev-utils/formatWebpackMessages';
+import logger from '../utils/logger';
+import paths from '../webpack/config/paths';
+import createConfig from '../webpack/config/createConfig';
+import printErrors from '../utils/printErrors';
 
 process.noDeprecation = true; // 关闭告警信息，避免对进度条显示产生干扰
 
@@ -21,7 +21,7 @@ program
   .option('-V, --visualizer', '启用 webpack-visualizer 打包分析工具')
   .parse(process.argv);
 
-// Wrap webpack compile in a try catch.
+// 捕捉 webpack 编译过程中的错误
 function compile(config, cb) {
   let compiler;
   try {
@@ -43,7 +43,7 @@ function build(previousFileSizes) {
       dace = require(paths.appDaceConfig);
     } catch (e) {
       clearConsole();
-      logger.error('Invalid dace.config.js file.', e);
+      logger.error(`Invalid dace.config.js file. ${e}`);
       process.exit(1);
     }
   }

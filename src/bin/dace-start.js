@@ -1,14 +1,13 @@
-const fs = require('fs');
-const cp = require('child_process');
-const program = require('commander');
-const chalk = require('chalk');
-const webpack = require('webpack');
-const DevServer = require('webpack-dev-server-speedy');
-const clearConsole = require('react-dev-utils/clearConsole');
-const logger = require('../utils/logger');
-const paths = require('../webpack/config/paths');
-const createConfig = require('../webpack/config/createConfig');
-const setPorts = require('../utils/setPorts');
+import fs from 'fs';
+import program from 'commander';
+import chalk from 'chalk';
+import webpack from 'webpack';
+import DevServer from 'webpack-dev-server-speedy';
+import clearConsole from 'react-dev-utils/clearConsole';
+import logger from '../utils/logger';
+import paths from '../webpack/config/paths';
+import createConfig from '../webpack/config/createConfig';
+import setPorts from '../utils/setPorts';
 
 program
   .option('-v, --verbose', '显示详细日志信息')
@@ -25,15 +24,13 @@ function compile(config) {
   try {
     compiler = webpack(config);
   } catch (e) {
-    console.error('Failed to compile.', e);
+    logger.error(`Failed to compile: ${e}`);
     process.exit(1);
   }
   return compiler;
 }
 
 function main() {
-  logger.start('Compiling...');
-
   let dace = {};
 
   if (fs.existsSync(paths.appDaceConfig)) {
@@ -48,6 +45,8 @@ function main() {
 
   const clientConfig = createConfig({ webpack, dace, target: 'web', isDev: true, program });
   const serverConfig = createConfig({ webpack, dace, target: 'node', isDev: true, program });
+
+  logger.start('Compiling...');
 
   // Compile our assets with webpack
   const clientCompiler = compile(clientConfig);
