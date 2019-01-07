@@ -8,7 +8,6 @@
 [![Dependency Status](https://david-dm.org/dacejs/dace.svg)](https://david-dm.org/dacejs/dace)
 
 ## Todo
-- [x] 使用 `webpack-dev-server` 内置 proxy 代替 `dace mock`
 - [ ] 升级到 `babel@^7.0.0`
 - [ ] 启用 webpackbar 时 eslint 和 stylelint 报错信息显示不完整
 - [ ] 资源 prefetch
