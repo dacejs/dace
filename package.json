@@ -74,7 +74,7 @@
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "mocha": "^5.2.0",
-    "ps-tree": "^1.1.0",
+    "ps-tree": "^1.2.0",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
     "shelljs": "^0.8.2",
