@@ -14,4 +14,4 @@
 - [ ] 资源 prefetch
 
 ## 文档
-[https://dacejs.github.io](https://dacejs.github.io)
+[https://dacejs.com](https://dacejs.com)
