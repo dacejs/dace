@@ -6,7 +6,9 @@
 import { existsSync } from 'fs';
 import { resolve, dirname } from 'path';
 import glob from 'glob';
-import { appSrc, appPages, index } from '../config/paths';
+import { appSrc, appPages } from '../config/paths';
+
+const index = process.env.DACE_INDEX;
 
 export default () => {
   function getEndpointFromPath(pagePath) {
