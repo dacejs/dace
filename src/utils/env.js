@@ -16,9 +16,9 @@ logger.info(`process.env.NODE_ENV: ${NODE_ENV}`);
 
 // https://github.com/bkeepers/dotenv#what-other-env-files-can-i-use
 const dotenvFiles = [
-  `${paths.appPath}/profiles/.${PROFILE}.env`,
-  `${paths.appPath}/profiles/.${NODE_ENV}.env`,
-  `${paths.appPath}/profiles/.common.env`
+  `${paths.appProfiles}/.${PROFILE}.env`,
+  `${paths.appProfiles}/.${NODE_ENV}.env`,
+  `${paths.appProfiles}/.common.env`
 ];
 // Load environment variables from .env* files. Suppress warnings using silent
 // if this file is missing. dotenv will never modify any environment variables
