@@ -356,13 +356,11 @@ export default ({
   }
 
   if (IS_WEB) {
-    config.entry = {
-      client: [
-        fs.existsSync(paths.appClientIndexJs) ?
-          paths.appClientIndexJs :
-          paths.ownClientIndexJs
-      ]
-    };
+    config.entry = [
+      fs.existsSync(paths.appClientIndexJs) ?
+        paths.appClientIndexJs :
+        paths.ownClientIndexJs
+    ];
 
     config.plugins = [
       ...config.plugins,
@@ -403,7 +401,7 @@ export default ({
     };
 
     if (IS_DEV) {
-      config.entry.client.unshift(require.resolve('../../utils/webpackHotDevClient'));
+      config.entry.unshift(require.resolve('../../utils/webpackHotDevClient'));
 
       // Configure our client bundles output. Not the public path is to 3001.
       config.output = {
