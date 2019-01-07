@@ -1,5 +1,5 @@
 module.exports = {
-  modify(config, { target }) {
+  modify(config, { target, isDev }) {
     const appConfig = config;
     if (target === 'web' && isDev) {
       // 模拟 http://localhost:3001/api 返回
