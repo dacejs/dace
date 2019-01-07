@@ -1,6 +1,7 @@
-import { resolve, dirname } from 'path';
+import { dirname } from 'path';
 import { writeFileSync } from 'fs';
 import mkdirp from 'mkdirp';
+import { appStatsJson } from '../config/paths';
 
 /**
  * 将 webpack state 信息写入文件
@@ -9,7 +10,7 @@ class WriteStatsFilePlugin {
   constructor(options) {
     this.options = {
       ...options,
-      filename: 'webpack-stats.json',
+      filename: appStatsJson,
       toJsonOptions: {
         all: false,
         publicPath: true,
@@ -20,13 +21,13 @@ class WriteStatsFilePlugin {
 
   apply(compiler) {
     compiler.hooks.done.tap(this.constructor.name, (stats) => {
-      const { filename, toJsonOptions, outputPath = compiler.options.output.path } = this.options;
+      const { filename, toJsonOptions } = this.options;
       const json = stats.toJson(toJsonOptions);
-      const fullpath = resolve(outputPath, filename);
+      const fullpath = filename;
       mkdirp.sync(dirname(fullpath));
       writeFileSync(fullpath, JSON.stringify(json));
     });
   }
 }
 
-module.exports = WriteStatsFilePlugin;
+export default WriteStatsFilePlugin;
