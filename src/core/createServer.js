@@ -17,30 +17,33 @@ server
     // 查找当前 URL 匹配的路由
     let initialProps = {};
     const { query, _parsedUrl: { pathname } } = req;
+    const disableSSR = process.env.DACE_DISABLE_SSR === 'true';
 
-    const promises = matchRoutes(routes, pathname) // <- react-router 不匹配 querystring
-      .map(async ({ route, match }) => {
-        const { component } = route;
-        if (component) {
-          if (component.load && !component.loadingPromise) {
-            // 预加载 loadable-component
-            // 确保服务器端第一次渲染时能拿到数据
-            await component.load();
+    if (!disableSSR) {
+      const promises = matchRoutes(routes, pathname) // <- react-router 不匹配 querystring
+        .map(async ({ route, match }) => {
+          const { component } = route;
+          if (component) {
+            if (component.load && !component.loadingPromise) {
+              // 预加载 loadable-component
+              // 确保服务器端第一次渲染时能拿到数据
+              await component.load();
+            }
+            if (component.getInitialProps) {
+              const ctx = { match, query, req, res };
+              const { getInitialProps } = component;
+              return getInitialProps ? getInitialProps(ctx) : null;
+            }
           }
-          if (component.getInitialProps) {
-            const ctx = { match, query, req, res };
-            const { getInitialProps } = component;
-            return getInitialProps ? getInitialProps(ctx) : null;
-          }
-        }
-        return null;
-      })
-      .filter(Boolean);
+          return null;
+        })
+        .filter(Boolean);
 
-    if (promises.length > 0) {
-      (await Promise.all(promises)).forEach((item) => {
-        initialProps = { ...initialProps, ...item };
-      });
+      if (promises.length > 0) {
+        (await Promise.all(promises)).forEach((item) => {
+          initialProps = { ...initialProps, ...item };
+        });
+      }
     }
 
     if (!process.env.DACE_STATS_JSON) {
@@ -78,7 +81,7 @@ server
     const cssTags = renderTags('css', initialAssets);
 
     const context = {};
-    const Markup = (
+    const Markup = disableSSR ? null : (
       <StaticRouter context={context} location={req.url}>
         {renderRoutes(routes, { initialProps })}
       </StaticRouter>
@@ -95,7 +98,18 @@ server
     }
 
     // renderStatic 需要在 root 元素 render 后执行
-    const head = Helmet.renderStatic();
+    // 禁用服务器端渲染时，head meta 也不渲染
+    const head = process.env.DACE_DISABLE_SSR === 'false' ?
+      Helmet.renderStatic() : {
+        htmlAttributes: { toString: () => '' },
+        title: { toString: () => '' },
+        meta: { toString: () => '' },
+        link: { toString: () => '' },
+        style: { toString: () => '' },
+        script: { toString: () => '' },
+        noscript: { toString: () => '' },
+        bodyAttributes: { toString: () => '' }
+      };
     const state = serialize(initialProps);
 
     if (context.url) {
