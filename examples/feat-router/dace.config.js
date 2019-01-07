@@ -1,3 +1,3 @@
 module.exports = {
-  index: 'default'
+  DACE_INDEX: 'default'
 };
