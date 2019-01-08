@@ -33,7 +33,7 @@
     ".eslintrc.js"
   ],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "babel-core": "^6.26.3",
     "babel-loader": "^7.1.5",
