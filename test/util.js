@@ -46,6 +46,7 @@ const setup = () => {
     shell.cd(workspace);
   } else {
     shell.cd(workspace);
+    // 出于性能考虑，保留 node_modules
     shell.exec('rm -rf `ls -a|egrep -v node_modules`', { silent: true });
   }
   shell.cp('-R', `${examples}/${exampleName}/*`, workspace);
@@ -54,7 +55,11 @@ const setup = () => {
     shell.cp(`${examples}/${exampleName}/.*`, workspace);
   }
   shell.exec('npm i --no-package-lock --registry https://registry.npm.taobao.org');
+  // 将最新的 dace 代码更新到测试目录的 dace 包
   shell.cp('-R', dist, `${workspace}/node_modules/dace`);
+  // 将 dace 用到的依赖包也复制到测试目录的 node_modules
+  // 保证测试环境下 dace 版本和 dace 所需的依赖包版本保持一致
+  shell.cp('-R', '../../node_modules', '.');
 };
 
 /**
