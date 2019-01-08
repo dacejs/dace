@@ -8,8 +8,9 @@ const glob = require('glob');
 const path = require('path');
 
 const startTime = Date.now();
+const { EXAMPLE = '*' } = process.env;
 
-const files = glob.sync('*.js', { cwd: `${__dirname}/cases` });
+const files = glob.sync(`${EXAMPLE}.js`, { cwd: `${__dirname}/cases` });
 files.sort((a, b) => path.dirname(a) > path.dirname(b));
 
 const errors = [];
@@ -31,11 +32,12 @@ files.forEach((file, i) => {
   }
 });
 
-const output = ['done:'];
+const output = [chalk.cyan('[DONE]'), ''];
 
 if (errors.length === 0) {
   const useTime = parseInt((Date.now() - startTime) / 1000, 10);
-  output.push(`  all cases passing (${useTime}s)`);
+  output.push(chalk.cyan(`  All cases passing (${useTime}s)`));
+  output.push('');
   console.log(output.join('\n'));
 } else {
   output.push(`  ${files.length - errors.length} passing`);

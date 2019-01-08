@@ -1,25 +1,28 @@
-const path = require('path');
 const shell = require('shelljs');
-const { getContext, kill, setup, test } = require('../util');
+const { fetch, kill, setup, test, exampleName } = require('../util');
 
-const exampleName = path.basename(__filename, '.js');
-describe(exampleName, async () => {
-  setup(exampleName);
+describe(exampleName, function () {
+  const results = [];
+  let child;
 
-  const testResult = [];
-  const run = new Promise((resolve) => {
-    const child = shell.exec('./node_modules/.bin/dace start', () => {
-      resolve(testResult);
-    });
-    child.stdout.on('data', (data) => {
-      if (data.includes('Server-side HMR Enabled!')) {
-        shell.exec('sleep 3');
-        const html = getContext('localhost:3000');
-        testResult.push(!html.stdout.includes('<title data-react-helmet="true">Home</title>'));
-        testResult.push(html.stdout.includes('<div id="root"></div>'));
-        kill(child.pid);
-      }
+  before(async function () {
+    await setup();
+
+    await new Promise((resolve) => {
+      child = shell.exec('./node_modules/.bin/dace start', () => {
+        resolve(results);
+      });
+      child.stdout.on('data', (data) => {
+        if (data.includes('Server-side HMR Enabled!')) {
+          const html = fetch('localhost:3000');
+          results.push(!html.includes('<title data-react-helmet="true">Home</title>'));
+          results.push(html.includes('<div id="root"></div>'));
+          // 必须把 dace 进程杀掉才能执行后续的程序
+          kill(child.pid);
+        }
+      });
     });
   });
-  it('关闭SSR后不输出<title>', test(run));
+
+  it('关闭SSR后不输出<title>', test(results));
 });

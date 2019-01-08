@@ -1,34 +1,27 @@
-const path = require('path');
 const shell = require('shelljs');
-const { getContext, kill, setup, test } = require('../util');
+const { fetch, kill, setup, test, exampleName } = require('../util');
 
-const exampleName = path.basename(__filename, '.js');
-describe(exampleName, async () => {
-  setup(exampleName);
+describe(exampleName, function () {
+  const results = [];
+  let child;
 
-  const testResult = [];
-  const run = new Promise((resolve) => {
-    const child = shell.exec('./node_modules/.bin/dace start', () => {
-      resolve(testResult);
-    });
-    child.stdout.on('data', (data) => {
-      if (data.includes('Server-side HMR Enabled!')) {
-        shell.exec('sleep 3');
-        const js = getContext('localhost:3001/js/bundle.js');
-        const html = getContext('localhost:3000');
-        const reactTestResult = js.stdout.includes('React');
-        testResult.push(reactTestResult);
-        if (!reactTestResult) {
-          console.log('js test failed.');
+  before(async function () {
+    await setup();
+
+    await new Promise((resolve) => {
+      child = shell.exec('./node_modules/.bin/dace start', () => {
+        resolve(results);
+      });
+      child.stdout.on('data', (data) => {
+        if (data.includes('Server-side HMR Enabled!')) {
+          results.push(fetch('localhost:3001/js/bundle.js').includes('React'));
+          results.push(fetch('localhost:3000').includes(exampleName));
+          // 必须把 dace 进程杀掉才能执行后续的程序
+          kill(child.pid);
         }
-        const nameTextResult = html.stdout.includes(exampleName);
-        testResult.push(nameTextResult);
-        if (!nameTextResult) {
-          console.log('name test failed.');
-        }
-        kill(child.pid);
-      }
+      });
     });
   });
-  it('自定义文档应该正常被使用', test(run));
+
+  it('自定义文档应该正常被使用', test(results));
 });

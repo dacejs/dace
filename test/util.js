@@ -4,6 +4,18 @@ const shell = require('shelljs');
 
 shell.config.silent = !process.env.DEBUG;
 
+/**
+ * 获取测试文件名称
+ * @return {string} 测试文件名称
+ */
+const exampleName = path.basename(module.parent.id, '.js');
+
+/**
+ * 杀掉进程
+ * @param {number} pid 进程编号
+ * @param {string} [signal='SIGKILL']
+ * @param {function} [callback] 回调函数
+ */
 const kill = (pid, signal = 'SIGKILL', callback) => {
   psTree(pid, (err, children) => {
     let arr = [pid].concat(children.map(p => p.PID));
@@ -12,8 +24,7 @@ const kill = (pid, signal = 'SIGKILL', callback) => {
       try {
         process.kill(tpid, signal);
       } catch (ex) {
-        const logger = console;
-        logger.log('Could not kill process', tpid, ex);
+        console.log('Could not kill process', tpid, ex);
       }
     });
     if (callback) {
@@ -22,7 +33,10 @@ const kill = (pid, signal = 'SIGKILL', callback) => {
   });
 };
 
-const setup = (name) => {
+/**
+ * 初始化测试工程
+ */
+const setup = () => {
   const dist = path.resolve(__dirname, '../dist');
   const workspace = path.resolve(__dirname, 'workspace');
   const examples = path.resolve(__dirname, '../examples');
@@ -34,34 +48,36 @@ const setup = (name) => {
     shell.cd(workspace);
     shell.exec('rm -rf `ls -a|egrep -v node_modules`', { silent: true });
   }
-  shell.cp('-R', `${examples}/${name}/*`, workspace);
+  shell.cp('-R', `${examples}/${exampleName}/*`, workspace);
   // 如果有隐藏文件(.babelrc/.eslintrc等)，需要拷贝隐藏文件
-  if (shell.ls(`${examples}/${name}/.*`).length > 0) {
-    shell.cp(`${examples}/${name}/.*`, workspace);
+  if (shell.ls(`${examples}/${exampleName}/.*`).length > 0) {
+    shell.cp(`${examples}/${exampleName}/.*`, workspace);
   }
   shell.exec('npm i --no-package-lock --registry https://registry.npm.taobao.org');
   shell.cp('-R', dist, `${workspace}/node_modules/dace`);
 };
 
-const test = run => (done) => {
-  run.then((results) => {
-    if (process.env.DEBUG) {
-      console.log('--results:', results);
-    }
-    if (results.length === 0) {
-      const message = '返回的测试结果为空，可能是3000端口号被占用导致启动失败。请使用 `ps -ef|grep node` 查看详情'
-        .split('。')
-        .map(text => `    ${text}`)
-        .join('\n');
-      console.log(message);
-    }
-    results.forEach(result => result.should.be.true());
-    done();
-  }).catch(e => console.log(e));
+/**
+ * 验证测试结果
+ * @param {array} results 需要校验的结果，全部为 `true` 时通过
+ * @return {function}
+ */
+const test = results => () => {
+  if (process.env.DEBUG) {
+    console.log('[results]:', results);
+  }
+  if (results.length === 0) {
+    console.log(`    返回的测试结果为空，可能是3000端口号被占用导致启动失败
+    请使用 \`ps -ef|grep node\` 查看详情`);
+  }
+  results.forEach(result => result.should.be.true());
 };
 
-const getContext = url => shell.exec(`curl -sb -o "" ${url}`, { silent: true });
-const getStatusCode = url => shell.exec(`curl -I -m 10 -o /dev/null -s -w %{http_code} ${url}`, { silent: true });
+/**
+ * 获取 url 内容
+ * @param {string} url
+ * @return {string}
+ */
+const fetch = url => shell.exec(`curl -sb -o "" ${url}`, { silent: true }).stdout;
 
-// Loops through processes and kills them
-module.exports = { kill, getContext, getStatusCode, setup, test };
+module.exports = { kill, fetch, setup, test, exampleName };

@@ -1,9 +1,9 @@
+
 const path = require('path');
 const shell = require('shelljs');
 const express = require('express');
-const { setup } = require('../util');
+const { setup, exampleName } = require('../util');
 
-const exampleName = path.basename(__filename, '.js');
 setup(exampleName);
 
 shell.exec('NODE_ENV=local ./node_modules/.bin/dace build');
