@@ -1,4 +1,4 @@
 {
   "presets": ["env", "dace"],
-  "plugins": "babel-plugin-transform-function-bind"
+  "plugins": "babel-plugin-transform-do-expressions"
 }

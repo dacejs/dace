@@ -1,16 +1,18 @@
+/* eslint-disable */
 import React from 'react';
 
-const box = {
-  weight: 2,
-  getWeight() { return this.weight; }
+export default () => {
+  const exampleName = do {
+    if (false) {
+      'xx';
+    } else {
+      'with-babelrc';
+    }
+  };
+
+  return (
+    <div>
+      <h1>{exampleName}</h1>
+    </div>
+  );
 };
-
-const { getWeight } = box;
-
-const bigBox = { weight: 10 };
-
-export default () => (
-  <div>
-    <h1>{bigBox::getWeight()}</h1>
-  </div>
-);
