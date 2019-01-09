@@ -52,9 +52,9 @@ const setup = () => {
   }
   shell.cp('-R', `${examples}/${exampleName}/*`, workspace);
   // 如果有隐藏文件(.babelrc/.eslintrc等)，需要拷贝隐藏文件
-  if (shell.ls(`${examples}/${exampleName}/.*`).length > 0) {
-    shell.cp(`${examples}/${exampleName}/.*`, workspace);
-  }
+  shell.config.silent = true; // 避免无隐藏文件时拷贝出错
+  shell.cp(`${examples}/${exampleName}/.*`, workspace);
+  shell.config.silent = !process.env.DEBUG; // 还原 silent 设置
   shell.exec(`npm i --no-package-lock ${registry}`);
   // 将最新的 dace 代码更新到测试目录的 dace 包
   shell.cp('-R', dist, `${workspace}/node_modules/dace`);
