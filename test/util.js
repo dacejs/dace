@@ -57,9 +57,6 @@ const setup = () => {
   shell.exec('npm i --no-package-lock --registry https://registry.npm.taobao.org');
   // 将最新的 dace 代码更新到测试目录的 dace 包
   shell.cp('-R', dist, `${workspace}/node_modules/dace`);
-  // 将 dace 用到的依赖包也复制到测试目录的 node_modules
-  // 保证测试环境下 dace 版本和 dace 所需的依赖包版本保持一致
-  shell.cp('-R', '../../node_modules', '.');
 };
 
 /**
@@ -72,8 +69,14 @@ const test = results => () => {
     console.log('[results]:', results);
   }
   if (results.length === 0) {
-    console.log(`    返回的测试结果为空，可能是3000端口号被占用导致启动失败
-    请使用 \`ps -ef|grep node\` 查看详情`);
+    console.log([
+      '',
+      '测试结果数组为空，可能是以下原因导致：',
+      ' - 3000 端口被占用',
+      ' - webpack 配置文件出错',
+      ''
+    ].map(item => `    ${item}`).join('\n'));
+    true.should.be.false();
   }
   results.forEach(result => result.should.be.true());
 };
