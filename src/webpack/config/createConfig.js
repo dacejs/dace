@@ -250,13 +250,13 @@ export default ({
           exclude: [paths.appClientBuild, paths.appServerBuild],
           use: IS_NODE ? [
             {
-              // on the server we do not need to embed the css and just want the identifier mappings
-              // https://github.com/webpack-contrib/css-loader#scope
-              loader: require.resolve('css-loader/locals'),
+              // 服务器端编译不需要内联 css ，只需要获取混淆后的 class 名称
+              loader: require.resolve('css-loader'),
               options: {
                 modules: true,
                 importLoaders: 1,
-                localIdentName: '[path]__[name]___[local]'
+                localIdentName: '[path]__[name]___[local]',
+                exportOnlyLocals: true
               }
             }
           ] : (IS_DEV ? [
