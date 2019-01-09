@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="2.0.0-alpha.0"></a>
+# [2.0.0-alpha.0](https://github.com/dacejs/dace/compare/v1.6.0...v2.0.0-alpha.0) (2019-01-09)
+
+
+### Bug Fixes
+
+* 从环境变量中获取devServer的端口号 ([8680a6c](https://github.com/dacejs/dace/commit/8680a6c))
+* 删除无用的虚拟目录 ([53a409d](https://github.com/dacejs/dace/commit/53a409d))
+
+
+### Features
+
+* 使用 logger 代替 console 输出 ([ec01f35](https://github.com/dacejs/dace/commit/ec01f35))
+* 可以在 dace.config.js 中配置环境变量和路径变量 ([aa074c6](https://github.com/dacejs/dace/commit/aa074c6))
+* **config:** 增加 DACE_SCROLL_TO_TOP 开关 ([b500fd2](https://github.com/dacejs/dace/commit/b500fd2))
+* **config:** 增加禁用服务器端渲染开关 `DACE_DISABLE_SSR` ([b8b95af](https://github.com/dacejs/dace/commit/b8b95af))
+* **config:** 增加默认首页文件名称配置 `DACE_INDEX` ([d511b4c](https://github.com/dacejs/dace/commit/d511b4c))
+
+
+
 <a name="1.6.0"></a>
 # [1.6.0](https://github.com/dacejs/dace/compare/v1.5.2...v1.6.0) (2018-10-18)
 
