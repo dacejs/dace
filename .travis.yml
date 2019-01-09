@@ -14,7 +14,7 @@ install:
   - npm install
 
 script:
-  - npm run test:debug
+  - TRAVIS=true npm run test:debug
 
 # sudo: false
 

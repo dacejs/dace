@@ -40,6 +40,7 @@ const setup = () => {
   const dist = path.resolve(__dirname, '../dist');
   const workspace = path.resolve(__dirname, 'workspace');
   const examples = path.resolve(__dirname, '../examples');
+  const registry = process.env.TRAVIS ? '' : '--registry https://registry.npm.taobao.org';
 
   if (!shell.test('-d', workspace)) {
     shell.mkdir(workspace);
@@ -54,7 +55,7 @@ const setup = () => {
   if (shell.ls(`${examples}/${exampleName}/.*`).length > 0) {
     shell.cp(`${examples}/${exampleName}/.*`, workspace);
   }
-  shell.exec('npm i --no-package-lock --registry https://registry.npm.taobao.org');
+  shell.exec(`npm i --no-package-lock ${registry}`);
   // 将最新的 dace 代码更新到测试目录的 dace 包
   shell.cp('-R', dist, `${workspace}/node_modules/dace`);
 };
