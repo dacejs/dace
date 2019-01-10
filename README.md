@@ -8,7 +8,10 @@
 [![Dependency Status](https://david-dm.org/dacejs/dace.svg)](https://david-dm.org/dacejs/dace)
 
 ## Todo
-- [ ] 升级到 `babel@^7.0.0`
+- [ ] 升级到 `babel@^7`
+- [ ] 升级到 `webpack@^5`
+- [ ] css 按页面打包
+- [ ] without-redux 前端路由不触发getInitialState
 - [ ] 启用 webpackbar 时 eslint 和 stylelint 报错信息显示不完整
 - [ ] 资源 prefetch
 
