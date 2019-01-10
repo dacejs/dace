@@ -298,7 +298,6 @@ export default ({
   if (IS_NODE) {
     // We want to uphold node's __filename, and __dirname.
     config.node = {
-      __console: false,
       __dirname: false,
       __filename: false
     };
