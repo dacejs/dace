@@ -251,12 +251,12 @@ export default ({
           use: IS_NODE ? [
             {
               // 服务器端编译不需要内联 css ，只需要获取混淆后的 class 名称
-              loader: require.resolve('css-loader'),
+              loader: require.resolve('css-loader/locals'),
               options: {
                 modules: true,
                 importLoaders: 1,
-                localIdentName: '[path]__[name]___[local]',
-                exportOnlyLocals: true
+                localIdentName: '[path]__[name]___[local]' // ,
+                // exportOnlyLocals: true
               }
             }
           ] : (IS_DEV ? [
