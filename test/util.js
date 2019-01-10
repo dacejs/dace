@@ -40,7 +40,8 @@ const setup = () => {
   const dist = path.resolve(__dirname, '../dist');
   const workspace = path.resolve(__dirname, 'workspace');
   const examples = path.resolve(__dirname, '../examples');
-  const registry = process.env.TRAVIS ? '' : '--registry https://registry.npm.taobao.org';
+  const { TRAVIS, TAG } = process.env;
+  const registry = TRAVIS ? '' : '--registry https://registry.npm.taobao.org';
 
   if (!shell.test('-d', workspace)) {
     shell.mkdir(workspace);
@@ -55,7 +56,18 @@ const setup = () => {
   shell.config.silent = true; // 避免无隐藏文件时拷贝出错
   shell.cp(`${examples}/${exampleName}/.*`, workspace);
   shell.config.silent = !process.env.DEBUG; // 还原 silent 设置
-  shell.exec(`npm i --no-package-lock ${registry}`);
+  if (TAG) {
+    // 测试 dace@next 版本
+    const deps = require(`${workspace}/package.json`).dependencies;
+    const packages = [];
+    Object.keys(deps).forEach((key) => {
+      const value = key === 'dace' ? TAG : deps[key];
+      packages.push(`${key}@${value}`);
+    });
+    shell.exec(`npm i ${packages.join(' ')} --no-package-lock ${registry}`);
+  } else {
+    shell.exec(`npm i --no-package-lock ${registry}`);
+  }
   // 将最新的 dace 代码更新到测试目录的 dace 包
   shell.cp('-R', dist, `${workspace}/node_modules/dace`);
 };

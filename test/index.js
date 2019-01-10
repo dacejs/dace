@@ -1,6 +1,11 @@
 /**
  * 测试用例入口
  * 确保测试用例串行运行，防止并行运行导致 3000 端口号冲突
+ *
+ * @param {process.env} EXAMPLE 实例名称，只跑指定的这个实例
+ * @param {process.env} DEBUG 启动调试输出
+ * @param {process.env} TRAVIS 是否为 travis 运行环境
+ * @param {process.env} TAG 使用指定的 dace@TAG 版本运行测试用例
  */
 const cp = require('child_process');
 const chalk = require('chalk');
