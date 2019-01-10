@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="2.0.0-alpha.4"></a>
+# [2.0.0-alpha.4](https://github.com/dacejs/dace/compare/v2.0.0-alpha.3...v2.0.0-alpha.4) (2019-01-10)
+
+
+### Bug Fixes
+
+* 回退到 `webpack@4.28.1` ([aaf925d](https://github.com/dacejs/dace/commit/aaf925d))
+
+
+
 <a name="2.0.0-alpha.3"></a>
 # [2.0.0-alpha.3](https://github.com/dacejs/dace/compare/v2.0.0-alpha.2...v2.0.0-alpha.3) (2019-01-09)
 
