@@ -28,7 +28,7 @@ import paths from './paths';
  */
 export default ({
   webpack,
-  dace: { modify, plugins },
+  dace: { modify, plugins, vendors = ['react', 'redux', 'loadable-components', 'core-js', 'deep-equal', 'dace/dist'] },
   target = 'web',
   isDev = true,
   program = {}
@@ -371,6 +371,7 @@ export default ({
       new webpack.DefinePlugin(daceEnv)
     ];
 
+    const vendorPattern = new RegExp(`(${vendors.join('|')})`);
     config.optimization = {
       minimize: false,
       splitChunks: {
@@ -382,17 +383,17 @@ export default ({
           // 将指定的包打到 vendor.js
           vendor: {
             name: 'vendor',
-            test: /(react|redux|loadable-components|core-js|deep-equal|dace\/dist)/,
+            test: vendorPattern,
             chunks: 'all',
             enforce: true
-          },
-
-          // 暂时将所有 css 打成一个包
-          styles: {
-            name: 'styles',
-            test: /\.css$/,
-            chunks: 'all',
-            enforce: true
+          // },
+          //
+          // // 暂时将所有 css 打成一个包
+          // styles: {
+          //   name: 'styles',
+          //   test: /\.css$/,
+          //   chunks: 'all',
+          //   enforce: true
           }
 
         }
