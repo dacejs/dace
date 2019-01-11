@@ -11,6 +11,12 @@ import RedBox from './components/RedBox';
 import routes from './routes';
 
 const server = express();
+
+// 当 publicPath = '/' 需要将编译目录挂载为虚拟目录（本地开发模式）
+if (process.env.DACE_PUBLIC_PATH === '/') {
+  server.use(express.static(process.env.DACE_CLIENT_BUILD));
+}
+
 server
   .disable('x-powered-by')
   .get('*', async (req, res) => {
@@ -49,20 +55,47 @@ server
     if (!process.env.DACE_STATS_JSON) {
       throw new Error('Not found `DACE_STATS_JSON` in `process.env`');
     }
-    const { publicPath, chunks } = require(process.env.DACE_STATS_JSON);
+
     // 获取初始化网页需要插入的 CSS/JS 静态文件
-    const initialAssets = chunks
-      .filter((item) => {
-        const routeName = req.url.substring(1) || process.env.DACE_INDEX;
-        const routeNameWithIndex = `${routeName}/${process.env.DACE_INDEX}`;
-        // 将 vendor.js、styles.css、路由对应的.js 直接输出到 HTML 中
-        return item.initial ||
-          [routeName, routeNameWithIndex, 'styles'].indexOf(item.names[0]) > -1;
-      })
-      .reduce((accumulator, item) => {
-        accumulator = accumulator.concat(item.files);
-        return accumulator;
-      }, []);
+    const { publicPath, chunks } = require(process.env.DACE_STATS_JSON);
+    let files = [];
+    // 输出入口文件
+    const [root] = chunks.filter(chunk => chunk.initial && chunk.parents.length === 0);
+    files = files.concat(root.files);
+
+    // 输出公共文件
+    const vendors = chunks.filter(chunk => chunk.initial && chunk.parents.length > 0);
+    vendors.forEach((vendor) => {
+      files = files.concat(vendor.files);
+    });
+
+    // 根据当前路由反查页面对应的组件
+    let currentPage;
+    matchRoutes(routes, pathname).forEach(({ route }) => {
+      // 找到了页面
+      if (route.path) {
+        const { component: { componentId } } = route;
+        currentPage = componentId.replace(`${process.env.DACE_PAGES}/`, '');
+      }
+    });
+
+    if (currentPage) {
+      const [page] = chunks.filter(chunk => !chunk.initial && chunk.names[0] === currentPage);
+      files = files.concat(page.files);
+    }
+
+    // const initialAssets = chunks
+    //   .filter((item) => {
+    //     const routeName = req.url.substring(1) || process.env.DACE_INDEX;
+    //     const routeNameWithIndex = `${routeName}/${process.env.DACE_INDEX}`;
+    //     // 将 vendor.js、styles.css、路由对应的.js 直接输出到 HTML 中
+    //     return item.initial ||
+    //       [routeName, routeNameWithIndex, 'styles'].indexOf(item.names[0]) > -1;
+    //   })
+    //   .reduce((accumulator, item) => {
+    //     accumulator = accumulator.concat(item.files);
+    //     return accumulator;
+    //   }, []);
 
     const renderTags = (extension, assets) => {
       const getTagByFilename = filename => (filename.endsWith('js') ?
@@ -77,8 +110,8 @@ server
         .join('');
     };
 
-    const jsTags = renderTags('js', initialAssets);
-    const cssTags = renderTags('css', initialAssets);
+    const jsTags = renderTags('js', files);
+    const cssTags = renderTags('css', files);
 
     const context = {};
     const Markup = disableSSR ? null : (
