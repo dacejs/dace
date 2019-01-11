@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import { appStatsJson } from './paths';
+import { appStatsJson, appPages, appClientBuild } from './paths';
 
 const appDaceConfig = path.resolve('dace.config.js');
 const daceConfig = fs.existsSync(appDaceConfig) ? require(appDaceConfig) : {};
@@ -14,6 +14,13 @@ const defaultEnv = {
 
   // 编译产物对外服务访问使用的 URL
   DACE_PUBLIC_PATH: '/',
+
+  // 浏览器端编译产物输出目录位置
+  // 当 publicPath = '/' 需要将编译目录设置为虚拟目录（本地开发模式）
+  DACE_CLIENT_BUILD: appClientBuild,
+
+  // pages 目录位置
+  DACE_PAGES: appPages,
 
   // 客户端编译输出的 stats 文件位置
   DACE_STATS_JSON: appStatsJson,
