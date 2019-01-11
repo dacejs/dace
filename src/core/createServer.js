@@ -81,7 +81,10 @@ server
 
     if (currentPage) {
       const [page] = chunks.filter(chunk => !chunk.initial && chunk.names[0] === currentPage);
-      files = files.concat(page.files);
+      // 只包含一个页面时不会拆分打包，所有文件会打到 main.js 里
+      if (page && page.files) {
+        files = files.concat(page.files);
+      }
     }
 
     // const initialAssets = chunks
