@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="2.0.0-alpha.6"></a>
+# [2.0.0-alpha.6](https://github.com/dacejs/dace/compare/v2.0.0-alpha.5...v2.0.0-alpha.6) (2019-01-11)
+
+
+### Bug Fixes
+
+* 修复设置router.js时页面不能正常插入css文件的问题 ([fe9baa6](https://github.com/dacejs/dace/commit/fe9baa6))
+* 当 publicPath = '/' 需要将编译目录挂载为虚拟目录（本地开发模式） ([5ab0e91](https://github.com/dacejs/dace/commit/5ab0e91))
+
+
+### Features
+
+* **config:** 增加 `vendors` 配置 ([6a963d0](https://github.com/dacejs/dace/commit/6a963d0))
+* 将 style.css 从 splitChunk 配置中删除 ([06d6fa8](https://github.com/dacejs/dace/commit/06d6fa8))
+
+
+
 <a name="2.0.0-alpha.5"></a>
 # [2.0.0-alpha.5](https://github.com/dacejs/dace/compare/v2.0.0-alpha.4...v2.0.0-alpha.5) (2019-01-10)
 
