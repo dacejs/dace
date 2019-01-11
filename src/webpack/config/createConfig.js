@@ -386,14 +386,6 @@ export default ({
             test: vendorPattern,
             chunks: 'all',
             enforce: true
-          // },
-          //
-          // // 暂时将所有 css 打成一个包
-          // styles: {
-          //   name: 'styles',
-          //   test: /\.css$/,
-          //   chunks: 'all',
-          //   enforce: true
           }
 
         }
