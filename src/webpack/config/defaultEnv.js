@@ -36,7 +36,7 @@ const defaultEnv = {
   DACE_INDEX: 'index',
 
   // 禁用服务器端渲染
-  DACE_DISABLE_SSR: false
+  DACE_NO_SSR: false
 };
 
 // 让 dace.config.js 覆盖 defaultEnv.js 中的配置

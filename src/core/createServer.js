@@ -23,9 +23,9 @@ server
     // 查找当前 URL 匹配的路由
     let initialProps = {};
     const { query, _parsedUrl: { pathname } } = req;
-    const disableSSR = process.env.DACE_DISABLE_SSR === 'true';
+    const noSSR = process.env.DACE_NO_SSR === 'true';
 
-    if (!disableSSR) {
+    if (!noSSR) {
       const promises = matchRoutes(routes, pathname) // <- react-router 不匹配 querystring
         .map(async ({ route, match }) => {
           const { component } = route;
@@ -117,7 +117,7 @@ server
     const cssTags = renderTags('css', files);
 
     const context = {};
-    const Markup = disableSSR ? null : (
+    const Markup = noSSR ? null : (
       <StaticRouter context={context} location={req.url}>
         {renderRoutes(routes, { initialProps })}
       </StaticRouter>
@@ -135,7 +135,7 @@ server
 
     // renderStatic 需要在 root 元素 render 后执行
     // 禁用服务器端渲染时，head meta 也不渲染
-    const head = process.env.DACE_DISABLE_SSR === 'false' ?
+    const head = process.env.DACE_NO_SSR === 'false' ?
       Helmet.renderStatic() : {
         htmlAttributes: { toString: () => '' },
         title: { toString: () => '' },
