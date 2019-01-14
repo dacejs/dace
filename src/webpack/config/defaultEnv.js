@@ -36,13 +36,21 @@ const defaultEnv = {
   DACE_INDEX: 'index',
 
   // 禁用服务器端渲染
-  DACE_NO_SSR: false
+  DACE_NO_SSR: false,
+
+  // 创建 axios 实例的文件路径
+  DACE_AXIOS_INSTANCE_PATH: ''
 };
 
 // 让 dace.config.js 覆盖 defaultEnv.js 中的配置
 Object.keys(defaultEnv).forEach((key) => {
   if (key in daceConfig) {
-    defaultEnv[key] = daceConfig[key];
+    let value = daceConfig[key];
+    // 以 _PATH 结尾的相对路径都转化为绝对路径
+    if (key.endsWith('_PATH') && !path.isAbsolute(key)) {
+      value = path.resolve(value);
+    }
+    defaultEnv[key] = value;
   }
 });
 
