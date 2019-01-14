@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="2.0.0-alpha.8"></a>
+# [2.0.0-alpha.8](https://github.com/dacejs/dace/compare/v2.0.0-alpha.7...v2.0.0-alpha.8) (2019-01-14)
+
+
+### Features
+
+* 增加 `DACE_AXIOS_INSTANCE_PATH` 参数 ([b76d259](https://github.com/dacejs/dace/commit/b76d259))
+* 重命名配置参数 `DACE_DISABLE_SSR` ->`DACE_NO_SSR` ([1be4239](https://github.com/dacejs/dace/commit/1be4239))
+
+
+
 <a name="2.0.0-alpha.7"></a>
 # [2.0.0-alpha.7](https://github.com/dacejs/dace/compare/v2.0.0-alpha.6...v2.0.0-alpha.7) (2019-01-11)
 
