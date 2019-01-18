@@ -10,7 +10,6 @@ import clearConsole from 'react-dev-utils/clearConsole';
 import { measureFileSizesBeforeBuild, printFileSizesAfterBuild } from 'react-dev-utils/FileSizeReporter';
 import formatWebpackMessages from 'react-dev-utils/formatWebpackMessages';
 import logger from '../utils/logger';
-import paths from '../webpack/config/paths';
 import createConfig from '../webpack/config/createConfig';
 import printErrors from '../utils/printErrors';
 
@@ -20,6 +19,8 @@ program
   .option('-v, --verbose', '显示详细日志信息')
   .option('-V, --visualizer', '启用 webpack-visualizer 打包分析工具')
   .parse(process.argv);
+
+const { DACE_PATH_CONFIG, DACE_PATH_CLIENT_DIST } = process.env;
 
 // 捕捉 webpack 编译过程中的错误
 function compile(config, cb) {
@@ -38,9 +39,9 @@ function compile(config, cb) {
 function build(previousFileSizes) {
   let dace = {};
 
-  if (fs.existsSync(paths.appDaceConfig)) {
+  if (fs.existsSync(DACE_PATH_CONFIG)) {
     try {
-      dace = require(paths.appDaceConfig);
+      dace = require(DACE_PATH_CONFIG);
     } catch (e) {
       clearConsole();
       logger.error(`Invalid dace.config.js file. ${e}`);
@@ -70,7 +71,7 @@ function build(previousFileSizes) {
 
       console.log(chalk.green('Compiled client successfully.'));
       if (program.visualizer) {
-        const file = `${paths.appClientBuild}/stats.html`;
+        const file = `${DACE_PATH_CLIENT_DIST}/stats.html`;
         const message = `\`webpack visualizer\` has been generated.\nOpen it ${chalk.underline(`open file://${file}`)}`;
         logger.info(message);
       }
@@ -104,7 +105,7 @@ function build(previousFileSizes) {
   });
 }
 
-measureFileSizesBeforeBuild(paths.appClientBuild)
+measureFileSizesBeforeBuild(DACE_PATH_CLIENT_DIST)
   .then(previousFileSizes => build(previousFileSizes))
   .then(
     ({ stats, previousFileSizes, warnings }) => {
@@ -117,7 +118,7 @@ measureFileSizesBeforeBuild(paths.appClientBuild)
         console.log(chalk.green('Compiled successfully.\n'));
       }
       console.log('File sizes after gzip:\n');
-      printFileSizesAfterBuild(stats, previousFileSizes, paths.appClientBuild);
+      printFileSizesAfterBuild(stats, previousFileSizes, DACE_PATH_CLIENT_DIST);
       console.log();
     },
     (err) => {

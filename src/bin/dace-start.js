@@ -5,11 +5,11 @@ import webpack from 'webpack';
 import DevServer from 'webpack-dev-server-speedy';
 import clearConsole from 'react-dev-utils/clearConsole';
 import logger from '../utils/logger';
-import paths from '../webpack/config/paths';
 import createConfig from '../webpack/config/createConfig';
 import setPorts from '../utils/setPorts';
 
 program
+  .option('-s, --silent', '禁用所有输出信息')
   .option('-v, --verbose', '显示详细日志信息')
   .option('-V, --visualizer', '启用 webpack-visualizer 打包分析工具')
   .parse(process.argv);
@@ -31,11 +31,12 @@ function compile(config) {
 }
 
 function main() {
+  const { DACE_PATH_CONFIG, DACE_PATH_CLIENT_DIST } = process.env;
   let dace = {};
 
-  if (fs.existsSync(paths.appDaceConfig)) {
+  if (fs.existsSync(DACE_PATH_CONFIG)) {
     try {
-      dace = require(paths.appDaceConfig);
+      dace = require(DACE_PATH_CONFIG);
     } catch (e) {
       clearConsole();
       logger.error('Invalid dace.config.js file.', e);
@@ -56,7 +57,7 @@ function main() {
   clientCompiler.plugin('done', (stats) => {
     if (stats.compilation.errors.length === 0) {
       if (program.visualizer) {
-        const file = `${paths.appClientBuild}/stats.html`;
+        const file = `${DACE_PATH_CLIENT_DIST}/stats.html`;
         const message = `\`webpack visualizer\` has been generated.\nOpen it ${chalk.underline(`open file://${file}`)}`;
         logger.info(message);
       }

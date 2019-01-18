@@ -6,34 +6,32 @@
 import { existsSync } from 'fs';
 import { resolve, dirname } from 'path';
 import glob from 'glob';
-import { appSrc, appPages } from '../config/paths';
 
-const index = process.env.DACE_INDEX;
+const { DACE_INDEX, DACE_PATH_SRC, DACE_PATH_PAGES } = process.env;
 
 export default () => {
   function getEndpointFromPath(pagePath) {
     let endpoint = `/${pagePath}`;
-    while (endpoint.endsWith(`/${index}`)) {
-      endpoint = endpoint.replace(`/${index}`, '');
+    while (endpoint.endsWith(`/${DACE_INDEX}`)) {
+      endpoint = endpoint.replace(`/${DACE_INDEX}`, '');
     }
     return endpoint || '/';
   }
 
   function getComponentPath(file) {
-    const appComponent = resolve(appSrc, `components/${file}.js`);
+    const appComponent = resolve(DACE_PATH_SRC, `components/${file}.js`);
     if (existsSync(appComponent)) {
       return appComponent;
     }
     return resolve(__dirname, `../../core/components/${file}.js`);
   }
 
-  const pageDir = appPages;
   const pageExtension = '.jsx';
   const routes = glob
-    .sync(`**/*${pageExtension}`, { cwd: pageDir })
+    .sync(`**/*${pageExtension}`, { cwd: DACE_PATH_PAGES })
     .map(item => item.replace(pageExtension, ''))
     .map((name) => {
-      const pathWithoutExtension = resolve(pageDir, name);
+      const pathWithoutExtension = resolve(DACE_PATH_PAGES, name);
 
       let endpoint;
       let exact;

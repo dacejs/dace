@@ -13,7 +13,6 @@ import Visualizer from 'webpack-visualizer-plugin';
 import stylelintFormatter from '../../utils/stylelintFormatter';
 import logger from '../../utils/logger';
 import WrireStatsFilePlugin from '../plugins/writeStatsFilePlugin';
-import paths from './paths';
 
 /**
  * webpack config 生成器
@@ -33,10 +32,26 @@ export default ({
   isDev = true,
   program = {}
 }) => {
+  const {
+    DACE_HOST,
+    DACE_PORT,
+    NODE_PATH = '',
+    DACE_PUBLIC_PATH,
+    DACE_PATH_ROOT,
+    DACE_PATH_BABEL_RC,
+    DACE_PATH_ESLINT_RC,
+    DACE_PATH_POSTCSS_RC,
+    DACE_PATH_NODE_MODULES,
+    DACE_PATH_CLIENT_ENTRY,
+    DACE_PATH_SERVER_ENTRY,
+    DACE_PATH_CLIENT_DIST,
+    DACE_PATH_SERVER_DIST,
+    DACE_PATH_STATS_JSON
+  } = process.env;
   const IS_NODE = target === 'node';
   const IS_WEB = target === 'web';
   const IS_DEV = isDev;
-  const devServerPort = parseInt(process.env.DACE_PORT, 10) + 1;
+  const devServerPort = parseInt(DACE_PORT, 10) + 1;
 
   const daceEnv = Object.keys(process.env)
     .filter(key => key.startsWith('DACE_'))
@@ -49,7 +64,7 @@ export default ({
   let mainBabelOptions = {
     cacheDirectory: true
   };
-  const hasBabelRc = fs.existsSync(paths.appBabelRc);
+  const hasBabelRc = fs.existsSync(DACE_PATH_BABEL_RC);
   if (hasBabelRc) {
     if (IS_WEB) {
       logger.info('Using custom .babelrc');
@@ -66,7 +81,7 @@ export default ({
   }
 
   // 获取 .eslintrc.js 配置
-  const hasEslintRc = fs.existsSync(paths.appEslintRc);
+  const hasEslintRc = fs.existsSync(DACE_PATH_ESLINT_RC);
   const mainEslintOptions = {
     formatter: eslintFormatter,
     // failOnError: true,
@@ -83,7 +98,7 @@ export default ({
   }
 
   // 获取 postcss 配置
-  const hasPostcssRc = fs.existsSync(paths.appPostcssRc);
+  const hasPostcssRc = fs.existsSync(DACE_PATH_POSTCSS_RC);
   const mainPostcssOptions = { ident: 'postcss' };
   if (hasPostcssRc) {
     if (IS_WEB) {
@@ -91,7 +106,7 @@ export default ({
     }
     // 只能指定 postcss.config.js 所在的目录
     mainPostcssOptions.config = {
-      path: path.dirname(paths.appPostcssRc)
+      path: path.dirname(DACE_PATH_POSTCSS_RC)
     };
   } else {
     mainPostcssOptions.plugins = [
@@ -117,7 +132,7 @@ export default ({
     target,
     devtool: 'cheap-module-source-map',
     resolve: {
-      modules: ['node_modules', paths.appNodeModules].concat((process.env.NODE_PATH || '').split(path.delimiter).filter(Boolean)),
+      modules: ['node_modules', DACE_PATH_NODE_MODULES].concat((NODE_PATH).split(path.delimiter).filter(Boolean)),
       extensions: ['.js', '.jsx'],
       alias: {
         // This is required so symlinks work during development.
@@ -243,11 +258,11 @@ export default ({
             }
           ])
         },
-        // Adds support for CSS Modules (https://github.com/css-modules/css-modules)
-        // using the extension .module.css
+        // 支持 [CSS Modules](https://github.com/css-modules/css-modules)
+        // 使用 `.module.css` 后缀
         {
           test: /\.module\.css$/,
-          exclude: [paths.appClientBuild, paths.appServerBuild],
+          exclude: [DACE_PATH_CLIENT_DIST, DACE_PATH_SERVER_DIST],
           use: IS_NODE ? [
             {
               // 服务器端编译不需要内联 css ，只需要获取混淆后的 class 名称
@@ -315,16 +330,16 @@ export default ({
     ];
 
     config.output = {
-      path: paths.appServerBuild,
-      publicPath: IS_DEV ? `http://${process.env.DACE_HOST}:${devServerPort}/` : '/',
+      path: DACE_PATH_SERVER_DIST,
+      publicPath: IS_DEV ? `http://${DACE_HOST}:${devServerPort}/` : '/',
       filename: 'server.js',
       libraryTarget: 'commonjs2'
     };
 
     config.entry = [
-      fs.existsSync(paths.appServerIndexJs) ?
-        paths.appServerIndexJs :
-        paths.ownServerIndexJs
+      fs.existsSync(DACE_PATH_SERVER_ENTRY) ?
+        DACE_PATH_SERVER_ENTRY :
+        path.resolve(__dirname, '../../core/server.js')
     ];
 
     config.plugins = [
@@ -349,23 +364,23 @@ export default ({
           name: 'server.js'
         }),
         // Ignore assets.json to avoid infinite recompile bug
-        new webpack.WatchIgnorePlugin([paths.appStatsJson])
+        new webpack.WatchIgnorePlugin([DACE_PATH_STATS_JSON])
       ];
     }
   }
 
   if (IS_WEB) {
     config.entry = [
-      fs.existsSync(paths.appClientIndexJs) ?
-        paths.appClientIndexJs :
-        paths.ownClientIndexJs
+      fs.existsSync(DACE_PATH_CLIENT_ENTRY) ?
+        DACE_PATH_CLIENT_ENTRY :
+        path.resolve(__dirname, '../../core/client.js')
     ];
 
     config.plugins = [
       ...config.plugins,
       new WrireStatsFilePlugin(),
-      new CleanWebpackPlugin([paths.appClientBuild, paths.appServerBuild], {
-        root: paths.appRoot,
+      new CleanWebpackPlugin([DACE_PATH_CLIENT_DIST, DACE_PATH_SERVER_DIST], {
+        root: DACE_PATH_ROOT,
         verbose: false
       }),
       new webpack.DefinePlugin(daceEnv)
@@ -397,8 +412,8 @@ export default ({
 
       // Configure our client bundles output. Not the public path is to 3001.
       config.output = {
-        path: paths.appClientBuild,
-        publicPath: `http://${process.env.DACE_HOST}:${devServerPort}/`,
+        path: DACE_PATH_CLIENT_DIST,
+        publicPath: `http://${DACE_HOST}:${devServerPort}/`,
         pathinfo: true,
         libraryTarget: 'var',
         filename: 'js/bundle.js',
@@ -415,10 +430,10 @@ export default ({
         compress: true,
         // watchContentBase: true,
         headers: {
-          'Access-Control-Allow-Origin': `http://${process.env.DACE_HOST}:${process.env.DACE_PORT}`,
+          'Access-Control-Allow-Origin': `http://${DACE_HOST}:${DACE_PORT}`,
           'Access-Control-Allow-Credentials': true
         },
-        host: process.env.DACE_HOST,
+        host: DACE_HOST,
         hot: true,
         noInfo: !program.verbose,
         overlay: false,
@@ -444,8 +459,8 @@ export default ({
       ];
     } else { // web-build
       config.output = {
-        path: paths.appClientBuild,
-        publicPath: process.env.DACE_PUBLIC_PATH || '/',
+        path: DACE_PATH_CLIENT_DIST,
+        publicPath: DACE_PUBLIC_PATH,
         filename: 'js/bundle.[chunkhash:8].js',
         chunkFilename: 'js/[name].[chunkhash:8].chunk.js',
         libraryTarget: 'var'
@@ -498,7 +513,7 @@ export default ({
     const pluginPrefix = 'dace-plugin-';
     plugins.forEach((name) => {
       // 解析带参数的插件 [['redux', {}], 'mobx']
-      let options = { paths };
+      let options = {};
       if (util.isArray(name)) {
         let opts = {};
         [name, opts] = name;
