@@ -23,7 +23,7 @@ export default () => {
     if (existsSync(appComponent)) {
       return appComponent;
     }
-    return resolve(__dirname, `../../core/components/${file}.js`);
+    return resolve(__dirname, `../../runtime/components/${file}.js`);
   }
 
   const pageExtension = '.jsx';

@@ -339,7 +339,7 @@ export default ({
     config.entry = [
       fs.existsSync(DACE_PATH_SERVER_ENTRY) ?
         DACE_PATH_SERVER_ENTRY :
-        path.resolve(__dirname, '../../core/server.js')
+        path.resolve(__dirname, '../../runtime/server.js')
     ];
 
     config.plugins = [
@@ -373,7 +373,7 @@ export default ({
     config.entry = [
       fs.existsSync(DACE_PATH_CLIENT_ENTRY) ?
         DACE_PATH_CLIENT_ENTRY :
-        path.resolve(__dirname, '../../core/client.js')
+        path.resolve(__dirname, '../../runtime/client.js')
     ];
 
     config.plugins = [
