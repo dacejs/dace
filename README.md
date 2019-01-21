@@ -18,4 +18,4 @@
 - [ ] 资源 prefetch
 - [ ] vendor 在dace.config可配置
 - [ ] less-loader的支持
-- [ ] 重新设计 paths.js defaultEnv.js dace.config.js
+- [*] 重新设计 paths.js defaultEnv.js dace.config.js

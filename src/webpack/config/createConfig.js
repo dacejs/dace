@@ -27,7 +27,7 @@ import WrireStatsFilePlugin from '../plugins/writeStatsFilePlugin';
  */
 export default ({
   webpack,
-  dace: { modify, plugins, vendors = ['react', 'redux', 'loadable-components', 'core-js', 'deep-equal', 'dace/dist'] },
+  dace: { modify, plugins },
   target = 'web',
   isDev = true,
   program = {}
@@ -37,6 +37,7 @@ export default ({
     DACE_PORT,
     NODE_PATH = '',
     DACE_PUBLIC_PATH,
+    DACE_VENDORS,
     DACE_PATH_ROOT,
     DACE_PATH_BABEL_RC,
     DACE_PATH_ESLINT_RC,
@@ -53,6 +54,7 @@ export default ({
   const IS_DEV = isDev;
   const devServerPort = parseInt(DACE_PORT, 10) + 1;
 
+  // 将 process.env 中所有以 DACE_ 开头的变量传递到代码运行时环境
   const daceEnv = Object.keys(process.env)
     .filter(key => key.startsWith('DACE_'))
     .reduce((envs, key) => {
@@ -386,7 +388,7 @@ export default ({
       new webpack.DefinePlugin(daceEnv)
     ];
 
-    const vendorPattern = new RegExp(`(${vendors.join('|')})`);
+    const vendorPattern = new RegExp(`(${DACE_VENDORS})`);
     config.optimization = {
       minimize: false,
       splitChunks: {

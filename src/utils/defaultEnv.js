@@ -24,6 +24,9 @@ export default {
   // URL 转发规则
   DACE_PROXY: '',
 
+  // 公共包包含的文件，包之间用竖线连接，匹配时使用的是正则匹配
+  DACE_VENDORS: 'react|redux|loadable-components|core-js|deep-equal|dace/dist',
+
   // 以 `DACE_PATH_` 开头的变量会转换成绝对路径
   // 工程根目录
   // appRoot: '.',
