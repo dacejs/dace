@@ -1,6 +1,7 @@
 module.exports = {
   extends: ['eslint-config-qunar'].map(require.resolve),
   rules: {
-    'object-curly-newline': 0
+    'object-curly-newline': 0,
+    'import/prefer-default-export': 0
   }
 };
