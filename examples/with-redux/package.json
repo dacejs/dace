@@ -5,7 +5,7 @@
   },
   "dependencies": {
     "dace": "latest",
-    "dace-plugin-redux": "latest",
+    "dace-plugin-redux": "next",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
     "redux-logger": "^3.0.6"
