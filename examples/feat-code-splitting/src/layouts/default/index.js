@@ -1,17 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'dace';
+import Header from '../../components/Header';
 
 const DefaultLayout = props => (
   <div>
-    <ul>
-      <li>
-        <Link to="/">Home</Link>
-      </li>
-      <li>
-        <Link to="/users">Users</Link>
-      </li>
-    </ul>
+    <Header />
     {props.children}
   </div>
 );

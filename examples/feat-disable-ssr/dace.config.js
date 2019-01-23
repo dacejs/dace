@@ -1,3 +1,3 @@
 module.exports = {
-  DACE_DISABLE_SSR: true
+  DACE_SSR: false
 };
