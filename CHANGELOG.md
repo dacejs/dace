@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="2.0.0-alpha.9"></a>
+# [2.0.0-alpha.9](https://github.com/dacejs/dace/compare/v2.0.0-alpha.8...v2.0.0-alpha.9) (2019-01-23)
+
+
+### Features
+
+* 修改环境变量名称 ([1b121da](https://github.com/dacejs/dace/commit/1b121da))
+* 提取 DACE_VENDORS 变量 ([2330235](https://github.com/dacejs/dace/commit/2330235))
+* 禁用 `import/prefer-default-export` eslint 规则 ([77833de](https://github.com/dacejs/dace/commit/77833de))
+* 重构 dace 配置文件机制 ([28d0bb2](https://github.com/dacejs/dace/commit/28d0bb2))
+
+
+
 <a name="2.0.0-alpha.8"></a>
 # [2.0.0-alpha.8](https://github.com/dacejs/dace/compare/v2.0.0-alpha.7...v2.0.0-alpha.8) (2019-01-14)
 
