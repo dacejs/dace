@@ -7,9 +7,12 @@
 import path from 'path';
 
 export default (file) => {
-  const { DACE_PATH_ROOT = '.' } = process.env;
-  if (path.isAbsolute(file)) {
-    return file;
+  if (file) {
+    const { DACE_PATH_ROOT = '.' } = process.env;
+    if (path.isAbsolute(file)) {
+      return file;
+    }
+    return path.resolve(DACE_PATH_ROOT, file);
   }
-  return path.resolve(DACE_PATH_ROOT, file);
+  return file;
 };

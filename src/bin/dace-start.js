@@ -55,7 +55,7 @@ function main() {
 
   // 在确保浏览器端编译成功后再启动服务器端编译
   clientCompiler.plugin('done', (stats) => {
-    if (stats.compilation.errors.length === 0) {
+    if (stats.compilation.errors.length === 0 && stats.compilation.warnings.length === 0) {
       if (program.visualizer) {
         const file = `${DACE_PATH_CLIENT_DIST}/stats.html`;
         const message = `\`webpack visualizer\` has been generated.\nOpen it ${chalk.underline(`open file://${file}`)}`;
@@ -66,6 +66,8 @@ function main() {
         quiet: true,
         stats: 'none'
       }, () => {});
+    } else {
+      logger.error('Client build failed.');
     }
   });
 

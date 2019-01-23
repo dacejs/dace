@@ -19,3 +19,4 @@
 - [ ] vendor 在dace.config可配置
 - [ ] less-loader的支持
 - [*] 重新设计 paths.js defaultEnv.js dace.config.js
+- [ ] 确认 DACE_API_BASE_URL 是否可以删除

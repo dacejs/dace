@@ -23,9 +23,9 @@ server
     // 查找当前 URL 匹配的路由
     let initialProps = {};
     const { query, _parsedUrl: { pathname } } = req;
-    const noSSR = process.env.DACE_NO_SSR === 'true';
+    const ssr = process.env.DACE_SSR === 'true';
 
-    if (!noSSR) {
+    if (ssr) {
       const promises = matchRoutes(routes, pathname) // <- react-router 不匹配 querystring
         .map(async ({ route, match }) => {
           const { component } = route;
@@ -53,26 +53,25 @@ server
     }
 
     if (!process.env.DACE_PATH_STATS_JSON) {
-      throw new Error('Not found `DACE_STATS_JSON` in `process.env`');
+      throw new Error('Not found `DACE_PATH_STATS_JSON` in `process.env`');
     }
 
     // 获取初始化网页需要插入的 CSS/JS 静态文件
     const { publicPath, chunks } = require(process.env.DACE_PATH_STATS_JSON);
     let files = [];
     // 输出入口文件
-    const [root] = chunks.filter(chunk => chunk.initial && chunk.parents.length === 0);
+    const [root] = chunks.filter(chunk => chunk.initial && chunk.entry);
     files = files.concat(root.files);
 
     // 输出公共文件
-    const vendors = chunks.filter(chunk => chunk.initial && chunk.parents.length > 0);
+    const vendors = chunks.filter(chunk => chunk.reason && chunk.reason.startsWith('split chunk (cache group:'));
     vendors.forEach((vendor) => {
       files = files.concat(vendor.files);
     });
 
-    // 根据当前路由反查页面对应的组件
+    // 根据当前路由反查对应的页面组件
     let currentPage;
     matchRoutes(routes, pathname).forEach(({ route }) => {
-      // 找到了页面
       if (route.path) {
         const { component: { componentId } } = route;
         currentPage = componentId.replace(`${process.env.DACE_PATH_PAGES}/`, '');
@@ -83,7 +82,8 @@ server
       const [page] = chunks.filter(chunk => !chunk.initial && chunk.names[0] === currentPage);
       // 只包含一个页面时不会拆分打包，所有文件会打到 main.js 里
       if (page && page.files) {
-        files = files.concat(page.files);
+        // 只需在 HTML 中插入 css ，js 会通过异步加载，此处无需显式插入
+        files = files.concat(page.files.filter(file => file.endsWith('.css')));
       }
     }
 
@@ -103,11 +103,11 @@ server
     const cssTags = renderTags('css', files);
 
     const context = {};
-    const Markup = noSSR ? null : (
+    const Markup = ssr ? (
       <StaticRouter context={context} location={req.url}>
         {renderRoutes(routes, { initialProps })}
       </StaticRouter>
-    );
+    ) : null;
 
     const loadableState = await getLoadableState(Markup);
 
@@ -121,7 +121,7 @@ server
 
     // renderStatic 需要在 root 元素 render 后执行
     // 禁用服务器端渲染时，head meta 也不渲染
-    const head = process.env.DACE_NO_SSR === 'false' ?
+    const head = process.env.DACE_SSR === 'true' ?
       Helmet.renderStatic() : {
         htmlAttributes: { toString: () => '' },
         title: { toString: () => '' },

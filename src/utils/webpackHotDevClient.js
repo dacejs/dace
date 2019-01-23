@@ -35,7 +35,7 @@ ErrorOverlay.startReportingRuntimeErrors({
   onError: function() {
     hadRuntimeError = true;
   },
-  filename: process.env.REACT_BUNDLE_PATH || '/js/bundle.js',
+  filename: '/js/bundle.js'
 });
 
 if (module.hot && typeof module.hot.dispose === 'function') {

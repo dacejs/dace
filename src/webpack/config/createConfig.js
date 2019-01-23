@@ -46,8 +46,7 @@ export default ({
     DACE_PATH_CLIENT_ENTRY,
     DACE_PATH_SERVER_ENTRY,
     DACE_PATH_CLIENT_DIST,
-    DACE_PATH_SERVER_DIST,
-    DACE_PATH_STATS_JSON
+    DACE_PATH_SERVER_DIST
   } = process.env;
   const IS_NODE = target === 'node';
   const IS_WEB = target === 'web';
@@ -345,7 +344,7 @@ export default ({
     ];
 
     config.plugins = [
-      // We define environment variables that can be accessed globally in our
+      // 将定义环境变量传递到运行时环境
       new webpack.DefinePlugin(daceEnv),
       // 防止 node 编译时打成多个包
       new webpack.optimize.LimitChunkCountPlugin({
@@ -365,8 +364,8 @@ export default ({
         new StartServerPlugin({
           name: 'server.js'
         }),
-        // Ignore assets.json to avoid infinite recompile bug
-        new webpack.WatchIgnorePlugin([DACE_PATH_STATS_JSON])
+        // 不监视编译输出目录，避免重新压缩死循环
+        new webpack.WatchIgnorePlugin([DACE_PATH_CLIENT_DIST, DACE_PATH_SERVER_DIST])
       ];
     }
   }
@@ -393,15 +392,28 @@ export default ({
       minimize: false,
       splitChunks: {
         cacheGroups: {
-          // 禁止自动生成 vendors 包
-          vendors: false,
+          // 禁用 cacheGroups(test/priority/reuseExistingChunk)默认配置
           default: false,
 
-          // 将指定的包打到 vendor.js
+          // 禁用 vendors
+          vendors: false,
+
+          // 打包 vendor.js
           vendor: {
             name: 'vendor',
             test: vendorPattern,
             chunks: 'all',
+            enforce: true
+          },
+
+          // 打包 styles.css
+          styles: {
+            name: 'styles',
+            test: /\.(css|less|scss)$/,
+            chunks: 'all',
+            minChunks: 2,
+            priority: 10,
+            reuseExistingChunk: true,
             enforce: true
           }
 
@@ -424,7 +436,7 @@ export default ({
           path.resolve(info.resourcePath).replace(/\\/g, '/')
       };
       // Configure webpack-dev-server to serve our client-side bundle from
-      // http://${dotenv.raw.HOST}:3001
+      // http://${process.env.DACE_HOST}:3001
       config.devServer = {
         disableHostCheck: true,
         clientLogLevel: 'none',
@@ -525,7 +537,7 @@ export default ({
       const completePluginName = name.startsWith(pluginPrefix) ? name : `${pluginPrefix}${name}`;
       let dacePlugin;
       try {
-        dacePlugin = require(completePluginName);
+        dacePlugin = require(`${completePluginName}/dist/plugin`);
         if (dacePlugin.default) {
           dacePlugin = dacePlugin.default;
         }
