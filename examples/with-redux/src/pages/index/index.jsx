@@ -10,7 +10,8 @@ import Layout from '../../layouts/default';
 @getInitialProps({
   reducer,
   promise: ({ store }) => store.dispatch(fetchUsers())
-})@connect(state => state)
+})
+@connect(state => state)
 export default class Users extends Component {
   static propTypes = {
     users: PropTypes.arrayOf(PropTypes.shape({

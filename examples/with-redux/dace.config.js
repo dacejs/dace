@@ -1,4 +1,19 @@
 module.exports = {
+  // 指定服务器端渲染时 axios 请求 baseUrl
+  DACE_API_BASE_URL: 'http://localhost:3001',
+
+  // 创建 axios 实例的文件路径
+  DACE_PATH_PLUGIN_REDUX_AXIOS_INSTANCE: 'src/axios.js',
+
+  // 加上 dace-plugin-redux
+  plugins: [
+    ['redux'/* , {
+      middlewares: [
+        'require(\'redux-logger\').default'
+      ]
+    } */]
+  ],
+
   modify(config, { target, isDev }) {
     const appConfig = config;
     if (target === 'web' && isDev) {
@@ -34,12 +49,5 @@ module.exports = {
     }
 
     return appConfig;
-  },
-  plugins: [
-    ['redux'/* , {
-      middlewares: [
-        'require(\'redux-logger\').default'
-      ]
-    } */]
-  ]
+  }
 };
