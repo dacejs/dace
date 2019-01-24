@@ -119,19 +119,8 @@ server
       markup = renderToString(<RedBox error={e} />);
     }
 
-    // renderStatic 需要在 root 元素 render 后执行
-    // 禁用服务器端渲染时，head meta 也不渲染
-    const head = ssr ?
-      Helmet.renderStatic() : {
-        htmlAttributes: { toString: () => '' },
-        title: { toString: () => '' },
-        meta: { toString: () => '' },
-        link: { toString: () => '' },
-        style: { toString: () => '' },
-        script: { toString: () => '' },
-        noscript: { toString: () => '' },
-        bodyAttributes: { toString: () => '' }
-      };
+    // renderStatic 需要在 root 元素 renderToString 后执行
+    const head = Helmet.renderStatic();
     const state = serialize(initialProps);
 
     if (context.url) {
