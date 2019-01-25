@@ -1,3 +1,8 @@
+/**
+ * dace.config.js 未使用 babel 编译
+ * 保险起见，请使用 es5 语法书写
+ */
+
 module.exports = {
   // 指定服务器端渲染时 axios 请求 baseUrl
   DACE_API_BASE_URL: 'http://localhost:3001',
