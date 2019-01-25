@@ -4,7 +4,7 @@
  */
 const path = require('path');
 
-export default {
+module.exports = {
   modify(config) {
     const appConfig = config;
 
