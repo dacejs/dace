@@ -17,6 +17,9 @@ export default {
   // 使用服务器端渲染
   DACE_SSR: 'true',
 
+  // 输出的 script 标签是否使用 crossorigin 属性
+  DACE_SCRIPT_CROSSORIGIN: 'true',
+
   // URL 转发规则
   DACE_PROXY: '',
 
@@ -25,7 +28,6 @@ export default {
 
   // 以 `DACE_PATH_` 开头的变量会转换成绝对路径
   // 工程根目录
-  // appRoot: '.',
   DACE_PATH_ROOT: '.',
 
   // dace 配置文件位置
@@ -33,19 +35,15 @@ export default {
   DACE_PATH_CONFIG: 'dace.config.js',
 
   // babel 配置文件位置
-  // appBabelRc: '.babelrc',
   DACE_PATH_BABEL_RC: '.babelrc',
 
   // eslint 配置文件位置
-  // appEslintRc: '.eslintrc.js',
   DACE_PATH_ESLINT_RC: '.eslintrc.js',
 
   // postcss 配置文件位置
-  // appPostcssRc: 'postcss.config.js',
   DACE_PATH_POSTCSS_RC: 'postcss.config.js',
 
   // profiles 目录位置
-  // appProfiles: 'profiles',
   DACE_PATH_PROFILES: 'profiles',
 
   // src 目录位置
@@ -53,30 +51,23 @@ export default {
   DACE_PATH_SRC: 'src',
 
   // pages 目录位置
-  // appPages: 'src/pages',
   DACE_PATH_PAGES: 'src/pages',
 
   // 服务器端编译入口文件位置
-  // appServerIndexJs: 'src/server.js',
   DACE_PATH_SERVER_ENTRY: 'src/server.js',
 
   // 浏览器端编译入口文件位置
-  // appClientIndexJs: 'src/client.js',
   DACE_PATH_CLIENT_ENTRY: 'src/client.js',
 
   // node_modules 目录位置
-  // appNodeModules: 'node_modules',
   DACE_PATH_NODE_MODULES: 'node_modules',
 
   // 浏览器端编译产物输出目录位置
-  // appClientBuild: 'prd',
   DACE_PATH_CLIENT_DIST: 'prd',
 
   // 服务器端编译产物输出目录位置
-  // appServerBuild: 'dist',
   DACE_PATH_SERVER_DIST: 'dist',
 
   // 浏览器端编译输出的版本文件位置
-  // appStatsJson: 'prd/webpack-stats.json'
   DACE_PATH_STATS_JSON: 'prd/webpack-stats.json'
 };

@@ -12,23 +12,32 @@
  */
 
 export default ({
-  head, cssTags, jsTags, markup, state, loadableState
-}) => `<!doctype html>
-<html ${head.htmlAttributes.toString()}>
-<head>
-  <meta charset="utf-8" />
-  ${head.title.toString()}
-  ${head.meta.toString()}
-  ${head.link.toString()}
-  ${head.style.toString()}
-  ${head.script.toString()}
-  ${head.noscript.toString()}
-  ${cssTags}
-</head>
-<body ${head.bodyAttributes.toString()}>
-  <div id="root">${markup}</div>
-  <script>window.INITIAL_STATE=${state};</script>
-  ${loadableState}
-  ${jsTags}
-</body>
-</html>`;
+  head = {},
+  cssTags = '',
+  jsTags = '',
+  markup = '',
+  state = '{}',
+  loadableState = ''
+}) => {
+  const print = (key) => {
+    if (head[key] && typeof head[key].toString === 'function') {
+      return head[key].toString();
+    }
+    return '';
+  };
+
+  const metaString = ['title', 'meta', 'link', 'style', 'script', 'noscript']
+    .map(key => print(key))
+    .join('');
+
+  return `<!doctype html>
+  <html ${print('htmlAttributes')}>
+  <head>
+    <meta charset="utf-8" />${metaString}${cssTags}
+  </head>
+  <body ${print('bodyAttributes.toString')}>
+    <div id="root">${markup}</div>
+    <script>window.INITIAL_STATE=${state};</script>${loadableState}${jsTags}
+  </body>
+  </html>`;
+};
