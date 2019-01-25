@@ -65,6 +65,7 @@
     "react-helmet": "^5.2.0",
     "react-router-config": "^1.0.0-beta.4",
     "react-router-dom": "^4.3.1",
+    "redbox-react": "^1.6.0",
     "start-server-webpack-plugin": "2.2.5",
     "style-loader": "^0.23.1",
     "stylelint": "^9.9.0",
