@@ -20,9 +20,6 @@ export default {
   // 输出的 script 标签是否使用 crossorigin 属性
   DACE_SCRIPT_CROSSORIGIN: 'true',
 
-  // URL 转发规则
-  DACE_PROXY: '',
-
   // 公共包包含的文件，包之间用竖线连接，匹配时使用的是正则匹配
   DACE_VENDORS: 'react|redux|loadable-components|core-js|deep-equal|dace/dist',
 
@@ -69,5 +66,12 @@ export default {
   DACE_PATH_SERVER_DIST: 'dist',
 
   // 浏览器端编译输出的版本文件位置
-  DACE_PATH_STATS_JSON: 'prd/webpack-stats.json'
+  DACE_PATH_STATS_JSON: 'prd/webpack-stats.json',
+
+  // 请求代理配置文件位置
+  // 该配置项需要配置到 profiles 中做环境隔离
+  DACE_PATH_PROXY_TABLE: '',
+
+  // 创建 axios 实例文件位置
+  DACE_PATH_AXIOS_INSTANCE: 'src/runtime/axiosInstance.js'
 };

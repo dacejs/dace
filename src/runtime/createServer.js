@@ -9,15 +9,18 @@ import serialize from 'serialize-javascript';
 import { RedBoxError } from 'redbox-react';
 import NotFound from './components/NotFound';
 import renderTags from './utils/renderTags';
+import addProxyTable from './utils/addProxyTable';
+import addStatic from './utils/addStatic';
 import document from './document';
 import routes from './routes';
 
 const server = express();
 
-// 当 publicPath = '/' 需要将编译目录挂载为虚拟目录（本地开发模式）
-if (process.env.DACE_PUBLIC_PATH === '/') {
-  server.use(express.static(process.env.DACE_PATH_CLIENT_DIST));
-}
+// 绑定请求代理
+addProxyTable(server);
+
+// 挂载虚拟目录
+addStatic(server);
 
 server
   .disable('x-powered-by')
