@@ -4,10 +4,8 @@
     "start": "dace start"
   },
   "dependencies": {
-    "dace": "latest",
-    "dace-plugin-redux": "latest",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
-    "redux-logger": "^3.0.6"
+    "dace": "latest"
   }
 }
