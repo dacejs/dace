@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="2.0.0-alpha.10"></a>
+# [2.0.0-alpha.10](https://github.com/dacejs/dace/compare/v2.0.0-alpha.9...v2.0.0-alpha.10) (2019-01-28)
+
+
+### Features
+
+* 地址找不到时显示404页面 ([0210dbd](https://github.com/dacejs/dace/commit/0210dbd))
+* **config:** 增加 `DACE_SCRIPT_CROSSORIGIN` 配置项 ([ad2d127](https://github.com/dacejs/dace/commit/ad2d127))
+* **deps:** `axios@^0.18.0` `packing-urlrewrite@^0.2.0` ([b54657c](https://github.com/dacejs/dace/commit/b54657c))
+* **deps:** redbox-react@1.6.0 ([cc60a29](https://github.com/dacejs/dace/commit/cc60a29))
+* 新增请求转发功能 ([06f31c1](https://github.com/dacejs/dace/commit/06f31c1))
+
+
+
 <a name="2.0.0-alpha.9"></a>
 # [2.0.0-alpha.9](https://github.com/dacejs/dace/compare/v2.0.0-alpha.8...v2.0.0-alpha.9) (2019-01-23)
 
