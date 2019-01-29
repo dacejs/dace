@@ -537,7 +537,7 @@ export default ({
       const completePluginName = name.startsWith(pluginPrefix) ? name : `${pluginPrefix}${name}`;
       let dacePlugin;
       try {
-        dacePlugin = require(`${completePluginName}/dist/plugin`);
+        dacePlugin = require(`${completePluginName}/plugin`);
         if (dacePlugin.default) {
           dacePlugin = dacePlugin.default;
         }
