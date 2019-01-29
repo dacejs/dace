@@ -5,7 +5,7 @@ export const fetchUsers = () => async (dispatch, getState, api) => {
   if (!users) {
     let res;
     try {
-      res = await api.get('http://localhost:3001/api/users');
+      res = await api.get('/api/users');
     } catch (e) {
       throw e;
     }
