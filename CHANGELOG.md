@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="2.0.0-alpha.11"></a>
+# [2.0.0-alpha.11](https://github.com/dacejs/dace/compare/v2.0.0-alpha.10...v2.0.0-alpha.11) (2019-01-29)
+
+
+### Bug Fixes
+
+* 修复前端路由不触发getInitialProps的问题 ([c6de1e4](https://github.com/dacejs/dace/commit/c6de1e4))
+
+
+
 <a name="2.0.0-alpha.10"></a>
 # [2.0.0-alpha.10](https://github.com/dacejs/dace/compare/v2.0.0-alpha.9...v2.0.0-alpha.10) (2019-01-28)
 
