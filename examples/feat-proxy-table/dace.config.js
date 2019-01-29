@@ -4,9 +4,6 @@
  */
 
 module.exports = {
-  // 指定服务器端渲染时 axios 请求 baseUrl
-  // DACE_API_BASE_URL: 'http://localhost:3001',
-
   modify(config, { target, isDev }) {
     const appConfig = config;
     if (target === 'web' && isDev) {
