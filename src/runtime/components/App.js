@@ -35,13 +35,22 @@ export default class App extends Component {
       nextProps.location.query = query;
 
       const promises = matchRoutes(this.props.routes, nextProps.location.pathname)
-        .map(({ route, match }) => {
+        .map(async ({ route, match }) => {
           const { component } = route;
-          if (component && component.getInitialProps) {
-            const ctx = { match, query };
-            const { getInitialProps } = component;
-            return getInitialProps ? getInitialProps(ctx) : null;
+          if (component) {
+            if (component.load && !component.loadingPromise) {
+              // 预加载 loadable-component
+              // 确保服务器端第一次渲染时能拿到数据
+              await component.load();
+            }
+
+            if (component.getInitialProps) {
+              const ctx = { match, query };
+              const { getInitialProps } = component;
+              return getInitialProps ? getInitialProps(ctx) : null;
+            }
           }
+
           return null;
         })
         .filter(Boolean);
