@@ -6,7 +6,7 @@
   "repository": "git@github.com:dacejs/dace.git",
   "homepage": "https://dacejs.com",
   "scripts": {
-    "build": "NODE_ENV=local babel src -d dist --presets=env,dace",
+    "build": "rm -rf dist prd && NODE_ENV=local babel src -d dist --presets=env,dace",
     "build:watch": "npm run build -- --watch",
     "postrelease": "git push && git push origin --tags",
     "prepare": "npm run build",

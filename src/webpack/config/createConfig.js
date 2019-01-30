@@ -379,8 +379,6 @@ export default ({
 
     config.output = {
       path: DACE_PATH_CLIENT_DIST,
-      filename: 'js/bundle.[chunkhash:8].js',
-      chunkFilename: 'js/[name].[chunkhash:8].chunk.js',
       libraryTarget: 'var'
     };
 
@@ -436,6 +434,8 @@ export default ({
         ...config.output,
         publicPath: `http://${DACE_HOST}:${devServerPort}/`,
         pathinfo: true,
+        filename: 'js/bundle.[hash:8].js',
+        chunkFilename: 'js/[name].[hash:8].chunk.js',
         devtoolModuleFilenameTemplate: info =>
           path.resolve(info.resourcePath).replace(/\\/g, '/')
       };
@@ -476,7 +476,12 @@ export default ({
         })
       ];
     } else { // web-build
-      config.output.publicPath = DACE_PUBLIC_PATH;
+      config.output = {
+        ...config.output,
+        publicPath: DACE_PUBLIC_PATH,
+        filename: 'js/bundle.[chunkhash:8].js',
+        chunkFilename: 'js/[name].[chunkhash:8].chunk.js'
+      };
 
       config.plugins = [
         ...config.plugins,
