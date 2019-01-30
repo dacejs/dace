@@ -5,6 +5,9 @@ export default {
   // 本地开发 web server 端口
   DACE_PORT: '3000',
 
+  // 代理请求规则（需JSON.stringify）
+  DACE_PROXY: '',
+
   // 编译产物对外服务访问使用的 URL
   DACE_PUBLIC_PATH: '/',
 
@@ -67,10 +70,6 @@ export default {
 
   // 浏览器端编译输出的版本文件位置
   DACE_PATH_STATS_JSON: 'prd/webpack-stats.json',
-
-  // 请求代理配置文件位置
-  // 该配置项需要配置到 profiles 中做环境隔离
-  DACE_PATH_PROXY_TABLE: '',
 
   // 创建 axios 实例文件位置
   DACE_PATH_AXIOS_INSTANCE: 'src/runtime/axiosInstance.js'

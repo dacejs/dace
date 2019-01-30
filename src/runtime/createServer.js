@@ -9,7 +9,7 @@ import serialize from 'serialize-javascript';
 import { RedBoxError } from 'redbox-react';
 import NotFound from './components/NotFound';
 import renderTags from './utils/renderTags';
-import addProxyTable from './utils/addProxyTable';
+import addProxy from './utils/addProxy';
 import addStatic from './utils/addStatic';
 import document from './document';
 import routes from './routes';
@@ -17,7 +17,7 @@ import routes from './routes';
 const server = express();
 
 // 绑定请求代理
-addProxyTable(server);
+addProxy(server);
 
 // 挂载虚拟目录
 addStatic(server);

@@ -15,7 +15,7 @@ module.exports = {
             switch (req._parsedUrl.pathname) { // eslint-disable-line
               case '/api/name':
                 data = {
-                  name: 'feat-proxy-table'
+                  name: 'feat-proxy'
                 };
                 break;
               default:

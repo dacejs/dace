@@ -4,5 +4,6 @@
  */
 
 module.exports = {
+  // 路由默认使用的首页文件名称
   DACE_INDEX: 'default'
 };

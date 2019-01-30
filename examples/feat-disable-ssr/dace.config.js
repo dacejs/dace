@@ -4,5 +4,6 @@
  */
 
 module.exports = {
+  // 关闭服务器端渲染
   DACE_SSR: false
 };
