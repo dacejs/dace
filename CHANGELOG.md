@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="2.0.0-alpha.12"></a>
+# [2.0.0-alpha.12](https://github.com/dacejs/dace/compare/v2.0.0-alpha.11...v2.0.0-alpha.12) (2019-01-30)
+
+
+### Features
+
+* 开发环境下也使用长期缓存 ([d7cabd6](https://github.com/dacejs/dace/commit/d7cabd6))
+* 调整代理请求规则配置方式 ([8bb7bd7](https://github.com/dacejs/dace/commit/8bb7bd7))
+
+
+
 <a name="2.0.0-alpha.11"></a>
 # [2.0.0-alpha.11](https://github.com/dacejs/dace/compare/v2.0.0-alpha.10...v2.0.0-alpha.11) (2019-01-29)
 
