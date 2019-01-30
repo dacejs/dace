@@ -377,6 +377,13 @@ export default ({
         path.resolve(__dirname, '../../runtime/client.js')
     ];
 
+    config.output = {
+      path: DACE_PATH_CLIENT_DIST,
+      filename: 'js/bundle.[chunkhash:8].js',
+      chunkFilename: 'js/[name].[chunkhash:8].chunk.js',
+      libraryTarget: 'var'
+    };
+
     config.plugins = [
       ...config.plugins,
       new WrireStatsFilePlugin(),
@@ -426,12 +433,9 @@ export default ({
 
       // Configure our client bundles output. Not the public path is to 3001.
       config.output = {
-        path: DACE_PATH_CLIENT_DIST,
+        ...config.output,
         publicPath: `http://${DACE_HOST}:${devServerPort}/`,
         pathinfo: true,
-        libraryTarget: 'var',
-        filename: 'js/bundle.js',
-        chunkFilename: 'js/[name].chunk.js',
         devtoolModuleFilenameTemplate: info =>
           path.resolve(info.resourcePath).replace(/\\/g, '/')
       };
@@ -472,13 +476,7 @@ export default ({
         })
       ];
     } else { // web-build
-      config.output = {
-        path: DACE_PATH_CLIENT_DIST,
-        publicPath: DACE_PUBLIC_PATH,
-        filename: 'js/bundle.[chunkhash:8].js',
-        chunkFilename: 'js/[name].[chunkhash:8].chunk.js',
-        libraryTarget: 'var'
-      };
+      config.output.publicPath = DACE_PUBLIC_PATH;
 
       config.plugins = [
         ...config.plugins,
