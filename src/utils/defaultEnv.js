@@ -26,6 +26,12 @@ export default {
   // 公共包包含的文件，包之间用竖线连接，匹配时使用的是正则匹配
   DACE_VENDORS: 'react|redux|loadable-components|core-js|deep-equal|dace/dist',
 
+  // 静态文件是否使用长期缓存
+  DACE_LONG_TERM_CACHING: 'true',
+
+  // 静态文件长期缓存长度
+  DACE_LONG_TERM_CACHING_LENGTH: '8',
+
   // 以 `DACE_PATH_` 开头的变量会转换成绝对路径
   // 工程根目录
   DACE_PATH_ROOT: '.',

@@ -38,6 +38,8 @@ export default ({
     NODE_PATH = '',
     DACE_PUBLIC_PATH,
     DACE_VENDORS,
+    DACE_LONG_TERM_CACHING,
+    DACE_LONG_TERM_CACHING_LENGTH,
     DACE_PATH_ROOT,
     DACE_PATH_BABEL_RC,
     DACE_PATH_ESLINT_RC,
@@ -52,6 +54,12 @@ export default ({
   const IS_WEB = target === 'web';
   const IS_DEV = isDev;
   const devServerPort = parseInt(DACE_PORT, 10) + 1;
+  const getHash = (hash) => {
+    if (DACE_LONG_TERM_CACHING === 'true') {
+      return `.[${hash}:${DACE_LONG_TERM_CACHING_LENGTH}]`
+    }
+    return '';
+  }
 
   // 将 process.env 中所有以 DACE_ 开头的变量传递到代码运行时环境
   const daceEnv = Object.keys(process.env)
@@ -197,7 +205,7 @@ export default ({
           ],
           loader: require.resolve('file-loader'),
           options: {
-            name: 'media/[name].[hash:8].[ext]',
+            name: `media/[name]${getHash('hash')}.[ext]`,
             emitFile: true
           }
         },
@@ -209,7 +217,7 @@ export default ({
           loader: require.resolve('url-loader'),
           options: {
             limit: 10000,
-            name: 'media/[name].[hash:8].[ext]',
+            name: `media/[name]${getHash('hash')}.[ext]`,
             emitFile: true
           }
         },
@@ -435,8 +443,8 @@ export default ({
         ...config.output,
         publicPath: `http://${DACE_HOST}:${devServerPort}/`,
         pathinfo: true,
-        filename: 'js/bundle.[hash:8].js',
-        chunkFilename: 'js/[name].[hash:8].chunk.js',
+        filename: `js/bundle${getHash('hash')}.js`,
+        chunkFilename: `js/[name]${getHash('hash')}.chunk.js`,
         devtoolModuleFilenameTemplate: info =>
           path.resolve(info.resourcePath).replace(/\\/g, '/')
       };
@@ -480,15 +488,15 @@ export default ({
       config.output = {
         ...config.output,
         publicPath: DACE_PUBLIC_PATH,
-        filename: 'js/bundle.[chunkhash:8].js',
-        chunkFilename: 'js/[name].[chunkhash:8].chunk.js'
+        filename: `js/bundle${getHash('chunkhash')}.js`,
+        chunkFilename: `js/[name]${getHash('chunkhash')}.chunk.js`
       };
 
       config.plugins = [
         ...config.plugins,
         // Extract our CSS into a files.
         new MiniCssExtractPlugin({
-          filename: 'css/[name].[contenthash:8].css',
+          filename: `css/[name]${getHash('contenthash')}.css`,
           // allChunks: true because we want all css to be included in the main
           // css bundle when doing code splitting to avoid FOUC:
           // https://github.com/facebook/create-react-app/issues/2415
