@@ -22,8 +22,11 @@ If applicable, add screenshots to help explain your problem.
 
 **Desktop (please complete the following information):**
  - OS: [e.g. iOS]
- - Browser [e.g. chrome, safari]
- - Version [e.g. 22]
+ - Browser: [e.g. chrome, safari]
+ - Browser Version: [e.g. 22]
+ - Node: [e.g. 8.0.0]
+ - NPM: [e.g. 6.0.0]
+ - Dace: [e.g. 2.0.0-alpha.12]
 
 **Smartphone (please complete the following information):**
  - Device: [e.g. iPhone6]
