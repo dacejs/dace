@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="2.0.0-alpha.13"></a>
+# [2.0.0-alpha.13](https://github.com/dacejs/dace/compare/v2.0.0-alpha.12...v2.0.0-alpha.13) (2019-01-31)
+
+
+### Bug Fixes
+
+* [#13](https://github.com/dacejs/dace/issues/13) 运行编译后代码报错 Not found `DACE_PATH_STATS_JSON` in `process.env` ([0dcc7e7](https://github.com/dacejs/dace/commit/0dcc7e7))
+
+
+### Features
+
+* 增加 DACE_LONG_TERM_CACHING ([2438ccc](https://github.com/dacejs/dace/commit/2438ccc))
+
+
+
 <a name="2.0.0-alpha.12"></a>
 # [2.0.0-alpha.12](https://github.com/dacejs/dace/compare/v2.0.0-alpha.11...v2.0.0-alpha.12) (2019-01-30)
 
