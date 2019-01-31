@@ -322,6 +322,7 @@ export default ({
       nodeExternals({
         whitelist: [
           IS_DEV ? 'webpack/hot/poll?300' : null,
+          /dace/, // <-- #13
           /\.(eot|woff|woff2|ttf|otf)$/,
           /\.(svg|png|jpg|jpeg|gif|ico)$/,
           /\.(mp4|mp3|ogg|swf|webp)$/,
