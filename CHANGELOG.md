@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="2.0.0-alpha.14"></a>
+# [2.0.0-alpha.14](https://github.com/dacejs/dace/compare/v2.0.0-alpha.13...v2.0.0-alpha.14) (2019-06-03)
+
+
+### Bug Fixes
+
+* [#15](https://github.com/dacejs/dace/issues/15) route.path 支持数组参数 ([5ebc5a5](https://github.com/dacejs/dace/commit/5ebc5a5))
+
+
+
 <a name="2.0.0-alpha.13"></a>
 # [2.0.0-alpha.13](https://github.com/dacejs/dace/compare/v2.0.0-alpha.12...v2.0.0-alpha.13) (2019-01-31)
 
