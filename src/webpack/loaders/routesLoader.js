@@ -39,7 +39,7 @@ export default () => {
       const routerFile = resolve(dirname(pathWithoutExtension), 'router.js');
       if (existsSync(routerFile)) {
         const config = require(routerFile);
-        endpoint = config.path;
+        endpoint = JSON.stringify(config.path);
         exact = config.exact || 'false';
       } else {
         endpoint = getEndpointFromPath(name);
@@ -47,7 +47,7 @@ export default () => {
       }
 
       return (`{
-        path: '${endpoint}',
+        path: ${endpoint},
         exact: ${exact},
         component: loadable(() => import(/* webpackChunkName: "${name}" */ '${pathWithoutExtension}'))
       }`);
