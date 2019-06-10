@@ -3,7 +3,7 @@ import fs from 'fs';
 import path from 'path';
 import util from 'util';
 import WebpackBar from 'webpackbar';
-import CleanWebpackPlugin from 'clean-webpack-plugin';
+import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 import StartServerPlugin from 'start-server-webpack-plugin';
 import errorOverlayMiddleware from 'react-dev-utils/errorOverlayMiddleware';
 import eslintFormatter from 'react-dev-utils/eslintFormatter';
@@ -40,7 +40,7 @@ export default ({
     DACE_VENDORS,
     DACE_LONG_TERM_CACHING,
     DACE_LONG_TERM_CACHING_LENGTH,
-    DACE_PATH_ROOT,
+    // DACE_PATH_ROOT,
     DACE_PATH_BABEL_RC,
     DACE_PATH_ESLINT_RC,
     DACE_PATH_POSTCSS_RC,
@@ -394,9 +394,12 @@ export default ({
     config.plugins = [
       ...config.plugins,
       new WrireStatsFilePlugin(),
-      new CleanWebpackPlugin([DACE_PATH_CLIENT_DIST, DACE_PATH_SERVER_DIST], {
-        root: DACE_PATH_ROOT,
-        verbose: false
+      // new CleanWebpackPlugin([DACE_PATH_CLIENT_DIST, DACE_PATH_SERVER_DIST], {
+      //   root: DACE_PATH_ROOT,
+      //   verbose: false
+      // }),
+      new CleanWebpackPlugin({
+        cleanOnceBeforeBuildPatterns: [DACE_PATH_CLIENT_DIST, DACE_PATH_SERVER_DIST]
       }),
       new webpack.DefinePlugin(daceEnv)
     ];
