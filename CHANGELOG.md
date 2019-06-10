@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="2.0.0-alpha.15"></a>
+# [2.0.0-alpha.15](https://github.com/dacejs/dace/compare/v2.0.0-alpha.14...v2.0.0-alpha.15) (2019-06-10)
+
+
+### Bug Fixes
+
+* [#16](https://github.com/dacejs/dace/issues/16) 修复 `DACE_PATH_AXIOS_INSTANCE` 默认值错误。 ([6bb37e8](https://github.com/dacejs/dace/commit/6bb37e8))
+* [#17](https://github.com/dacejs/dace/issues/17) 修复使用默认路由时的报错 ([535c72b](https://github.com/dacejs/dace/commit/535c72b))
+
+
+
 <a name="2.0.0-alpha.14"></a>
 # [2.0.0-alpha.14](https://github.com/dacejs/dace/compare/v2.0.0-alpha.13...v2.0.0-alpha.14) (2019-06-03)
 
