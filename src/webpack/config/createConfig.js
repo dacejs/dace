@@ -56,10 +56,10 @@ export default ({
   const devServerPort = parseInt(DACE_PORT, 10) + 1;
   const getHash = (hash) => {
     if (DACE_LONG_TERM_CACHING === 'true') {
-      return `.[${hash}:${DACE_LONG_TERM_CACHING_LENGTH}]`
+      return `.[${hash}:${DACE_LONG_TERM_CACHING_LENGTH}]`;
     }
     return '';
-  }
+  };
 
   // 将 process.env 中所有以 DACE_ 开头的变量传递到代码运行时环境
   const daceEnv = Object.keys(process.env)
