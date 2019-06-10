@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="2.0.0-alpha.16"></a>
+# [2.0.0-alpha.16](https://github.com/dacejs/dace/compare/v2.0.0-alpha.15...v2.0.0-alpha.16) (2019-06-10)
+
+
+### Features
+
+* 升级依赖包 ([36da952](https://github.com/dacejs/dace/commit/36da952))
+
+
+
 <a name="2.0.0-alpha.15"></a>
 # [2.0.0-alpha.15](https://github.com/dacejs/dace/compare/v2.0.0-alpha.14...v2.0.0-alpha.15) (2019-06-10)
 
