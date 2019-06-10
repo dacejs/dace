@@ -81,7 +81,7 @@
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
-    "mocha": "^5.2.0",
+    "mocha": "^6.1.4",
     "ps-tree": "^1.2.0",
     "shelljs": "^0.8.3",
     "should": "^13.2.3"
