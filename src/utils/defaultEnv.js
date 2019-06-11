@@ -41,7 +41,7 @@ export default {
   DACE_PATH_CONFIG: 'dace.config.js',
 
   // babel 配置文件位置
-  DACE_PATH_BABEL_RC: '.babelrc',
+  DACE_PATH_BABEL_RC: 'babel.config.js',
 
   // eslint 配置文件位置
   DACE_PATH_ESLINT_RC: '.eslintrc.js',
