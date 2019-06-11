@@ -1,3 +1,3 @@
 module.exports = {
-  path: '/:id*'
+  path: ['/a/:id', '/b/:id/c']
 };

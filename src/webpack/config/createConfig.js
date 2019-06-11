@@ -10,6 +10,7 @@ import eslintFormatter from 'react-dev-utils/eslintFormatter';
 import nodeExternals from 'webpack-node-externals';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import Visualizer from 'webpack-visualizer-plugin';
+import LoadablePlugin from '@loadable/webpack-plugin';
 import stylelintFormatter from '../../utils/stylelintFormatter';
 import logger from '../../utils/logger';
 import WrireStatsFilePlugin from '../plugins/writeStatsFilePlugin';
@@ -82,7 +83,7 @@ export default ({
     mainBabelOptions = {
       ...mainBabelOptions,
       presets: [
-        require.resolve('babel-preset-env'),
+        require.resolve('@babel/preset-env'),
         require.resolve('babel-preset-dace')
       ],
       babelrc: false
@@ -358,7 +359,8 @@ export default ({
       // 防止 node 编译时打成多个包
       new webpack.optimize.LimitChunkCountPlugin({
         maxChunks: 1
-      })
+      }),
+      new LoadablePlugin()
     ];
 
     if (IS_DEV) {

@@ -7,7 +7,7 @@
  * @param {string} options.jsTags webpack 编译输出的 css 标签字符串
  * @param {string} options.markup 服务器端渲染生成的 DOM 字符串
  * @param {string} options.state 服务器端渲染生成的 state 经 JSON.stringify() 后的字符串
- * @param {string} options.loadableState loadable-component 输出的 state 字符串
+ * @param {string} options.scriptTags @loadable/component 输出的 state 字符串
  * @return {string} 首屏 HTML
  */
 
@@ -17,7 +17,7 @@ export default ({
   jsTags = '',
   markup = '',
   state = '{}',
-  loadableState = ''
+  scriptTags = ''
 }) => {
   const print = (key) => {
     if (head[key] && typeof head[key].toString === 'function') {
@@ -37,7 +37,7 @@ export default ({
   </head>
   <body ${print('bodyAttributes.toString')}>
     <div id="root">${markup}</div>
-    <script>window.INITIAL_STATE=${state};</script>${loadableState}${jsTags}
+    <script>window.INITIAL_STATE=${state};</script>${scriptTags}${jsTags}
   </body>
   </html>`;
 };

@@ -20,13 +20,18 @@ export default (branch, extension) => {
   vendors.forEach((vendor) => {
     files = files.concat(vendor.files);
   });
+  console.log('==branch:', branch);
 
   // 根据当前路由反查对应的页面组件
   let currentPage;
   branch.forEach(({ route }) => {
     if (route.path) {
       const { component: { componentId } } = route;
-      currentPage = componentId.replace(`${process.env.DACE_PATH_PAGES}/`, '');
+      if (componentId) {
+        currentPage = componentId.replace(`${process.env.DACE_PATH_PAGES}/`, '');
+      } else {
+        console.log('`componentId` is undefined');
+      }
     }
   });
 

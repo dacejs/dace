@@ -14,7 +14,8 @@ describe(exampleName, function () {
       });
       child.stdout.on('data', (data) => {
         if (data.includes('Server-side HMR Enabled!')) {
-          results.push(fetch('localhost:3000/1').includes('<h2>id=<!-- -->1</h2>'));
+          results.push(fetch('localhost:3000/a/1').includes('<h2>id=<!-- -->1</h2>'));
+          results.push(fetch('localhost:3000/b/2/c').includes('<h2>id=<!-- -->2</h2>'));
           // 必须把 dace 进程杀掉才能执行后续的程序
           kill(child.pid);
         }

@@ -8,13 +8,10 @@ const Index = props => (
     <h2>id={props.match.params.id}</h2>
     <ul>
       <li>
-        <Link to="/1">1</Link>
+        <Link to="/a/1">/a/1</Link>
       </li>
       <li>
-        <Link to="/2">2</Link>
-      </li>
-      <li>
-        <Link to="/3">3</Link>
+        <Link to="/b/2/c">/b/2/c</Link>
       </li>
     </ul>
   </div>

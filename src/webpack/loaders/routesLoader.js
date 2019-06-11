@@ -59,7 +59,7 @@ export default () => {
   }`);
 
   return `
-    import loadable from 'loadable-components';
+    import loadable from '@loadable/component';
     export default [
       {
         component: require('${getComponentPath('App')}'),
