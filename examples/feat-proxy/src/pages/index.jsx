@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { serverInstance as axios } from 'dace/dist/runtime/axiosInstance';
 import { Head } from 'dace';
-import Layout from '../layouts/default';
 
 export default class Index extends Component {
   static propTypes = {
@@ -25,13 +24,12 @@ export default class Index extends Component {
 
   render() {
     return (
-      <Layout>
+      <div>
         <Head>
           <title>Home</title>
         </Head>
-        <h1>Home</h1>
-        <h2>{this.props.name}</h2>
-      </Layout>
+        <h1>{this.props.name}</h1>
+      </div>
     );
   }
 }
