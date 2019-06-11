@@ -14,6 +14,8 @@ describe(exampleName, function () {
       });
       child.stdout.on('data', (data) => {
         if (data.includes('Server-side HMR Enabled!')) {
+          fetch('localhost:3000');
+          fetch('localhost:3000/posts');
           results.push(fetch('localhost:3000').includes('<li>张三</li>'));
           results.push(fetch('localhost:3000/posts').includes('<li>标题1</li>'));
           // 必须把 dace 进程杀掉才能执行后续的程序
