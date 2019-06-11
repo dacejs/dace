@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="2.0.0-alpha.17"></a>
+# [2.0.0-alpha.17](https://github.com/dacejs/dace/compare/v2.0.0-alpha.16...v2.0.0-alpha.17) (2019-06-11)
+
+
+### Features
+
+* 升级 mocha@^6.1.4 ([d02ecf1](https://github.com/dacejs/dace/commit/d02ecf1))
+* 升级依赖包 babel@7.x ([7225966](https://github.com/dacejs/dace/commit/7225966))
+
+
+
 <a name="2.0.0-alpha.16"></a>
 # [2.0.0-alpha.16](https://github.com/dacejs/dace/compare/v2.0.0-alpha.15...v2.0.0-alpha.16) (2019-06-10)
 
