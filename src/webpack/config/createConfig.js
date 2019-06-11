@@ -359,8 +359,7 @@ export default ({
       // 防止 node 编译时打成多个包
       new webpack.optimize.LimitChunkCountPlugin({
         maxChunks: 1
-      }),
-      new LoadablePlugin()
+      })
     ];
 
     if (IS_DEV) {
@@ -403,7 +402,11 @@ export default ({
       new CleanWebpackPlugin({
         cleanOnceBeforeBuildPatterns: [DACE_PATH_CLIENT_DIST, DACE_PATH_SERVER_DIST]
       }),
-      new webpack.DefinePlugin(daceEnv)
+      new webpack.DefinePlugin(daceEnv),
+      new LoadablePlugin({
+        writeToDisk: true,
+        outputAsset: false
+      })
     ];
 
     const vendorPattern = new RegExp(`(${DACE_VENDORS})`);

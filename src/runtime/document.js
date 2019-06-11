@@ -14,7 +14,6 @@
 export default ({
   head = {},
   cssTags = '',
-  jsTags = '',
   markup = '',
   state = '{}',
   scriptTags = ''
@@ -37,7 +36,7 @@ export default ({
   </head>
   <body ${print('bodyAttributes.toString')}>
     <div id="root">${markup}</div>
-    <script>window.INITIAL_STATE=${state};</script>${scriptTags}${jsTags}
+    <script>window.INITIAL_STATE=${state};</script>${scriptTags}
   </body>
   </html>`;
 };
