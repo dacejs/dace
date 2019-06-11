@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="2.0.0-alpha.18"></a>
+# [2.0.0-alpha.18](https://github.com/dacejs/dace/compare/v2.0.0-alpha.17...v2.0.0-alpha.18) (2019-06-11)
+
+
+### Bug Fixes
+
+* 升级 react-router ([393653c](https://github.com/dacejs/dace/commit/393653c))
+
+
+
 <a name="2.0.0-alpha.17"></a>
 # [2.0.0-alpha.17](https://github.com/dacejs/dace/compare/v2.0.0-alpha.16...v2.0.0-alpha.17) (2019-06-11)
 
