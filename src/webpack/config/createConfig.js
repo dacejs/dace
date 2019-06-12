@@ -13,7 +13,6 @@ import Visualizer from 'webpack-visualizer-plugin';
 import LoadablePlugin from '@loadable/webpack-plugin';
 import stylelintFormatter from '../../utils/stylelintFormatter';
 import logger from '../../utils/logger';
-import WrireStatsFilePlugin from '../plugins/writeStatsFilePlugin';
 
 /**
  * webpack config 生成器
@@ -161,7 +160,8 @@ export default ({
               options: mainBabelOptions
             },
             {
-              loader: path.resolve(__dirname, '../loaders/routesLoader.js')
+              loader: path.resolve(__dirname, '../loaders/routesLoader.js'),
+              options: { target }
             }
           ]
         },
@@ -276,12 +276,12 @@ export default ({
           use: IS_NODE ? [
             {
               // 服务器端编译不需要内联 css ，只需要获取混淆后的 class 名称
-              loader: require.resolve('css-loader/locals'),
+              loader: require.resolve('css-loader'),
               options: {
                 modules: true,
                 importLoaders: 1,
-                localIdentName: '[path]__[name]___[local]' // ,
-                // exportOnlyLocals: true
+                localIdentName: '[path]__[name]___[local]',
+                onlyLocals: true
               }
             }
           ] : (IS_DEV ? [
@@ -394,11 +394,6 @@ export default ({
 
     config.plugins = [
       ...config.plugins,
-      new WrireStatsFilePlugin(),
-      // new CleanWebpackPlugin([DACE_PATH_CLIENT_DIST, DACE_PATH_SERVER_DIST], {
-      //   root: DACE_PATH_ROOT,
-      //   verbose: false
-      // }),
       new CleanWebpackPlugin({
         cleanOnceBeforeBuildPatterns: [DACE_PATH_CLIENT_DIST, DACE_PATH_SERVER_DIST]
       }),
