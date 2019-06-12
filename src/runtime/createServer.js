@@ -9,7 +9,6 @@ import { Helmet } from 'react-helmet';
 import serialize from 'serialize-javascript';
 import { RedBoxError } from 'redbox-react';
 import NotFound from './components/NotFound';
-import renderTags from './utils/renderTags';
 import addProxy from './utils/addProxy';
 import addStatic from './utils/addStatic';
 import document from './document';
@@ -44,16 +43,15 @@ server
         const promises = branch // <- react-router 不匹配 querystring
           .map(async ({ route, match }) => {
             const { component } = route;
-            if (component) {
-              if (component.load && !component.loadingPromise) {
-                // 预加载 loadable-component
-                // 确保服务器端第一次渲染时能拿到数据
-                await component.load();
-              }
-              if (component.getInitialProps) {
+            if (component && component.load && typeof component.load === 'function') {
+              // 预加载 @loadable/component
+              // 确保服务器端第一次渲染时能拿到数据
+              const AsyncComponent = (await component.load()).default;
+
+              if (AsyncComponent.getInitialProps) {
                 const ctx = { match, query, req, res };
-                const { getInitialProps } = component;
-                return getInitialProps ? getInitialProps(ctx) : null;
+                const props = await AsyncComponent.getInitialProps(ctx);
+                return props;
               }
             }
             return null;
@@ -67,9 +65,6 @@ server
           });
         }
       }
-
-      // const jsTags = renderTags(branch, 'js');
-      const cssTags = renderTags(branch, 'css');
 
       const context = {};
       const Markup = ssr ? (
@@ -87,9 +82,11 @@ server
 
       let markup;
       let scriptTags;
+      let styleTags;
       try {
         markup = renderToString(jsx);
         scriptTags = extractor.getScriptTags();
+        styleTags = extractor.getStyleTags();
       } catch (error) {
         res.status(500);
         markup = renderToString(<RedBoxError error={error} />);
@@ -100,9 +97,10 @@ server
       const state = serialize(initialProps);
       const html = document({
         head,
-        cssTags,
+        // cssTags,
         markup,
         state,
+        styleTags,
         scriptTags
       });
       res.status(200).end(html);
