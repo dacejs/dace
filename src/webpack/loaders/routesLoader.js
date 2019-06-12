@@ -6,10 +6,11 @@
 import { existsSync } from 'fs';
 import { resolve, dirname } from 'path';
 import glob from 'glob';
+// import loaderUtils from 'loader-utils';
 
 const { DACE_INDEX, DACE_PATH_SRC, DACE_PATH_PAGES } = process.env;
 
-export default () => {
+export default function loader() { // <- 此次请勿使用箭头函数，否则会导致 this 不符合预期
   function getEndpointFromPath(pagePath) {
     let endpoint = `/${pagePath}`;
     while (endpoint.endsWith(`/${DACE_INDEX}`)) {
@@ -25,6 +26,8 @@ export default () => {
     }
     return resolve(__dirname, `../../runtime/components/${file}.js`);
   }
+
+  // const options = loaderUtils.getOptions(this) || {};
 
   const pageExtension = '.jsx';
   const routes = glob
@@ -69,4 +72,4 @@ export default () => {
       }
     ];
   `;
-};
+}

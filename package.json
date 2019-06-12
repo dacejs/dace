@@ -10,7 +10,7 @@
     "build:watch": "npm run build -- --watch",
     "postrelease": "git push && git push origin --tags",
     "prepare": "npm run build",
-    "release": "standard-version --release-as major --prerelease alpha && npm publish",
+    "release": "standard-version && npm publish",
     "release:major": "standard-version --release-as major && npm publish",
     "release:minor": "standard-version --release-as minor && npm publish",
     "release:alpha": "standard-version --prerelease alpha && npm publish --tag=next",

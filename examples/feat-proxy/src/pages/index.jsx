@@ -28,7 +28,8 @@ export default class Index extends Component {
         <Head>
           <title>Home</title>
         </Head>
-        <h1>{this.props.name}</h1>
+        <h1>Home</h1>
+        <h2>{this.props.name}</h2>
       </div>
     );
   }
