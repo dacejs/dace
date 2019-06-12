@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="2.0.0"></a>
+# [2.0.0](https://github.com/dacejs/dace/compare/v2.0.0-alpha.18...v2.0.0) (2019-06-12)
+
+
+### Bug Fixes
+
+* [#19](https://github.com/dacejs/dace/issues/19) 预加载 [@loadable](https://github.com/loadable)/component  确保服务器端第一次渲染时能拿到数据 ([4fac946](https://github.com/dacejs/dace/commit/4fac946))
+* 删除 renderTags 和 writeStatsFilePlugin ([1b6fb76](https://github.com/dacejs/dace/commit/1b6fb76))
+
+
+### Features
+
+* 升级 css-loader@^2.1.1 ([6942b09](https://github.com/dacejs/dace/commit/6942b09))
+
+
+
 <a name="2.0.0-alpha.18"></a>
 # [2.0.0-alpha.18](https://github.com/dacejs/dace/compare/v2.0.0-alpha.17...v2.0.0-alpha.18) (2019-06-11)
 
