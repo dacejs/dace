@@ -258,8 +258,7 @@ export default ({
               loader: require.resolve('css-loader'),
               options: {
                 importLoaders: 1,
-                modules: false,
-                minimize: true
+                modules: false
               }
             },
             {
@@ -275,12 +274,13 @@ export default ({
           exclude: [DACE_PATH_CLIENT_DIST, DACE_PATH_SERVER_DIST],
           use: IS_NODE ? [
             {
-              // 服务器端编译不需要内联 css ，只需要获取混淆后的 class 名称
               loader: require.resolve('css-loader'),
               options: {
-                modules: true,
+                modules: {
+                  localIdentName: '[path]__[name]___[local]'
+                },
                 importLoaders: 1,
-                localIdentName: '[path]__[name]___[local]',
+                // 服务器端编译不需要内联 css ，只需要获取混淆后的 class 名称
                 onlyLocals: true
               }
             }
@@ -289,9 +289,10 @@ export default ({
             {
               loader: require.resolve('css-loader'),
               options: {
-                modules: true,
-                importLoaders: 1,
-                localIdentName: '[path]__[name]___[local]'
+                modules: {
+                  localIdentName: '[path]__[name]___[local]'
+                },
+                importLoaders: 1
               }
             },
             {
@@ -303,10 +304,10 @@ export default ({
             {
               loader: require.resolve('css-loader'),
               options: {
-                modules: true,
-                importLoaders: 1,
-                minimize: true,
-                localIdentName: '[path]__[name]___[local]'
+                modules: {
+                  localIdentName: '[path]__[name]___[local]'
+                },
+                importLoaders: 1
               }
             },
             {
