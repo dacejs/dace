@@ -6,7 +6,7 @@
   },
   "dependencies": {
     "dace": "latest",
-    "react": "^16.4.1",
-    "react-dom": "^16.4.1"
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6"
   }
 }

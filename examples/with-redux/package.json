@@ -6,8 +6,8 @@
   "dependencies": {
     "dace": "latest",
     "dace-plugin-redux": "latest",
-    "react": "^16.4.1",
-    "react-dom": "^16.4.1",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
     "redux-logger": "^3.0.6"
   }
 }
