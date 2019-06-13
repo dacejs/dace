@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="2.0.1"></a>
+## [2.0.1](https://github.com/dacejs/dace/compare/v2.0.0...v2.0.1) (2019-06-13)
+
+
+### Bug Fixes
+
+* 升级 react-dev-utils@^9.0.1 ，删除 react-error-overlay ([96032d3](https://github.com/dacejs/dace/commit/96032d3))
+
+
+
 <a name="2.0.0"></a>
 # [2.0.0](https://github.com/dacejs/dace/compare/v2.0.0-alpha.18...v2.0.0) (2019-06-12)
 
