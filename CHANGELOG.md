@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="2.2.0"></a>
+# [2.2.0](https://github.com/dacejs/dace/compare/v2.1.1...v2.2.0) (2019-06-13)
+
+
+### Features
+
+* 升级 eslint-config-qunar@5.1.0 , 默认支持老的装饰器语法 ([db1f1ee](https://github.com/dacejs/dace/commit/db1f1ee))
+
+
+
 <a name="2.1.1"></a>
 ## [2.1.1](https://github.com/dacejs/dace/compare/v2.1.0...v2.1.1) (2019-06-13)
 
