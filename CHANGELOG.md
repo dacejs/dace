@@ -9,7 +9,7 @@ All notable changes to this project will be documented in this file. See [standa
 ### Features
 
 * 测试用例的 react 版本升级到 react@^16.8.6 ([b71b3cc](https://github.com/dacejs/dace/commit/b71b3cc))
-
+* 测试命令增加 `FROM` 参数，当 `npm test` 执行失败时，可以使用 `FROM=xx npm test` 继续执行剩余的 case
 
 
 <a name="2.1.0"></a>
@@ -18,7 +18,7 @@ All notable changes to this project will be documented in this file. See [standa
 
 ### Features
 
-* eslint-config-qunar@5.0.0 ([94c29c5](https://github.com/dacejs/dace/commit/94c29c5))
+* 升级 `eslint-config-qunar@5.x` ([94c29c5](https://github.com/dacejs/dace/commit/94c29c5))
 
 
 
@@ -26,9 +26,9 @@ All notable changes to this project will be documented in this file. See [standa
 ## [2.0.1](https://github.com/dacejs/dace/compare/v2.0.0...v2.0.1) (2019-06-13)
 
 
-### Bug Fixes
+### Features
 
-* 升级 react-dev-utils@^9.0.1 ，删除 react-error-overlay ([96032d3](https://github.com/dacejs/dace/commit/96032d3))
+* 升级 `react-dev-utils@^9.x` ，删除 `react-error-overlay` ([96032d3](https://github.com/dacejs/dace/commit/96032d3))
 
 
 
@@ -52,9 +52,9 @@ All notable changes to this project will be documented in this file. See [standa
 # [2.0.0-alpha.18](https://github.com/dacejs/dace/compare/v2.0.0-alpha.17...v2.0.0-alpha.18) (2019-06-11)
 
 
-### Bug Fixes
+### Features
 
-* 升级 react-router ([393653c](https://github.com/dacejs/dace/commit/393653c))
+* 升级 react-router@5.x ([393653c](https://github.com/dacejs/dace/commit/393653c))
 
 
 
