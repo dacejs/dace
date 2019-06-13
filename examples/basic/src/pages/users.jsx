@@ -26,6 +26,7 @@ export default class Index extends Component {
   }
 
   render() {
+    const { users } = this.props;
     return (
       <Layout>
         <Head>
@@ -34,7 +35,7 @@ export default class Index extends Component {
         <h1>Users</h1>
         <ol>
           {
-            this.props.users.map(user => (
+            users.map(user => (
               <li key={user.id}>{user.name}</li>
             ))
           }

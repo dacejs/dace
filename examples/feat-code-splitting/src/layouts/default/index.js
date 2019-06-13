@@ -1,11 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Head } from 'dace';
 import Header from '../../components/Header';
 
-const DefaultLayout = props => (
+const DefaultLayout = ({ children }) => (
   <div>
+    <Head>
+      <link rel="icon" type="image/png" href="//m.xxxxx.com/zhuanti/dace-logo-200.png" />
+    </Head>
     <Header />
-    {props.children}
+    {children}
   </div>
 );
 

@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'dace';
 
-const Index = props => (
+const Index = ({ match }) => (
   <div>
     <h1>with-custom-router example</h1>
-    <h2>id={props.match.params.id}</h2>
+    <h2>id={match.params.id}</h2>
     <ul>
       <li>
         <Link to="/a/1">/a/1</Link>

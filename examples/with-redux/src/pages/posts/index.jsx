@@ -39,26 +39,29 @@ export default class Posts extends Component {
   }
 
   async next() {
+    const { history, dispatch } = this.props;
     const { page } = this.state;
     const nextPage = page + 1;
-    this.props.history.push(`/posts?page=${nextPage}`);
-    await this.props.dispatch(fetchPosts(nextPage));
+    history.push(`/posts?page=${nextPage}`);
+    await dispatch(fetchPosts(nextPage));
     this.setState({ page: nextPage });
   }
 
   render() {
+    const { page } = this.state;
+    const { posts } = this.props;
     return (
       <Layout>
         <Head>
           <title>Posts</title>
         </Head>
-        <ol start={((this.state.page - 1) * 10) + 1}>
+        <ol start={((page - 1) * 10) + 1}>
           {
-            this.props.posts.map(post => <li key={post.id}>{post.title}</li>)
+            posts.map(post => <li key={post.id}>{post.title}</li>)
           }
         </ol>
         <div>
-          <button onClick={this.next.bind(this)}>下一页</button>
+          <button type="button" onClick={this.next.bind(this)}>下一页</button>
         </div>
       </Layout>
     );

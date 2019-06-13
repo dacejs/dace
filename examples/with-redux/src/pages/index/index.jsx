@@ -25,6 +25,7 @@ export default class Users extends Component {
   }
 
   render() {
+    const { users } = this.props;
     return (
       <Layout>
         <Head>
@@ -32,7 +33,7 @@ export default class Users extends Component {
         </Head>
         <ol>
           {
-            this.props.users.map(user => <li key={user.id}>{user.name}</li>)
+            users.map(user => <li key={user.id}>{user.name}</li>)
           }
         </ol>
       </Layout>

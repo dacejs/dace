@@ -23,13 +23,14 @@ export default class Index extends Component {
   }
 
   render() {
+    const { name } = this.props;
     return (
       <div>
         <Head>
           <title>Home</title>
         </Head>
         <h1>Home</h1>
-        <h2>{this.props.name}</h2>
+        <h2>{name}</h2>
       </div>
     );
   }

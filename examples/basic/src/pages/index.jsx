@@ -18,13 +18,14 @@ export default class Home extends Component {
   }
 
   render() {
+    const { name } = this.props;
     return (
       <Layout>
         <Head>
           <title>Home</title>
         </Head>
         <h1>basic example</h1>
-        <h2>{this.props.name}</h2>
+        <h2>{name}</h2>
       </Layout>
     );
   }

@@ -2,11 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Header from '../../components/Header';
 
-const DefaultLayout = props => (
+const DefaultLayout = ({ children }) => (
   <div>
     <Header />
     <h1>with-redux example</h1>
-    {props.children}
+    {children}
   </div>
 );
 
