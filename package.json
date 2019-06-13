@@ -40,7 +40,6 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "@babel/cli": "^7.4.4",
     "@babel/core": "^7.4.5",
     "@babel/preset-env": "^7.4.5",
     "@loadable/babel-plugin": "^5.10.0",
@@ -84,13 +83,13 @@
     "webpackbar": "^3.2.0"
   },
   "devDependencies": {
-    "babel-cli": "^6.26.0",
+    "@babel/cli": "^7.4.4",
     "mocha": "^6.1.4",
     "ps-tree": "^1.2.0",
     "shelljs": "^0.8.3",
     "should": "^13.2.3"
   },
   "engines": {
-    "node": ">= 7.6.0"
+    "node": ">= 8.9"
   }
 }
