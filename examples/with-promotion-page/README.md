@@ -23,5 +23,5 @@ node ../../test/cases/with-promotion-page.js
     path: /(mis\/\\w+|list)/
   };
   ```
-- A页面中的地址需要使用绝对地址，如 `https://touch.qunar.com/hotel/detail/1234` ，否则域名会串了
+- A页面中的地址需要使用绝对地址，如 `https://touch.xxxxx.com/hotel/detail/1234` ，否则域名会串了
 - 禁止A页面中的js修改B页面的 title

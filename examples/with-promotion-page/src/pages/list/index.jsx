@@ -17,7 +17,7 @@ const renderTitle = () => {
 
 const renderDetailLink = () => {
   if (isEmbed) {
-    return <a href="https://touch.qunar.com/hotel/detail">detail</a>;
+    return <a href="https://touch.xxxxx.com/hotel/detail">detail</a>;
   }
   return <Link to="/detail">detail</Link>;
 };
