@@ -6,7 +6,7 @@
   "repository": "git@github.com:dacejs/dace.git",
   "homepage": "https://dacejs.com",
   "scripts": {
-    "build": "rm -rf dist prd && NODE_ENV=local babel src -d dist --presets=@babel/preset-env,dace",
+    "build": "rm -rf dist prd && NODE_ENV=local babel src -d dist --presets=dace",
     "build:watch": "npm run build -- --watch",
     "postrelease": "git push && git push origin --tags",
     "prepare": "npm run build",
@@ -49,7 +49,7 @@
     "@loadable/webpack-plugin": "^5.7.1",
     "axios": "^0.19.0",
     "babel-loader": "^8.0.6",
-    "babel-preset-dace": "^2.0.3",
+    "babel-preset-dace": "^2.1.0",
     "chalk": "^2.4.1",
     "clean-webpack-plugin": "^3.0.0",
     "commander": "^2.20.0",

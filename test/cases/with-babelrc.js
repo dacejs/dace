@@ -1,7 +1,7 @@
 const shell = require('shelljs');
 const { fetch, kill, setup, test, exampleName } = require('../util');
 
-describe.skip(exampleName, function () {
+describe(exampleName, function () {
   const results = [];
   let child;
 

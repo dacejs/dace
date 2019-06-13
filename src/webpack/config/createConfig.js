@@ -71,21 +71,24 @@ export default ({
 
   // 获取 .babelrc 配置
   let mainBabelOptions = {
-    cacheDirectory: true
+    cacheDirectory: true,
+    babelrc: false
   };
   const hasBabelRc = fs.existsSync(DACE_PATH_BABEL_RC);
   if (hasBabelRc) {
     if (IS_WEB) {
       logger.info('Using custom .babelrc');
     }
+    mainBabelOptions = {
+      ...mainBabelOptions,
+      configFile: DACE_PATH_BABEL_RC
+    };
   } else {
     mainBabelOptions = {
       ...mainBabelOptions,
       presets: [
-        require.resolve('@babel/preset-env'),
         require.resolve('babel-preset-dace')
-      ],
-      babelrc: false
+      ]
     };
   }
 
@@ -160,8 +163,7 @@ export default ({
               options: mainBabelOptions
             },
             {
-              loader: path.resolve(__dirname, '../loaders/routesLoader.js'),
-              options: { target }
+              loader: path.resolve(__dirname, '../loaders/routesLoader.js')
             }
           ]
         },
@@ -349,9 +351,9 @@ export default ({
     };
 
     config.entry = [
-      fs.existsSync(DACE_PATH_SERVER_ENTRY) ?
-        DACE_PATH_SERVER_ENTRY :
-        path.resolve(__dirname, '../../runtime/server.js')
+      fs.existsSync(DACE_PATH_SERVER_ENTRY)
+        ? DACE_PATH_SERVER_ENTRY
+        : path.resolve(__dirname, '../../runtime/server.js')
     ];
 
     config.plugins = [
@@ -383,9 +385,9 @@ export default ({
 
   if (IS_WEB) {
     config.entry = [
-      fs.existsSync(DACE_PATH_CLIENT_ENTRY) ?
-        DACE_PATH_CLIENT_ENTRY :
-        path.resolve(__dirname, '../../runtime/client.js')
+      fs.existsSync(DACE_PATH_CLIENT_ENTRY)
+        ? DACE_PATH_CLIENT_ENTRY
+        : path.resolve(__dirname, '../../runtime/client.js')
     ];
 
     config.output = {
@@ -449,8 +451,7 @@ export default ({
         pathinfo: true,
         filename: `js/bundle${getHash('hash')}.js`,
         chunkFilename: `js/[name]${getHash('hash')}.chunk.js`,
-        devtoolModuleFilenameTemplate: info =>
-          path.resolve(info.resourcePath).replace(/\\/g, '/')
+        devtoolModuleFilenameTemplate: info => path.resolve(info.resourcePath).replace(/\\/g, '/')
       };
       // Configure webpack-dev-server to serve our client-side bundle from
       // http://${process.env.DACE_HOST}:3001
