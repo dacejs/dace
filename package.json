@@ -56,7 +56,7 @@
     "css-loader": "^3.0.0",
     "dotenv": "^8.0.0",
     "eslint": "^5.16.0",
-    "eslint-config-qunar": "^4.0.0",
+    "eslint-config-qunar": "^5.0.0",
     "eslint-loader": "^2.1.2",
     "file-loader": "^4.0.0",
     "import-fresh": "^3.0.0",
