@@ -1,5 +1,4 @@
 /* eslint-disable */
-
 'use strict';
 
 // This alternative WebpackDevServer combines the functionality of:
@@ -18,6 +17,26 @@ var launchEditorEndpoint = require('react-dev-utils/launchEditorEndpoint');
 var formatWebpackMessages = require('react-dev-utils/formatWebpackMessages');
 var ErrorOverlay = require('react-error-overlay');
 
+ErrorOverlay.setEditorHandler(function editorHandler(errorLocation) {
+  // Keep this sync with errorOverlayMiddleware.js
+  fetch(
+    url.format({
+      protocol: window.location.protocol,
+      hostname: window.location.hostname,
+      port: parseInt(process.env.DACE_PORT || window.location.port, 10) + 1,
+      pathname: launchEditorEndpoint,
+      search:
+        '?fileName=' +
+        window.encodeURIComponent(errorLocation.fileName) +
+        '&lineNumber=' +
+        window.encodeURIComponent(errorLocation.lineNumber || 1) +
+        '&colNumber=' +
+        window.encodeURIComponent(errorLocation.colNumber || 1),
+    }),
+    { mode: 'no-cors' }
+  );
+});
+
 // We need to keep track of if there has been a runtime error.
 // Essentially, we cannot guarantee application state was not corrupted by the
 // runtime error. To prevent confusing behavior, we forcibly reload the entire
@@ -26,12 +45,6 @@ var ErrorOverlay = require('react-error-overlay');
 // See https://github.com/facebookincubator/create-react-app/issues/3096
 var hadRuntimeError = false;
 ErrorOverlay.startReportingRuntimeErrors({
-  launchEditorEndpoint: url.format({
-    protocol: window.location.protocol,
-    hostname: window.location.hostname,
-    port: parseInt(process.env.DACE_PORT, 10) + 1 || window.location.port,
-    pathname: launchEditorEndpoint,
-  }),
   onError: function() {
     hadRuntimeError = true;
   },
@@ -50,7 +63,7 @@ var connection = new SockJS(
   url.format({
     protocol: window.location.protocol,
     hostname: window.location.hostname,
-    port: parseInt(process.env.DACE_PORT, 10) + 1 || window.location.port,
+    port: parseInt(process.env.DACE_PORT || window.location.port, 10) + 1,
     // Hardcoded in WebpackDevServer
     pathname: '/sockjs-node',
   })
