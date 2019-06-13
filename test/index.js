@@ -13,27 +13,29 @@ const glob = require('glob');
 const path = require('path');
 
 const startTime = Date.now();
-const { EXAMPLE = '*' } = process.env;
+const { EXAMPLE = '*', FROM = 1 } = process.env;
 
 const files = glob.sync(`${EXAMPLE}.js`, { cwd: `${__dirname}/cases` });
 files.sort((a, b) => path.dirname(a) > path.dirname(b));
 
 const errors = [];
 files.forEach((file, i) => {
-  const cmd = `node_modules/.bin/mocha test/cases/${file}`;
-  const title = `[${i + 1}/${files.length}] ${cmd}`;
-  console.log(chalk.yellow(title));
-  try {
-    const stdout = cp.execSync(cmd, { encoding: 'utf-8' });
-    if (stdout.includes('expected false to be true')) {
+  if (i + 1 >= FROM) {
+    const cmd = `node_modules/.bin/mocha test/cases/${file}`;
+    const title = `[${i + 1}/${files.length}] ${cmd}`;
+    console.log(chalk.yellow(title));
+    try {
+      const stdout = cp.execSync(cmd, { encoding: 'utf-8' });
+      if (stdout.includes('expected false to be true')) {
+        errors.push(title);
+        console.log(chalk.red(stdout));
+      } else {
+        console.log(stdout);
+      }
+    } catch (e) {
       errors.push(title);
-      console.log(chalk.red(stdout));
-    } else {
-      console.log(stdout);
+      console.log(chalk.red(e.stdout));
     }
-  } catch (e) {
-    errors.push(title);
-    console.log(chalk.red(e.stdout));
   }
 });
 
