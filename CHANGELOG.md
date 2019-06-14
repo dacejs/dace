@@ -5,7 +5,9 @@ All notable changes to this project will be documented in this file. See [standa
 <a name="2.2.2"></a>
 ## [2.2.2](https://github.com/dacejs/dace/compare/v2.2.1...v2.2.2) (2019-06-13)
 
+### Bug Fixes
 
+* 修复 TRAVIS 编译的问题，使用 `node@8||12`
 
 <a name="2.2.1"></a>
 ## [2.2.1](https://github.com/dacejs/dace/compare/v2.2.0...v2.2.1) (2019-06-13)
