@@ -97,7 +97,6 @@ server
       const state = serialize(initialProps);
       const html = document({
         head,
-        // cssTags,
         markup,
         state,
         styleTags,

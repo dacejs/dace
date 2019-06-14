@@ -44,8 +44,7 @@ function getMessageWidth(widths) {
     return widths[3];
   }
 
-  const availableWidth =
-    process.stdout.columns < 80 ? 80 : process.stdout.columns;
+  const availableWidth = process.stdout.columns < 80 ? 80 : process.stdout.columns;
   const fullWidth = _.sum(_.values(columnWidths));
 
   // If there is no reason to wrap the text, we won't align the last column to the right

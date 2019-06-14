@@ -68,8 +68,8 @@ export default class App extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (process.env.DACE_SCROLL_TO_TOP === 'true' &&
-      this.props.location !== prevProps.location) {
+    if (process.env.DACE_SCROLL_TO_TOP === 'true'
+      && this.props.location !== prevProps.location) {
       window.scrollTo(0, 0);
     }
   }

@@ -6,7 +6,7 @@
  * DACE_PATH_PROFILES: `profiles` 目录的绝对路径位置
  */
 import fs from 'fs';
-import logger from '../utils/logger';
+import logger from './logger';
 import defaultEnv from './defaultEnv';
 import resolveApp from './resolveApp';
 

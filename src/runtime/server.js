@@ -21,7 +21,7 @@ if (module.hot) {
   module.hot.accept('./server', () => {
     console.log('🔁  HMR Reloading `./server`...');
     server.removeListener('request', currentApp);
-    const newApp = require('./server');
+    const newApp = require('./server'); // eslint-disable-line
     server.on('request', newApp);
     currentApp = newApp;
   });
