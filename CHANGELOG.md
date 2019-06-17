@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="2.2.3"></a>
+## [2.2.3](https://github.com/dacejs/dace/compare/v2.2.2...v2.2.3) (2019-06-17)
+
+
+### Bug Fixes
+
+* 修复 prd/loadable-stats.json 找不到的问题 ([5e6651e](https://github.com/dacejs/dace/commit/5e6651e))
+
+
+
 <a name="2.2.2"></a>
 ## [2.2.2](https://github.com/dacejs/dace/compare/v2.2.1...v2.2.2) (2019-06-13)
 
