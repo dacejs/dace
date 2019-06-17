@@ -75,7 +75,7 @@ export default {
   DACE_PATH_SERVER_DIST: 'dist',
 
   // 客户端编译输出 stats 文件位置
-  DACE_LOADABLE_STATS_JSON: 'prd/loadable-stats.json',
+  DACE_PATH_LOADABLE_STATS_JSON: 'prd/loadable-stats.json',
 
   // 创建 axios 实例文件位置
   DACE_PATH_AXIOS_INSTANCE: 'node_modules/dace-plugin-redux/dist/runtime/axiosInstance.js'
