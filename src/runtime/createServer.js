@@ -1,4 +1,3 @@
-import path from 'path';
 import React from 'react';
 import { StaticRouter } from 'react-router-dom';
 import { matchRoutes, renderRoutes } from 'react-router-config';
