@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="2.2.6"></a>
+## [2.2.6](https://github.com/dacejs/dace/compare/v2.2.5...v2.2.6) (2019-07-31)
+
+
+### Bug Fixes
+
+* 修复不支持 post 方式提交的地址 ([c242d0f](https://github.com/dacejs/dace/commit/c242d0f))
+
+
+
 <a name="2.2.5"></a>
 ## [2.2.5](https://github.com/dacejs/dace/compare/v2.2.4...v2.2.5) (2019-06-17)
 
