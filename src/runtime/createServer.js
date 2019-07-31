@@ -23,7 +23,7 @@ addStatic(server);
 
 server
   .disable('x-powered-by')
-  .get('*', async (req, res) => {
+  .all('*', async (req, res) => {
     // 查找当前 URL 匹配的路由
     const { query, _parsedUrl: { pathname } } = req;
     const ssr = process.env.DACE_SSR === 'true';
