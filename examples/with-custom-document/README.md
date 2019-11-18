@@ -15,7 +15,7 @@
 
       appConfig.resolve.alias = {
         ...appConfig.resolve.alias,
-        './document': path.resolve(__dirname, 'src/document.js')
+        './runtime/document': path.resolve(__dirname, 'src/document.js')
       };
       return appConfig;
     }

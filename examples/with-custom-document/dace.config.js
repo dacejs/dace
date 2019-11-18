@@ -9,7 +9,7 @@ module.exports = {
   modify(config) {
     const appConfig = config;
 
-    appConfig.resolve.alias['./document'] = path.resolve(__dirname, 'src/document.js');
+    appConfig.resolve.alias['./runtime/document'] = path.resolve(__dirname, 'src/document.js');
 
     return appConfig;
   }
