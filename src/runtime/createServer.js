@@ -32,10 +32,16 @@ server
     const notFound = branch[branch.length - 1].route.component.name === 'NotFound';
 
     if (notFound) {
-      const html = document({
-        markup: renderToString(<NotFound location={{ pathname }} />)
-      });
-      res.status(200).end(html);
+      // 只有网页类请求才走自定义404页面
+      if (/html/.test(req.get('accept'))) {
+        const html = document({
+          markup: renderToString(<NotFound location={{ pathname }} />)
+        });
+        res.status(200).end(html);
+      } else {
+        // 非网页类请求直接返回404
+        res.status(404).end();
+      }
     } else {
       let initialProps = {};
       if (ssr) {

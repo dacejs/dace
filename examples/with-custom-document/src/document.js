@@ -11,25 +11,29 @@
  */
 
 export default ({
-  head, cssTags, jsTags, markup, state
-}) => `<!doctype html>
-<html ${head.htmlAttributes.toString()}>
-<head>
-  <meta charset="utf-8" />
-  ${head.title.toString()}
-  ${head.meta.toString()}
-  ${head.link.toString()}
-  ${head.style.toString()}
-  ${head.script.toString()}
-  ${head.noscript.toString()}
-  ${cssTags}
-</head>
-<body ${head.bodyAttributes.toString()}>
-  <h1>with-custom-document</h1>
-  <div id="root">${markup}</div>
-  <script>
-  window.INITIAL_STATE=${state};
-  </script>
-  ${jsTags}
-</body>
-</html>`;
+  head = {},
+  markup = '',
+  state = '{}',
+  styleTags = '',
+  scriptTags = ''
+}) => {
+  const print = (key) => {
+    if (head[key] && typeof head[key].toString === 'function') {
+      return head[key].toString();
+    }
+    return '';
+  };
+
+  return `<!doctype html>
+  <html ${print('htmlAttributes')}>
+  <head>
+    <meta charset="utf-8" />
+    ${print('title') + print('meta') + print('link') + process.env.HEADER_STYLES + print('style') + print('script') + styleTags}
+  </head>
+  <body ${print('bodyAttributes')}>
+    <h1>with-custom-document</h1>
+    <div id="root">${markup}</div>
+    <script>window.INITIAL_STATE=${state};</script>${scriptTags}
+  </body>
+  </html>`;
+};
