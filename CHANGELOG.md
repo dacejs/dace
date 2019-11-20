@@ -1,6 +1,18 @@
-# Change Log
+# Changelog
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+
+## [2.3.0](https://github.com/dacejs/dace/compare/v2.2.6...v2.3.0) (2019-11-20)
+
+
+### Features
+
+* 增加 cookie 解析 ([8e7e69e](https://github.com/dacejs/dace/commit/8e7e69e40e597fb30af4a9fbb98868aee0720c8e))
+
+
+### Bug Fixes
+
+* 修复静态资源不存在时返回 notFound 页面的问题 ([d6f2f53](https://github.com/dacejs/dace/commit/d6f2f53b655b13a207d2807eec629475e60016ea))
 
 <a name="2.2.6"></a>
 ## [2.2.6](https://github.com/dacejs/dace/compare/v2.2.5...v2.2.6) (2019-07-31)
