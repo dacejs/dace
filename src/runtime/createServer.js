@@ -7,6 +7,7 @@ import { ChunkExtractor } from '@loadable/server';
 import { Helmet } from 'react-helmet';
 import serialize from 'serialize-javascript';
 import { RedBoxError } from 'redbox-react';
+import cookieParser from 'cookie-parser';
 import NotFound from './components/NotFound';
 import addProxy from './utils/addProxy';
 import addStatic from './utils/addStatic';
@@ -23,6 +24,8 @@ addStatic(server);
 
 server
   .disable('x-powered-by')
+  // 解析 cookie
+  .use(cookieParser())
   .all('*', async (req, res) => {
     // 查找当前 URL 匹配的路由
     const { query, _parsedUrl: { pathname } } = req;
