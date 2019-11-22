@@ -5,7 +5,9 @@ export default (app) => {
     let rules = {};
     try {
       rules = JSON.parse(process.env.DACE_PROXY);
-      app.use(urlrewrite(rules));
+      app.use(urlrewrite(rules, {
+        debug: true
+      }));
     } catch (e) {
       throw new Error('[JSON.parse error] `DACE_PROXY` is an invalid json.');
     }
