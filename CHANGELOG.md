@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.4.0](https://github.com/dacejs/dace/compare/v2.3.0...v2.4.0) (2019-11-22)
+
+
+### Features
+
+* 增加输出 urlrewrite 转发信息日志 ([f48e528](https://github.com/dacejs/dace/commit/f48e5288717d67b1c3c5accaa1774a2f3ed0faf2))
+
 ## [2.3.0](https://github.com/dacejs/dace/compare/v2.2.6...v2.3.0) (2019-11-20)
 
 
