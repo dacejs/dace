@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0](https://github.com/dacejs/dace/compare/v2.4.1...v3.0.0) (2019-11-25)
+
+
+### Features
+
+* 重写数据代理方法 ([07f4e38](https://github.com/dacejs/dace/commit/07f4e381b52e7e49ed469c7d94318b751a9a38c7))
+
 ### [2.4.1](https://github.com/dacejs/dace/compare/v2.4.0...v2.4.1) (2019-11-23)
 
 ## [2.4.0](https://github.com/dacejs/dace/compare/v2.3.0...v2.4.0) (2019-11-22)
