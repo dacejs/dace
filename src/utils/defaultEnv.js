@@ -8,6 +8,9 @@ export default {
   // 代理请求规则（需JSON.stringify）
   DACE_PROXY: '',
 
+  // 是否可以将请求代理到数据文件
+  DACE_PROXY_TO_FILE: 'false',
+
   // 编译产物对外服务访问使用的 URL
   DACE_PUBLIC_PATH: '/',
 
@@ -64,6 +67,9 @@ export default {
 
   // 浏览器端编译入口文件位置
   DACE_PATH_CLIENT_ENTRY: 'src/client.js',
+
+  // 自定义路由文件位置
+  DACE_PATH_ROUTES: '',
 
   // node_modules 目录位置
   DACE_PATH_NODE_MODULES: 'node_modules',

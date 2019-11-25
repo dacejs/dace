@@ -12,7 +12,7 @@ import NotFound from './components/NotFound';
 import addProxy from './utils/addProxy';
 import addStatic from './utils/addStatic';
 import document from './document';
-import routes from './routes';
+import routes from './ssrRoutes';
 
 const server = express();
 

@@ -3,7 +3,7 @@ import React from 'react';
 import { hydrate } from 'react-dom';
 import { loadableReady } from '@loadable/component';
 import { renderRoutes } from 'react-router-config';
-import routes from './routes';
+import routes from './ssrRoutes';
 
 const initialProps = window.INITIAL_STATE || {};
 
