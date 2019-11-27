@@ -56,7 +56,7 @@
     "commander": "^2.20.0",
     "cookie-parser": "^1.4.4",
     "css-loader": "^3.0.0",
-    "dace-router": "^1.0.0",
+    "dase-router": "^1.0.0",
     "dotenv": "^8.0.0",
     "eslint": "^5.16.0",
     "eslint-config-qunar": "^5.1.0",

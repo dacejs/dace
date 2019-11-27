@@ -20,7 +20,7 @@ export default {
   // 路由默认使用的首页文件名称
   DACE_INDEX: 'index',
 
-  // 使用服务器端渲染
+  // 是否启用服务器端渲染
   DACE_SSR: 'true',
 
   // 输出的 script 标签是否使用 crossorigin 属性
@@ -68,7 +68,7 @@ export default {
   // 浏览器端编译入口文件位置
   DACE_PATH_CLIENT_ENTRY: 'src/client.js',
 
-  // 自定义路由文件位置
+  // 请求代理路由文件位置
   DACE_PATH_ROUTES: '',
 
   // node_modules 目录位置
