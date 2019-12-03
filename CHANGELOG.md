@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.1.0](https://github.com/dacejs/dace/compare/v3.0.1...v3.1.0) (2019-12-03)
+
+
+### Features
+
+* 默认为 DACE_PATH_ROUTES 设置值 ([be8ce56](https://github.com/dacejs/dace/commit/be8ce5669e617d6b7f89988034425f27c7bcee4c))
+
 ### [3.0.1](https://github.com/dacejs/dace/compare/v3.0.0...v3.0.1) (2019-11-27)
 
 ## [3.0.0](https://github.com/dacejs/dace/compare/v2.4.1...v3.0.0) (2019-11-25)
