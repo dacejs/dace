@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.2.0](https://github.com/dacejs/dace/compare/v3.1.0...v3.2.0) (2019-12-03)
+
+
+### Features
+
+* 支持静态文件目录 ([d2ec849](https://github.com/dacejs/dace/commit/d2ec849ec2bf3bc5f927c3719cc78b2adc41a944))
+
 ## [3.1.0](https://github.com/dacejs/dace/compare/v3.0.1...v3.1.0) (2019-12-03)
 
 
