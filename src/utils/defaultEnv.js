@@ -69,7 +69,7 @@ export default {
   DACE_PATH_CLIENT_ENTRY: 'src/client.js',
 
   // 请求代理路由文件位置
-  DACE_PATH_ROUTES: '',
+  DACE_PATH_ROUTES: 'src/routes/index.js',
 
   // node_modules 目录位置
   DACE_PATH_NODE_MODULES: 'node_modules',
