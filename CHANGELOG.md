@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.3.1](https://github.com/dacejs/dace/compare/v3.3.0...v3.3.1) (2019-12-04)
+
+
+### Features
+
+* 支持编译时不压缩源码 ([fff23ea](https://github.com/dacejs/dace/commit/fff23eab8d969f2a70aeeea1d0316861bad8b8db))
+
+
+### Bug Fixes
+
+* 修复因编译机和运行机不是同一台导致的路由挂载无效的问题 ([98c23b9](https://github.com/dacejs/dace/commit/98c23b98fedb88041153ff11787a650e66301714))
+
 ## [3.3.0](https://github.com/dacejs/dace/compare/v3.2.0...v3.3.0) (2019-12-04)
 
 

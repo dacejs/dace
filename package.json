@@ -1,6 +1,6 @@
 {
   "name": "dace",
-  "version": "3.3.0",
+  "version": "3.3.1",
   "description": "A minimalistic universal (isomorphic) react framework for building web apps",
   "main": "dist/index.js",
   "repository": "git@github.com:dacejs/dace.git",
@@ -13,6 +13,7 @@
     "release": "standard-version && npm publish",
     "release:major": "standard-version --release-as major && npm publish",
     "release:minor": "standard-version --release-as minor && npm publish",
+    "release:patch": "standard-version --release-as patch && npm publish",
     "release:alpha": "standard-version --prerelease alpha && npm publish --tag=next",
     "dist-tag": "npm dist-tag add dace@1.6.0 latest && npm dist-tag add dace@2.0.0-alpha.4 next",
     "release:major:alpha": "standard-version --release-as major --prerelease alpha && npm publish",
