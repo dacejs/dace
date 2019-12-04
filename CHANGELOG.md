@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.3.0](https://github.com/dacejs/dace/compare/v3.2.0...v3.3.0) (2019-12-04)
+
+
+### Features
+
+* 增加是否添加 polyfill 的开关配置 ([bcb7086](https://github.com/dacejs/dace/commit/bcb70861f444c8fe414fd5c6ccc8f017d84ea0d3))
+
 ## [3.2.0](https://github.com/dacejs/dace/compare/v3.1.0...v3.2.0) (2019-12-03)
 
 
