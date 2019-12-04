@@ -11,6 +11,9 @@ export default {
   // 是否可以将请求代理到数据文件
   DACE_PROXY_TO_FILE: 'false',
 
+  // 是否加 polyfill
+  DACE_POLYFILL: 'false',
+
   // 编译产物对外服务访问使用的 URL
   DACE_PUBLIC_PATH: '/',
 

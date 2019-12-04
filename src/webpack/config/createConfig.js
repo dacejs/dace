@@ -41,6 +41,7 @@ export default ({
     DACE_LONG_TERM_CACHING,
     DACE_LONG_TERM_CACHING_LENGTH,
     // DACE_PATH_ROOT,
+    DACE_POLYFILL,
     DACE_PATH_BABEL_RC,
     DACE_PATH_ESLINT_RC,
     DACE_PATH_POSTCSS_RC,
@@ -390,6 +391,9 @@ export default ({
         ? DACE_PATH_CLIENT_ENTRY
         : path.resolve(__dirname, '../../runtime/client.js')
     ];
+    if (DACE_POLYFILL === 'true') {
+      config.entry.unshift('@babel/polyfill');
+    }
 
     config.output = {
       path: DACE_PATH_CLIENT_DIST,
