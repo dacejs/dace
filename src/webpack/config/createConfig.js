@@ -144,7 +144,7 @@ export default ({
     mode: IS_DEV ? 'development' : 'production',
     context: process.cwd(),
     target,
-    devtool: 'cheap-module-source-map',
+    devtool: IS_DEV ? 'none' : 'cheap-module-source-map',
     resolve: {
       modules: ['node_modules', DACE_PATH_NODE_MODULES].concat((NODE_PATH).split(path.delimiter).filter(Boolean)),
       extensions: ['.js', '.jsx'],
