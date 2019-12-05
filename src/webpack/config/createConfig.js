@@ -5,7 +5,6 @@ import util from 'util';
 import WebpackBar from 'webpackbar';
 import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 import StartServerPlugin from 'start-server-webpack-plugin';
-import errorOverlayMiddleware from 'react-dev-utils/errorOverlayMiddleware';
 import eslintFormatter from 'react-dev-utils/eslintFormatter';
 import nodeExternals from 'webpack-node-externals';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
@@ -474,7 +473,7 @@ export default ({
           'Access-Control-Allow-Origin': `http://${DACE_HOST}:${DACE_PORT}`,
           'Access-Control-Allow-Credentials': true
         },
-        host: DACE_HOST,
+        host: '0.0.0.0',
         hot: true,
         noInfo: !program.verbose,
         overlay: false,
@@ -485,10 +484,6 @@ export default ({
         // https://github.com/facebookincubator/create-react-app/issues/293
         watchOptions: {
           ignored: /node_modules/
-        },
-        before(app) {
-          // This lets us open files from the runtime error overlay.
-          app.use(errorOverlayMiddleware());
         }
       };
       // Add client-only development plugins
@@ -541,10 +536,6 @@ export default ({
     ];
   }
 
-  if (modify) {
-    config = modify(config, { target, isDev: IS_DEV }, webpack);
-  }
-
   // 绑定 dace 插件
   if (plugins) {
     if (!Array.isArray(plugins)) {
@@ -575,6 +566,11 @@ export default ({
         config = dacePlugin.modify(config, { target, isDev }, webpack, options);
       }
     });
+  }
+
+  // 项目中的配置文件优先级最高
+  if (modify) {
+    config = modify(config, { target, isDev: IS_DEV }, webpack);
   }
 
   return config;
