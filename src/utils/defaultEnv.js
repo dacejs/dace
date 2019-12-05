@@ -26,8 +26,11 @@ export default {
   // 是否启用服务器端渲染
   DACE_SSR: 'true',
 
-  // 编译时是否压缩文件
-  DACE_MINIMIZE: 'true',
+  // Server 编译时是否压缩文件
+  DACE_SERVER_MINIMIZE: 'true',
+
+  // Client 编译时是否压缩文件
+  DACE_CLIENT_MINIMIZE: 'true',
 
   // 输出的 script 标签是否使用 crossorigin 属性
   DACE_SCRIPT_CROSSORIGIN: 'true',

@@ -41,7 +41,8 @@ export default ({
     DACE_LONG_TERM_CACHING,
     DACE_LONG_TERM_CACHING_LENGTH,
     // DACE_PATH_ROOT,
-    DACE_MINIMIZE,
+    DACE_SERVER_MINIMIZE,
+    DACE_CLIENT_MINIMIZE,
     DACE_POLYFILL,
     DACE_PATH_BABEL_RC,
     DACE_PATH_ESLINT_RC,
@@ -368,7 +369,7 @@ export default ({
       })
     ];
 
-    config.optimization = { minimize: DACE_MINIMIZE === 'true' };
+    config.optimization = { minimize: DACE_SERVER_MINIMIZE === 'true' };
 
     if (IS_DEV) {
       config.watch = true;
@@ -519,7 +520,7 @@ export default ({
         // new webpack.optimize.AggressiveMergingPlugin()
       ];
 
-      config.optimization = { ...config.optimization, minimize: true };
+      config.optimization = { ...config.optimization, minimize: DACE_CLIENT_MINIMIZE === 'true' };
     }
   }
 
