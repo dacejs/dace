@@ -1,9 +1,8 @@
-import { existsSync } from 'fs';
 import express from 'express';
 
 export default (app) => {
   const {
-    DACE_PATH_STATIC,
+    DACE_STATIC,
     DACE_PUBLIC_PATH,
     DACE_PATH_CLIENT_DIST
   } = process.env;
@@ -12,7 +11,11 @@ export default (app) => {
     app.use(express.static(DACE_PATH_CLIENT_DIST));
   }
 
-  if (DACE_PATH_STATIC !== '' && existsSync(DACE_PATH_STATIC)) {
-    app.use(express.static(DACE_PATH_STATIC));
+  if (DACE_STATIC !== '') {
+    DACE_STATIC.split(',').map(dir => dir.trim()).forEach((dir) => {
+      // dir 为相对程序启动入口文件的相对目录
+      app.use(express.static(dir));
+    });
+    console.log(`set static success, the root directory is ${DACE_STATIC}`);
   }
 };
