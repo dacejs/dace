@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.4.0](https://github.com/dacejs/dace/compare/v3.3.1...v3.4.0) (2019-12-06)
+
+
+### Features
+
+* 分别为服务器端和客户端增加代码编译混淆开关 ([bcb5048](https://github.com/dacejs/dace/commit/bcb50481a4c8d8487b736241d490d61bf009e2d7))
+* 支持在服务器上挂载多个 static 目录 ([7923b8e](https://github.com/dacejs/dace/commit/7923b8e5255f707554e23e653ffb1a42adc64917))
+* 线上编译时不输出source map ([4fd4f9d](https://github.com/dacejs/dace/commit/4fd4f9d9e1d6752024c0ae934510453e51fd8f58))
+
 ### [3.3.1](https://github.com/dacejs/dace/compare/v3.3.0...v3.3.1) (2019-12-04)
 
 
