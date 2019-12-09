@@ -144,7 +144,7 @@ export default ({
     mode: IS_DEV ? 'development' : 'production',
     context: process.cwd(),
     target,
-    devtool: IS_DEV ? 'none' : 'cheap-module-source-map',
+    devtool: 'none',
     resolve: {
       modules: ['node_modules', DACE_PATH_NODE_MODULES].concat((NODE_PATH).split(path.delimiter).filter(Boolean)),
       extensions: ['.js', '.jsx'],
@@ -450,6 +450,7 @@ export default ({
     };
 
     if (IS_DEV) {
+      config.devtool = 'cheap-module-source-map';
       config.entry.unshift(require.resolve('../../utils/webpackHotDevClient'));
 
       // Configure our client bundles output. Not the public path is to 3001.
@@ -570,7 +571,7 @@ export default ({
 
   // 项目中的配置文件优先级最高
   if (modify) {
-    config = modify(config, { target, isDev: IS_DEV }, webpack);
+    config = modify(config, { target, isDev }, webpack);
   }
 
   return config;
