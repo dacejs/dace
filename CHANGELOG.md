@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.4.2](https://github.com/dacejs/dace/compare/v3.4.1...v3.4.2) (2019-12-09)
+
+
+### Features
+
+* 增加 body-parser ([0172f93](https://github.com/dacejs/dace/commit/0172f93e3e151563343befda3b5799da59aedbcc))
+* 本地开发时js文件输出sourcemap ([e25c622](https://github.com/dacejs/dace/commit/e25c622c72a5f16f79611922fe90ca4584c9cb9d))
+
 ### [3.4.1](https://github.com/dacejs/dace/compare/v3.4.0...v3.4.1) (2019-12-06)
 
 ## [3.4.0](https://github.com/dacejs/dace/compare/v3.3.1...v3.4.0) (2019-12-06)
