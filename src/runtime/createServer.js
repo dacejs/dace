@@ -8,6 +8,7 @@ import { Helmet } from 'react-helmet';
 import serialize from 'serialize-javascript';
 import { RedBoxError } from 'redbox-react';
 import cookieParser from 'cookie-parser';
+import bodyParser from 'body-parser';
 import NotFound from './components/NotFound';
 import addProxy from './utils/addProxy';
 import addStatic from './utils/addStatic';
@@ -24,6 +25,7 @@ addStatic(server);
 
 server
   .disable('x-powered-by')
+  .use(bodyParser())
   // 解析 cookie
   .use(cookieParser())
   .all('*', async (req, res) => {
