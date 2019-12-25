@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.4.5](https://github.com/dacejs/dace/compare/v3.4.4...v3.4.5) (2019-12-25)
+
+
+### Features
+
+* eslint 校验时无效的 disable 提示报错 ([bea2c7e](https://github.com/dacejs/dace/commit/bea2c7e4a9051fe58d0ff3bbe041554a4b72af9a))
+* 移除 dase-router ([91d4807](https://github.com/dacejs/dace/commit/91d480710e605bbcaa5f5ca63510ce375e85ebbf))
+
 ### [3.4.4](https://github.com/dacejs/dace/compare/v3.4.3...v3.4.4) (2019-12-20)
 
 ### [3.4.3](https://github.com/dacejs/dace/compare/v3.4.2...v3.4.3) (2019-12-20)
