@@ -99,6 +99,8 @@ export default ({
   const mainEslintOptions = {
     formatter: eslintFormatter,
     // failOnError: true,
+    // 无效的 disable 提示报错
+    reportUnusedDisableDirectives: true,
     eslintPath: require.resolve('eslint'),
     useEslintrc: true
   };
