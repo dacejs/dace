@@ -50,7 +50,6 @@
     "@loadable/component": "^5.10.1",
     "@loadable/server": "^5.9.0",
     "@loadable/webpack-plugin": "^5.7.1",
-    "axios": "^0.19.0",
     "babel-loader": "^8.0.6",
     "babel-preset-dace": "^2.1.0",
     "body-parser": "^1.19.0",
