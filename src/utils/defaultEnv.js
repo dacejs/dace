@@ -44,6 +44,9 @@ export default {
   // 静态文件长期缓存长度
   DACE_LONG_TERM_CACHING_LENGTH: '8',
 
+  // node_modules 中需要通过 babel 编译的模块名称列表，用逗号连接
+  DACE_BABEL_COMPILE_MODULES: '',
+
   // 以 `DACE_PATH_` 开头的变量会转换成绝对路径
   // 工程根目录
   DACE_PATH_ROOT: '.',

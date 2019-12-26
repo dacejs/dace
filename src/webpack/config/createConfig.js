@@ -43,6 +43,7 @@ export default ({
     DACE_SERVER_MINIMIZE,
     DACE_CLIENT_MINIMIZE,
     DACE_POLYFILL,
+    DACE_BABEL_COMPILE_MODULES,
     DACE_PATH_BABEL_RC,
     DACE_PATH_ESLINT_RC,
     DACE_PATH_POSTCSS_RC,
@@ -93,6 +94,20 @@ export default ({
       ]
     };
   }
+
+  const babelIncludeOptions = DACE_BABEL_COMPILE_MODULES
+    .split(',')
+    .map((name) => {
+      name = name.trim();
+      if (name === '') {
+        return null;
+      }
+      return path.resolve(`node_modules/${name}`);
+    })
+    .concat(path.resolve('src'))
+    .filter(Boolean);
+
+  console.log(babelIncludeOptions);
 
   // 获取 .eslintrc.js 配置
   const hasEslintRc = fs.existsSync(DACE_PATH_ESLINT_RC);
@@ -187,7 +202,13 @@ export default ({
         },
         {
           test: /\.(js|jsx)$/,
-          exclude: [/node_modules/],
+          include: babelIncludeOptions,
+          // exclude: [/node_modules/],
+          // and: [
+          //   /chalk/
+          //   // '/Users/zhi.zhong/workspace/q/h_pc_ssr/node_modules/chalk/index.js'
+          //   // path.resolve('node_modules/chalk/index.js')
+          // ],
           use: [
             {
               loader: require.resolve('babel-loader'),
