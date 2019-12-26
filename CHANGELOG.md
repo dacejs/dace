@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.4.6](https://github.com/dacejs/dace/compare/v3.4.5...v3.4.6) (2019-12-26)
+
+
+### Features
+
+* 增加配置项 DACE_BABEL_COMPILE_MODULES ，用来指定哪些依赖包需要通过 babel 编译 ([580b544](https://github.com/dacejs/dace/commit/580b5446f8fbc3bdd3d95d22bbdbfa4eb2c77449))
+* 移除依赖包 axios ([33dc01a](https://github.com/dacejs/dace/commit/33dc01aa642aa2c6cdee3af885195051c522d67d))
+
 ### [3.4.5](https://github.com/dacejs/dace/compare/v3.4.4...v3.4.5) (2019-12-25)
 
 
