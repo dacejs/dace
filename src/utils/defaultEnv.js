@@ -5,14 +5,11 @@ export default {
   // 本地开发 web server 端口
   DACE_PORT: '3000',
 
-  // 代理请求规则（需JSON.stringify）
-  DACE_PROXY: '',
-
-  // 是否可以将请求代理到数据文件
-  DACE_PROXY_TO_FILE: 'false',
-
   // 是否加 polyfill
   DACE_POLYFILL: 'false',
+
+  // 是否启用 HMR
+  DACE_HMR: 'true',
 
   // 编译产物对外服务访问使用的 URL
   DACE_PUBLIC_PATH: '/',

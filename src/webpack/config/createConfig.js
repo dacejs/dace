@@ -43,6 +43,7 @@ export default ({
     DACE_SERVER_MINIMIZE,
     DACE_CLIENT_MINIMIZE,
     DACE_POLYFILL,
+    DACE_HMR,
     DACE_BABEL_COMPILE_MODULES,
     DACE_PATH_BABEL_RC,
     DACE_PATH_ESLINT_RC,
@@ -393,11 +394,9 @@ export default ({
 
     if (IS_DEV) {
       config.watch = true;
-      config.entry.unshift('webpack/hot/poll?300');
 
       config.plugins = [
         ...config.plugins,
-        new webpack.HotModuleReplacementPlugin(),
         // Supress errors to console (we use our own logger)
         // StartServerPlugin 会出 DeprecationWarning: Buffer()
         new StartServerPlugin({
@@ -406,6 +405,11 @@ export default ({
         // 不监视编译输出目录，避免重新压缩死循环
         new webpack.WatchIgnorePlugin([DACE_PATH_CLIENT_DIST, DACE_PATH_SERVER_DIST])
       ];
+
+      if (DACE_HMR === 'true') {
+        config.entry.unshift('webpack/hot/poll?300');
+        config.plugins.push(new webpack.HotModuleReplacementPlugin());
+      }
     }
   }
 
@@ -472,7 +476,9 @@ export default ({
 
     if (IS_DEV) {
       config.devtool = 'cheap-module-source-map';
-      config.entry.unshift(require.resolve('../../utils/webpackHotDevClient'));
+      if (DACE_HMR === 'true') {
+        config.entry.unshift(require.resolve('../../utils/webpackHotDevClient'));
+      }
 
       // Configure our client bundles output. Not the public path is to 3001.
       config.output = {
@@ -496,7 +502,7 @@ export default ({
           'Access-Control-Allow-Credentials': true
         },
         host: '0.0.0.0',
-        hot: true,
+        hot: DACE_HMR === 'true',
         noInfo: !program.verbose,
         overlay: false,
         port: devServerPort,
@@ -509,12 +515,11 @@ export default ({
         }
       };
       // Add client-only development plugins
-      config.plugins = [
-        ...config.plugins,
-        new webpack.HotModuleReplacementPlugin({
+      if (DACE_HMR === 'true') {
+        config.plugins.push(new webpack.HotModuleReplacementPlugin({
           multiStep: true
-        })
-      ];
+        }));
+      }
     } else { // web-build
       config.output = {
         ...config.output,
