@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.4.8](https://github.com/dacejs/dace/compare/v3.4.7...v3.4.8) (2019-12-27)
+
+
+### Bug Fixes
+
+* 修复 @babel/preset-env 缺失 corejs 参数的报警 ([49a2b5f](https://github.com/dacejs/dace/commit/49a2b5fba7f9e014ed68a0dc610bd2301d91d2a4))
+
 ### [3.4.7](https://github.com/dacejs/dace/compare/v3.4.6...v3.4.7) (2019-12-27)
 
 
