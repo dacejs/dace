@@ -107,8 +107,6 @@ export default ({
     .concat(path.resolve('src'))
     .filter(Boolean);
 
-  console.log(babelIncludeOptions);
-
   // 获取 .eslintrc.js 配置
   const hasEslintRc = fs.existsSync(DACE_PATH_ESLINT_RC);
   const mainEslintOptions = {
