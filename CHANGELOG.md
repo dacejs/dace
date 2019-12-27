@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.4.7](https://github.com/dacejs/dace/compare/v3.4.6...v3.4.7) (2019-12-27)
+
+
+### Features
+
+* 增加 DACE_HMR 配置，可以关闭 webpack 热模块替换功能 ([fcc7d64](https://github.com/dacejs/dace/commit/fcc7d64ad6e326c55f3dafaabb5b0143f3a2f4e7))
+* 支持按 .browserslistrc 添加所需的 polyfill ([af58db0](https://github.com/dacejs/dace/commit/af58db0551eb5103210e44a0ab5bfbe26d7ce9f9))
+
 ### [3.4.6](https://github.com/dacejs/dace/compare/v3.4.5...v3.4.6) (2019-12-26)
 
 
