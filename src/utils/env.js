@@ -6,13 +6,12 @@
  * DACE_PATH_PROFILES: `profiles` 目录的绝对路径位置
  */
 import fs from 'fs';
-import logger from './logger';
 import defaultEnv from './defaultEnv';
 import resolveApp from './resolveApp';
 
 // 不存在 NODE_ENV 时为其设置默认值 `local`
 if (!('NODE_ENV' in process.env)) {
-  logger.warn('The NODE_ENV environment variable is required but was not specified.');
+  console.warn('The NODE_ENV environment variable is required but was not specified.');
   process.env.NODE_ENV = 'local';
 }
 
@@ -22,7 +21,7 @@ const {
   DACE_PATH_PROFILES = defaultEnv.DACE_PATH_PROFILES,
   DACE_PATH_CONFIG = 'dace.config.js'
 } = process.env;
-logger.info(`process.env.NODE_ENV: ${NODE_ENV}`);
+console.log(`process.env.NODE_ENV: ${NODE_ENV}`);
 
 // 获取 proflies 目录的绝对路径
 const profilesDir = resolveApp(DACE_PATH_PROFILES);
