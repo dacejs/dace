@@ -116,7 +116,8 @@ export default ({
     // 无效的 disable 提示报错
     reportUnusedDisableDirectives: true,
     eslintPath: require.resolve('eslint'),
-    useEslintrc: true
+    useEslintrc: true,
+    cache: true
   };
 
   if (hasEslintRc) {
@@ -124,7 +125,7 @@ export default ({
       logger.info('Using custom .eslintrc.js');
     }
   } else {
-    mainEslintOptions.configFile = path.resolve(__dirname, '../../../.eslintrc.js');
+    mainEslintOptions.extends = ['eslint-config-qunar-react'];
   }
 
   // 获取 postcss 配置
