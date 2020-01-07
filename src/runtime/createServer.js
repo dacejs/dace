@@ -15,7 +15,7 @@ addStatic(server);
 // 解析 cookie
 server.use(cookieParser());
 
-// 解析json
+// 解析 post 提交的 data
 server.use(bodyParser.json());
 
 // 挂载 mock 数据路由

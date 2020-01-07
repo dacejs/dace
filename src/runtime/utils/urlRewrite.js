@@ -1,4 +1,4 @@
-import urlrewrite from 'packing-urlrewrite';
+import urlrewrite from '../middlewares/urlRewrite';
 import rewriteRules from '../rewriteRules';
 
 export default (app) => {
