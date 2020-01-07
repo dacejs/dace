@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.4.9](https://github.com/dacejs/dace/compare/v3.4.8...v3.4.9) (2020-01-07)
+
+
+### Features
+
+* 使用内置 urlRewrite 中间件代替 packing-urlrewrite 包 ([3d6204d](https://github.com/dacejs/dace/commit/3d6204dc5817541945d6516dd22b3163edad2d2c))
+* 打开 eslint 的 cache 开关 ([38de241](https://github.com/dacejs/dace/commit/38de24182388715ce91c0bce68d9519a526c583a))
+
 ### [3.4.8](https://github.com/dacejs/dace/compare/v3.4.7...v3.4.8) (2019-12-27)
 
 
