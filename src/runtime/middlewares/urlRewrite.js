@@ -34,8 +34,7 @@ function dispatcher(req, res, next, options) {
           headers: req.headers,
           data: req.body
         }).then((response) => {
-          // console.log(response.data);
-          res.status(response.status).end(response.data);
+          res.status(response.status).json(response.data).end();
         });
       } else {
         // 使用同域名的其他API模拟数据
