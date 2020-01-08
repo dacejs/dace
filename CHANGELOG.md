@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.4.10](https://github.com/dacejs/dace/compare/v3.4.9...v3.4.10) (2020-01-08)
+
+
+### Bug Fixes
+
+* 修复json返回失败的问题 ([8dcb400](https://github.com/dacejs/dace/commit/8dcb40058d94a4b63d8a47aa5efea4583174462e))
+
 ### [3.4.9](https://github.com/dacejs/dace/compare/v3.4.8...v3.4.9) (2020-01-07)
 
 
