@@ -52,7 +52,9 @@ export default ({
     DACE_PATH_CLIENT_ENTRY,
     DACE_PATH_SERVER_ENTRY,
     DACE_PATH_CLIENT_DIST,
-    DACE_PATH_SERVER_DIST
+    DACE_PATH_SERVER_DIST,
+    DACE_INSPECT_BRK,
+    DACE_INSPECT
   } = process.env;
   const IS_NODE = target === 'node';
   const IS_WEB = target === 'web';
@@ -395,6 +397,16 @@ export default ({
 
     if (IS_DEV) {
       config.watch = true;
+
+      const nodeArgs = ['-r', 'source-map-support/register'];
+
+      // Passthrough --inspect and --inspect-brk flags (with optional [host:port] value) to node
+      if (DACE_INSPECT_BRK) {
+        nodeArgs.push(DACE_INSPECT_BRK);
+      } else if (DACE_INSPECT) {
+        nodeArgs.push(DACE_INSPECT);
+      }
+
 
       config.plugins = [
         ...config.plugins,
