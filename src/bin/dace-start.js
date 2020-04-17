@@ -54,7 +54,8 @@ function main() {
   const serverCompiler = compile(serverConfig);
 
   // 在确保浏览器端编译成功后再启动服务器端编译
-  clientCompiler.plugin('done', (stats) => {
+  clientCompiler.hooks.done.tap('abc', (stats) => {
+  // clientCompiler.plugin('done', (stats) => {
     if (stats.compilation.errors.length === 0 && stats.compilation.warnings.length === 0) {
       if (program.visualizer) {
         const file = `${DACE_PATH_CLIENT_DIST}/stats.html`;

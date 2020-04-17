@@ -413,7 +413,8 @@ export default ({
         // Supress errors to console (we use our own logger)
         // StartServerPlugin 会出 DeprecationWarning: Buffer()
         new StartServerPlugin({
-          name: 'server.js'
+          name: 'server.js',
+          nodeArgs
         }),
         // 不监视编译输出目录，避免重新压缩死循环
         new webpack.WatchIgnorePlugin([DACE_PATH_CLIENT_DIST, DACE_PATH_SERVER_DIST])
