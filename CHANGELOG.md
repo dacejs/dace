@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.5.0](https://github.com/dacejs/dace/compare/v3.4.10...v3.5.0) (2020-04-19)
+
+
+### Features
+
+* 支持断点调试 ([9a0e1e4](https://github.com/dacejs/dace/commit/9a0e1e40aa8dc4136175e73aeef3bfb20fcdcf6c))
+
+
+### Bug Fixes
+
+* DeprecationWarning: Tapable.plugin is deprecated. ([598e20e](https://github.com/dacejs/dace/commit/598e20e341c0db50e3fca9ff19ad50aad049d93a))
+* 修复 server-sider HMR 无效的问题 ([e71daca](https://github.com/dacejs/dace/commit/e71daca912cc4d283032c847400c71ba9a6a4d38))
+
 ### [3.4.10](https://github.com/dacejs/dace/compare/v3.4.9...v3.4.10) (2020-01-08)
 
 
