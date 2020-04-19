@@ -18,10 +18,10 @@ server.listen(process.env.DACE_PORT, (error) => {
 if (module.hot) {
   console.log('✅  Server-side HMR Enabled!');
 
-  module.hot.accept('./server', () => {
+  module.hot.accept('./createServer', () => {
     console.log('🔁  HMR Reloading `./server`...');
     server.removeListener('request', currentApp);
-    const newApp = require('./server'); // eslint-disable-line
+    const newApp = require('./createServer'); // eslint-disable-line
     server.on('request', newApp);
     currentApp = newApp;
   });
