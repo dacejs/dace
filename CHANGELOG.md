@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.6.0](https://github.com/dacejs/dace/compare/v3.5.0...v3.6.0) (2020-05-07)
+
+
+### Features
+
+* npm update ([3668c07](https://github.com/dacejs/dace/commit/3668c07a0821900c7daca84ac08556edcba56c57))
+
 ## [3.5.0](https://github.com/dacejs/dace/compare/v3.4.10...v3.5.0) (2020-04-19)
 
 
